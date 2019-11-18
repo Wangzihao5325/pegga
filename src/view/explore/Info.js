@@ -36,7 +36,6 @@ export default class Info extends PureComponent {
                 data: res.data.data,
                 fields: res.data.fields
             });
-            console.log(res);
         });
     }
     render() {

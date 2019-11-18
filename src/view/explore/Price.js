@@ -8,15 +8,19 @@ const Header = (props) => {
     switch (props.state) {
         case 'currency_asc':
             currencyImage = require('../../image/explore/ascending.png');
+            hourImage = require('../../image/explore/default.png');
             break;
         case 'curreency_des':
             currencyImage = require('../../image/explore/descending.png');
+            hourImage = require('../../image/explore/default.png');
             break;
         case 'hour_asc':
-            currencyImage = require('../../image/explore/ascending.png');
+            hourImage = require('../../image/explore/ascending.png');
+            currencyImage = require('../../image/explore/default.png');
             break;
         case 'hour_des':
-            currencyImage = require('../../image/explore/descending.png');
+            hourImage = require('../../image/explore/descending.png');
+            currencyImage = require('../../image/explore/default.png');
             break;
         default:
             break;
@@ -26,13 +30,13 @@ const Header = (props) => {
             <View style={{ flex: 10, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
                 <Text style={styles.headerText}>资产</Text>
             </View>
-            <TouchableHighlight style={{ flex: 9 }} onPress={() => props.callback('currency', props.state)}>
+            <TouchableHighlight style={{ flex: 9 }} onPress={() => props.callback('currency', props.state)} underlayColor='transparent'>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                    <Text style={styles.headerText}>人民币</Text>
+                    <Text style={styles.headerText}>美元</Text>
                     <Image style={{ height: 11, width: 11 }} source={currencyImage} />
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight style={{ flex: 7 }} onPress={() => props.callback('hour', props.state)}>
+            <TouchableHighlight style={{ flex: 7 }} onPress={() => props.callback('hour', props.state)} underlayColor='transparent'>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                     <Text style={styles.headerText}>24H</Text>
                     <Image style={{ height: 11, width: 11 }} source={hourImage} />
@@ -79,6 +83,7 @@ const Item = (props) => {
 
 export default class Price extends PureComponent {
     state = {
+        originData: [],
         data: [],
         fields: [],
         orderType: 'none'//none,currency_asc,curreency_des,hour_asc,hour_des 
@@ -88,6 +93,7 @@ export default class Price extends PureComponent {
         Api.coin_news_global((res) => {
             console.log(res);
             this.setState({
+                originData: res.data.data,
                 data: res.data.data,
                 fields: res.data.fields
             });
@@ -112,7 +118,83 @@ export default class Price extends PureComponent {
     }
 
     orderChange = (type, state) => {
-        
+        if (type == 'currency') { //none->asc
+            switch (state) {
+                case 'none':
+                case 'hour_asc':
+                case 'hour_des':
+                    {
+                        let ascData = this.state.data.sort((a, b) => {
+                            return a[10] - b[10]
+                        });
+                        this.setState({
+                            data: ascData,
+                            orderType: 'currency_asc'
+                        });
+                    }
+                    break;
+                case 'currency_asc':
+                    {
+                        let ascData = this.state.data.sort((a, b) => {
+                            return b[10] - a[10]
+                        });
+                        this.setState({
+                            data: ascData,
+                            orderType: 'curreency_des'
+                        });
+                    }
+                    break;
+                case 'curreency_des':
+                    {
+                        let originData = this.state.originData.concat()
+                        this.setState({
+                            data: originData,
+                            orderType: 'none'
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } else if (type == 'hour') {
+            switch (state) {
+                case 'none':
+                case 'currency_asc':
+                case 'curreency_des':
+                    {
+                        let ascData = this.state.data.sort((a, b) => {
+                            return a[14] - b[14]
+                        });
+                        this.setState({
+                            data: ascData,
+                            orderType: 'hour_asc'
+                        });
+                    }
+                    break;
+                case 'hour_asc':
+                    {
+                        let ascData = this.state.data.sort((a, b) => {
+                            return b[14] - a[14]
+                        });
+                        this.setState({
+                            data: ascData,
+                            orderType: 'hour_des'
+                        });
+                    }
+                    break;
+                case 'hour_des':
+                    {
+                        let originData = this.state.originData.concat()
+                        this.setState({
+                            data: originData,
+                            orderType: 'none'
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
 

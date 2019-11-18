@@ -399,7 +399,7 @@ class api {
     }
 
     explore_news(onSuccess, onError) {
-        let fullUrl = 'http://publicapi.niuyan.com/public/v2/news/list?pagesize=10';
+        let fullUrl = 'http://publicapi.niuyan.com/public/v2/news/list?pagesize=40';
         fetch(fullUrl).then(response => response.json()).then(responseJson => {
             if (typeof onSuccess == 'function') {
                 onSuccess(responseJson)
