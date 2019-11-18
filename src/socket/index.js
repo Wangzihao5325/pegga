@@ -174,8 +174,9 @@ class api {
         this.request(url, null, onSuccess, onError);
     }
 
-    moneyFlowList(onSuccess, onError) {
-        const url = `/api/otc/asset/flow?request=${1}`;
+    moneyFlowList(payload, onSuccess, onError) {
+        let payloadStr = qs.stringify({ ...payload, token: 'PQC' });
+        const url = `/api/otc/bill/bills?${payloadStr}`;
         this.request(url, null, onSuccess, onError)
     }
 

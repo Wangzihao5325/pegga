@@ -1,12 +1,46 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Image, Text, StatusBar, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationEvents } from 'react-navigation';
 
 import Api from '../../../socket/index';
 import Colors from '../../../global/Colors';
 import Header from '../../../component/header';
 import Select from './Select';
 import Toast from '../../../component/toast';
+
+const Item = (props) => {
+    let uri = require('../../../image/arrow/in.png');
+    let sign = '+';
+    let title = '交易购入';
+    let amountColor = { color: 'rgb(40,46,60)' };
+    if (props.item.origin == 'INCOME') {
+        uri = require('../../../image/arrow/in.png');
+        title = '交易购入';
+        sign = '+';
+        amountColor = { color: 'rgb(40,46,60)' };
+    } else if (props.item.origin == 'EXPEND') {
+        uri = require('../../../image/arrow/out.png');
+        title = '交易支出';
+        sign = '-';
+        amountColor = { color: 'rgb(64,99,213)' };
+    }
+    return (
+        <View style={styles.itemContainer}>
+            <View style={{ flex: 1, lexDirection: 'row', alignItems: 'center' }}>
+                <Image style={styles.itemAvater} source={uri} />
+                <View style={{ flex: 1, marginLeft: 10 }}>
+                    <Text style={{ fontSize: 15, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium' }}>{`${title}`}</Text>
+                    <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`订单编号${props.item.orderId}`}</Text>
+                </View>
+                <View style={{ width: 100, height: 80, alignItems: 'flex-end', justifyContent: 'center' }}>
+                    <Text style={[{ fontSize: 16, fontWeight: 'bold' }, amountColor]}>{`${sign} ${props.item.amount} PQC`}</Text>
+                    <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`${props.item.createTime}`}</Text>
+                </View>
+            </View>
+        </View>
+    );
+}
 
 class MoneyFlow extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -16,25 +50,70 @@ class MoneyFlow extends Component {
         }
     };
 
-    componentDidMount() {
-        // to do 账单接口还木有
-        // Api.moneyFlowList((result) => {
-        //     console.log(result);
-        // });
+    state = {
+        data: [],
+        page: null,
+    }
+
+    _flowDataUpdate = (billType, billTime) => {
+        let payload = { type: 'ALL', token: 'PQC', days: 7 };
+        switch (billType.key) {
+            case 0:
+                payload.type = 'ALL';
+                break;
+            case 1:
+                payload.type = 'INCOME';
+                break;
+            case 2:
+                payload.type = 'EXPEND';
+                break;
+            default:
+                break;
+        }
+        switch (billTime.key) {
+            case 0:
+                payload.days = 7;
+                break;
+            case 1:
+                payload.days = 30;
+                break;
+            default:
+                break;
+        }
+        Api.moneyFlowList(payload, (result) => {
+            this.setState({
+                data: result.records,
+                page: result.pages
+            });
+        });
+    }
+
+    naviDidFocus = () => {
+        this._flowDataUpdate(this.props.billType, this.props.billTime);
     }
 
     render() {
         return (
-            <SafeAreaView style={styles.safeContainer}>
+            <>
                 <StatusBar barStyle='dark-content' />
-                <Header.Normal title='账单信息' goback={() => this.props.navigation.goBack()} />
-                <Select
-                    type={this.props.billType}
-                    timeType={this.props.billTime}
-                    typePress={() => this.goToSelectModel('BILL_TYPE')}
-                    timeTypePress={() => this.goToSelectModel('BILL_TIME_TYPE')}
+                <NavigationEvents
+                    onDidFocus={this.naviDidFocus}
                 />
-            </SafeAreaView>
+                <SafeAreaView style={styles.safeContainer}>
+                    <Header.Normal title='账单信息' goback={() => this.props.navigation.goBack()} />
+                    <Select
+                        type={this.props.billType}
+                        timeType={this.props.billTime}
+                        typePress={() => this.goToSelectModel('BILL_TYPE')}
+                        timeTypePress={() => this.goToSelectModel('BILL_TIME_TYPE')}
+                    />
+                    <FlatList
+                        style={{ flex: 1 }}
+                        data={this.state.data}
+                        renderItem={({ item }) => <Item item={item} key={item.orderId} />}
+                    />
+                </SafeAreaView>
+            </>
         );
     }
 
@@ -59,5 +138,14 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.MAIN_BG_COLOR,
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    itemContainer: {
+        height: 80,
+        width: Dimensions.get('window').width,
+        paddingHorizontal: 15,
+    },
+    itemAvater: {
+        height: 25,
+        width: 25
     }
 });
