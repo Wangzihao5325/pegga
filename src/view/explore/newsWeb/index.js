@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
     SafeAreaView,
-    View,
     Dimensions,
     StyleSheet,
-    WebView,
 } from 'react-native';
 
 import Header from '../../../component/header';
+import { WebView } from 'react-native-webview';
 
 export default class NewsWeb extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -37,12 +36,12 @@ export default class NewsWeb extends Component {
                     title='资讯'
                     goback={() => this.props.navigation.goBack()}
                 />
-                {/* {this.state.uri &&
+                {typeof this.state.uri == 'string' &&
                     <WebView
-                        source={{ uri: 'https://infinite.red' }}
-                        style={{ marginTop: 20 }}
+                        source={{ uri: this.state.uri }}
+                        style={{ width: Dimensions.get('window').width }}
                     />
-                } */}
+                }
             </SafeAreaView>
         );
     }
