@@ -6,7 +6,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
-
+import Api from '../../../socket';
 import Colors from '../../../global/Colors';
 
 import Header from '../../../component/header';
@@ -72,8 +72,18 @@ export default class Login extends Component {
     }
 
     sendMessage = () => {
-        //to do 发送验证码 跳转页面
-        this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode });
+        if (this.state.mode == LOGIN_TYPE.phone) {
+            console.log('1111111phone');
+            Api.sendSignupMsg(InputReg.account, (res) => {
+                //发送验证码 跳转页面
+                this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode });
+            })
+        } else {
+            Api.sendMailSignupMsg(InputReg.account, (res) => {
+                //发送验证码 跳转页面
+                this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode });
+            })
+        }
     }
 
     loginModeChange = () => {

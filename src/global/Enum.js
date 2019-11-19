@@ -9,7 +9,7 @@ const BUSINESS_ROLE =
         { key: 'ROLE_STAPLE', alias: '大宗商家' },
         { key: 'ROLE_SUPREMACY', alias: '至尊商家' }
     ];
-const CHINA = 156;
+const CHINA = 100000;
 
 const ASSETS = {
     BILL_TYPE,

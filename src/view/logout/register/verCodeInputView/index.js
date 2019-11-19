@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Colors from '../../../../global/Colors';
-
+import Api from '../../../../socket';
 import Header from '../../../../component/header';
 import VerCodeInput from '../../../../component/input/VerCodeInput';
 import Tips from './Tip4SendMsg';
+import Toast from '../../../../component/toast';
 
 
 class VerCodeInputView extends Component {
@@ -45,7 +46,15 @@ class VerCodeInputView extends Component {
     }
 
     sendMsg = () => {
-
+        if (this.state.mode == 'phone') {
+            Api.sendSignupMsg(this.state.account, (res) => {
+                Toast.show('发送验证码成功');
+            })
+        } else {
+            Api.sendMailSignupMsg(this.state.account, (res) => {
+                Toast.show('发送验证码成功');
+            })
+        }
     }
 
     verCodeInputDone = (verCode) => {

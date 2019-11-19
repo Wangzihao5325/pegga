@@ -41,6 +41,20 @@ class api {
             });
     }
 
+    //msg
+    sendSignupMsg(phone, onSuccess, onError) {
+        const url = '/api/user/sign_up/send_sms_opt';
+        let payload = { phone };
+        console.log(payload);
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    sendMailSignupMsg(email, onSuccess, onError) {
+        const url = '/api/user/sign_up/send_email_opt';
+        let payload = { email };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
     //user
 
     registerByPhone(payload, onSuccess, onError) {
