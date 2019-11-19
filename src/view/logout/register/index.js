@@ -95,8 +95,6 @@ export default class Login extends Component {
 
     sendMessage = () => {
         if (this.state.type == FUNC_TYPE.register) {
-            //_todoList:测试环境验证码暂时无法使用
-            /*
             if (this.state.mode == LOGIN_TYPE.phone) {
                 Api.sendSignupMsg(InputReg.account, (res) => {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
@@ -106,7 +104,6 @@ export default class Login extends Component {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
                 })
             }
-            */
             this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
         } else if (this.state.type == FUNC_TYPE.reset) {
             //_todoList:注册验证码和重置密码验证码需要区分开,暂无重置密码验证码

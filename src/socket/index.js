@@ -45,7 +45,6 @@ class api {
     sendSignupMsg(phone, onSuccess, onError) {
         const url = '/api/user/sign_up/send_sms_opt';
         let payload = { phone };
-        console.log(payload);
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
@@ -69,7 +68,6 @@ class api {
 
     resetPassword(payload, onSuccess, onError) {
         const url = '/api/user/loginPassword';
-        console.log(payload);
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
