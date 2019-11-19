@@ -9,7 +9,8 @@ export default class AccountInput extends PureComponent {
     static defaultProps = {
         placeholder: 'AccountInput Placeholder',
         placeholderTextColor: 'rgb(133,133,133)',
-        security: false
+        security: false,
+        isControl: false
     }
 
     state = {
@@ -22,7 +23,7 @@ export default class AccountInput extends PureComponent {
                 secureTextEntry={this.props.security}
                 placeholder={this.props.placeholder}
                 placeholderTextColor={this.props.placeholderTextColor}
-                value={this.state.value}
+                value={this.props.isControl ? this.props.value : this.state.value}
                 onChangeText={this.inputValueChange}
                 style={[styles.input, this.props.style ? this.props.style : null]}
             />
@@ -30,13 +31,19 @@ export default class AccountInput extends PureComponent {
     }
 
     inputValueChange = (value) => {
-        this.setState({
-            value
-        }, () => {
+        if (this.props.isControl) {
             if (typeof this.props.callback == 'function') {
                 this.props.callback(value);
             }
-        });
+        } else {
+            this.setState({
+                value
+            }, () => {
+                if (typeof this.props.callback == 'function') {
+                    this.props.callback(value);
+                }
+            });
+        }
     }
 
 }

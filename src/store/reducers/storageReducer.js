@@ -7,15 +7,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case Types.TEST_INCREMENT:
+        case Types.STORAGE_UPDATE:
             return {
                 ...state,
-                num: state.num + 1
-            };
-        case Types.TEST_DECREMENT:
-            return {
-                ...state,
-                num: state.num - 1
+                ...action.payload
             };
         default: return state;
     }

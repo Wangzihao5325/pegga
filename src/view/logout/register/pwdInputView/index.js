@@ -3,7 +3,8 @@ import { SafeAreaView, Text, Dimensions, StyleSheet } from 'react-native';
 import Colors from '../../../../global/Colors';
 import Api from '../../../../socket';
 import Toast from '../../../../component/toast';
-
+import store from '../../../../store';
+import { storage_update } from '../../../../store/actions/storageAction';
 import Header from '../../../../component/header';
 import Input from '../../../../component/input';
 import Btn from '../../../../component/btn';
@@ -103,6 +104,7 @@ export default class PwdInputView extends Component {
                 }
                 Api.registerByPhone(payload, (e) => {
                     Toast.show('注册成功,请登陆');
+                    store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                     this.props.navigation.popToTop();
                 }, (e, code, message) => {
                     Toast.show(message ? `注册失败:${message}` : '注册失败');
@@ -119,6 +121,7 @@ export default class PwdInputView extends Component {
                 }
                 Api.registerByMail(payload, (e) => {
                     Toast.show('注册成功,请登陆');
+                    store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                     this.props.navigation.popToTop();
                 }, (e, code, message) => {
                     Toast.show(message ? `注册失败:${message}` : '注册失败');
