@@ -20,16 +20,19 @@ class VerCodeInputView extends Component {
     state = {
         countryCode: '',
         account: '',
-        mode: ''
+        mode: '',
+        type: ''
     }
 
     componentDidMount() {
         const account = this.props.navigation.getParam('account', '');
         const mode = this.props.navigation.getParam('mode', '');
+        const type = this.props.navigation.getParam('type', '');
         this.setState({
             countryCode: mode == 'phone' ? this.props.code : '',
             account,
-            mode
+            mode,
+            type
         });
     }
 
@@ -46,20 +49,24 @@ class VerCodeInputView extends Component {
     }
 
     sendMsg = () => {
-        if (this.state.mode == 'phone') {
-            Api.sendSignupMsg(this.state.account, (res) => {
-                Toast.show('发送验证码成功');
-            })
-        } else {
-            Api.sendMailSignupMsg(this.state.account, (res) => {
-                Toast.show('发送验证码成功');
-            })
+        if (this.state.type == 'register') {
+            if (this.state.mode == 'phone') {
+                Api.sendSignupMsg(this.state.account, (res) => {
+                    Toast.show('发送验证码成功');
+                })
+            } else {
+                Api.sendMailSignupMsg(this.state.account, (res) => {
+                    Toast.show('发送验证码成功');
+                })
+            }
+        } else if (this.state.type == 'reset') {
+            //_todoList:补充重置密码发送验证码接口
         }
     }
 
     verCodeInputDone = (verCode) => {
-        let { mode, account, countryCode } = this.state;
-        this.props.navigation.navigate('PwdInputView', { mode, account, countryCode, verCode });
+        let { mode, account, countryCode, type } = this.state;
+        this.props.navigation.navigate('PwdInputView', { mode, account, countryCode, verCode, type });
     }
 
 }

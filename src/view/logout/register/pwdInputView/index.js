@@ -18,15 +18,23 @@ export default class PwdInputView extends Component {
         }
     };
 
+    state = {
+        type: ''
+    }
+
     componentDidMount() {
         const mode = this.props.navigation.getParam('mode', '');
         const account = this.props.navigation.getParam('account', '');
         const countryCode = this.props.navigation.getParam('countryCode', '');
         const verCode = this.props.navigation.getParam('verCode', '');
+        const type = this.props.navigation.getParam('type', '');
         Reg.mode = mode;
         Reg.account = account;
         Reg.countryCode = countryCode;
         Reg.verCode = verCode;
+        this.setState({
+            type
+        });
     }
 
     render() {
@@ -47,11 +55,13 @@ export default class PwdInputView extends Component {
                     placeholder='确认密码'
                     security={true}
                 />
-                <Input.Account
-                    style={{ marginTop: 25, fontSize: 16 }}
-                    callback={this.inviteCodeInputCallback}
-                    placeholder='输入邀请码(选填)'
-                />
+                {this.state.type == 'register' &&
+                    <Input.Account
+                        style={{ marginTop: 25, fontSize: 16 }}
+                        callback={this.inviteCodeInputCallback}
+                        placeholder='输入邀请码(选填)'
+                    />
+                }
                 <Btn.Linear
                     style={styles.nextStepBtn}
                     textStyle={styles.nextStepBtnText}
@@ -79,39 +89,56 @@ export default class PwdInputView extends Component {
             Toast.show('密码不一致，请输入相同的密码!');
             return;
         }
-        if (Reg.mode == 'phone') {
+        if (this.state.type == 'register') {
+            if (Reg.mode == 'phone') {
+                let payload = {
+                    confirmPassword: Reg.pwdConfirm,
+                    country: Reg.countryCode,
+                    password: Reg.pwd,
+                    phone: Reg.account,
+                    verifyCode: Reg.verCode
+                }
+                if (Reg.inviteCode) {
+                    payload.inviteCode = Reg.inviteCode;
+                }
+                Api.registerByPhone(payload, (e) => {
+                    Toast.show('注册成功,请登陆');
+                    this.props.navigation.popToTop();
+                }, (e, code, message) => {
+                    Toast.show(message ? `注册失败:${message}` : '注册失败');
+                });
+            } else {
+                let payload = {
+                    confirmPassword: Reg.pwdConfirm,
+                    password: Reg.pwd,
+                    email: Reg.account,
+                    emailOtp: Reg.verCode
+                }
+                if (Reg.inviteCode) {
+                    payload.inviteCode = Reg.inviteCode;
+                }
+                Api.registerByMail(payload, (e) => {
+                    Toast.show('注册成功,请登陆');
+                    this.props.navigation.popToTop();
+                }, (e, code, message) => {
+                    Toast.show(message ? `注册失败:${message}` : '注册失败');
+                });
+            }
+        } else if (this.state.type == 'reset') {
+            //_todoList:忘记密码接口现在暂时没有
+            /*
             let payload = {
                 confirmPassword: Reg.pwdConfirm,
-                country: Reg.countryCode,
-                password: Reg.pwd,
-                phone: Reg.account,
+                newPassword: Reg.pwd,
                 verifyCode: Reg.verCode
             }
-            if (Reg.inviteCode) {
-                payload.inviteCode = Reg.inviteCode;
-            }
-            Api.registerByPhone(payload, (e) => {
-                Toast.show('注册成功,请登陆');
+            Api.resetPassword(payload, (e) => {
+                Toast.show('重置密码成功,请登陆');
                 this.props.navigation.popToTop();
             }, (e, code, message) => {
-                Toast.show(message ? `注册失败:${message}` : '注册失败');
+                Toast.show(message ? `重置密码失败:${message}` : '重置密码失败');
             });
-        } else {
-            let payload = {
-                confirmPassword: Reg.pwdConfirm,
-                password: Reg.pwd,
-                email: Reg.account,
-                emailOtp: Reg.verCode
-            }
-            if (Reg.inviteCode) {
-                payload.inviteCode = Reg.inviteCode;
-            }
-            Api.registerByMail(payload, (e) => {
-                Toast.show('注册成功,请登陆');
-                this.props.navigation.popToTop();
-            }, (e, code, message) => {
-                Toast.show(message ? `注册失败:${message}` : '注册失败');
-            });
+            */
         }
     }
 }

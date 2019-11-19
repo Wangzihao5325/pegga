@@ -110,7 +110,7 @@ export default class Login extends Component {
     }
 
     naviToResetPassword = () => {
-        this.props.navigation.navigate('ResetPasswordView');
+        this.props.navigation.navigate('RegisterView', { type: 'reset' });
     }
 
     loginModeChange = () => {

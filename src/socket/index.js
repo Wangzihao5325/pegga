@@ -62,8 +62,14 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
-    registerByMail() {
+    registerByMail(payload, onSuccess, onError) {
         const url = '/api/user/sign_up/by_email';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    resetPassword(payload, onSuccess, onError) {
+        const url = '/api/user/loginPassword';
+        console.log(payload);
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
