@@ -32,13 +32,23 @@ class api {
                         console.log(error);
                     }
                 } else {
-                    onError ? onError(result, code, message) : console.log(responseJson);
+                    onError ? onError(result, code, message, responseJson) : console.log(responseJson);
                 }
             })
             .catch((error) => {
                 console.log(error);
                 console.log(url);
             });
+    }
+    //chat board
+    sysChatMsg(onSuccess, onError) {
+        const url = '/api/user/message/list';
+        this.request(url, null, onSuccess, onError)
+    }
+
+    sendMsgToSys(payload, onSuccess, onError) {
+        const url = '/api/user/message/send';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
     //msg

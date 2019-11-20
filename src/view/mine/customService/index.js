@@ -30,9 +30,9 @@ export default class CustomService extends Component {
                     <View style={styles.headerContainer}>
                         <Image style={styles.avater} source={require('../../../image/customService/assistant_head.png')} />
                         <View style={{ marginLeft: 10 }}>
-                            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Text style={{ fontSize: 17, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium' }}>客服助手</Text>
-                                <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 16, width: 30, justifyContent: 'center', alignItems: 'center', marginLeft: 3,borderRadius:3 }}>
+                                <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 16, width: 30, justifyContent: 'center', alignItems: 'center', marginLeft: 3, borderRadius: 3 }}>
                                     <Text style={{ color: 'white', fontSize: 12 }}>官方</Text>
                                 </LinearGradient>
                             </View>
@@ -59,7 +59,7 @@ export default class CustomService extends Component {
     }
 
     goToChat = () => {
-
+        this.props.navigation.navigate('Chat');
     }
 }
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width - 30,
         borderRadius: 5,
         marginTop: 45,
-        alignSelf:'center'
+        alignSelf: 'center'
     },
     btnText: {
         color: 'white',

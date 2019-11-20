@@ -42,6 +42,7 @@ import CitySelect from '../../view/mine/payManager/citySelect';
 import Identity from '../../view/mine/identity';
 import MerchantCertification from '../../view/mine/merchant';
 import CustomService from '../../view/mine/customService';
+import Chat from '../../view/mine/customService/chat';
 
 //modal
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
@@ -199,7 +200,8 @@ let MineStack = createStackNavigator({
     CitySelect,
     Identity,
     MerchantCertification,
-    CustomService
+    CustomService,
+    Chat
 }, {
     navigationOptions: {
         gesturesEnabled: false
