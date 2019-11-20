@@ -26,7 +26,7 @@ class Header extends PureComponent {
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={[styles.topIconBtn, { marginRight: 15 }]}
-                        onPress={this.test}
+                        onPress={this.props.toService}
                         underlayColor='transparent'
                     >
                         <Image style={styles.topIconBtn} source={require('../../image/mine/service.png')} />
@@ -55,10 +55,6 @@ class Header extends PureComponent {
                 </TouchableHighlight>
             </ImageBackground>
         );
-    }
-
-    test = () => {
-        console.log('123456');
     }
 }
 
