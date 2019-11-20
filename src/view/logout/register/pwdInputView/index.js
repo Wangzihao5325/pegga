@@ -128,20 +128,21 @@ export default class PwdInputView extends Component {
                 });
             }
         } else if (this.state.type == 'reset') {
-            //_todoList:忘记密码接口现在暂时没有
-            /*
             let payload = {
                 confirmPassword: Reg.pwdConfirm,
                 newPassword: Reg.pwd,
-                verifyCode: Reg.verCode
+                verifyCode: Reg.verCode,
+                phone: Reg.account
             }
+            console.log(payload);
             Api.resetPassword(payload, (e) => {
                 Toast.show('重置密码成功,请登陆');
+                store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                 this.props.navigation.popToTop();
             }, (e, code, message) => {
                 Toast.show(message ? `重置密码失败:${message}` : '重置密码失败');
             });
-            */
+
         }
     }
 }

@@ -1,8 +1,8 @@
 import * as Types from '../actionTypes';
 
 const initialState = {
-    login_account_input: '18329025380',
-    login_pwd_input: 'yyf361142',
+    login_account_input: '',
+    login_pwd_input: '',
 }
 
 const reducer = (state = initialState, action) => {

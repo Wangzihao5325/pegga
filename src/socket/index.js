@@ -65,6 +65,12 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
+    sendForgotPwdMsg(phone, onSuccess, onError) {
+        const url = '/api/user/sign_up/send_sms_forget';
+        let payload = { phone };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
     //user
 
     registerByPhone(payload, onSuccess, onError) {
@@ -78,7 +84,7 @@ class api {
     }
 
     resetPassword(payload, onSuccess, onError) {
-        const url = '/api/user/loginPassword';
+        const url = '/api/user/sign_up/forget_password';
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 

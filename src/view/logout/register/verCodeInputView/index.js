@@ -60,7 +60,9 @@ class VerCodeInputView extends Component {
                 })
             }
         } else if (this.state.type == 'reset') {
-            //_todoList:补充重置密码发送验证码接口
+            Api.sendForgotPwdMsg(this.state.account, (res) => {
+                Toast.show('发送验证码成功');
+            })
         }
     }
 
