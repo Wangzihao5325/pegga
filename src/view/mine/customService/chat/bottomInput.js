@@ -49,6 +49,7 @@ export default class BottomInput extends PureComponent {
     submit = () => {
         if (!this.state.value) {
             Toast.show('请输入内容');
+            return;
         }
         Api.sendMsgToSys({ message: this.state.value, type: 0 }, (res) => {
             this.setState({
