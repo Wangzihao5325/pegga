@@ -21,9 +21,7 @@ const FuncTabs = (props) => {
             <Item title='图片' source={require('../../../../image/customService/picture_icon.png')} callback={props.imageUpload} />
         </View>
     );
-}
-
-//     
+}  
 
 export default class BottomInput extends PureComponent {
     state = {
