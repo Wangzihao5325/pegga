@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TextInput, TouchableHighlight, Image, Dimensions, StyleSheet } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+import Toast from '../../../../component/toast';
+import Api from '../../../../socket';
 
 const Item = (props) => {
     return (
@@ -24,13 +27,14 @@ const FuncTabs = (props) => {
 
 export default class BottomInput extends PureComponent {
     state = {
-        isShow: false
+        isShow: false,
+        value: ''
     }
     render() {
         return (
             <View>
                 <View style={styles.container}>
-                    <TextInput style={styles.input} />
+                    <TextInput style={styles.input} value={this.state.value} onChangeText={this.textChange} returnKeyType='done' onSubmitEditing={this.submit} />
                     <TouchableHighlight style={styles.btn} onPress={this.tabsShow} underlayColor='transparent'>
                         <Image style={{ height: 33, width: 33 }} source={require('../../../../image/customService/function.png')} />
                     </TouchableHighlight>
@@ -42,6 +46,24 @@ export default class BottomInput extends PureComponent {
         );
     }
 
+    submit = () => {
+        if (!this.state.value) {
+            Toast.show('请输入内容');
+        }
+        Api.sendMsgToSys({ message: this.state.value, type: 0 }, (res) => {
+            this.setState({
+                value: ''
+            });
+            this.props.callback();
+        })
+    }
+
+    textChange = (value) => {
+        this.setState({
+            value
+        });
+    }
+
     tabsShow = () => {
         this.setState({
             isShow: true
@@ -51,6 +73,21 @@ export default class BottomInput extends PureComponent {
     imageUpload = () => {
         this.setState({
             isShow: false
+        });
+        ImagePicker.openPicker({
+            multiple: false,
+            includeBase64: true
+        }).then(images => {
+            Api.imageUpload(images, (res) => {
+                let imageUrl = res.data;
+                Api.sendMsgToSys({ message: imageUrl, type: 1 }, (res) => {
+                    this.props.callback();
+                })
+            });
+        }).catch(e => {
+            if (Platform.OS == 'android') {
+                Toast.show('选择图片失败');
+            }
         });
     }
 }

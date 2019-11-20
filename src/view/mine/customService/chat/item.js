@@ -9,7 +9,8 @@ export default class Item extends PureComponent {
                 <View style={[styles.container, { justifyContent: 'flex-start' }]}>
                     <Image style={styles.avater} source={require('../../../../image/customService/assistant_head.png')} />
                     <View style={[styles.wordsContainer, { backgroundColor: 'white', borderWidth: 1, borderColor: 'rgb(179,179,179)' }]}>
-                        <Text style={[styles.words, { color: 'rgb(40,46,60)' }]}>{`${this.props.item.message}`}</Text>
+                        {this.props.item.type == 0 && <Text style={[styles.words, { color: 'rgb(40,46,60)' }]}>{`${this.props.item.message}`}</Text>}
+                        {this.props.item.type == 1 && <Image style={{ width: 120, height: 175 }} source={{ uri: this.props.item.message }} />}
                     </View>
                 </View>
             );
@@ -17,10 +18,11 @@ export default class Item extends PureComponent {
             return (
                 <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                     <View style={[styles.wordsContainer, { backgroundColor: 'rgb(97,130,236)' }]}>
-                        <Text style={[styles.words, { color: 'white' }]}>{`${this.props.item.message}`}</Text>
+                        {this.props.item.type == 0 && < Text style={[styles.words, { color: 'white' }]}>{`${this.props.item.message}`}</Text>}
+                        {this.props.item.type == 1 && <Image style={{ width: 120, height: 175 }} source={{ uri: this.props.item.message }} />}
                     </View>
                     <Image style={styles.avater} source={require('../../../../image/customService/assistant_head.png')} />
-                </View>
+                </View >
             );
         }
     }

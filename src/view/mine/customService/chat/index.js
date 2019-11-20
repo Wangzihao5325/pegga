@@ -27,20 +27,22 @@ export default class Chat extends Component {
         data: []
     }
 
-    componentDidMount() {
+    _dataUpdate = () => {
         Api.sysChatMsg((res) => {
+            let result = res.concat().reverse();
             this.setState({
-                data: res
+                data: result
             });
         }, (res, code, msg, res1) => {
+            let result = res1.concat().reverse();
             this.setState({
-                data: res1
+                data: result
             });
         });
+    }
 
-        // Api.sendMsgToSys({ message: '这是一条测试消息', type: 0 }, (res) => {
-        //     console.log(res);
-        // })
+    componentDidMount() {
+        this._dataUpdate();
     }
 
     render() {
@@ -59,10 +61,14 @@ export default class Chat extends Component {
                     />
                 </View>
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
-                    <BottomInput />
+                    <BottomInput callback={this.dataRefresh} />
                 </KeyboardAvoidingView>
             </SafeAreaView>
         );
+    }
+
+    dataRefresh = () => {
+        this._dataUpdate();
     }
 
 }

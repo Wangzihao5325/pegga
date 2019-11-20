@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import qs from 'qs';
 import * as Config from '../global/Config';
 import Variables from '../global/Variables';
@@ -342,7 +343,7 @@ class api {
 
         let headers = { 'Content-Type': 'multipart/form-data' };
 
-        let file = { uri: dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
+        let file = { uri: Platform.OS == 'ios' ? dataObj.sourceURL : dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
         let formData = new FormData();
         formData.append('file', file);
 
@@ -365,7 +366,7 @@ class api {
 
         let headers = { 'Content-Type': 'multipart/form-data' };
 
-        let file = { uri: dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
+        let file = { uri: Platform.OS == 'ios' ? dataObj.sourceURL : dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
         let formData = new FormData();
         formData.append('file', file);
         let obj = { method: 'POST', headers: headers, body: formData };
