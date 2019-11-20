@@ -47,7 +47,7 @@ class Mine extends Component {
                 />
                 <Header
                     toNews={this.test}
-                    toService={this.test}
+                    toService={() => this.navigate('CustomService')}
                     toInfo={() => this.navigate('Info')}
                 />
                 <Item
@@ -105,7 +105,7 @@ class Mine extends Component {
     }
 
     test = () => {
-     //   console.log('123');
+        //   console.log('123');
     }
 }
 

@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import qs from 'qs';
 import * as Config from '../global/Config';
 import Variables from '../global/Variables';
@@ -32,13 +33,42 @@ class api {
                         console.log(error);
                     }
                 } else {
-                    onError ? onError(result, code, message) : console.log(responseJson);
+                    onError ? onError(result, code, message, responseJson) : console.log(responseJson);
                 }
             })
             .catch((error) => {
                 console.log(error);
                 console.log(url);
             });
+    }
+    //chat board
+    sysChatMsg(onSuccess, onError) {
+        const url = '/api/user/message/list';
+        this.request(url, null, onSuccess, onError)
+    }
+
+    sendMsgToSys(payload, onSuccess, onError) {
+        const url = '/api/user/message/send';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    //msg
+    sendSignupMsg(phone, onSuccess, onError) {
+        const url = '/api/user/sign_up/send_sms_opt';
+        let payload = { phone };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    sendMailSignupMsg(email, onSuccess, onError) {
+        const url = '/api/user/sign_up/send_email_opt';
+        let payload = { email };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    sendForgotPwdMsg(phone, onSuccess, onError) {
+        const url = '/api/user/sign_up/send_sms_forget';
+        let payload = { phone };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
     //user
@@ -48,8 +78,13 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
-    registerByMail() {
+    registerByMail(payload, onSuccess, onError) {
         const url = '/api/user/sign_up/by_email';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    resetPassword(payload, onSuccess, onError) {
+        const url = '/api/user/sign_up/forget_password';
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
@@ -314,7 +349,7 @@ class api {
 
         let headers = { 'Content-Type': 'multipart/form-data' };
 
-        let file = { uri: dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
+        let file = { uri: Platform.OS == 'ios' ? dataObj.sourceURL : dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
         let formData = new FormData();
         formData.append('file', file);
 
@@ -337,7 +372,7 @@ class api {
 
         let headers = { 'Content-Type': 'multipart/form-data' };
 
-        let file = { uri: dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
+        let file = { uri: Platform.OS == 'ios' ? dataObj.sourceURL : dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
         let formData = new FormData();
         formData.append('file', file);
         let obj = { method: 'POST', headers: headers, body: formData };

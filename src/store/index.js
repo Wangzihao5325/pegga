@@ -7,6 +7,7 @@ import otcStateReducer from './reducers/otcStateReducer';
 import adListReducer from './reducers/adListReducer';
 import orderListReducer from './reducers/orderListReducer';
 import countryCodeReducer from './reducers/countryCodeReducer';
+import storageReducer from './reducers/storageReducer';
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     otcState: otcStateReducer,
     adList: adListReducer,
     orderList: orderListReducer,
-    country: countryCodeReducer
+    country: countryCodeReducer,
+    storage: storageReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

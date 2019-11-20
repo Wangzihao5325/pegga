@@ -7,11 +7,13 @@ import {
     StatusBar,
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import Colors from '../../../global/Colors';
 import Api from '../../../socket/index';
 import store from '../../../store';
 import { user_login, user_info, update_payment_info } from '../../../store/actions/userAction';
+import { storage_update } from '../../../store/actions/storageAction';
 import Toast from '../../../component/toast';
 import CountrySelect from './CountrySelect';
 import Tips from './Tip4Register';
@@ -21,7 +23,7 @@ import Btn from '../../../component/btn';
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
 const InputReg = { account: '', password: '' };
 
-export default class Login extends Component {
+class Login extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -45,12 +47,16 @@ export default class Login extends Component {
                     style={{ marginTop: 25, fontSize: 16 }}
                     callback={this.accountInputCallback}
                     placeholder={`请输入${this.state.accountPlaceholder}`}
+                    value={this.props.accountInput}
+                    isControl
                 />
                 <Input.Password
                     style={{ marginTop: 15 }}
                     inputStyle={{ fontSize: 16 }}
                     callback={this.passwordInputCallback}
                     placeholder='请输入密码'
+                    value={this.props.pwdInput}
+                    isControl
                 />
                 <View style={styles.naviBtnWrapper} >
                     <Btn.Normal
@@ -84,15 +90,17 @@ export default class Login extends Component {
     }
 
     accountInputCallback = (value) => {
-        InputReg.account = value;
+        store.dispatch(storage_update({ login_account_input: value }));
+        //InputReg.account = value;
     }
 
     passwordInputCallback = (value) => {
-        InputReg.password = value;
+        store.dispatch(storage_update({ login_pwd_input: value }));
+        //InputReg.password = value;
     }
 
     login = () => {
-        Api.login(InputReg.account, InputReg.password, (result, code, message) => {
+        Api.login(this.props.accountInput, this.props.pwdInput, (result, code, message) => {
             store.dispatch(user_login());
             update_payment_info();
             Api.userInfo((result) => {
@@ -110,7 +118,7 @@ export default class Login extends Component {
     }
 
     naviToResetPassword = () => {
-        this.props.navigation.navigate('ResetPasswordView');
+        this.props.navigation.navigate('RegisterView', { type: 'reset' });
     }
 
     loginModeChange = () => {
@@ -134,6 +142,13 @@ export default class Login extends Component {
         });
     }
 }
+
+const mapStateToProps = (state) => ({
+    accountInput: state.storage.login_account_input,
+    pwdInput: state.storage.login_pwd_input
+})
+
+export default connect(mapStateToProps)(Login);
 
 const styles = StyleSheet.create({
     safeContainer: {

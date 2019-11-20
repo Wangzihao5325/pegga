@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Colors from '../../../../global/Colors';
-
+import Api from '../../../../socket';
 import Header from '../../../../component/header';
 import VerCodeInput from '../../../../component/input/VerCodeInput';
 import Tips from './Tip4SendMsg';
+import Toast from '../../../../component/toast';
 
 
 class VerCodeInputView extends Component {
@@ -19,16 +20,19 @@ class VerCodeInputView extends Component {
     state = {
         countryCode: '',
         account: '',
-        mode: ''
+        mode: '',
+        type: ''
     }
 
     componentDidMount() {
         const account = this.props.navigation.getParam('account', '');
         const mode = this.props.navigation.getParam('mode', '');
+        const type = this.props.navigation.getParam('type', '');
         this.setState({
             countryCode: mode == 'phone' ? this.props.code : '',
             account,
-            mode
+            mode,
+            type
         });
     }
 
@@ -45,12 +49,26 @@ class VerCodeInputView extends Component {
     }
 
     sendMsg = () => {
-
+        if (this.state.type == 'register') {
+            if (this.state.mode == 'phone') {
+                Api.sendSignupMsg(this.state.account, (res) => {
+                    Toast.show('发送验证码成功');
+                })
+            } else {
+                Api.sendMailSignupMsg(this.state.account, (res) => {
+                    Toast.show('发送验证码成功');
+                })
+            }
+        } else if (this.state.type == 'reset') {
+            Api.sendForgotPwdMsg(this.state.account, (res) => {
+                Toast.show('发送验证码成功');
+            })
+        }
     }
 
     verCodeInputDone = (verCode) => {
-        let { mode, account, countryCode } = this.state;
-        this.props.navigation.navigate('PwdInputView', { mode, account, countryCode, verCode });
+        let { mode, account, countryCode, type } = this.state;
+        this.props.navigation.navigate('PwdInputView', { mode, account, countryCode, verCode, type });
     }
 
 }

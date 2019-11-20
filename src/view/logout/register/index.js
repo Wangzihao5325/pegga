@@ -6,7 +6,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
-
+import Api from '../../../socket';
 import Colors from '../../../global/Colors';
 
 import Header from '../../../component/header';
@@ -15,6 +15,7 @@ import Tips from './Tip4Login';
 import Input from '../../../component/input';
 import Btn from '../../../component/btn';
 
+const FUNC_TYPE = { register: 'register', reset: 'reset' };
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
 const InputReg = { account: '', password: '' };
 
@@ -29,14 +30,33 @@ export default class Login extends Component {
     state = {
         mode: LOGIN_TYPE.phone,
         accountPlaceholder: '手机号码',
-        modeChangePlaceholder: '邮箱'
+        modeChangePlaceholder: '邮箱',
+        type: FUNC_TYPE.register//register reset
+    }
+
+    componentDidMount() {
+        const type = this.props.navigation.getParam('type', FUNC_TYPE.register);
+        this.setState({
+            type
+        });
     }
 
     render() {
+        let title = '';
+        switch (this.state.type) {
+            case FUNC_TYPE.register:
+                title = '欢迎注册';
+                break;
+            case FUNC_TYPE.reset:
+                title = '重置密码';
+                break;
+            default:
+                break;
+        }
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal goback={() => this.props.navigation.goBack()} />
-                <Text style={styles.titleText}>欢迎注册</Text>
+                <Text style={styles.titleText}>{`${title}`}</Text>
                 <CountrySelect isShow={this.state.mode === LOGIN_TYPE.phone} callback={this.selectCountry} />
                 <Input.Account
                     style={{ marginTop: 25, fontSize: 16 }}
@@ -44,13 +64,15 @@ export default class Login extends Component {
                     placeholder={`请输入${this.state.accountPlaceholder}`}
                 />
                 <View style={styles.naviBtnWrapper} >
-                    <Btn.Normal
-                        style={[styles.naviBtn, { marginLeft: 20 }]}
-                        textStyle={styles.naviBtnText}
-                        underlayColor='transparent'
-                        title={`切换到${this.state.modeChangePlaceholder}注册`}
-                        btnPress={this.loginModeChange}
-                    />
+                    {this.state.type == FUNC_TYPE.register &&
+                        <Btn.Normal
+                            style={[styles.naviBtn, { marginLeft: 20 }]}
+                            textStyle={styles.naviBtnText}
+                            underlayColor='transparent'
+                            title={`切换到${this.state.modeChangePlaceholder}注册`}
+                            btnPress={this.loginModeChange}
+                        />
+                    }
                 </View>
                 <Btn.Linear
                     style={styles.registerBtn}
@@ -72,8 +94,22 @@ export default class Login extends Component {
     }
 
     sendMessage = () => {
-        //to do 发送验证码 跳转页面
-        this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode });
+        if (this.state.type == FUNC_TYPE.register) {
+            if (this.state.mode == LOGIN_TYPE.phone) {
+                Api.sendSignupMsg(InputReg.account, (res) => {
+                    this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+                })
+            } else {
+                Api.sendMailSignupMsg(InputReg.account, (res) => {
+                    this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+                })
+            }
+            this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+        } else if (this.state.type == FUNC_TYPE.reset) {
+            Api.sendForgotPwdMsg(InputReg.account, (res) => {
+                this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+            })
+        }
     }
 
     loginModeChange = () => {
