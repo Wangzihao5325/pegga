@@ -41,6 +41,7 @@ import AssetsPwdFinally from '../../view/mine/securityCenter/bind/assetsPwdFinal
 import CitySelect from '../../view/mine/payManager/citySelect';
 import Identity from '../../view/mine/identity';
 import MerchantCertification from '../../view/mine/merchant';
+import CustomService from '../../view/mine/customService';
 
 //modal
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
@@ -197,7 +198,8 @@ let MineStack = createStackNavigator({
     AssetsPwdFinally,
     CitySelect,
     Identity,
-    MerchantCertification
+    MerchantCertification,
+    CustomService
 }, {
     navigationOptions: {
         gesturesEnabled: false

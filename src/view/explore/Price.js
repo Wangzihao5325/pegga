@@ -91,7 +91,6 @@ export default class Price extends PureComponent {
 
     componentDidMount() {
         Api.coin_news_global((res) => {
-            console.log(res);
             this.setState({
                 originData: res.data.data,
                 data: res.data.data,
