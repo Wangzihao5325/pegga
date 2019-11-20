@@ -18,10 +18,11 @@ export default class NormalBtn extends PureComponent {
     }
 
     render() {
+        const { height, width } = this.props.style;
         return (
             <LinearGradient colors={this.props.colors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={this.props.style}>
                 <TouchableHighlight
-                    style={styles.default}
+                    style={[styles.default, { width, height }]}
                     onPress={this.btnPress}
                     underlayColor={this.props.underlayColor}
                 >
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     default: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     textDefault: {
         textAlign: 'center',
