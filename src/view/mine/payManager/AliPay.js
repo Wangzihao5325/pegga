@@ -19,7 +19,7 @@ class AliPay extends Component {
         account: '',
         uuid: '',
         accountNickName: '',
-        url: 'www.test.png',
+        //url: 'www.test.png',
         auditStatus: 1,//当前状态 0待审核 1通过 2未通过
         auditStatusText: '',
         rangeType: 'country', // country province city
@@ -100,7 +100,6 @@ class AliPay extends Component {
                     <PhotoUpload
                         ref={imageUpload => this.imageUpload = imageUpload}
                         maxPic={1}
-                        callback={this.imageUploadCallback}
                     />
                 </View>
                 <Boundary
@@ -161,20 +160,16 @@ class AliPay extends Component {
         }
     }
 
-    imageUploadCallback = (res) => {
-        console.log(res);
-        console.log('111222');
-    }
-
-    upload = () => {
+    upload = async () => {
         if (this.state.auditStatus == 0) {
             Toast.show(this.state.auditStatusText);
             return;
         }
+        Toast.show('信息提交中，请勿进行其他操作');
         let payload = {
             realName: this.state.accountName,
             alipayNo: this.state.account,
-            aliQrCode: this.state.url,
+            //aliQrCode: this.state.url,
             alipayUuid: this.state.uuid,
             alipayNick: this.state.accountNickName,
             tradePassword: this.state.assetsPwd,
@@ -188,15 +183,19 @@ class AliPay extends Component {
         if (this.props.bCode.length >= 3) {
             payload.cityId = this.props.bCode[2];
         }
-
-        //this.imageUpload.upload();
-
+        let refStateData = this.imageUpload.state.imageSelectData;
+        let qrCodeUrl = null
+        if (refStateData[0].size >= 0) {
+            qrCodeUrl = await Api.imageUploadPromise(refStateData[0]);
+            payload.aliQrCode = qrCodeUrl.data
+        }
         Api.aliPay(payload, () => {
             Toast.show('绑定支付宝成功！')
         }, (result, code, message) => {
             let msg = message ? message : '绑定支付宝失败!';
             Toast.show(msg)
         })
+
     }
 }
 

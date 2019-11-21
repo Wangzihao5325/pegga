@@ -119,21 +119,21 @@ export default class PhotoUpload extends PureComponent {
         }
     }
 
-    upload = async () => {
-        if (this.state.imageSelectData[0].size) {
-            // Api.imageUpload(newData[0], (res) => {
-            //     if (typeof this.props.callback == 'function') {
-            //         this.props.callback(res);
-            //     }
-            // });
-            let res = await Api.imageUploadPromise(this.state.imageSelectData[0]);
-            if (typeof this.props.callback == 'function') {
-                this.props.callback(res);
-            }
-        } else {
-            Toast.show('请选择图片');
-        }
-    }
+    // upload = async () => {
+    //     if (this.state.imageSelectData[0].size) {
+    //         // Api.imageUpload(newData[0], (res) => {
+    //         //     if (typeof this.props.callback == 'function') {
+    //         //         this.props.callback(res);
+    //         //     }
+    //         // });
+    //         let res = await Api.imageUploadPromise(this.state.imageSelectData[0]);
+    //         if (typeof this.props.callback == 'function') {
+    //             this.props.callback(res);
+    //         }
+    //     } else {
+    //         Toast.show('请选择图片');
+    //     }
+    // }
 }
 
 const styles = StyleSheet.create({
