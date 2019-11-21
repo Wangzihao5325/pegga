@@ -389,7 +389,7 @@ class api {
         });
     }
 
-    imageUploadPromise(dataObj) {
+    async imageUploadPromise(dataObj) {
         let fullUrl = 'http://192.168.3.144:4000/api/file/upload/image';
 
         let headers = { 'Content-Type': 'multipart/form-data' };
@@ -399,15 +399,9 @@ class api {
         formData.append('file', file);
         let obj = { method: 'POST', headers: headers, body: formData };
 
-        return new Promise((resolve, reject) => {
-            fetch(fullUrl, obj).then((response) => {
-                return response.json()
-            }).then((responseJson) => {
-                return resolve(responseJson);
-            }).catch(() => {
-                return reject(false);
-            });
-        });
+        let response = await fetch(fullUrl, obj);
+        let data = await response.json();
+        return data;
     }
 
     // upload

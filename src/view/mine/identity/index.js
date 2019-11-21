@@ -4,8 +4,10 @@ import {
     View,
     Text,
     Dimensions,
+    Platform,
     StyleSheet
 } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import Api from '../../../socket';
 import Header from '../../../component/header';
@@ -30,7 +32,10 @@ export default class About extends Component {
         idCard: '',
         imageFront: 'www.test.png',
         imageBack: 'www.test.png',
-        imageHand: 'www.test.png'
+        imageHand: 'www.test.png',
+        frontData: null,
+        backData: null,
+        handleData: null
     }
 
     render() {
@@ -63,15 +68,30 @@ export default class About extends Component {
                     <View style={styles.idCardImageUpload}>
                         <Text style={styles.titleText}>证件照片</Text>
                         <View style={styles.imageUploadWrapper}>
-                            <ImageUpload title='证件照正面照' />
-                            <ImageUpload title='证件照反面照' />
+                            <ImageUpload
+                                title='证件照正面照'
+                                value={this.state.frontData}
+                                callback={() => this.uploadImage('frontData')}
+                                del={() => this.delImage('frontData')}
+                            />
+                            <ImageUpload
+                                title='证件照反面照'
+                                value={this.state.backData}
+                                callback={() => this.uploadImage('backData')}
+                                del={() => this.delImage('backData')}
+                            />
                         </View>
                     </View>
 
                     <View style={styles.idCardImageUpload}>
                         <Text style={styles.titleText}>手持证件照片</Text>
                         <View style={styles.imageUploadWrapper}>
-                            <ImageUpload title='手持证件照片' />
+                            <ImageUpload
+                                title='手持证件照片'
+                                value={this.state.handleData}
+                                callback={() => this.uploadImage('handleData')}
+                                del={() => this.delImage('handleData')}
+                            />
                         </View>
                     </View>
 
@@ -89,18 +109,48 @@ export default class About extends Component {
         }
     }
 
-    submit = () => {
+    uploadImage = (key) => {
+        ImagePicker.openPicker({
+            multiple: false,
+            //maxFiles: this.props.maxPic,
+            includeBase64: true
+        }).then(images => {
+            this.setState({
+                [key]: images
+            });
+        }).catch(e => {
+            if (Platform.OS == 'android') {
+                Toast.show('选择图片失败');
+            }
+        });
+    }
+
+    delImage = (key) => {
+        this.setState({
+            [key]: null
+        });
+    }
+
+    submit = async () => {
+        if (!this.state.frontData || !this.state.backData || !this.state.handleData) {
+            Toast.show('请选择证件照片');
+            return;
+        }
+        Toast.show('图片上传中，请勿进行其他操作!');
+        let frontRes = await Api.imageUploadPromise(this.state.frontData);
+        let backRes = await Api.imageUploadPromise(this.state.backData);
+        let handleRes = await Api.imageUploadPromise(this.state.handleData);
         let payload = {
             idNumber: this.state.idCard,
-            identityImageBack: this.state.imageBack,
-            identityImageFront: this.state.imageFront,
-            identityImageHand: this.state.imageHand,
+            identityImageBack: backRes.data,
+            identityImageFront: frontRes.data,
+            identityImageHand: handleRes.data,
             realName: this.state.name
         }
         Api.identity(payload, () => {
             Toast.show('提交成功!');
         }, (result, code, message) => {
-            let msg = message ? message : '认证费信息提交失败!';
+            let msg = message ? message : '信息提交失败!';
             Toast.show(msg);
         });
     }
