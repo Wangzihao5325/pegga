@@ -36,13 +36,13 @@ const Header = (props) => {
                     <Image style={{ height: 11, width: 11 }} source={currencyImage} />
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight style={{ flex: 7 }} onPress={() => props.callback('hour', props.state)} underlayColor='transparent'>
+            <TouchableHighlight style={{ flex: 8 }} onPress={() => props.callback('hour', props.state)} underlayColor='transparent'>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                     <Text style={styles.headerText}>24H</Text>
                     <Image style={{ height: 11, width: 11 }} source={hourImage} />
                 </View>
             </TouchableHighlight>
-            <View style={{ flex: 9, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <View style={{ flex: 8, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Text style={styles.headerText}>市值</Text>
             </View>
         </View>
@@ -69,10 +69,10 @@ const Item = (props) => {
                 <View style={{ flex: 9, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
                     <Text style={textStyle}>{`${(props.item[10]).toFixed(2)}`}</Text>
                 </View>
-                <View style={{ flex: 7, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                <View style={{ flex: 8, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                     <Text style={textStyle}>{`${props.item[14]}%`}</Text>
                 </View>
-                <View style={{ flex: 9, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                <View style={{ flex: 8, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                     <Text style={{ fontSize: 17, color: 'rgb(88,92,102)', fontFamily: 'PingFang-SC-Regular', fontWeight: 'bold' }}>{`${capStr}`}</Text>
                 </View>
             </View>
