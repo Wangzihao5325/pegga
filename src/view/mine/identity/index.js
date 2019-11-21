@@ -11,8 +11,11 @@ import Api from '../../../socket';
 import Header from '../../../component/header';
 import Btn from '../../../component/btn';
 import ItemInput from '../ItemInput';
+import ImageUpload from './ImageUpload';
 
 import Toast from '../../../component/toast';
+
+const IMAGE_HEIGHT = (Dimensions.get('window').width - 45) / 2 / 160 * 90;
 
 export default class About extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -56,6 +59,22 @@ export default class About extends Component {
                         value={this.state.idCard}
                         callback={this.stateUpdate('idCard')}
                     />
+
+                    <View style={styles.idCardImageUpload}>
+                        <Text style={styles.titleText}>证件照片</Text>
+                        <View style={styles.imageUploadWrapper}>
+                            <ImageUpload title='证件照正面照' />
+                            <ImageUpload title='证件照反面照' />
+                        </View>
+                    </View>
+
+                    <View style={styles.idCardImageUpload}>
+                        <Text style={styles.titleText}>手持证件照片</Text>
+                        <View style={styles.imageUploadWrapper}>
+                            <ImageUpload title='手持证件照片' />
+                        </View>
+                    </View>
+
                     <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.submit} title='提交' />
                 </View>
             </SafeAreaView>
@@ -108,5 +127,27 @@ const styles = StyleSheet.create({
     btnText: {
         color: 'white',
         fontSize: 15
-    }
+    },
+    idCardImageUpload: {
+        marginTop: 10,
+        height: IMAGE_HEIGHT + 80,
+        width: Dimensions.get('window').width,
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        paddingVertical: 20,
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+    imageUploadWrapper: {
+        height: IMAGE_HEIGHT,
+        width: Dimensions.get('window').width - 30,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    titleText: {
+        fontFamily: 'PingFang-SC-Medium',
+        fontSize: 15,
+        color: 'rgb(40,46,60)',
+        textAlignVertical: 'center'
+    },
 });
