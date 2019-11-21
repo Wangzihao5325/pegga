@@ -5,7 +5,7 @@ import {
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
-
+import Api from '../../../socket';
 import Header from '../../../component/header';
 import Item from '../Item';
 import Toast from '../../../component/toast';
@@ -62,7 +62,15 @@ class SecurityCenter extends Component {
             Toast.show('请先绑定手机号!');
             return;
         }
-        this.props.navigation.navigate('BindStepOne', { type: 'phone', key });
+        const { bindPhone } = this.props.info;
+        if (key == 'loginPwd') {
+            Api.sendChangePwdMsg((res) => {
+                this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
+            });
+        } else if (key == 'assetsPwd') {
+            //_todoList:更换资产密码的接口暂无
+            this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
+        }
     }
 
     bindAccount = (type) => {
@@ -78,13 +86,14 @@ class SecurityCenter extends Component {
     }
 
     navigate = (e) => {
-       // console.log(e);
+        // console.log(e);
     }
 }
 
 function mapState2Props(store) {
     return {
-        state: store.user.state
+        state: store.user.state,
+        info: store.user.info
     }
 }
 

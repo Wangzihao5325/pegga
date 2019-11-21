@@ -10,7 +10,9 @@ const initialState = {
         id: '',
         nickName: '',
         signUpTime: '',
-        uuid: ''
+        uuid: '',
+        bindPhone: '',
+        bindEmail: ''
     },
     state: {
         isBindingPay: false,

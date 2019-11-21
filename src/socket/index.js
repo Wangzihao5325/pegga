@@ -71,6 +71,23 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
+    sendChangePwdMsg(onSuccess, onError) {
+        const url = '/api/user/code/phone_change_password';
+        this.request(url, JSON.stringify({}), onSuccess, onError);
+    }
+
+    sendMailBindMsg(email, onSuccess, onError) {
+        const url = '/api/user/code/email_bind';
+        let payload = { email };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    sendPhoneBindMsg(phone, onSuccess, onError) {
+        const url = '/api/user/code/phone_bind';
+        let payload = { phone };
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
     //user
 
     registerByPhone(payload, onSuccess, onError) {

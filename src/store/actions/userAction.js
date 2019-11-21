@@ -47,7 +47,9 @@ export function user_info(result) {
         id: result.id,
         nickName: result.nickName ? result.nickName : '游客',
         signUpTime: result.signUpTime,
-        uuid: result.uuid
+        uuid: result.uuid,
+        bindPhone: result.bindPhone,
+        bindEmail: result.bindEmail
     }
 
     let role = {// to b 角色信息

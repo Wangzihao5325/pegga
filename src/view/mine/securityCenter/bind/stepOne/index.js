@@ -48,14 +48,14 @@ export default class StepOne extends Component {
                             headerTitle: '绑定手机号码',
                             key: bindKey
                         }
-                    } else if (bindKey == 'assetsPwd') {
+                    } else if (bindKey == 'assetsPwd') {//_todoList:暂时废弃,待重构
                         return {
                             mode: LOGIN_TYPE.phone,
                             accountPlaceholder: '手机号码',
                             headerTitle: '设置资金密码',
                             key: bindKey
                         }
-                    } else if (bindKey == 'loginPwd') {
+                    } else if (bindKey == 'loginPwd') {//_todoList:暂时废弃,待重构
                         return {
                             mode: LOGIN_TYPE.phone,
                             accountPlaceholder: '手机号码',
@@ -102,7 +102,17 @@ export default class StepOne extends Component {
 
     sendMessage = () => {
         //to do 发送验证码 跳转页面
-        this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
+        if (this.state.mode == LOGIN_TYPE.mail) {
+            Api.sendMailBindMsg(InputReg.account, (res) => {
+                this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
+            });
+        } else {
+            if (this.state.key == 'bindAccount') {
+                Api.sendPhoneBindMsg(InputReg.account, (res) => {
+                    this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
+                });
+            }
+        }
     }
 
 }

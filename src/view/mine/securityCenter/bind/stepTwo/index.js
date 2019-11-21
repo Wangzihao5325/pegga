@@ -50,7 +50,40 @@ class VerCodeInputView extends Component {
     }
 
     sendMsg = () => {
-
+        if (this.state.key == 'bindAccount') {
+            if (this.state.mode == 'phone') {
+                Api.sendPhoneBindMsg(this.state.account, (res) => {
+                    Toast.show('已重新发送验证码');
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '验证码发送失败';
+                    Toast.show(message);
+                })
+            } else if (this.state.mode == 'mail') {
+                Api.sendMailBindMsg(this.state.account, (res) => {
+                    Toast.show('已重新发送验证码');
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '验证码发送失败';
+                    Toast.show(message);
+                })
+            }
+        } else if (this.state.key == 'assetsPwd') {
+            //_todoList:更换资产密码的接口暂无
+            /*
+            Api.sendChangePwdMsg((res) => {
+                Toast.show('已重新发送验证码');
+            }, (res, code, msg) => {
+                let message = msg ? msg : '验证码发送失败';
+                Toast.show(message);
+            });
+            */
+        } else if (this.state.key == 'loginPwd') {
+            Api.sendChangePwdMsg((res) => {
+                Toast.show('已重新发送验证码');
+            }, (res, code, msg) => {
+                let message = msg ? msg : '验证码发送失败';
+                Toast.show(message);
+            });
+        }
     }
 
     verCodeInputDone = (verCode) => {
