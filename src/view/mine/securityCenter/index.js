@@ -66,10 +66,17 @@ class SecurityCenter extends Component {
         if (key == 'loginPwd') {
             Api.sendChangePwdMsg((res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
+            }, (res, code, msg) => {
+                let message = msg ? msg : '发送验证码失败';
+                Toast.show(message);
             });
         } else if (key == 'assetsPwd') {
-            //_todoList:更换资产密码的接口暂无
-            this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
+            Api.sendChangeAssetsPwdMsg((res) => {
+                this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
+            }, (res, code, msg) => {
+                let message = msg ? msg : '发送验证码失败';
+                Toast.show(message);
+            });
         }
     }
 

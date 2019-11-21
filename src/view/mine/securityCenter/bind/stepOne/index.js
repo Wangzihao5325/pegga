@@ -11,6 +11,7 @@ import Colors from '../../../../../global/Colors';
 import Api from '../../../../../socket/index';
 import store from '../../../../../store';
 import { user_login } from '../../../../../store/actions/userAction';
+import Toast from '../../../../../component/toast';
 
 import Header from '../../../../../component/header';
 import CountrySelect from './CountrySelect';
@@ -105,11 +106,17 @@ export default class StepOne extends Component {
         if (this.state.mode == LOGIN_TYPE.mail) {
             Api.sendMailBindMsg(InputReg.account, (res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
+            }, (res, code, msg) => {
+                let message = msg ? msg : '发送验证码失败';
+                Toast.show(message);
             });
         } else {
             if (this.state.key == 'bindAccount') {
                 Api.sendPhoneBindMsg(InputReg.account, (res) => {
                     this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '发送验证码失败';
+                    Toast.show(message);
                 });
             }
         }

@@ -76,6 +76,11 @@ class api {
         this.request(url, JSON.stringify({}), onSuccess, onError);
     }
 
+    sendChangeAssetsPwdMsg(onSuccess, onError) {
+        const url = '/api/user/code/phone_trade_password';
+        this.request(url, JSON.stringify({}), onSuccess, onError);
+    }
+
     sendMailBindMsg(email, onSuccess, onError) {
         const url = '/api/user/code/email_bind';
         let payload = { email };
