@@ -5,6 +5,7 @@ import {
     Text,
     Dimensions,
     Platform,
+    Image,
     StyleSheet
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -45,8 +46,8 @@ export default class About extends Component {
                     title='身份认证'
                     goback={() => this.props.navigation.goBack()}
                 />
-                <View style={{ paddingHorizontal: 15, height: 45, width: Dimensions.get('window').width, backgroundColor: '#DAE1F6', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: '#004DCF', lineHeight: 20 }}>{'确保您使用的是本人真实身份进行验证,我们会保护您的信息安全'}</Text>
+                <View style={{ paddingHorizontal: 15, height: 45, width: Dimensions.get('window').width, backgroundColor: '#DAE1F6', flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ color: '#4b88e3', lineHeight: 20 }}>确保您使用的是本人真实身份进行验证,我们会保护您的信息安全</Text>
                 </View>
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <ItemInput
