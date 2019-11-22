@@ -27,7 +27,7 @@ const ItemHeader = (props) => {
             imageSource = require('../../../image/mine/merchant/trust.png');
             titleText = '信任商家';
             payTitle = '质押数量';
-            btnTextStyle = { color: 'rgb(206,152,64)' };
+            btnTextStyle = { color: 'rgb(58,160,225)' };
             if (props.pageState == 1 || props.pageState == 2) {
                 btnText = props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ? '申请解冻' : '立即申请';
             } else if (props.pageState == 0) {

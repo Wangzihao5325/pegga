@@ -164,9 +164,11 @@ class MerchantCertification extends Component {
                             renderItem={({ item }) => <Banner {...item} btnPress={this.callback} />}
                         />
                     </View>
-                    <BottomTab
-                        role={this.props.role}
-                    />
+                    {this.props.role.roleName !== 'ROLE_VISITOR' &&
+                        <BottomTab
+                            role={this.props.role}
+                        />
+                    }
                 </View>
             </SafeAreaView>
         );
