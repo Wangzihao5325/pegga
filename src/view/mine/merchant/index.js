@@ -16,6 +16,23 @@ import BottomTab from './BottomTab';
 
 const DEFAULT_APPLY_INFO = { activeBalance: 0, balance: 0, token: 'PQC' };
 
+const isBottomTabShow = (roleName) => {
+    switch (roleName) {
+        case Enum.ROLE.BUSINESS_ROLE[0].key:
+            return false
+        case Enum.ROLE.BUSINESS_ROLE[1].key:
+            return false
+        case Enum.ROLE.BUSINESS_ROLE[2].key:
+            return true
+        case Enum.ROLE.BUSINESS_ROLE[3].key:
+            return false
+        case Enum.ROLE.BUSINESS_ROLE[4].key:
+            return true
+        case Enum.ROLE.BUSINESS_ROLE[5].key:
+            return false
+    }
+}
+
 class MerchantCertification extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
@@ -161,10 +178,10 @@ class MerchantCertification extends Component {
                             showsHorizontalScrollIndicator={false}
                             horizontal={true}
                             data={this.state.listData}
-                            renderItem={({ item }) => <Banner {...item} btnPress={this.callback} />}
+                            renderItem={({ item, index }) => <Banner {...item} index={index} dataLength={this.state.listData.length} btnPress={this.callback} />}
                         />
                     </View>
-                    {this.props.role.roleName !== 'ROLE_VISITOR' &&
+                    {isBottomTabShow(this.props.role.roleName) &&
                         <BottomTab
                             role={this.props.role}
                         />
@@ -268,9 +285,9 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     flatListWrapper: {
-        width: Dimensions.get('window').width - 12,
+        width: Dimensions.get('window').width,//-12
         height: (Dimensions.get('window').width - 30) / 690 * 328 + 250 + 15,
-        marginLeft: 12,
+        //marginLeft: 12,
         marginTop: 10
     }
 });

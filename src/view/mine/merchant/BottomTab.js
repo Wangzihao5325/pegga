@@ -1,18 +1,23 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
 import Enum from '../../../global/Enum';
 
 export default class BottomTab extends PureComponent {
+
     render() {
         let picImage = require('../../../image/mine/merchant/general_icon.png');
         if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ||
             this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[4].key ||
             this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[5].key
-        )
+        ) {
             picImage = require('../../../image/mine/merchant/trust_icon.png');
+        }
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>当前身份</Text>
+                <View style={{ marginTop: 15, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={styles.title}>当前身份</Text>
+                    <TouchableHighlight onPress={this.drawBack} underlayColor='transparent' style={styles.drawback}><Text style={styles.drawbackText}>退还激活金</Text></TouchableHighlight>
+                </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Image style={{ height: 40, width: 40 }} source={picImage} />
@@ -25,6 +30,12 @@ export default class BottomTab extends PureComponent {
                 </View>
             </View>
         );
+    }
+
+    drawBack = () => {
+        if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[2].key) {
+
+        }
     }
 }
 
@@ -42,8 +53,6 @@ const styles = StyleSheet.create({
         fontFamily: 'PingFang-SC-Medium',
         color: 'rgb(40,46,60)',
         fontSize: 16,
-        marginTop: 15,
-        marginBottom: 15
     },
     role: {
         fontFamily: 'PingFang-SC-Medium',
@@ -54,5 +63,18 @@ const styles = StyleSheet.create({
         fontFamily: 'PingFang-SC-Regular',
         color: 'rgb(133,133,133)',
         fontSize: 13
+    },
+    drawback: {
+        height: 26,
+        width: 75,
+        borderRadius: 13,
+        backgroundColor: '#EFF4FC',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    drawbackText: {
+        fontSize: 12,
+        color: 'rgb(40,46,60)',
+        fontFamily: 'PingFang-SC-Medium'
     }
 });

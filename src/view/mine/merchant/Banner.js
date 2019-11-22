@@ -106,6 +106,16 @@ const UPGRADE_CONTEXT = [
 
 class Item extends PureComponent {
     render() {
+        let marginStyle = {};
+        if (this.props.dataLength == 1) {
+            marginStyle = { marginHorizontal: 12 }
+        } else if (this.props.dataLength == 2) {
+            if (this.props.index == 0) {
+                marginStyle = { marginLeft: 12 }
+            } else if (this.props.index == 1) {
+                marginStyle = { marginRight: 12 }
+            }
+        }
         let contextData = DEALERS_CONTEXT;
         switch (this.props.pageType) {
             case Enum.ROLE.BUSINESS_ROLE[2].key:
@@ -121,7 +131,7 @@ class Item extends PureComponent {
                 break;
         }
         return (
-            <View style={styles.itemContainer}>
+            <View style={[styles.itemContainer, marginStyle]}>
                 <ItemHeader
                     pageType={this.props.pageType}
                     pageState={this.props.pageState}
