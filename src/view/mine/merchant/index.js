@@ -162,7 +162,6 @@ class MerchantCertification extends Component {
     }
 
     render() {
-        console.log(this.props.role);
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>

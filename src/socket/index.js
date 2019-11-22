@@ -224,6 +224,16 @@ class api {
         this.request(url, JSON.stringify({}), onSuccess, onError);
     }
 
+    activeBalanceInfo(onSuccess, onError) {
+        const url = '/api/user/role/active_balance/info';
+        this.request(url, null, onSuccess, onError);
+    }
+
+    drawBackActiveBalance(onSuccess, onError) {//退300块钱
+        const url = '/api/user/role/active_balance_back/apply';
+        this.request(url, JSON.stringify({}), onSuccess, onError);
+    }
+
     //assets
 
     assetsDetail(onSuccess, onError) {

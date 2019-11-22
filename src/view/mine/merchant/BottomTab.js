@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Image, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
 import Enum from '../../../global/Enum';
+import Api from '../../../socket';
+import Toast from '../../../component/toast';
 
 export default class BottomTab extends PureComponent {
 
@@ -34,7 +36,13 @@ export default class BottomTab extends PureComponent {
 
     drawBack = () => {
         if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[2].key) {
-
+            Api.drawBackActiveBalance((res, code, msg) => {
+                let message = msg ? msg : '退款成功';
+                Toast.show(message);
+            }, (res, code, msg) => {
+                let message = msg ? msg : '退款失败';
+                Toast.show(message);
+            })
         }
     }
 }
