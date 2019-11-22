@@ -315,6 +315,8 @@ class NewAd extends Component {
             switch (this.state.customType) {
                 case 1:// to b
                     payload.priceScopeId = this.state.priceScopeId;
+                    console.log('--- ---')
+                    console.log(payload);
                     if (this.state.tradeType === 0) {
                         Api.publishTobAdBuy(payload, (result) => {
                             Toast.show('广告发布成功');
@@ -323,7 +325,7 @@ class NewAd extends Component {
                             let msg = message ? message : '广告发布失败';
                             Toast.show(msg);
                         });
-                    } else if (this.state.tradeType === 0) {
+                    } else if (this.state.tradeType === 1) {
                         Api.publishTobAdSell(payload, (result) => {
                             Toast.show('广告发布成功');
                             this.props.navigation.goBack();
@@ -365,6 +367,18 @@ class NewAd extends Component {
         } else {
             this.setState({
                 tradeType: item.key
+            });
+            let iconRatePayload = { dealType: item.key, fiat: this.state.currencyType, token: this.state.coinType };
+            Api.iconRate(iconRatePayload, (result) => {
+                let regArr = result.filter((item) => {
+                    return item.token == this.state.coinType
+                });
+                this.setState({
+                    autoFillPrice: typeof regArr[0].rate == 'number' ? `${regArr[0].rate}` : '暂无系统定价',//'暂无系统定价'
+                    autoFillMin: typeof regArr[0].minLimit == 'number' ? `${regArr[0].minLimit}` : '100',
+                    autoFillMax: typeof regArr[0].maxLimit == 'number' ? `${regArr[0].maxLimit}` : '100000',
+                    priceScopeId: typeof regArr[0].priceScopeId == 'number' ? regArr[0].priceScopeId : 0,
+                })
             });
         }
     }

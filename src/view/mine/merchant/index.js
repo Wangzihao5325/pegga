@@ -145,6 +145,7 @@ class MerchantCertification extends Component {
     }
 
     render() {
+        console.log(this.props.role);
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
@@ -224,10 +225,10 @@ class MerchantCertification extends Component {
         }
     }
 
-    _downGrade=()=>{
-        Api.downGrade((result)=>{
+    _downGrade = () => {
+        Api.downGrade((result) => {
             Toast.show('资金解冻申请已提交');
-        },()=>{})
+        }, () => { })
     }
 
 }
