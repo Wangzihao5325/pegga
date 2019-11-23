@@ -14,28 +14,67 @@ const Item = (props) => {
     let sign = '+';
     let title = '交易购入';
     let amountColor = { color: 'rgb(40,46,60)' };
-    if (props.item.origin == 'INCOME') {
+    if (props.item.origin == 1) {
         uri = require('../../../image/arrow/in.png');
-        title = '交易购入';
         sign = '+';
         amountColor = { color: 'rgb(40,46,60)' };
-    } else if (props.item.origin == 'EXPEND') {
+    } else if (props.item.origin == -1) {
         uri = require('../../../image/arrow/out.png');
-        title = '交易支出';
         sign = '-';
         amountColor = { color: 'rgb(64,99,213)' };
     }
+    switch (props.item.type) {
+        case 1:
+            title = '交易购入';
+            break;
+        case 2:
+            title = '交易卖出';
+            break;
+        case 3:
+            title = '普通商家申请';
+            break;
+        case 4:
+            title = '认证商家申请';
+            break;
+        case 5:
+            title = '大宗商家申请';
+            break;
+        case 6:
+            title = '交易手续费';
+            break;
+        case 7:
+            title = '交易补贴';
+            break;
+        case 8:
+            title = '交易补贴';
+            break;
+        case 9:
+            title = '达量补贴';
+            break;
+        case 10:
+            title = '分享补贴';
+            break;
+        case 11:
+            title = '退还激活金';
+            break;
+        case 12:
+            title = '退还保证金';
+            break;
+
+    }
     return (
         <View style={styles.itemContainer}>
-            <View style={{ flex: 1, lexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', borderBottomColor: '#F3F3F3', borderBottomWidth: 1 }}>
                 <Image style={styles.itemAvater} source={uri} />
-                <View style={{ flex: 1, marginLeft: 10 }}>
-                    <Text style={{ fontSize: 15, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium' }}>{`${title}`}</Text>
-                    <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`订单编号${props.item.orderId}`}</Text>
-                </View>
-                <View style={{ width: 100, height: 80, alignItems: 'flex-end', justifyContent: 'center' }}>
-                    <Text style={[{ fontSize: 16, fontWeight: 'bold' }, amountColor]}>{`${sign} ${props.item.amount} PQC`}</Text>
-                    <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`${props.item.createTime}`}</Text>
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flex: 1, marginLeft: 10, flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 15, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium' }}>{`${title}`}</Text>
+                        {typeof props.item.orderId == 'string' && <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`订单编号${props.item.orderId}`}</Text>}
+                    </View>
+                    <View style={{ width: 150, height: 80, alignItems: 'flex-end', justifyContent: 'center', flexDirection: 'column' }}>
+                        <Text style={[{ fontSize: 16, fontWeight: 'bold' }, amountColor]}>{`${sign} ${props.item.amount} PQC`}</Text>
+                        <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`${props.item.createTime}`}</Text>
+                    </View>
                 </View>
             </View>
         </View>
@@ -81,6 +120,7 @@ class MoneyFlow extends Component {
                 break;
         }
         Api.moneyFlowList(payload, (result) => {
+            console.log(result);
             this.setState({
                 data: result.records,
                 page: result.pages
