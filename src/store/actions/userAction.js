@@ -54,7 +54,8 @@ export function user_info(result) {
 
     let role = {// to b 角色信息
         roleChainName: result.roleChainName,
-        roleName: result.roleName
+        roleName: result.roleName,
+        trustStaple: result.trustStaple
     }
 
     let payload = {

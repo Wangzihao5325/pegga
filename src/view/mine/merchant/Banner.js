@@ -11,7 +11,7 @@ const ItemHeader = (props) => {
     let imageSource = require('../../../image/mine/merchant/merchantcertifi.png');
     let titleText = '商家认证';
     let payTitle = '激活数量';
-    let btnText = '立即激活'
+    let btnText = '立即激活';
     switch (props.pageType) {
         case Enum.ROLE.BUSINESS_ROLE[2].key:
             imageSource = require('../../../image/mine/merchant/merchantcertifi.png');
@@ -23,19 +23,32 @@ const ItemHeader = (props) => {
                 btnText = '审核中';
             }
             break;
-        case Enum.ROLE.BUSINESS_ROLE[3].key:
+        case Enum.ROLE.BUSINESS_ROLE[3].key://信任 
             imageSource = require('../../../image/mine/merchant/trust.png');
             titleText = '信任商家';
             payTitle = '质押数量';
             btnTextStyle = { color: 'rgb(58,160,225)' };
             if (props.pageState == 1 || props.pageState == 2) {
                 btnText = props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ? '申请解冻' : '立即申请';
+                btnText = '立即申请';
             } else if (props.pageState == 0) {
                 btnText = '审核中';
             }
             break;
-        case Enum.ROLE.BUSINESS_ROLE[4].key:
+        case Enum.ROLE.BUSINESS_ROLE[4].key://大宗
             imageSource = require('../../../image/mine/merchant/bulk.png');
+            titleText = '大宗商家';
+            payTitle = '质押数量';
+            btnTextStyle = { color: 'rgb(255,255,255)' };
+            btnStyle = { borderColor: 'white', borderWidth: 1, backgroundColor: 'transparent' }
+            if (props.pageState == 1 || props.pageState == 2) {
+                btnText = props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ? '申请解冻' : '立即申请';
+            } else if (props.pageState == 0) {
+                btnText = '审核中';
+            }
+            break;
+        case Enum.ROLE.BUSINESS_ROLE[6].key://信任大宗
+            imageSource = require('../../../image/mine/merchant/trustBulk.png');
             titleText = '大宗商家';
             payTitle = '质押数量';
             btnTextStyle = { color: 'rgb(255,255,255)' };

@@ -116,6 +116,7 @@ class MerchantCertification extends Component {
     }
 
     _dataUpdate = () => {
+        console.log(this.props.role);
         switch (this.props.role.roleName) {
             case Enum.ROLE.BUSINESS_ROLE[0].key:
             case Enum.ROLE.BUSINESS_ROLE[1].key:
@@ -144,13 +145,23 @@ class MerchantCertification extends Component {
                 })
                 break;
             case Enum.ROLE.BUSINESS_ROLE[4].key:
-                this.setState({
-                    listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
-                });
-                Api.bussinessUpgradeApplyInfo(applyInfoData => {
-                    let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token }
-                    this._updateFinalPageState(Enum.ROLE.BUSINESS_ROLE[4].key, applyInfoPayload);
-                })
+                if (this.props.role.trustStaple) {//信任大宗(信任大宗的枚举值后台并不存在，是app自定义的)
+                    this.setState({
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[6].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
+                    });
+                    Api.bussinessUpgradeApplyInfo(applyInfoData => {
+                        let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustStapleDeposit, token: applyInfoData.token }
+                        this._updateFinalPageState(Enum.ROLE.BUSINESS_ROLE[6].key, applyInfoPayload);
+                    })
+                } else {//普通大宗
+                    this.setState({
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
+                    });
+                    Api.bussinessUpgradeApplyInfo(applyInfoData => {
+                        let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustStapleDeposit, token: applyInfoData.token }
+                        this._updateFinalPageState(Enum.ROLE.BUSINESS_ROLE[4].key, applyInfoPayload);
+                    })
+                }
                 break;
             default:
                 break;

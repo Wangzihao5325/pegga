@@ -8,6 +8,7 @@ const BUSINESS_ROLE =
         { key: 'ROLE_TRUST', alias: '信任商家' },
         { key: 'ROLE_STAPLE', alias: '大宗商家' },
         { key: 'ROLE_SUPREMACY', alias: '至尊商家' },
+        { key: 'ROLE_TRUST_STAPLE', alias: '信任大宗' }
     ];
 const CHINA = 100000;
 

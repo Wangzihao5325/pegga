@@ -49,7 +49,8 @@ const initialState = {
     },
     role: {// to b 角色信息
         roleChainName: '普通用户',
-        roleName: 'ROLE_VISITOR'
+        roleName: 'ROLE_VISITOR',
+        trustStaple: false
     },
     payment: {
         passedPayment: [],
