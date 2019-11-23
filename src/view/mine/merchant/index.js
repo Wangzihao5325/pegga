@@ -116,8 +116,7 @@ class MerchantCertification extends Component {
     }
 
     _dataUpdate = () => {
-        console.log(this.props.role);
-        switch (this.props.role.roleName) {
+        switch (this.props.role.roleName) {//判断当前身份
             case Enum.ROLE.BUSINESS_ROLE[0].key:
             case Enum.ROLE.BUSINESS_ROLE[1].key:
                 this.setState({
@@ -240,11 +239,14 @@ class MerchantCertification extends Component {
                     if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[4].key) {
 
                     } else {
+                        console.log('11111111');
                         Api.stapleApply(payload, (result) => {
+                            console.log('222222');
                             Toast.show('提交成功，请等待审核');
                             this.props.navigation.goBack();
                             // to do刷新数据
                         }, (result, code, message) => {
+                            console.log('33333');
                             let msg = message ? message : '提交失败';
                             Toast.show(msg);
                         });

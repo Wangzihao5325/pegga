@@ -44,6 +44,7 @@ export default class BottomTab extends PureComponent {
                 Toast.show(message);
             })
         }
+        
     }
 }
 
