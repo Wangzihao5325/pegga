@@ -36,8 +36,8 @@ const ItemHeader = (props) => {
             }
             break;
         case Enum.ROLE.BUSINESS_ROLE[4].key://大宗
-            imageSource = require('../../../image/mine/merchant/bulk.png');
-            titleText = '大宗商家';
+            imageSource = require('../../../image/mine/merchant/trustBulk.png');
+            titleText = '信任大宗';
             payTitle = '质押数量';
             btnTextStyle = { color: 'rgb(255,255,255)' };
             btnStyle = { borderColor: 'white', borderWidth: 1, backgroundColor: 'transparent' }
@@ -49,12 +49,12 @@ const ItemHeader = (props) => {
             break;
         case Enum.ROLE.BUSINESS_ROLE[6].key://信任大宗
             imageSource = require('../../../image/mine/merchant/trustBulk.png');
-            titleText = '大宗商家';
+            titleText = '信任大宗';
             payTitle = '质押数量';
             btnTextStyle = { color: 'rgb(255,255,255)' };
             btnStyle = { borderColor: 'white', borderWidth: 1, backgroundColor: 'transparent' }
             if (props.pageState == 1 || props.pageState == 2) {
-                btnText = props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ? '申请解冻' : '立即申请';
+                btnText = props.role.trustStaple ? '申请解冻' : '立即申请';
             } else if (props.pageState == 0) {
                 btnText = '审核中';
             }

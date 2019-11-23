@@ -219,6 +219,13 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
+    trustStapleApply(payload, onSuccess, onError) {//信任大宗
+        console.log('ssss');
+        console.log(payload);
+        const url = '/api/user/role/trust_staple/apply';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
     downGrade(onSuccess, onError) {
         const url = '/api/user/role/downgrade/apply';
         this.request(url, JSON.stringify({}), onSuccess, onError);

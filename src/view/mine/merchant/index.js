@@ -16,7 +16,10 @@ import BottomTab from './BottomTab';
 
 const DEFAULT_APPLY_INFO = { activeBalance: 0, balance: 0, token: 'PQC' };
 
-const isBottomTabShow = (roleName) => {
+const isBottomTabShow = (roleName, trustStaple) => {
+    if (trustStaple) {//信任大宗
+        return false
+    }
     switch (roleName) {
         case Enum.ROLE.BUSINESS_ROLE[0].key:
             return false
@@ -115,6 +118,14 @@ class MerchantCertification extends Component {
         });
     }
 
+    _updateStaplePageState = (pageType, applyInfoData) => {
+        Api.userBusinessApply(result => {
+            this.setState({
+                listData: [{ pageType, pageState: result.status, applyInfoData }]
+            });
+        });
+    }
+
     _dataUpdate = () => {
         switch (this.props.role.roleName) {//判断当前身份
             case Enum.ROLE.BUSINESS_ROLE[0].key:
@@ -154,11 +165,11 @@ class MerchantCertification extends Component {
                     })
                 } else {//普通大宗
                     this.setState({
-                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[6].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
                     });
                     Api.bussinessUpgradeApplyInfo(applyInfoData => {
                         let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustStapleDeposit, token: applyInfoData.token }
-                        this._updateFinalPageState(Enum.ROLE.BUSINESS_ROLE[4].key, applyInfoPayload);
+                        this._updateStaplePageState(Enum.ROLE.BUSINESS_ROLE[6].key, applyInfoPayload);
                     })
                 }
                 break;
@@ -190,7 +201,7 @@ class MerchantCertification extends Component {
                             renderItem={({ item, index }) => <Banner {...item} index={index} dataLength={this.state.listData.length} btnPress={this.callback} />}
                         />
                     </View>
-                    {isBottomTabShow(this.props.role.roleName) &&
+                    {isBottomTabShow(this.props.role.roleName, this.props.role.trustStaple) &&
                         <BottomTab
                             role={this.props.role}
                         />
@@ -239,14 +250,26 @@ class MerchantCertification extends Component {
                     if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[4].key) {
 
                     } else {
-                        console.log('11111111');
                         Api.stapleApply(payload, (result) => {
-                            console.log('222222');
-                            Toast.show('提交成功，请等待审核');
+                            Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
                             // to do刷新数据
                         }, (result, code, message) => {
-                            console.log('33333');
+                            let msg = message ? message : '提交失败';
+                            Toast.show(msg);
+                        });
+                    }
+                    break;
+                case Enum.ROLE.BUSINESS_ROLE[6].key:
+                    if (this.props.role.trustStaple) {//是信任大宗 降级
+
+                    } else {
+                        payload.deposit = 5000;
+                        Api.trustStapleApply(payload, (result) => {
+                            Toast.show('提交成功,请等待审核');
+                            this.props.navigation.goBack();
+                            // to do刷新数据
+                        }, (result, code, message) => {
                             let msg = message ? message : '提交失败';
                             Toast.show(msg);
                         });
