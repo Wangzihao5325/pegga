@@ -112,6 +112,7 @@ class MerchantCertification extends Component {
 
     _updateFinalPageState = (pageType, applyInfoData) => {
         Api.userBusinessApply(result => {
+            console.log(result);
             this.setState({
                 listData: [{ pageType, pageState: result.status, applyInfoData }]
             });
@@ -274,9 +275,6 @@ class MerchantCertification extends Component {
                             Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
                         }, (result, code, message) => {
-                            console.log(result);
-                            console.log(code);
-                            console.log(message);
                             let msg = message ? message : '提交失败';
                             Toast.show(msg);
                         });
