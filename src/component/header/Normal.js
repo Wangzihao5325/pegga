@@ -36,7 +36,7 @@ export default class NormalHeader extends PureComponent {
                 <View style={styles.centerWrapper}>
                     {typeof this.props.title == 'string' && <Text style={[styles.title, this.props.titleStyle]}>{this.props.title}</Text>}
                 </View>
-                <View style={styles.wrapper}>
+                <View style={[styles.wrapper, { justifyContent: 'center' }]}>
                     {
                         typeof this.props.rightBtnTitle == 'string' && <Text onPress={this.rightBtnPress}>{`${this.props.rightBtnTitle}`}</Text>
                     }

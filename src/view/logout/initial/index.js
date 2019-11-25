@@ -5,12 +5,17 @@ import {
     StatusBar,
     Dimensions,
     Platform,
+    AsyncStorage,
     StyleSheet
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
 
+import store from '../../../store';
+import { user_login, user_info, update_payment_info } from '../../../store/actions/userAction';
+import Api from '../../../socket';
+import Variables from '../../../global/Variables';
 
 export default class Initial extends Component {
     naviWillFocus = () => {
@@ -57,13 +62,23 @@ export default class Initial extends Component {
     }
 
     _autoLogin = async () => {
-        setTimeout(() => {
-            this.props.navigation.navigate('Logout');
-            //this.props.navigation.navigate('App');
-        }, 3000)
-
-        //to do list
-        //根据上次登陆的时间,7 day 判断是直接登陆('App')，还是跳转登陆页面('Logout')
+        //_todoList:token过期
+        (async function () {
+            let token = await AsyncStorage.getItem('App_token');
+            console.log(`token is ${token}`);
+            Variables.account.token = token;
+            if (token) {
+                store.dispatch(user_login());
+                update_payment_info();
+                Api.userInfo((result) => {
+                    store.dispatch(user_info(result));
+                    setTimeout(() => this.props.navigation.navigate('App'), 3000);
+                });
+            } else {
+                //setTimeout(() => this.props.navigation.navigate('Logout'), 3000);
+                setTimeout(() => this.props.navigation.navigate('App'), 3000);
+            }
+        }.bind(this)());
     }
 }
 

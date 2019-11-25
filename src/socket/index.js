@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 import qs from 'qs';
 import * as Config from '../global/Config';
 import Variables from '../global/Variables';
@@ -17,6 +17,7 @@ class api {
         fetch(fullUrl, obj)
             .then((response) => {
                 if (response.headers.map['x-auth-token']) {
+                    AsyncStorage.setItem('App_token', response.headers.map['x-auth-token']);
                     console.log(`token is ${response.headers.map['x-auth-token']}`);
                     Variables.account.token = response.headers.map['x-auth-token'];
                 }
