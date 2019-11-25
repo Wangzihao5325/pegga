@@ -10,6 +10,10 @@ import Header from '../../../component/header';
 import Item from '../Item';
 import Toast from '../../../component/toast';
 import Btn from '../../../component/btn';
+import Variables from '../../../global/Variables';
+import store from '../../../store';
+import { user_logout } from '../../../store/actions/userAction';
+
 
 export default class Setting extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -47,6 +51,13 @@ export default class Setting extends Component {
 
     check = () => {
         Toast.show('当前已经是最新版本！');
+    }
+
+    logout = () => {
+        AsyncStorage.setItem('App_token', '');
+        Variables.account.token = '';
+        store.dispatch(user_logout())
+        this.props.navigation.navigate('Logout')
     }
 
 }

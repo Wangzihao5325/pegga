@@ -6,6 +6,10 @@ export function user_login() {// userName userId uuid
     return { type: Types.USER_LOGIN };
 }
 
+export function user_logout() {
+    return { type: Types.USER_LOGOUT };
+}
+
 export function user_info(result) {
     let trade = {
         roleId: result.roleId,
@@ -67,10 +71,6 @@ export function user_info(result) {
     };
 
     return { type: Types.USER_INFO, payload };
-}
-
-export function user_logout() {
-    return { type: Types.USER_LOGOUT };
 }
 
 export function user_payment(result) {

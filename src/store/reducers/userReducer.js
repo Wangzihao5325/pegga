@@ -108,6 +108,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isLogin: true
             };
+        case Types.USER_LOGIN:
+            return {
+                ...state,
+                isLogin: true
+            };
         case Types.USER_INFO:
             return {
                 ...state,
