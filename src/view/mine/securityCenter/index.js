@@ -19,6 +19,8 @@ class SecurityCenter extends Component {
     };
 
     render() {
+        let isShowBindPhone = this.props.info.bindPhone ? false : true;
+        let isShowBindEmail = this.props.info.bindEmail ? false : true;
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
@@ -41,16 +43,21 @@ class SecurityCenter extends Component {
                         title='谷歌验证码设置'
                         btnPress={() => this.navigate('SecurityCenter')}
                     />
-                    <Item
-                        margin
-                        bottomLine
-                        title='绑定手机号'
-                        btnPress={() => this.bindAccount('phone')}
-                    />
-                    <Item
-                        title='绑定邮箱号'
-                        btnPress={() => this.bindAccount('mail')}
-                    />
+                    {isShowBindPhone &&
+                        <Item
+                            margin
+                            bottomLine={isShowBindEmail}
+                            title='绑定手机号'
+                            btnPress={() => this.bindAccount('phone')}
+                        />
+                    }
+                    {isShowBindEmail &&
+                        <Item
+                            margin={!isShowBindPhone}
+                            title='绑定邮箱号'
+                            btnPress={() => this.bindAccount('mail')}
+                        />
+                    }
                 </View>
             </SafeAreaView>
         );
