@@ -43,6 +43,8 @@ import Identity from '../../view/mine/identity';
 import MerchantCertification from '../../view/mine/merchant';
 import CustomService from '../../view/mine/customService';
 import Chat from '../../view/mine/customService/chat';
+import Invite from '../../view/mine/invite/index';
+import InviteList from '../../view/mine/invite/list';
 
 //modal
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
@@ -201,7 +203,9 @@ let MineStack = createStackNavigator({
     Identity,
     MerchantCertification,
     CustomService,
-    Chat
+    Chat,
+    Invite,
+    InviteList
 }, {
     navigationOptions: {
         gesturesEnabled: false

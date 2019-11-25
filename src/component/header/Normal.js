@@ -13,7 +13,7 @@ import Utils from '../../global/util';
 export default class NormalHeader extends PureComponent {
     static defaultProps = {
         showBackBtn: true,
-        rightBtnComponent: null
+        rightBtnTitle: null
     }
 
     render() {
@@ -38,11 +38,17 @@ export default class NormalHeader extends PureComponent {
                 </View>
                 <View style={styles.wrapper}>
                     {
-                        this.props.rightBtnComponent && Utils.componentCheck.render(this.props.rightBtnComponent)
+                        typeof this.props.rightBtnTitle == 'string' && <Text onPress={this.rightBtnPress}>{`${this.props.rightBtnTitle}`}</Text>
                     }
                 </View>
             </View>
         );
+    }
+
+    rightBtnPress = () => {
+        if (typeof this.props.rightBtnPress == 'function') {
+            this.props.rightBtnPress();
+        }
     }
 
     goback = () => {

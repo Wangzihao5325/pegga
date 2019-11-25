@@ -96,6 +96,12 @@ class Mine extends Component {
                     avater={require('../../image/mine/setting.png')}
                     btnPress={() => this.navigate('Setting')}
                 />
+                <Item
+                    margin
+                    title='test'
+                    avater={require('../../image/mine/setting.png')}
+                    btnPress={() => this.navigate('Invite')}
+                />
             </View>
         );
     }

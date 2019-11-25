@@ -113,7 +113,7 @@ class MerchantCertification extends Component {
     _updateFinalPageState = (pageType, applyInfoData) => {
         Api.userBusinessApply(result => {
             this.setState({
-                listData: [{ pageType, pageState: 1, applyInfoData }]
+                listData: [{ pageType, pageState: result.status, applyInfoData }]
             });
         });
     }
@@ -216,13 +216,13 @@ class MerchantCertification extends Component {
             Toast.show('正在审核中请您耐心等待!');
             return;
         } else {
-            if (applyInfoData.activeBalance > applyInfoData.balance) {
-                Toast.show('账号余额不足');
-                return;
-            }
             let payload = { deposit: applyInfoData.activeBalance, token: applyInfoData.token };
             switch (pageType) {
                 case Enum.ROLE.BUSINESS_ROLE[2].key:
+                    if (applyInfoData.activeBalance > applyInfoData.balance) {
+                        Toast.show('账号余额不足');
+                        return;
+                    }
                     Api.dealerApply(payload, (result) => {
                         Toast.show('提交成功，请等待审核');
                         this.props.navigation.goBack();
@@ -236,6 +236,10 @@ class MerchantCertification extends Component {
                     if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key) {
                         //降级
                     } else {
+                        if (applyInfoData.activeBalance > applyInfoData.balance) {
+                            Toast.show('账号余额不足');
+                            return;
+                        }
                         Api.trustApply(payload, (result) => {
                             Toast.show('提交成功，请等待审核');
                             this.props.navigation.goBack();
@@ -250,6 +254,10 @@ class MerchantCertification extends Component {
                     if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[4].key) {
 
                     } else {
+                        if (applyInfoData.activeBalance > applyInfoData.balance) {
+                            Toast.show('账号余额不足');
+                            return;
+                        }
                         Api.stapleApply(payload, (result) => {
                             Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
@@ -262,8 +270,21 @@ class MerchantCertification extends Component {
                     break;
                 case Enum.ROLE.BUSINESS_ROLE[6].key:
                     if (this.props.role.trustStaple) {//是信任大宗 降级
-
+                        Api.downGrade((result) => {
+                            Toast.show('提交成功,请等待审核');
+                            this.props.navigation.goBack();
+                        }, (result, code, message) => {
+                            console.log(result);
+                            console.log(code);
+                            console.log(message);
+                            let msg = message ? message : '提交失败';
+                            Toast.show(msg);
+                        });
                     } else {
+                        if (applyInfoData.activeBalance > applyInfoData.balance) {
+                            Toast.show('账号余额不足');
+                            return;
+                        }
                         payload.deposit = 5000;
                         Api.trustStapleApply(payload, (result) => {
                             Toast.show('提交成功,请等待审核');

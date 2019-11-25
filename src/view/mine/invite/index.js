@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import {
     SafeAreaView,
     Dimensions,
+    Text,
+    TouchableHighlight,
     StyleSheet,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import Header from '../../../component/header';
 import Variables from '../../../global/Variables';
+
+
 
 export default class Invite extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -23,6 +27,8 @@ export default class Invite extends Component {
                 <Header.Normal
                     title='邀请'
                     goback={() => this.props.navigation.goBack()}
+                    rightBtnTitle='我的邀请'
+                    rightBtnPress={this.toDetail}
                 />
                 <WebView
                     source={{ uri }}
@@ -30,6 +36,10 @@ export default class Invite extends Component {
                 />
             </SafeAreaView>
         );
+    }
+
+    toDetail = () => {
+        this.props.navigation.navigate('InviteList');
     }
 }
 
