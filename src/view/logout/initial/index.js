@@ -73,10 +73,12 @@ export default class Initial extends Component {
                 Api.userInfo((result) => {
                     store.dispatch(user_info(result));
                     setTimeout(() => this.props.navigation.navigate('App'), 3000);
+                }, () => {
+                    setTimeout(() => this.props.navigation.navigate('Logout'), 3000);
                 });
             } else {
-                //setTimeout(() => this.props.navigation.navigate('Logout'), 3000);
-                setTimeout(() => this.props.navigation.navigate('App'), 3000);
+                setTimeout(() => this.props.navigation.navigate('Logout'), 3000);
+                //setTimeout(() => this.props.navigation.navigate('App'), 3000);
             }
         }.bind(this)());
     }

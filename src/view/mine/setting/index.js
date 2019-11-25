@@ -3,7 +3,8 @@ import {
     SafeAreaView,
     View,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    AsyncStorage
 } from 'react-native';
 
 import Header from '../../../component/header';
@@ -41,7 +42,7 @@ export default class Setting extends Component {
                         title='退出'
                         style={styles.btn}
                         textStyle={styles.btnText}
-                        btnPress={this.check}
+                        btnPress={this.logout}
                     />
 
                 </View>

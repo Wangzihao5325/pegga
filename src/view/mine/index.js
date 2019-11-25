@@ -3,6 +3,9 @@ import {
     View,
     Platform,
     StatusBar,
+    Image,
+    Dimensions,
+    TouchableHighlight,
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -50,8 +53,12 @@ class Mine extends Component {
                     toService={() => this.navigate('CustomService')}
                     toInfo={() => this.navigate('Info')}
                 />
+                <View style={styles.invite}>
+                    <TouchableHighlight underlayColor='transparent' onPress={() => this.navigate('Invite')} style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Image style={{ height: 68, width: Dimensions.get('window').width - 20, borderTopLeftRadius: 5, borderTopRightRadius: 5 }} source={require('../../image/mine/invite/invite_banner.png')} />
+                    </TouchableHighlight>
+                </View>
                 <Item
-                    margin
                     bottomLine
                     title='安全中心'
                     avater={require('../../image/mine/security_center.png')}
@@ -96,12 +103,6 @@ class Mine extends Component {
                     avater={require('../../image/mine/setting.png')}
                     btnPress={() => this.navigate('Setting')}
                 />
-                <Item
-                    margin
-                    title='test'
-                    avater={require('../../image/mine/setting.png')}
-                    btnPress={() => this.navigate('Invite')}
-                />
             </View>
         );
     }
@@ -128,4 +129,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F3F5F9'
     },
+    invite: {
+        height: 75,
+        width: Dimensions.get('window').width,
+        backgroundColor: '#F3F5F9'
+    }
 });
