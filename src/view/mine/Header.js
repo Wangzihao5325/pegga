@@ -50,7 +50,7 @@ class Header extends PureComponent {
                             </View>
                             <Text style={styles.account}>{`uuid: ${this.props.uuid}`}</Text>
                         </View>
-                        <Image style={styles.arrow} source={require('../../image/arrow/arrow_mine.png')} />
+                        <Image style={styles.arrow} source={require('../../image/arrow/arrow_mine_header.png')} />
                     </View>
                 </TouchableHighlight>
             </ImageBackground>

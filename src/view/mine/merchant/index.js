@@ -271,7 +271,11 @@ class MerchantCertification extends Component {
                     break;
                 case Enum.ROLE.BUSINESS_ROLE[6].key:
                     if (this.props.role.trustStaple) {//是信任大宗 降级
-                        Api.downGrade((result) => {
+                        Api.downGrade((result, code, message,json) => {
+                            console.log(result);
+                            console.log(code);
+                            console.log(message);
+                            console.log(json);
                             Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
                         }, (result, code, message) => {

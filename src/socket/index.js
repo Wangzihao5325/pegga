@@ -29,7 +29,7 @@ class api {
                 const message = responseJson.message ? responseJson.message : null;
                 if (responseJson.success) {
                     try {
-                        onSuccess(result, code, message);
+                        onSuccess(result, code, message, responseJson);
                     } catch (error) {
                         console.log(error);
                     }
@@ -221,8 +221,6 @@ class api {
     }
 
     trustStapleApply(payload, onSuccess, onError) {//信任大宗
-        console.log('ssss');
-        console.log(payload);
         const url = '/api/user/role/trust_staple/apply';
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
