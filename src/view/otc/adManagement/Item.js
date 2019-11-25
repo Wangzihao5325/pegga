@@ -55,7 +55,7 @@ export default class Item extends PureComponent {
                     </View>
                     <View style={styles.separate} />
                     <View style={styles.bottomContainer}>
-                        <Text style={styles.dealingAmountText}>{`已${tradeTypeStr}`}<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.completeAmount} ${this.props.item.token}`}</Text></Text>
+                        <Text style={styles.dealingAmountText}>{`已${tradeTypeStr}`}<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.completeAmount ? this.props.item.completeAmount : 0} ${this.props.item.token}`}</Text></Text>
                         {(this.props.item.status === 1 || this.props.item.status === 0) &&
                             <Btn.Linear
                                 style={styles.btn}
