@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { SafeAreaView, View, Text, TextInput, KeyboardAvoidingView, ScrollView, Dimensions, Platform, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Dimensions, Platform, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Api from '../../../../socket/index';
 import Colors from '../../../../global/Colors';
@@ -158,7 +159,7 @@ class NewAd extends Component {
                     tradeType={this.state.tradeType}
                     callback={this.tradeTypeChange}
                 />
-                <ScrollView>
+                <KeyboardAwareScrollView>
                     <View style={{ flex: 1, backgroundColor: '#F2F2F2', flexDirection: 'column', alignItems: 'center' }}>
                         <View style={{ paddingHorizontal: 15, marginHorizontal: 15, backgroundColor: 'white', borderRadius: 5, marginTop: 10 }}>
                             <Item.Select
@@ -234,45 +235,42 @@ class NewAd extends Component {
                                 callback={this.payTypeSelect}
                             />
                         </View>
-                        <KeyboardAvoidingView keyboardVerticalOffset={Platform.OS == 'ios' ? 90 : null} behavior={Platform.OS == 'ios' ? 'position' : null}>
-                            <View style={{ paddingHorizontal: 15, marginHorizontal: 15, backgroundColor: 'white', borderRadius: 5, marginTop: 10 }}>
-                                <Item.Input
-                                    secureTextEntry={true}
-                                    title='资金密码'
-                                    placeholder='请输入资金密码'
-                                    value={this.state.assetsPassword}
-                                    callback={this.assetsPasswordTextChange}
-                                    inputStyle={{ color: 'rgb(133,133,133)' }}
-                                />
+                        <View style={{ paddingHorizontal: 15, marginHorizontal: 15, backgroundColor: 'white', borderRadius: 5, marginTop: 10 }}>
+                            <Item.Input
+                                secureTextEntry={true}
+                                title='资金密码'
+                                placeholder='请输入资金密码'
+                                value={this.state.assetsPassword}
+                                callback={this.assetsPasswordTextChange}
+                                inputStyle={{ color: 'rgb(133,133,133)' }}
+                            />
+                        </View>
+                        <View style={{ marginBottom: 10, marginHorizontal: 15, backgroundColor: 'white', borderRadius: 5, marginTop: 10 }}>
+                            <View style={{ marginHorizontal: 15, height: 40, width: Dimensions.get('window').width - 60, justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 14, color: 'rgb(73,73,73)', fontFamily: 'PingFang-SC-Medium' }}>备注(MEMO)</Text>
                             </View>
-                            <View style={{ marginBottom: 10, paddingHorizontal: 15, marginHorizontal: 15, backgroundColor: 'white', borderRadius: 5, marginTop: 10 }}>
-                                <View style={{ height: 40, width: Dimensions.get('window').width - 60, justifyContent: 'center' }}>
-                                    <Text style={{ fontSize: 14, color: 'rgb(73,73,73)', fontFamily: 'PingFang-SC-Medium' }}>备注(MEMO)</Text>
-                                </View>
-                                <TextInput
-                                    style={{ marginBottom: 10, textAlignVertical: 'top', color: 'rgb(186,200,223)', width: Dimensions.get('window').width - 60, height: 40, borderRadius: 5, borderColor: '#C3C7D0', borderWidth: 1, padding: 5 }}
-                                    numberOfLines={1}
-                                    maxLength={30}
-                                    placeholder='输入备注信息'
-                                    placeholderTextColor='rgb(186,200,223)'
-                                    value={this.state.MEMO}
-                                    onChangeText={this.MEMOTextChange}
-                                />
+                            <TextInput
+                                style={{ marginHorizontal: 15, marginBottom: 10, textAlignVertical: 'top', color: 'rgb(186,200,223)', width: Dimensions.get('window').width - 60, height: 40, borderRadius: 5, borderColor: '#C3C7D0', borderWidth: 1, padding: 5 }}
+                                numberOfLines={1}
+                                maxLength={30}
+                                placeholder='输入备注信息'
+                                placeholderTextColor='rgb(186,200,223)'
+                                value={this.state.MEMO}
+                                onChangeText={this.MEMOTextChange}
+                            />
+                            <View style={{ borderBottomLeftRadius: 5, borderBottomRightRadius: 5, paddingHorizontal: 15, height: 45, width: Dimensions.get('window').width - 30, backgroundColor: 'rgb(226,234,247)', justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: '#4063D5', lineHeight: 20 }}>{'请仔细核对转账来源及转账备注，以免账号被冻结'}</Text>
                             </View>
-                        </KeyboardAvoidingView>
+                        </View>
+                        <Btn.Linear
+                            style={{ marginBottom: 20, marginTop: 10, borderRadius: 5, height: 40, width: Dimensions.get('window').width - 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                            textStyle={{ color: 'white' }}
+                            title={`立即${Value2Str.tradeType(this.state.tradeType)}`}
+                            btnPress={this.publishNewAd}
+                        />
                     </View>
-                </ScrollView>
-                <View style={{ paddingHorizontal: 15, height: 45, width: Dimensions.get('window').width, backgroundColor: '#EEF3FC', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: '#4063D5', lineHeight: 20 }}>{'请仔细核对转账来源及转账备注，以免账号被冻结'}</Text>
-                </View>
-                <View style={{ height: 90, width: Dimensions.get('window').width, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }} >
-                    <Btn.Linear
-                        style={{ borderRadius: 5, height: 40, width: Dimensions.get('window').width - 60, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                        textStyle={{ color: 'white' }}
-                        title={`立即${Value2Str.tradeType(this.state.tradeType)}`}
-                        btnPress={this.publishNewAd}
-                    />
-                </View>
+                </KeyboardAwareScrollView>
+
             </SafeAreaView>
         );
     }
