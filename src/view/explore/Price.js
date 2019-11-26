@@ -81,6 +81,14 @@ const Item = (props) => {
     );
 }
 
+const Footer = (props) => {
+    return (
+        <View style={styles.footer}>
+            <Text style={styles.footerText}>- 数据来源“牛眼行情” -</Text>
+        </View>
+    );
+}
+
 export default class Price extends PureComponent {
     state = {
         originData: [],
@@ -111,6 +119,7 @@ export default class Price extends PureComponent {
                     style={{ flex: 1 }}
                     data={this.state.data}
                     renderItem={({ item }) => <Item item={item} />}
+                    ListFooterComponent={<Footer />}
                 />
             </View>
         );
@@ -221,5 +230,17 @@ const styles = StyleSheet.create({
     avater: {
         height: 21,
         width: 21
+    },
+    footer: {
+        height: 45,
+        width: Dimensions.get('window').width,
+        backgroundColor: '#F3F5F9',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    footerText: {
+        color: 'rgb(208,217,233)',
+        fontSize: 12,
+        fontFamily: 'PingFang-SC-Medium'
     }
 });
