@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center'
     },
     arrow: {
-        height: 20,
-        width: 20,
+        height: 15,
+        width: 15,
     },
     account: {
         fontFamily: 'PingFang-SC-Medium',

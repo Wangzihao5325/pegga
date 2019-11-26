@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
         color: 'rgb(40,46,60)'
     },
     arrow: {
-        height: 20,
-        width: 20,
+        height: 15,
+        width: 15,
     },
     stateText: {
         fontFamily: 'PingFang-SC-Medium',

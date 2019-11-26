@@ -2,6 +2,7 @@ import { Platform, AsyncStorage } from 'react-native';
 import qs from 'qs';
 import * as Config from '../global/Config';
 import Variables from '../global/Variables';
+import Toast from '../component/toast';
 
 class api {
     request(url, formData, onSuccess, onError, pagePayload) {
@@ -34,6 +35,7 @@ class api {
                         console.log(error);
                     }
                 } else {
+                    if (message) { Toast.show(message) }
                     onError ? onError(result, code, message, responseJson) : console.log(responseJson);
                 }
             })
