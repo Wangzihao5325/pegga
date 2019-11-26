@@ -16,7 +16,7 @@ export default class Num extends PureComponent {
                 <View style={styles.coinNum}>
                     <View style={styles.coinNumContainer} >
                         <TextInput
-                            style={{ flex: 1 }}
+                            style={{ flex: 1, paddingVertical: 0 }}
                             keyboardType='number-pad'
                             value={this.props.coinNum}
                             onChangeText={(value) => this.props.coinNumCallback(value)}
@@ -36,7 +36,7 @@ export default class Num extends PureComponent {
                     <View style={styles.coinNumContainer} >
                         <TextInput
                             editable={false}
-                            style={{ flex: 1 }}
+                            style={{ flex: 1,paddingVertical: 0 }}
                             value={this.props.moneyNum}
                             //onChangeText={(value) => this.props.moneyNumCallback(value)}
                             placeholder={`${moneyNumText}数量`}
