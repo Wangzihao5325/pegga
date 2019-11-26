@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { View, Image, Text, Dimensions, StyleSheet } from 'react-native';
-import { redBright } from 'colorette';
+import LinearGradient from 'react-native-linear-gradient';
+import { connect } from 'react-redux'
 
-export default class Item extends PureComponent {
+class Item extends Component {
     render() {
         if (this.props.item.fromAdmin) {
             return (
@@ -15,18 +16,28 @@ export default class Item extends PureComponent {
                 </View>
             );
         } else {
+            let name = this.props.info.nickName ? this.props.info.nickName : '游客';
+            let subName = name.substr(0, 1);
             return (
                 <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                     <View style={[styles.wordsContainer, { backgroundColor: 'rgb(97,130,236)' }]}>
                         {this.props.item.type == 0 && < Text style={[styles.words, { color: 'white' }]}>{`${this.props.item.message}`}</Text>}
                         {this.props.item.type == 1 && <Image style={{ width: 120, height: 175 }} source={{ uri: this.props.item.message }} />}
                     </View>
-                    <Image style={styles.avater} source={require('../../../../image/customService/assistant_head.png')} />
+                    <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.avater}>
+                        <Text style={{ color: 'white', fontSize: 24 }}>{`${subName}`}</Text>
+                    </LinearGradient>
                 </View >
             );
         }
     }
 }
+
+const mapStateToProps = (state) => ({
+    info: state.user.info
+})
+
+export default connect(mapStateToProps)(Item);
 
 const styles = StyleSheet.create({
     container: {
@@ -37,8 +48,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     avater: {
+        borderRadius: 25,
         height: 50,
-        width: 50
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     wordsContainer: {
         paddingHorizontal: 13,
