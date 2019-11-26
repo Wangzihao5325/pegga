@@ -17,11 +17,17 @@ class VerCodeInputView extends Component {
         }
     };
 
+    constructor(props) {
+        super(props);
+        this.timer = null;
+    }
+
     state = {
         countryCode: '',
         account: '',
         mode: '',
-        type: ''
+        type: '',
+        readyForSend: true
     }
 
     componentDidMount() {
@@ -36,6 +42,13 @@ class VerCodeInputView extends Component {
         });
     }
 
+    componentWillUnmount() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.safeContainer} >
@@ -48,20 +61,47 @@ class VerCodeInputView extends Component {
         );
     }
 
+    _timerSetting = () => {
+        this.setState({
+            readyForSend: false
+        });
+        this.timer = setTimeout(() => {
+            this.setState({
+                readyForSend: true
+            });
+        }, 90000);
+    }
+
     sendMsg = () => {
+        if (!this.state.readyForSend) {
+            Toast.show('发送二维码过于频繁，请稍后再尝试');
+            return;
+        }
         if (this.state.type == 'register') {
             if (this.state.mode == 'phone') {
                 Api.sendSignupMsg(this.state.account, (res) => {
                     Toast.show('发送验证码成功');
+                    this._timerSetting();
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '发送验证码失败';
+                    Toast.show(message);
                 })
             } else {
                 Api.sendMailSignupMsg(this.state.account, (res) => {
                     Toast.show('发送验证码成功');
+                    this._timerSetting();
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '发送验证码失败';
+                    Toast.show(message);
                 })
             }
         } else if (this.state.type == 'reset') {
             Api.sendForgotPwdMsg(this.state.account, (res) => {
                 Toast.show('发送验证码成功');
+                this._timerSetting();
+            }, (res, code, msg) => {
+                let message = msg ? msg : '发送验证码失败';
+                Toast.show(message);
             })
         }
     }

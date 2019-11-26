@@ -14,6 +14,7 @@ import CountrySelect from './CountrySelect';
 import Tips from './Tip4Login';
 import Input from '../../../component/input';
 import Btn from '../../../component/btn';
+import Toast from '../../../component/toast';
 
 const FUNC_TYPE = { register: 'register', reset: 'reset' };
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
@@ -98,16 +99,25 @@ export default class Login extends Component {
             if (this.state.mode == LOGIN_TYPE.phone) {
                 Api.sendSignupMsg(InputReg.account, (res) => {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '发送验证码失败';
+                    Toast.show(message);
                 })
             } else {
                 Api.sendMailSignupMsg(InputReg.account, (res) => {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '发送验证码失败';
+                    Toast.show(message);
                 })
             }
             this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
         } else if (this.state.type == FUNC_TYPE.reset) {
             Api.sendForgotPwdMsg(InputReg.account, (res) => {
                 this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
+            }, (res, code, msg) => {
+                let message = msg ? msg : '发送验证码失败';
+                Toast.show(message);
             })
         }
     }
