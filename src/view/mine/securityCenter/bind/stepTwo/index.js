@@ -18,11 +18,17 @@ class VerCodeInputView extends Component {
         }
     };
 
+    constructor(props) {
+        super(props);
+        this.timer = null;
+    }
+
     state = {
         countryCode: '',
         account: '',
         mode: '',
-        key: ''
+        key: '',
+        readyForSend: true
     }
 
     componentDidMount() {
@@ -37,6 +43,13 @@ class VerCodeInputView extends Component {
         });
     }
 
+    componentWillUnmount() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.safeContainer} >
@@ -49,11 +62,27 @@ class VerCodeInputView extends Component {
         );
     }
 
+    _timerSetting = () => {
+        this.setState({
+            readyForSend: false
+        });
+        this.timer = setTimeout(() => {
+            this.setState({
+                readyForSend: true
+            });
+        }, 90000);
+    }
+
     sendMsg = () => {
+        if (!this.state.readyForSend) {
+            Toast.show('发送二维码过于频繁，请稍后再尝试');
+            return;
+        }
         if (this.state.key == 'bindAccount') {
             if (this.state.mode == 'phone') {
                 Api.sendPhoneBindMsg(this.state.account, (res) => {
                     Toast.show('已重新发送验证码');
+                    this._timerSetting();
                 }, (res, code, msg) => {
                     let message = msg ? msg : '验证码发送失败';
                     Toast.show(message);
@@ -61,6 +90,7 @@ class VerCodeInputView extends Component {
             } else if (this.state.mode == 'mail') {
                 Api.sendMailBindMsg(this.state.account, (res) => {
                     Toast.show('已重新发送验证码');
+                    this._timerSetting();
                 }, (res, code, msg) => {
                     let message = msg ? msg : '验证码发送失败';
                     Toast.show(message);
@@ -71,6 +101,7 @@ class VerCodeInputView extends Component {
             /*
             Api.sendChangePwdMsg((res) => {
                 Toast.show('已重新发送验证码');
+                 this._timerSetting();
             }, (res, code, msg) => {
                 let message = msg ? msg : '验证码发送失败';
                 Toast.show(message);
@@ -79,6 +110,7 @@ class VerCodeInputView extends Component {
         } else if (this.state.key == 'loginPwd') {
             Api.sendChangePwdMsg((res) => {
                 Toast.show('已重新发送验证码');
+                this._timerSetting();
             }, (res, code, msg) => {
                 let message = msg ? msg : '验证码发送失败';
                 Toast.show(message);
