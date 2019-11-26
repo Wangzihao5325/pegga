@@ -112,7 +112,6 @@ class MerchantCertification extends Component {
 
     _updateFinalPageState = (pageType, applyInfoData) => {
         Api.userBusinessApply(result => {
-            console.log(result);
             this.setState({
                 listData: [{ pageType, pageState: result.status, applyInfoData }]
             });
@@ -121,10 +120,48 @@ class MerchantCertification extends Component {
 
     _updateStaplePageState = (pageType, applyInfoData) => {
         Api.userBusinessApply(result => {
+            console.log(result);
             this.setState({
                 listData: [{ pageType, pageState: result.status, applyInfoData }]
             });
         });
+    }
+
+    _staple = () => {
+        Api.userBusinessApply(result => {//当前身份 大宗
+            if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
+                Api.bussinessApplyInfo(applyInfoData => {
+                    let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.activeBalance, token: applyInfoData.token }
+                    this.setState({
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[2].key, pageState: result.status, applyInfoData: applyInfoPayload }]
+                    });
+                })
+            } else {//展示页面 信任大宗
+                Api.bussinessUpgradeApplyInfo(applyInfoData => {
+                    let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustStapleDeposit, token: applyInfoData.token }
+                    this.setState({
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[6].key, pageState: result.status, applyInfoData: applyInfoPayload }]
+                    });
+                });
+            }
+        });
+    }
+
+    _trustStaple = () => {
+        Api.bussinessUpgradeApplyInfo(applyInfoData => {
+            Api.userBusinessApply(result => {//当前身份 信任大宗
+                if (result.roleStatus == -1 && result.status == 0) {//展示页面 大宗
+                    let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token }
+                    this.setState({
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: result.status, applyInfoData: applyInfoPayload }]
+                    });
+                } else {//展示页面 信任大宗
+                    this.setState({
+                        listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[6].key, pageState: result.status, applyInfoData: applyInfoPayload }]
+                    });
+                }
+            });
+        })
     }
 
     _dataUpdate = () => {
@@ -160,18 +197,24 @@ class MerchantCertification extends Component {
                     this.setState({
                         listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[6].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
                     });
+                    /*
                     Api.bussinessUpgradeApplyInfo(applyInfoData => {
                         let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustStapleDeposit, token: applyInfoData.token }
                         this._updateFinalPageState(Enum.ROLE.BUSINESS_ROLE[6].key, applyInfoPayload);
                     })
+                    */
+                    this._trustStaple();
                 } else {//普通大宗
                     this.setState({
                         listData: [{ pageType: Enum.ROLE.BUSINESS_ROLE[6].key, pageState: 1, applyInfoData: DEFAULT_APPLY_INFO }]
                     });
+                    /*
                     Api.bussinessUpgradeApplyInfo(applyInfoData => {
                         let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustStapleDeposit, token: applyInfoData.token }
                         this._updateStaplePageState(Enum.ROLE.BUSINESS_ROLE[6].key, applyInfoPayload);
                     })
+                    */
+                    this._staple();
                 }
                 break;
             default:
@@ -205,6 +248,7 @@ class MerchantCertification extends Component {
                     {isBottomTabShow(this.props.role.roleName, this.props.role.trustStaple) &&
                         <BottomTab
                             role={this.props.role}
+                            navi={this.props.navigation}
                         />
                     }
                 </View>
@@ -253,7 +297,7 @@ class MerchantCertification extends Component {
                     break;
                 case Enum.ROLE.BUSINESS_ROLE[4].key:
                     if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[4].key) {
-
+                        //大宗商家的退款通过bottom tab
                     } else {
                         if (applyInfoData.activeBalance > applyInfoData.balance) {
                             Toast.show('账号余额不足');
@@ -271,11 +315,7 @@ class MerchantCertification extends Component {
                     break;
                 case Enum.ROLE.BUSINESS_ROLE[6].key:
                     if (this.props.role.trustStaple) {//是信任大宗 降级
-                        Api.downGrade((result, code, message,json) => {
-                            console.log(result);
-                            console.log(code);
-                            console.log(message);
-                            console.log(json);
+                        Api.downGrade((result, code, message) => {
                             Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
                         }, (result, code, message) => {

@@ -43,8 +43,16 @@ export default class BottomTab extends PureComponent {
                 let message = msg ? msg : '退款失败';
                 Toast.show(message);
             })
+        } else {
+            Api.downGrade((resut, code, msg) => {
+                Toast.show('提交成功,请等待审核');
+                this.props.navi.goBack();
+            }, (resut, code, message) => {
+                let msg = message ? message : '提交失败';
+                Toast.show(msg);
+            });
         }
-        
+
     }
 }
 

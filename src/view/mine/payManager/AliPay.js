@@ -13,6 +13,12 @@ import Toast from '../../../component/toast';
 import BoundryUtil from './boundary/boundryUtil';
 
 
+const UIDInput = () => {
+    return (
+        <View style={{ height: 110, width: Dimensions.get('window').width }}></View>
+    );
+}
+
 class AliPay extends Component {
     state = {
         accountName: '',
