@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableHighlight, Image, Dimensions, StyleShee
 import ImagePicker from 'react-native-image-crop-picker';
 import Toast from '../../../../component/toast';
 import Api from '../../../../socket';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Item = (props) => {
     return (
@@ -21,7 +22,7 @@ const FuncTabs = (props) => {
             <Item title='图片' source={require('../../../../image/customService/picture_icon.png')} callback={props.imageUpload} />
         </View>
     );
-}  
+}
 
 export default class BottomInput extends PureComponent {
     state = {
@@ -32,10 +33,17 @@ export default class BottomInput extends PureComponent {
         return (
             <View>
                 <View style={styles.container}>
-                    <TextInput style={styles.input} value={this.state.value} onChangeText={this.textChange} returnKeyType='done' onSubmitEditing={this.submit} />
+                    <TextInput style={styles.input} value={this.state.value} onChangeText={this.textChange} returnKeyType='done' />
                     <TouchableHighlight style={styles.btn} onPress={this.tabsShow} underlayColor='transparent'>
                         <Image style={{ height: 33, width: 33 }} source={require('../../../../image/customService/function.png')} />
                     </TouchableHighlight>
+                    {Boolean(this.state.value) &&
+                        <TouchableHighlight style={styles.sendBtn} onPress={this.submit} underlayColor='transparent'>
+                            <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 33, width: 66, borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: 'white' }}>发送</Text>
+                            </LinearGradient>
+                        </TouchableHighlight>
+                    }
                 </View>
                 {this.state.isShow &&
                     <FuncTabs imageUpload={this.imageUpload} />
@@ -100,8 +108,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
     input: {
+        flex: 1,
         height: 33,
-        width: Dimensions.get('window').width - 45 - 33,
         borderRadius: 5,
         marginTop: 10,
         paddingHorizontal: 5,
@@ -112,5 +120,14 @@ const styles = StyleSheet.create({
         width: 33,
         marginTop: 10,
         marginLeft: 15
+    },
+    sendBtn: {
+        height: 33,
+        width: 66,
+        marginTop: 10,
+        marginLeft: 15,
+        backgroundColor: 'red',
+        borderRadius: 5
     }
 });
+//

@@ -32,6 +32,8 @@ export default class Chat extends Component {
             let result = res.concat().reverse();
             this.setState({
                 data: result
+            }, () => {
+                this.list.scrollToEnd();
             });
         }, (res, code, msg, res1) => {
             let result = res1.concat().reverse();
@@ -46,6 +48,7 @@ export default class Chat extends Component {
     }
 
     render() {
+        console.log(this.state.data);
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
@@ -54,6 +57,7 @@ export default class Chat extends Component {
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <FlatList
+                        ref={list => this.list = list}
                         style={{ flex: 1 }}
                         data={this.state.data}
                         renderItem={({ item }) => <Item item={item} />}
