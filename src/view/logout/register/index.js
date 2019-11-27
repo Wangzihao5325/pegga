@@ -111,7 +111,6 @@ export default class Login extends Component {
                     Toast.show(message);
                 })
             }
-            this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
         } else if (this.state.type == FUNC_TYPE.reset) {
             Api.sendForgotPwdMsg(InputReg.account, (res) => {
                 this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });

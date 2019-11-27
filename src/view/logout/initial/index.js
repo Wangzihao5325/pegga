@@ -74,6 +74,9 @@ export default class Initial extends Component {
                     store.dispatch(user_info(result));
                     setTimeout(() => this.props.navigation.navigate('App'), 3000);
                 }, () => {
+                    //清空token
+                    Variables.account.token = '';
+                    AsyncStorage.setItem('App_token', '');
                     setTimeout(() => this.props.navigation.navigate('Logout'), 3000);
                 });
             } else {
