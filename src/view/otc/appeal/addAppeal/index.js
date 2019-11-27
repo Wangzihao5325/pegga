@@ -5,6 +5,7 @@ import PhotoUpload from '../../../../component/photoUpload';
 import Api from '../../../../socket';
 import Toast from '../../../../component/toast';
 import Btn from '../../../../component/btn';
+import _ from 'lodash';
 
 function ItemInput(props) {
     return (
@@ -102,11 +103,14 @@ export default class AddAppeal extends Component {
                     </View>
                     <View style={{ backgroundColor: 'white', paddingHorizontal: 15 }}>
                         <Text style={[styles.title, { marginTop: 15 }]}>填写申诉内容</Text>
-                        <TextInput style={styles.textInput} numberOfLines={5} onChangeText={this.inputChange} />
+                        <TextInput style={styles.textInput} multiline={true} numberOfLines={5} onChangeText={this.inputChange} />
                     </View>
                     <View style={{ height: 160, width: Dimensions.get('window').width, paddingBottom: 10, backgroundColor: 'white' }}>
                         <Text style={[styles.title, { marginLeft: 15, marginBottom: 5 }]}>上传凭证(最多三张)</Text>
-                        <PhotoUpload maxPic={3} />
+                        <PhotoUpload
+                            ref={imageUpload => this.imageUpload = imageUpload}
+                            maxPic={3}
+                        />
                     </View>
                     <View style={{ flex: 1, backgroundColor: 'white' }}>
                         <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.addAppeal} title='确认上传' />
@@ -143,12 +147,24 @@ export default class AddAppeal extends Component {
 
     }
 
-    appealBySource = () => {
+    appealBySource = async () => {
+        Toast.show('申诉内容上传中，请耐心等待');
+
+        let refStateData = this.imageUpload.state.imageSelectData;
+        let imageUrlArrReg = await Promise.all(refStateData.map(async (item) => {
+            if (item.size > 0) {
+                let imageUrl = await Api.imageUploadPromise(item);
+                return imageUrl.data
+            } else {
+                return null;
+            }
+        }));
+        let imageUrlArr = _.compact(imageUrlArrReg);
         let payload = {
             appealType: this.state.data[0].key,
             orderNo: this.state.orderId,
             reason: Reg.inputText,
-            sourceAppealPics: ['www.123.com']
+            sourceAppealPics: imageUrlArr
         };
         Api.appealBySource(payload, () => {
             Toast.show('提交证据成功！');
@@ -157,14 +173,27 @@ export default class AddAppeal extends Component {
             let message = msg ? msg : '提交证据失败！';
             Toast.show(`${message}`);
         });
+
     }
 
-    appealByTarget = () => {
+    appealByTarget = async () => {
+        Toast.show('申诉内容上传中，请耐心等待');
+
+        let refStateData = this.imageUpload.state.imageSelectData;
+        let imageUrlArrReg = await Promise.all(refStateData.map(async (item) => {
+            if (item.size > 0) {
+                let imageUrl = await Api.imageUploadPromise(item);
+                return imageUrl.data
+            } else {
+                return null;
+            }
+        }))
+        let imageUrlArr = _.compact(imageUrlArrReg);
         let payload = {
             appealType: this.state.data[0].key,
             orderNo: this.state.orderId,
             reason: Reg.inputText,
-            sourceAppealPics: ['www.123.com']
+            sourceAppealPics: imageUrlArr
         };
         Api.appealByTarget(payload, () => {
             Toast.show('提交证据成功！');
