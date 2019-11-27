@@ -4,7 +4,7 @@ import { View, Dimensions, Text, Image, StyleSheet } from 'react-native';
 function ImageItem(props) {
     return (
         <View style={{ height: 85, width: 95, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ height: 85, width: 85, borderColor: '#EAEAEA', borderWidth: 1 }} source={{ uri: props.item }} defaultSource={require('../../../image/no_image/index_selected.png')} />
+            <Image style={{ height: 85, width: 85, borderColor: '#EAEAEA', borderWidth: 1 }} source={{ uri: props.item }} />
         </View>
     );
 }
