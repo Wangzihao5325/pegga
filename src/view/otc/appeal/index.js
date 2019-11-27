@@ -9,6 +9,7 @@ import Item from '../../otc/tradingHall/newAd/Item';
 import Toast from '../../../component/toast';
 import Value2Str from '../../../global/util/MapValue2Str';
 import EvidenceItem from './EvidenceItem';
+import LinearGradient from 'react-native-linear-gradient';
 
 function AppealInfo(props) {
     let beforeStatusTextArr = Value2Str.orderStateTextWithStyle(props.orderStatusBeforeAppeal, 13);
@@ -263,7 +264,7 @@ export default class Appeal extends Component {
                             <Text style={styles.bgContext}>该订单存在纠纷,官方会尽快进行处理</Text>
                         </View>
                     </ImageBackground>
-                    <Select.Scroll
+                    <Select.ScrollLinear
                         data={[{ title: '申诉信息', key: 'appeal' }, { title: '订单信息', key: 'order' }, { title: '证据', key: 'evidence' }]}
                         isFlex={true}
                         style={{ backgroundColor: 'white' }}
@@ -313,9 +314,11 @@ export default class Appeal extends Component {
                         <TouchableHighlight onPress={this.connect} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                             <Text style={styles.bottomBtnText}>联系买家</Text>
                         </TouchableHighlight>
-                        <TouchableHighlight onPress={this.btnPress} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(64,99,213)' }}>
-                            <Text style={styles.bottomBtnText}>{`${btnText}`}</Text>
-                        </TouchableHighlight>
+                        <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 2, position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+                            <TouchableHighlight onPress={this.btnPress} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={styles.bottomBtnText}>{`${btnText}`}</Text>
+                            </TouchableHighlight>
+                        </LinearGradient>
                     </View>
                 </View>
             </SafeAreaView>

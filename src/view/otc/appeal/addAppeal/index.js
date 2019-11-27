@@ -109,7 +109,7 @@ export default class AddAppeal extends Component {
                         <PhotoUpload maxPic={3} />
                     </View>
                     <View style={{ flex: 1, backgroundColor: 'white' }}>
-                        <Btn.Normal style={styles.btn} textStyle={styles.btnText} btnPress={this.addAppeal} title='确认上传' />
+                        <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.addAppeal} title='确认上传' />
                     </View>
                 </View>
             </SafeAreaView>
