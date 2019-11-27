@@ -17,7 +17,7 @@ class WechatPay extends Component {
         accountName: '',
         account: '',
         weChatAlias: '',
-        //url: 'www.test.png',
+        url: '',
         auditStatus: 1,
         auditStatusText: '',
 
@@ -86,6 +86,7 @@ class WechatPay extends Component {
                 <View style={{ height: 180, width: Dimensions.get('window').width, marginTop: 10, paddingBottom: 10, backgroundColor: 'white' }}>
                     <Text style={styles.uploadText}>上传收款二维码</Text>
                     <PhotoUpload
+                        initValue={[{ size: -1, path: this.state.url, sourceURL: this.state.url }]}
                         ref={imageUpload => this.imageUpload = imageUpload}
                         maxPic={1} />
                 </View>
@@ -152,7 +153,6 @@ class WechatPay extends Component {
             Toast.show(this.state.auditStatusText);
             return;
         }
-        Toast.show('信息提交中，请勿进行其他操作');
         let payload = {
             realName: this.state.accountName,
             weixinNo: this.state.account,
@@ -171,12 +171,18 @@ class WechatPay extends Component {
         }
         let refStateData = this.imageUpload.state.imageSelectData;
         let qrCodeUrl = null
-        if (refStateData[0].size >= 0) {
+        if (refStateData[0].size > 0) {
+            Toast.show('信息提交中，请勿进行其他操作');
             qrCodeUrl = await Api.imageUploadPromise(refStateData[0]);
             payload.weixinQrCode = qrCodeUrl.data
+        } else if (refStateData[0].size == 0) {
+            Toast.show('请选择支付二维码');
+            return;
+        } else if (refStateData[0].size < 0) {
+            payload.weixinQrCode = refStateData[0].path
         }
         Api.weChat(payload, () => {
-            Toast.show('绑定微信支付成功！')
+            Toast.show('微信支付信息提交成功！')
         }, (result, code, message) => {
             let msg = message ? message : '绑定微信支付失败!';
             Toast.show(msg)

@@ -4,6 +4,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import Toast from '../../component/toast';
 import Api from '../../socket/index';
 
+//{sixe:0} size ==0 加号  size>0 本地图片 size==-1网络图片
+
 class ImageItem extends PureComponent {
     selectBtnOnPress = () => {
         if (this.props.selectTap) {
@@ -54,6 +56,18 @@ export default class PhotoUpload extends PureComponent {
 
     state = {
         imageSelectData: [{ size: 0 }],
+        isInit: true
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (state.isInit && props.initValue && props.initValue[0] && props.initValue[0].path && props.initValue[0].sourceURL) {
+            return {
+                imageSelectData: props.initValue,
+                isInit: false
+            }
+        } else {
+            return null;
+        }
     }
 
     render() {
@@ -97,9 +111,13 @@ export default class PhotoUpload extends PureComponent {
     }
 
     delePic = (path) => {
+        console.log('1111')
+        console.log(path)
         let { imageSelectData } = this.state;
         let deleIndex = -1;
         imageSelectData.every((item, index) => {
+            console.log('2222')
+            console.log(item)
             if (item.path === path) {
                 deleIndex = index;
                 return false;
