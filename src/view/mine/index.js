@@ -14,6 +14,7 @@ import { NavigationEvents } from 'react-navigation';
 import Header from './Header';
 import Item from './Item';
 import Value2Str from '../../global/util/MapValue2Str';
+import Toast from '../../component/toast';
 
 class Mine extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -69,7 +70,7 @@ class Mine extends Component {
                     title='身份认证'
                     stateText={kycStatusText}
                     avater={require('../../image/mine/identity.png')}
-                    btnPress={() => this.navigate('Identity')}
+                    btnPress={this.goToIdentity}
                 />
                 <Item
                     title='支付方式管理'
@@ -105,6 +106,21 @@ class Mine extends Component {
                 />
             </View>
         );
+    }
+
+    goToIdentity = () => {
+        const { kycAuditStatus, kycLevel } = this.props.kyc;
+        if (kycAuditStatus == 0) {//审核中
+            Toast.show('信息审核中,请耐心等待');
+        } else if (kycAuditStatus == 1) {
+            if (kycLevel == 0) {
+                this.navigate('Identity');
+            } else {
+                Toast.show('您已进行过身份认证');
+            }
+        } else {
+            this.navigate('Identity');
+        }
     }
 
     navigate = (view) => {
