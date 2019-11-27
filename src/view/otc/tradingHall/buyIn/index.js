@@ -150,7 +150,6 @@ class BuyIn extends Component {
             amount: parseFloat(this.state.coinNum),
             legalAmount: parseFloat(this.state.moneyNum)
         }, (result) => {
-            Toast.show('生成订单成功,正在为您跳转到订单详情页');
             let orderNum = result.orderNo;
             this.props.navigation.pop();
             this.props.navigation.navigate('OTC_OrderDetails', { orderNum });
