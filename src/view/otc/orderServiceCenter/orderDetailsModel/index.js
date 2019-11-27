@@ -515,8 +515,8 @@ export default class OrderDetail extends Component {
                     </View>
                     <SellerInfo
                         orderType={this.state.orderType}
-                        sellerInfo={this.state.sellerInfo}
-                        buyerInfo={this.state.buyerInfo}
+                        sellerInfo={this.state.sellerInfo ? this.state.sellerInfo : {}}
+                        buyerInfo={this.state.buyerInfo ? this.state.buyerInfo : {}}
                         seeDetail={this.goToDetailInfo}
                     />
                     <AssetsInfo

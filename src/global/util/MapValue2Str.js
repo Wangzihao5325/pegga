@@ -28,7 +28,7 @@ class Value2Str {
             case 0:
                 return '未认证';
             case 1:
-                return '身份照片认证';
+                return '已认证';
             case 2:
                 return '视频认证';
             default:

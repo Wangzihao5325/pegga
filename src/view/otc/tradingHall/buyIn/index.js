@@ -150,10 +150,10 @@ class BuyIn extends Component {
             amount: parseFloat(this.state.coinNum),
             legalAmount: parseFloat(this.state.moneyNum)
         }, (result) => {
-            Toast.show('生成订单成功,请前往订单管理页面查看');
+            Toast.show('生成订单成功,正在为您跳转到订单详情页');
+            let orderNum = result.orderNo;
             this.props.navigation.pop();
-            // let orderNum = result.orderNo;
-            // this.props.navigation.navigate('OTC_OrderDetails', { orderNum });
+            this.props.navigation.navigate('OTC_OrderDetails', { orderNum });
         }, (result, code, msg) => {
             let message = msg ? msg : '生成订单失败';
             Toast.show(message);
