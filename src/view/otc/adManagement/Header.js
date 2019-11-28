@@ -31,7 +31,7 @@ class Header extends Component {
             Api.adAutoFitter((result) => {
                 store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
             });
-        }, 60000);
+        }, 3000);
     }
 
     naviDidFocus = () => {
