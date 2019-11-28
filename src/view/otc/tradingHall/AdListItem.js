@@ -12,6 +12,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
+import NavigationService from '../../../app/router/NavigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import Utils from '../../../global/util';
 import Btn from '../../../component/btn';
@@ -58,9 +59,9 @@ export default class Item extends PureComponent {
                             start={{ x: 0, y: 0 }}
                             end={{ x: 0, y: 1 }}
                         >
-                            <Text style={styles.alias}>{`${alias}`}</Text>
+                            <Text onPress={this.goToDetail} style={styles.alias}>{`${alias}`}</Text>
                         </LinearGradient>
-                        <Text style={styles.nickName}>{`${nickName}`}</Text>
+                        <Text onPress={this.goToDetail} style={styles.nickName}>{`${nickName}`}</Text>
                         <View style={styles.itemPriceWrapper}>
                             <Text style={styles.itemPriceText}>{this.props.item.price} <Text style={styles.itemUnitText}>{`${this.props.item.fiat}`}</Text></Text>
                         </View>
@@ -116,6 +117,12 @@ export default class Item extends PureComponent {
         if (typeof this.props.tradeCallback == 'function') {
             this.props.tradeCallback();
         }
+    }
+
+    goToDetail = () => {
+        //_todoList:userId字段更换
+        let sellerInfoStr = JSON.stringify({ buyerNo: this.props.item.userNo, sellerNo: this.props.item.userNo });
+        NavigationService.navigate('OTC_SellerDetailInfo', { sellerInfoStr });
     }
 }
 const styles = StyleSheet.create({

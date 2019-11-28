@@ -158,8 +158,6 @@ function OrderInfo(props) {//payType
 }
 
 function EvidenceInfo(props) {
-    console.log('-------');
-    console.log(props);
     return (
         <View style={{ flex: 1 }}>
             {typeof props.sellerAppealReason == 'string' &&

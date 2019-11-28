@@ -38,12 +38,12 @@ class ImageItem extends PureComponent {
                 uri = this.props.item.sourceURL;
             }
             return (
-                <View style={styles.thumbnail}>
-                    <Image resizeMode='stretch' style={{ height: 100, width: 100 }} source={{ uri: uri }} />
-                    <TouchableHighlight onPress={this.delePic} style={{ height: 20, width: 20, position: 'absolute', top: 10, right: 10, display: 'flex', backgroundColor: '#CCCBCC', borderRadius: 10 }}>
-                        <Image style={{ height: 20, width: 20 }} source={require('../../image/usual/delete_pic.png')} />
-                    </TouchableHighlight>
-                </View>
+                    <View style={styles.thumbnail}>
+                        <Image resizeMode='stretch' style={{ height: 100, width: 100 }} source={{ uri: uri }} />
+                        <TouchableHighlight onPress={this.delePic} style={{ height: 20, width: 20, position: 'absolute', top: 10, right: 10, display: 'flex', backgroundColor: '#CCCBCC', borderRadius: 10 }}>
+                            <Image style={{ height: 20, width: 20 }} source={require('../../image/usual/delete_pic.png')} />
+                        </TouchableHighlight>
+                    </View>
             );
         }
     }
@@ -111,13 +111,9 @@ export default class PhotoUpload extends PureComponent {
     }
 
     delePic = (path) => {
-        console.log('1111')
-        console.log(path)
         let { imageSelectData } = this.state;
         let deleIndex = -1;
         imageSelectData.every((item, index) => {
-            console.log('2222')
-            console.log(item)
             if (item.path === path) {
                 deleIndex = index;
                 return false;

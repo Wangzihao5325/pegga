@@ -36,8 +36,8 @@ const ItemHeader = (props) => {
             }
             break;
         case Enum.ROLE.BUSINESS_ROLE[4].key://大宗
-            imageSource = require('../../../image/mine/merchant/trustBulk.png');
-            titleText = '信任大宗';
+            imageSource = require('../../../image/mine/merchant/bulk.png');
+            titleText = '大宗商家';
             payTitle = '质押数量';
             btnTextStyle = { color: 'rgb(255,255,255)' };
             btnStyle = { borderColor: 'white', borderWidth: 1, backgroundColor: 'transparent' }
