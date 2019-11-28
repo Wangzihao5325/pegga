@@ -12,6 +12,8 @@ import Btn from '../../../component/btn';
 import Toast from '../../../component/toast';
 import BoundryUtil from './boundary/boundryUtil';
 import LinearGradient from 'react-native-linear-gradient';
+import QRCode from 'react-native-qrcode-svg';
+import { SERVICE_URL } from '../../../global/Config';
 
 const UIDInput = (props) => {
     const showChange = () => {
@@ -31,12 +33,28 @@ const UIDInput = (props) => {
                 <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(40,46,60)', }}>支付宝UID</Text>
                 <Text onPress={showChange} style={{ fontSize: 13, color: 'rgb(75,136,227)', fontFamily: 'PingFang-SC-Medium' }}>{`${btnText}`}</Text>
             </View>
-            <TextInput value={props.value} onChangeText={(value) => textChange(value)} style={{ paddingHorizontal: 15, paddingVertical: 0, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
+            <TextInput placeholder='请输入支付宝用户ID' value={props.value} onChangeText={(value) => textChange(value)} style={{ paddingHorizontal: 15, paddingVertical: 0, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
         </View>
     )
 }
 
 const AppendPart = (props) => {
+    const [qrCode, setQrCode] = useState('https://render.alipay.com/p/f/fd-ixpo7iia/index.html');
+    const [isShow, setIsShow] = useState(false);
+    const textChange = (value) => {
+        if (isShow) {
+            setIsShow(false);
+        }
+        if (typeof props.textChange == 'function') {
+            props.textChange(value)
+        }
+    }
+    const makeQrCode = () => {
+        let paramPart = `${SERVICE_URL.payment}?u=${props.value}&a=0.01`
+        let url = `alipays://platformapi/startapp?appId=20000691&url=${encodeURIComponent(paramPart)}`;
+        setQrCode(url);
+        setIsShow(true);
+    }
     return (
         <View style={{ paddingHorizontal: 15 }}>
             <View style={{ height: 43, width: Dimensions.get('window').width - 30, borderRadius: 5, backgroundColor: '#EDF3FC', justifyContent: 'center', alignItems: 'center' }}>
@@ -48,7 +66,38 @@ const AppendPart = (props) => {
                 </LinearGradient>
                 <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>用支付宝扫码二维码,获取用户ID</Text>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, height: 120, width: 160, paddingHorizontal: 30 }}>
+                <QRCode
+                    value="https://render.alipay.com/p/f/fd-ixpo7iia/index.html"
+                />
+            </View>
+            <View style={{ height: 40, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
+                <TextInput placeholder='请输入支付宝用户ID' value={props.value} onChangeText={(value) => textChange(value)} style={{ marginLeft: 10, marginRight: 10, paddingHorizontal: 15, paddingVertical: 0, width: Dimensions.get('window').width - 55 - 94 - 10, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
+                <Btn.Linear
+                    style={{ height: 40, width: 94, borderRadius: 5 }}
+                    textStyle={{ color: 'white', textAlign: 'center', textAlignVertical: 'center', fontSize: 15 }}
+                    btnPress={makeQrCode}
+                    title='生成收款码'
+                />
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
+                <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 15, width: 15, justifyContent: 'center', alignItems: 'center', borderRadius: 7 }}>
+                    <Text style={{ color: 'white' }}>2</Text>
+                </LinearGradient>
+                <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>验证收款二维码</Text>
+            </View>
+            <Text style={{ marginTop: 10, marginLeft: 25, fontSize: 12, fontFamily: 'PingFang-SC-Medium', color: 'rgb(124,125,129)' }}>请用他人手机扫描下方二维码并支付0.01元,您将收到该款项</Text>
+            <View style={{ position: 'relative', flexDirection: 'row', alignItems: 'center', paddingVertical: 10, height: 120, width: 160, paddingHorizontal: 30 }}>
+                {!isShow &&
+                    <View style={{ padding: 5, zIndex: 100, position: 'absolute', top: 45, left: 45, backgroundColor: '#858585', borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white', fontSize: 10 }}>请输入</Text>
+                        <Text style={{ color: 'white', fontSize: 10 }}>支付宝用户ID</Text>
+                    </View>
+                }
+                <QRCode
+                    value={qrCode}
+                    color={isShow ? 'black' : '#858585'}
+                />
             </View>
         </View>
     );
@@ -71,7 +120,10 @@ const UIDComponent = (props) => {
             />
             {
                 isShow &&
-                <AppendPart />
+                <AppendPart
+                    value={UIDText}
+                    textChange={(value) => setUIDText(value)}
+                />
             }
         </View>
     )
