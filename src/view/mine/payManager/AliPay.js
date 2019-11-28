@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import React, { Component, useState } from 'react';
+import { View, Text, Dimensions, TextInput, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import store from '../../../store';
@@ -11,12 +11,70 @@ import Boundary from './boundary';
 import Btn from '../../../component/btn';
 import Toast from '../../../component/toast';
 import BoundryUtil from './boundary/boundryUtil';
+import LinearGradient from 'react-native-linear-gradient';
 
-
-const UIDInput = () => {
+const UIDInput = (props) => {
+    const showChange = () => {
+        if (typeof props.callback == 'function') {
+            props.callback(props.isShow);
+        }
+    }
+    const textChange = (value) => {
+        if (typeof props.textChange == 'function') {
+            props.textChange(value)
+        }
+    }
+    let btnText = props.isShow ? '收起' : '获取方法';
     return (
-        <View style={{ height: 110, width: Dimensions.get('window').width }}></View>
+        <View style={{ height: 110, width: Dimensions.get('window').width, padding: 15 }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(40,46,60)', }}>支付宝UID</Text>
+                <Text onPress={showChange} style={{ fontSize: 13, color: 'rgb(75,136,227)', fontFamily: 'PingFang-SC-Medium' }}>{`${btnText}`}</Text>
+            </View>
+            <TextInput value={props.value} onChangeText={(value) => textChange(value)} style={{ paddingHorizontal: 15, paddingVertical: 0, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
+        </View>
+    )
+}
+
+const AppendPart = (props) => {
+    return (
+        <View style={{ paddingHorizontal: 15 }}>
+            <View style={{ height: 43, width: Dimensions.get('window').width - 30, borderRadius: 5, backgroundColor: '#EDF3FC', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: 13, fontFamily: 'PingFang-SC-Medium', color: 'rgb(75,136,227)' }}>说明:此操作关系到收款的安全性,请务必根据流程操作</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
+                <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 15, width: 15, justifyContent: 'center', alignItems: 'center', borderRadius: 7 }}>
+                    <Text style={{ color: 'white' }}>1</Text>
+                </LinearGradient>
+                <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>用支付宝扫码二维码,获取用户ID</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            </View>
+        </View>
     );
+}
+
+const UIDComponent = (props) => {
+    const [isShow, setShow] = useState(false);
+    const [UIDText, setUIDText] = useState('');
+
+    const showCallback = (value) => {
+        setShow(!value)
+    }
+    return (
+        <View style={{ backgroundColor: 'white' }}>
+            <UIDInput
+                isShow={isShow}
+                callback={showCallback}
+                value={UIDText}
+                textChange={(value) => setUIDText(value)}
+            />
+            {
+                isShow &&
+                <AppendPart />
+            }
+        </View>
+    )
 }
 
 class AliPay extends Component {
@@ -94,13 +152,14 @@ class AliPay extends Component {
                     value={this.state.accountNickName}
                     callback={this.stateUpdate('accountNickName')}
                 />
-                <ItemInput
+                <UIDComponent />
+                {/* <ItemInput
                     isControl
                     title='支付宝uuid'
                     placeholder='请输入uuid'
                     value={this.state.uuid}
                     callback={this.stateUpdate('uuid')}
-                />
+                /> */}
                 <View style={{ height: 180, width: Dimensions.get('window').width, marginTop: 10, paddingBottom: 10, backgroundColor: 'white' }}>
                     <Text style={styles.uploadText}>上传收款二维码</Text>
                     <PhotoUpload
