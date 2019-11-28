@@ -38,6 +38,7 @@ class BuyIn extends Component {
         remark: '',
         orderFillRateLastMonth: '',
         id: '',
+        userNo: '',
 
         coinNum: '',
         moneyNum: '',
@@ -68,6 +69,7 @@ class BuyIn extends Component {
             remark: itemData.remark,
             orderFillRateLastMonth: this._rateCal(itemData.orderFilledCount, itemData.orderEndCount),
             id: itemData.advertiseNo,
+            userNo: itemData.userNo
         });
     }
 
@@ -95,6 +97,7 @@ class BuyIn extends Component {
                                 amount={this.state.amount}
                                 payType={this.state.payType}
                                 remark={this.state.remark}
+                                callback={this.goToSellerInfo}
                             />
                             <Num
                                 tradeType={this.state.tradeType}
@@ -121,6 +124,11 @@ class BuyIn extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    goToSellerInfo = () => {
+        let sellerInfoStr = JSON.stringify({ buyerNo: this.state.userNo, sellerNo: this.state.userNo });
+        this.props.navigation.navigate('OTC_SellerDetailInfo', { sellerInfoStr });
     }
 
     coinNumChange = (value) => {

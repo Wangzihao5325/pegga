@@ -32,9 +32,9 @@ export default class Info extends PureComponent {
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}
                     >
-                        <Text style={styles.avaterText}>{this.props.name.substr(0, 1)}</Text>
+                        <Text onPress={this.goToSellerInfo} style={styles.avaterText}>{this.props.name.substr(0, 1)}</Text>
                     </LinearGradient>
-                    <Text style={styles.name}>{this.props.name}</Text>
+                    <Text onPress={this.goToSellerInfo} style={styles.name}>{this.props.name}</Text>
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <Text style={styles.tradeRate}>{`${this.props.tradeRate}成交率`}</Text>
                     </View>
@@ -87,6 +87,12 @@ export default class Info extends PureComponent {
                 />
             </View>
         );
+    }
+
+    goToSellerInfo = () => {
+        if (typeof this.props.callback == 'function') {
+            this.props.callback();
+        }
     }
 }
 
