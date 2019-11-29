@@ -18,6 +18,7 @@ import Api from '../../../../socket/index';
 import Colors from '../../../../global/Colors';
 import Select from '../../../../component/select';
 import Toast from '../../../../component/toast';
+import NavigationService from '../../../../app/router/NavigationService';
 
 function InfoBanner(props) {
     return (
@@ -66,11 +67,14 @@ function ItemDisplayQrCode(props) {
 }
 
 function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
+    console.log('11111');
+    console.log(props);
     const setClipboard = (value) => {
         Clipboard.setString(`${value}`);
         Toast.show('复制成功');
     }
     const toQrCode = () => {
+        NavigationService.navigate('ImageDetail', { uri: props.info.qrCode });
 
     }
     return (
@@ -83,11 +87,14 @@ function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
     )
 }
 function WechatPayInfo(props) {
+    console.log('22222');
+    console.log(props);
     const setClipboard = (value) => {
         Clipboard.setString(`${value}`);
         Toast.show('复制成功');
     }
     const toQrCode = () => {
+        NavigationService.navigate('ImageDetail', { uri: props.info.qrCode });
 
     }
     return (
