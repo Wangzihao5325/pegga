@@ -3,6 +3,7 @@ import {
     SafeAreaView,
     View,
     FlatList,
+    ScrollView,
     StyleSheet
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
@@ -34,8 +35,13 @@ export default class TradingHall extends Component {
                 />
                 <Header goBackCallback={this.goBack} navi={this.props.navigation} />
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2', flexDirection: 'column', alignItems: 'center' }}>
-                    <Container navi={this.props.navigation} />
-                    <AdList navi={this.props.navigation} />
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        nestedScrollEnabled={true}
+                    >
+                        <Container navi={this.props.navigation} />
+                        <AdList navi={this.props.navigation} />
+                    </ScrollView>
                     <AdBtn btnPress={() => this.props.navigation.navigate('NewAd')} />
                 </View>
             </SafeAreaView>
