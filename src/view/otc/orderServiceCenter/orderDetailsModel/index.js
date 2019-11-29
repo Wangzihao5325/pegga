@@ -6,7 +6,8 @@ import {
     TouchableHighlight,
     Image,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    Clipboard
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -39,35 +40,76 @@ function ItemDisplay(props) {
     )
 }
 
-function AliPayInfo(props) {//qrCode
+function ItemDisplayWithCopy(props) {
+    return (
+        <View style={styles.itemContainer}>
+            <Text style={styles.itemTitle}>{props.title}</Text>
+            <TouchableHighlight underlayColor='transparent' onPress={() => props.callback(props.context)}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={styles.itemContext}>{props.context}</Text>
+                    <Image style={{ height: 15, width: 15, marginLeft: 10 }} source={require('../../../../image/usual/copy.png')} />
+                </View>
+            </TouchableHighlight>
+        </View>
+    )
+}
+
+function ItemDisplayQrCode(props) {
+    return (
+        <TouchableHighlight underlayColor='transparent' onPress={props.callback}>
+            <View style={styles.itemContainer}>
+                <Text style={styles.itemTitle}>{props.title}</Text>
+                <Image style={{ height: 22, width: 22 }} source={require('../../../../image/usual/qrCode.png')} />
+            </View>
+        </TouchableHighlight>
+    )
+}
+
+function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
+    const setClipboard = (value) => {
+        Clipboard.setString(`${value}`);
+        Toast.show('复制成功');
+    }
+    const toQrCode = () => {
+
+    }
     return (
         <View>
             <ItemDisplay title='收款人' context={props.info.realName} />
-            <ItemDisplay title='支付宝账号' context={props.info.no} />
             <ItemDisplay title='支付宝昵称' context={props.info.nickName} />
-            <ItemDisplay title='uuid' context={props.info.uuid} />
-            <ItemDisplay title='备注' context={props.info.memo} />
+            <ItemDisplayWithCopy title='支付宝账号' context={props.info.no} callback={setClipboard} />
+            <ItemDisplayQrCode title='收款二维码' callback={toQrCode} />
         </View>
     )
 }
 function WechatPayInfo(props) {
+    const setClipboard = (value) => {
+        Clipboard.setString(`${value}`);
+        Toast.show('复制成功');
+    }
+    const toQrCode = () => {
+
+    }
     return (
         <View>
             <ItemDisplay title='收款人' context={props.info.realName} />
-            <ItemDisplay title='微信账号' context={props.info.no} />
             <ItemDisplay title='微信昵称' context={props.info.nickName} />
-            <ItemDisplay title='备注' context={props.info.memo} />
+            <ItemDisplayWithCopy title='微信账号' context={props.info.no} callback={setClipboard} />
+            <ItemDisplayQrCode title='收款二维码' callback={toQrCode} />
         </View>
     )
 }
 function BankCardInfo(props) {
+    const setClipboard = (value) => {
+        Clipboard.setString(`${value}`);
+        Toast.show('复制成功');
+    }
     return (
         <View>
             <ItemDisplay title='收款人' context={props.info.realName} />
             <ItemDisplay title='银行名称' context={props.info.bank} />
             <ItemDisplay title='开户支行' context={props.info.branch} />
-            <ItemDisplay title='银行卡号' context={props.info.card} />
-            <ItemDisplay title='备注' context={props.info.memo} />
+            <ItemDisplayWithCopy title='银行卡号' context={props.info.card} callback={setClipboard} />
         </View>
     )
 }
