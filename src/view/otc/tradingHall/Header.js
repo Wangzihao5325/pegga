@@ -53,7 +53,7 @@ class Header extends PureComponent {
                     onRequestClose={() => console.log('close')}
                 >
                     <SafeAreaView style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                        <TouchableHighlight style={styles.model} onPress={() => this.setState({ isModelShow: false })}>
+                        <TouchableHighlight underlayColor='transparent' style={styles.model} onPress={() => this.setState({ isModelShow: false })}>
                             <PopTab
                                 orderCenter={() => this.goToPage('OrderServiceCenterView')}
                                 adManage={() => this.goToPage('AdManagementView')}
