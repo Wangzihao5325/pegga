@@ -6,21 +6,23 @@ import { connect } from 'react-redux'
 class Item extends Component {
     render() {
         if (this.props.item.fromAdmin) {
+            let containerStyle = this.props.item.type == 0 ? styles.wordsContainer : styles.imageContainer;
             return (
                 <View style={[styles.container, { justifyContent: 'flex-start' }]}>
                     <Image style={styles.avater} source={require('../../../../image/customService/assistant_head.png')} />
-                    <View style={[styles.wordsContainer, { backgroundColor: 'white', borderWidth: 1, borderColor: 'rgb(179,179,179)' }]}>
+                    <View style={[containerStyle, { backgroundColor: 'white', borderWidth: 1, borderColor: 'rgb(179,179,179)' }]}>
                         {this.props.item.type == 0 && <Text style={[styles.words, { color: 'rgb(40,46,60)' }]}>{`${this.props.item.message}`}</Text>}
-                        {this.props.item.type == 1 && <Image style={{ width: 120, height: 175 }} source={{ uri: this.props.item.message }} />}
+                        {this.props.item.type == 1 && <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.message }} />}
                     </View>
                 </View>
             );
         } else {
             let name = this.props.info.nickName ? this.props.info.nickName : '游客';
             let subName = name.substr(0, 1);
+            let containerStyle = this.props.item.type == 0 ? styles.wordsContainer : styles.imageContainer;
             return (
                 <View style={[styles.container, { justifyContent: 'flex-end' }]}>
-                    <View style={[styles.wordsContainer, { backgroundColor: 'rgb(97,130,236)' }]}>
+                    <View style={[containerStyle, { backgroundColor: 'rgb(97,130,236)' }]}>
                         {this.props.item.type == 0 && < Text style={[styles.words, { color: 'white' }]}>{`${this.props.item.message}`}</Text>}
                         {this.props.item.type == 1 && <Image style={{ width: 120, height: 175 }} source={{ uri: this.props.item.message }} />}
                     </View>
@@ -53,6 +55,12 @@ const styles = StyleSheet.create({
         width: 50,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    imageContainer: {
+        paddingHorizontal: 0,
+        paddingVertical: 0,
+        marginHorizontal: 10,
+        borderRadius:5
     },
     wordsContainer: {
         paddingHorizontal: 13,

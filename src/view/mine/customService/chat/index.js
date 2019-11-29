@@ -48,6 +48,8 @@ export default class Chat extends Component {
     }
 
     render() {
+        console.log('1111222');
+        console.log(this.state.data);
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
