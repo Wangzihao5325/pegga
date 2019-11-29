@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     SafeAreaView,
     View,
+    StatusBar,
     FlatList,
     ScrollView,
     StyleSheet
@@ -33,6 +34,7 @@ export default class TradingHall extends Component {
                 <NavigationEvents
                     onDidFocus={this.naviDidFocus}
                 />
+                <StatusBar backgroundColor='white' barStyle='dark-content' hidden={false} />
                 <Header goBackCallback={this.goBack} navi={this.props.navigation} />
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2', flexDirection: 'column', alignItems: 'center' }}>
                     <ScrollView

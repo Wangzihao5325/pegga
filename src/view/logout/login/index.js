@@ -40,7 +40,7 @@ class Login extends Component {
     render() {
         return (
             <SafeAreaView style={styles.safeContainer}>
-                <StatusBar backgroundColor='white' barStyle='dark-content' />
+                <StatusBar backgroundColor='white' barStyle='dark-content' hidden={false} />
                 <Text style={styles.titleText}>登陆</Text>
                 <CountrySelect isShow={this.state.mode === LOGIN_TYPE.phone} callback={this.selectCountry} />
                 <Input.Account

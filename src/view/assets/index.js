@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     SafeAreaView,
     StatusBar,
+    Platform,
     StyleSheet
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
@@ -24,6 +25,9 @@ export default class Assets extends Component {
     };
 
     naviDidFocus = () => {
+        if(Platform.OS =='android'){
+            StatusBar.setHidden(false);
+        }
         assets_info_update();
     }
 
@@ -33,7 +37,6 @@ export default class Assets extends Component {
                 <NavigationEvents
                     onDidFocus={this.naviDidFocus}
                 />
-                <StatusBar translucent={false} backgroundColor='white' barStyle='dark-content' />
                 <Header.Normal title='资产' showBackBtn={false} />
                 <Banner
                     trans={this.devloping}

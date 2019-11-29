@@ -31,6 +31,7 @@ export default class Header extends PureComponent {
 const styles = StyleSheet.create({
     container: {
         height: 44,
+        marginTop: 24,
         width: Dimensions.get('window').width,
         display: 'flex',
         flexDirection: 'row',

@@ -120,7 +120,6 @@ class MoneyFlow extends Component {
                 break;
         }
         Api.moneyFlowList(payload, (result) => {
-            console.log(result);
             this.setState({
                 data: result.records,
                 page: result.pages
@@ -135,7 +134,6 @@ class MoneyFlow extends Component {
     render() {
         return (
             <>
-                <StatusBar barStyle='dark-content' />
                 <NavigationEvents
                     onDidFocus={this.naviDidFocus}
                 />

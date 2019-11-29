@@ -24,10 +24,12 @@ export default class AssetsDetail extends Component {
     }
 
     naviWillFocus = () => {
-        StatusBar.setBarStyle('light-content');
         if (Platform.OS == 'android') {
-            StatusBar.setBackgroundColor('#4063D5');
+            StatusBar.setTranslucent(true);
+            StatusBar.setBackgroundColor('transparent');
+            StatusBar.setBarStyle('light-content');
         }
+        StatusBar.setBarStyle('light-content');
     }
 
     componentDidMount() {
@@ -43,16 +45,17 @@ export default class AssetsDetail extends Component {
     }
 
     naviWillBlur = () => {
-        StatusBar.setBarStyle('dark-content');
         if (Platform.OS == 'android') {
+            StatusBar.setTranslucent(false);
             StatusBar.setBackgroundColor('white');
         }
+        StatusBar.setBarStyle('dark-content');
     }
 
     render() {
         return (
             <ImageBackground style={styles.imageBg} imageStyle={styles.image} source={require('../../../image/assets/assets_detail_bg.png')}>
-                <SafeAreaView style={styles.safeContainer} >
+                <View style={styles.safeContainer} >
                     <NavigationEvents
                         onWillFocus={this.naviWillFocus}
                         onWillBlur={this.naviWillBlur}
@@ -69,8 +72,7 @@ export default class AssetsDetail extends Component {
                         transfer={this.developing}
                     />
                     <RecordList />
-                </SafeAreaView>
-                <View style={{ position: 'absolute', bottom: 0, width: '100%', zIndex: 1, height: 34, backgroundColor: 'white' }} />
+                </View>
             </ImageBackground>
         );
     }
