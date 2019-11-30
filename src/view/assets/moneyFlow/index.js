@@ -18,7 +18,7 @@ const Item = (props) => {
         uri = require('../../../image/arrow/in.png');
         sign = '+';
         amountColor = { color: 'rgb(40,46,60)' };
-    } else if (props.item.origin == -1) {
+    } else if (props.item.origin == 0) {
         uri = require('../../../image/arrow/out.png');
         sign = '-';
         amountColor = { color: 'rgb(64,99,213)' };
@@ -59,6 +59,9 @@ const Item = (props) => {
             break;
         case 12:
             title = '退还保证金';
+            break;
+        case 13:
+            title = '代理商补贴';
             break;
 
     }
