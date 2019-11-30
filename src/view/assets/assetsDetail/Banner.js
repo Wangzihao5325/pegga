@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         marginLeft: 15
     },
     totalNumText: {
-        marginTop: 10,
+        marginTop: 5,
         marginLeft: 15,
         fontSize: 30,
         //fontFamily: 'DIN',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         marginLeft: 15
     },
     frozenNum: {
-        marginTop: 10,
+        marginTop: 5,
         fontSize: 17,
         color: 'rgb(40,46,60)',
         //fontFamily: 'DIN',

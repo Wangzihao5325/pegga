@@ -4,7 +4,7 @@ import { View, Image, TouchableHighlight, Text, StyleSheet } from 'react-native'
 export default class AdBtn extends PureComponent {
     render() {
         return (
-            <TouchableHighlight style={styles.btn} onPress={this.props.btnPress}>
+            <TouchableHighlight style={styles.btn} underlayColor='rgb(249,251,255)' onPress={this.props.btnPress}>
                 <Image style={styles.image} source={require('../../../image/otc/add_ad.png')} />
             </TouchableHighlight>
         );

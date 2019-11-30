@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: 'PingFang-SC-Medium',
         color: 'rgb(40,46,60)',
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         textAlign: 'right'
     }
 });

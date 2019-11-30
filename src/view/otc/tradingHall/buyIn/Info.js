@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     lineTitleText: {
-        fontSize: 15,
+        fontSize: 14,
         fontFamily: 'PingFang-SC-Medium',
         color: 'rgb(100,100,100)',
         textAlign: 'auto'
