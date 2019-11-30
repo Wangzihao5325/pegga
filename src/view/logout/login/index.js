@@ -44,14 +44,14 @@ class Login extends Component {
                 <Text style={styles.titleText}>登陆</Text>
                 <CountrySelect isShow={this.state.mode === LOGIN_TYPE.phone} callback={this.selectCountry} />
                 <Input.Account
-                    style={{ marginTop: 25, fontSize: 16 }}
+                    style={{ marginTop: 25, fontSize: 16,height:46 }}
                     callback={this.accountInputCallback}
                     placeholder={`请输入${this.state.accountPlaceholder}`}
                     value={this.props.accountInput}
                     isControl
                 />
                 <Input.Password
-                    style={{ marginTop: 15 }}
+                    style={{ marginTop: 25,height:46 }}
                     inputStyle={{ fontSize: 16 }}
                     callback={this.passwordInputCallback}
                     placeholder='请输入密码'

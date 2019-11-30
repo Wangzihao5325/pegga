@@ -60,7 +60,7 @@ export default class Login extends Component {
                 <Text style={styles.titleText}>{`${title}`}</Text>
                 <CountrySelect isShow={this.state.mode === LOGIN_TYPE.phone} callback={this.selectCountry} />
                 <Input.Account
-                    style={{ marginTop: 25, fontSize: 16 }}
+                    style={{ marginTop: 25, fontSize: 16,height:46 }}
                     callback={this.accountInputCallback}
                     placeholder={`请输入${this.state.accountPlaceholder}`}
                 />
