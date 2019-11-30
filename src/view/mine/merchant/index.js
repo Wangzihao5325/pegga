@@ -120,7 +120,6 @@ class MerchantCertification extends Component {
 
     _updateStaplePageState = (pageType, applyInfoData) => {
         Api.userBusinessApply(result => {
-            console.log(result);
             this.setState({
                 listData: [{ pageType, pageState: result.status, applyInfoData }]
             });

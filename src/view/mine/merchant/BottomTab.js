@@ -5,14 +5,22 @@ import Api from '../../../socket';
 import Toast from '../../../component/toast';
 
 export default class BottomTab extends PureComponent {
-
     render() {
         let picImage = require('../../../image/mine/merchant/general_icon.png');
-        if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ||
-            this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[4].key ||
-            this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[5].key
-        ) {
-            picImage = require('../../../image/mine/merchant/trust_icon.png');
+        switch (this.props.role.roleName) {
+            case Enum.ROLE.BUSINESS_ROLE[3].key:
+                picImage = require('../../../image/mine/merchant/trust_icon.png');
+                break;
+            case Enum.ROLE.BUSINESS_ROLE[4].key:
+                //
+                if (this.props.role.trustStaple) {
+                    picImage = require('../../../image/mine/merchant/trustStample_icon.png');
+                } else {
+                    picImage = require('../../../image/mine/merchant/stample_icon.png');
+                }
+                break;
+            default:
+                break;
         }
         return (
             <View style={styles.container}>
