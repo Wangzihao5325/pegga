@@ -18,7 +18,7 @@ export default class ImageUpload extends PureComponent {
             );
         } else {
             return (
-                <TouchableHighlight underlayColor='transparent' onPress={this.btnPress} style={{ height: HEIGHT, width: WIDTH, borderRadius: 5, borderWidth: 1, borderStyle: 'dotted', borderColor: 'rgb(133,133,133)' }}>
+                <TouchableHighlight underlayColor='transparent' onPress={this.btnPress} style={{ height: HEIGHT, width: WIDTH, borderRadius: 5, borderWidth: 1, borderStyle: 'dotted', borderColor: 'rgb(188,192,203)' }}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Image style={{ height: 45, width: 45 }} source={require('../../../image/mine/photo_icon.png')} />
                         <Text style={{ marginTop: 5 }} >{`${this.props.title}`}</Text>

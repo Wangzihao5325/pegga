@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     btn: {
         width: Dimensions.get('window').width - 30,
         height: 40,
-        borderRadius: 10,
+        borderRadius: 5,
         marginTop: 20,
         alignSelf: 'center',
         justifyContent: 'center',

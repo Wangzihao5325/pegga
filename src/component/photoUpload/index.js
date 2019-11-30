@@ -39,7 +39,7 @@ class ImageItem extends PureComponent {
             }
             return (
                     <View style={styles.thumbnail}>
-                        <Image resizeMode='stretch' style={{ height: 100, width: 100 }} source={{ uri: uri }} />
+                        <Image resizeMode='stretch' style={{ height: 100, width: 100,borderRadius:5 }} source={{ uri: uri }} />
                         <TouchableHighlight onPress={this.delePic} style={{ height: 20, width: 20, position: 'absolute', top: 10, right: 10, display: 'flex', backgroundColor: '#CCCBCC', borderRadius: 10 }}>
                             <Image style={{ height: 20, width: 20 }} source={require('../../image/usual/delete_pic.png')} />
                         </TouchableHighlight>
@@ -155,8 +155,9 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderStyle: 'dotted',
-        borderColor: 'rgb(133,133,133)',
-        borderWidth: 1
+        borderColor: 'rgb(188,192,203)',
+        borderWidth: 1,
+        borderRadius:5
     },
     addImage: {
         height: 25,
