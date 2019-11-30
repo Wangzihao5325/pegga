@@ -46,8 +46,9 @@ export default class About extends Component {
                     title='身份认证'
                     goback={() => this.props.navigation.goBack()}
                 />
-                <View style={{ paddingHorizontal: 15, height: 45, width: Dimensions.get('window').width, backgroundColor: '#DAE1F6', flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: '#4b88e3', lineHeight: 20 }}>确保您使用的是本人真实身份进行验证,我们会保护您的信息安全</Text>
+                <View style={{ paddingHorizontal: 15, height: 50, width: Dimensions.get('window').width, backgroundColor: '#DAE1F6', flexDirection: 'row', alignItems: 'center' }}>
+                    <Image style={{ height: 21, width: 21 }} source={require('../../../image/usual/Caution_icon.png')} />
+                    <View style={{width:Dimensions.get('window').width-30-21-10,marginLeft:10}}><Text style={{ color: '#4b88e3', lineHeight: 20 }}>确保您使用的是本人真实身份进行验证,我们会保护您的信息安全</Text></View>
                 </View>
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <ItemInput
