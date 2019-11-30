@@ -37,13 +37,13 @@ export default class TradingHall extends Component {
                 <StatusBar backgroundColor='white' barStyle='dark-content' hidden={false} />
                 <Header goBackCallback={this.goBack} navi={this.props.navigation} />
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2', flexDirection: 'column', alignItems: 'center' }}>
-                    <ScrollView
+                    {/* <ScrollView
                         showsVerticalScrollIndicator={false}
                         nestedScrollEnabled={true}
-                    >
-                        <Container navi={this.props.navigation} />
+                    > */}
+                        {/* <Container navi={this.props.navigation} /> */}
                         <AdList navi={this.props.navigation} />
-                    </ScrollView>
+                    {/* </ScrollView> */}
                     <AdBtn btnPress={() => this.props.navigation.navigate('NewAd')} />
                 </View>
             </SafeAreaView>

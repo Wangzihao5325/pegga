@@ -46,7 +46,7 @@ class AdList extends PureComponent {
                 />
                 <FlatList
                     nestedScrollEnabled={true}
-                    style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }}
+                    //style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }}
                     refreshing={this.state.isLoading}
                     onRefresh={() => adListUpdate()}
                     onEndReached={this._nextPage}
