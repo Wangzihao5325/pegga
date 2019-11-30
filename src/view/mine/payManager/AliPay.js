@@ -266,7 +266,7 @@ class AliPay extends Component {
         this.setState({
             rangeType: 'country'
         }, () => {
-            store.dispatch(boundry_change('中国', [1]));
+            store.dispatch(boundry_change('中国', [100000]));
         })
     }
 
