@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         height: 40,
         width: Dimensions.get('window').width - 30,
         alignSelf: 'center',
-        borderRadius: 10,
+        borderRadius: 5,
         borderColor: '#E1E2E7',
         borderWidth: 1,
         display: 'flex',
