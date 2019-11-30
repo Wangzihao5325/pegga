@@ -16,6 +16,8 @@ import { update_ad_list_data } from '../../../store/actions/adListAction';
 import Select from '../../../component/select';
 import Btn from '../../../component/btn';
 import Toast from '../../../component/toast/index';
+import LottieView from 'lottie-react-native';
+
 
 class Header extends Component {
     constructor(props) {
@@ -66,12 +68,13 @@ class Header extends Component {
                         isControl
                     />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <Btn.Control
+                        <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto.json')} autoPlay />
+                        {/* <Btn.Control
                             style={styles.controlBtn}
                             selectKey={this.props.adAutoFitter}
                             data={{ open: '自动接单', close: '开启接单' }}
                             callback={this.autoFitterChange}
-                        />
+                        /> */}
                     </View>
                     {/* <TouchableHighlight style={[styles.backBtn]} onPress={this.btnPress} underlayColor='transparent'>
                         <Image style={styles.backBtnImage} source={require('../../../image/no_image/logo_default.png')} />
