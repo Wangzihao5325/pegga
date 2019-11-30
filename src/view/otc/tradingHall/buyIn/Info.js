@@ -25,7 +25,7 @@ export default class Info extends PureComponent {
         let typeText = this.props.tradeType ? '买' : '卖';
         return (
             <View style={styles.container}>
-                <View style={{ height: 60, width: Dimensions.get('window').width - 60, borderBottomColor: '#F2F2F2', borderBottomWidth: 1, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ height: 60, width: Dimensions.get('window').width - 60, borderBottomColor: '#F2F2F2', borderBottomWidth: 2*StyleSheet.hairlineWidth, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <LinearGradient
                         style={styles.avater}
                         colors={['#39DFB1', '#6284E4']}
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     lineTitleText: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: 'PingFang-SC-Medium',
         color: 'rgb(100,100,100)',
         textAlign: 'auto'

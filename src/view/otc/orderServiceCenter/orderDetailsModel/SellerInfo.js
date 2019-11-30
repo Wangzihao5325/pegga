@@ -49,7 +49,7 @@ export default class SellerInfo extends PureComponent {
         return (
             <View style={styles.container}>
                 <TouchableWithoutFeedback onPress={this.props.seeDetail} style={styles.top}>
-                    <View style={{ paddingHorizontal: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ padding:15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <LinearGradient
                                 style={styles.avater}
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
         fontFamily: 'PingFang-SC-Medium',
         fontSize: 14,
         color: 'rgb(133,133,133)',
-        marginTop: 10
+        marginTop: 8,
+        textAlignVertical:'center'
     }
 });

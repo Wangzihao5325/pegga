@@ -67,8 +67,6 @@ function ItemDisplayQrCode(props) {
 }
 
 function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
-    console.log('11111');
-    console.log(props);
     const setClipboard = (value) => {
         Clipboard.setString(`${value}`);
         Toast.show('复制成功');

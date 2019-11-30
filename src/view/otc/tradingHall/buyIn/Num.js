@@ -87,11 +87,11 @@ const styles = StyleSheet.create({
     },
     coinNumContainer: {
         flex: 1,
-        height: 35,
+        height: 40,
         borderRadius: 5,
         borderColor: '#DADADA',
         borderWidth: 1,
-        paddingHorizontal: 16,
+        paddingHorizontal: 10,
         flexDirection: 'row',
         alignItems: 'center'
     },
