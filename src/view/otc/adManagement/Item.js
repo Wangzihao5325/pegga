@@ -34,32 +34,39 @@ export default class Item extends PureComponent {
                         <Text style={[styles.stateText, stateStyle]}>{`${stateTypeStr}`}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                        <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                             <Text style={styles.infoTitle}>广告ID</Text>
                             <Text style={styles.infoContext}>{`${this.props.item.advertiseNo}`}</Text>
                         </View>
-                        <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                        <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                             <Text style={styles.infoTitle}>发布时间</Text>
                             <Text style={styles.infoContext}>{`${this.props.item.createTime}`}</Text>
                         </View>
                     </View>
                     <View style={[styles.infoWrapper, { marginBottom: 5 }]}>
-                        <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                        <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                             <Text style={styles.infoTitle}>单价</Text>
                             <Text style={styles.infoContext}>{`${this.props.item.price} ${this.props.item.fiat}/${this.props.item.token}`}</Text>
                         </View>
-                        <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                        <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                             <Text style={styles.infoTitle}>数量</Text>
-                            <Text style={styles.infoContext}>{`${this.props.item.amount} ${this.props.item.token}`}</Text>
+                            <Text style={[styles.infoContext, { fontWeight: 'bold' }]}>{`${this.props.item.amount} ${this.props.item.token}`}</Text>
                         </View>
                     </View>
                     <View style={styles.separate} />
                     <View style={styles.bottomContainer}>
                         <Text style={styles.dealingAmountText}>{`已${tradeTypeStr}`}<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.completeAmount ? this.props.item.completeAmount : 0} ${this.props.item.token}`}</Text></Text>
-                        {(this.props.item.status === 1 || this.props.item.status === 0) &&
+                        {this.props.item.status === 0 &&
                             <Btn.Linear
                                 style={styles.btn}
                                 textStyle={styles.btnText}
+                                btnPress={this.itemBtnPress}
+                                title={btnText} />
+                        }
+                        {this.props.item.status === 1 &&
+                            <Btn.Normal
+                                style={styles.btn2}
+                                textStyle={styles.btn2Text}
                                 btnPress={this.itemBtnPress}
                                 title={btnText} />
                         }
@@ -118,7 +125,7 @@ const styles = StyleSheet.create({
         fontSize: 15
     },
     infoWrapper: {
-        height: 50,
+        height: 54,
         width: Dimensions.get('window').width - 60,
         display: 'flex',
         flexDirection: 'row',
@@ -131,9 +138,9 @@ const styles = StyleSheet.create({
     },
     infoContext: {
         fontFamily: 'PingFang-SC-Medium',
-        fontWeight: 'bold',
         fontSize: 14,
-        color: 'rgb(40,46,60)'
+        color: 'rgb(40,46,60)',
+        marginTop: 5
     },
     separate: {
         height: 1,
@@ -159,6 +166,22 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: 'white',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 13
+    },
+    btn2: {//下架
+        height: 30,
+        width: 70,
+        backgroundColor: '#eceffb',
+        borderRadius: 5,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    btn2Text: {
+        color: '#4063d5',
         textAlign: 'center',
         textAlignVertical: 'center',
         fontSize: 13

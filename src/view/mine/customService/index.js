@@ -39,9 +39,9 @@ export default class CustomService extends Component {
                             <Text style={{ marginTop: 10, fontSize: 14, color: 'rgb(133,133,133)', fontFamily: 'PingFang-SC-Medium' }}>OTC001</Text>
                         </View>
                     </View>
-                    <View style={{ height: 80, width: Dimensions.get('window').width, paddingHorizontal: 15, marginTop: 10, backgroundColor: 'white' }}>
+                    <View style={{ height: 90, width: Dimensions.get('window').width, paddingHorizontal: 15, marginTop: 10, backgroundColor: 'white' }}>
                         <Text style={{ marginTop: 15, fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(40,46,60)' }}>功能介绍</Text>
-                        <Text style={{ marginTop: 12, fontFamily: 'PingFang-SC-Medium', fontSize: 14, color: 'rgb(133,133,133)' }}>这里是官方客服号,什么疑问都可向我提问,我都会回复你哦</Text>
+                        <Text style={{ marginTop: 12, fontFamily: 'PingFang-SC-Medium', fontSize: 13, color: 'rgb(133,133,133)' }}>这里是官方客服号,什么疑问都可向我提问,我都会回复你哦</Text>
                     </View>
                     <View style={{ height: 60, width: Dimensions.get('window').width, paddingHorizontal: 15, marginTop: 10, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(40,46,60)' }}>类型</Text>

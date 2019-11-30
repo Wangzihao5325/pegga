@@ -57,6 +57,7 @@ class OrderManagement extends Component {
                         />
                     </View>
                     <FlatList
+                        showsVerticalScrollIndicator={false}
                         data={this.props.data}
                         renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} />}
                     />
