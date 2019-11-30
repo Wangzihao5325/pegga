@@ -39,23 +39,23 @@ export default class Item extends PureComponent {
                         </View>
 
                         <View style={styles.infoWrapper}>
-                            <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                            <View style={{ flex: 10, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                                 <Text style={styles.infoTitle}>订单号</Text>
                                 <Text style={styles.infoContext}>{`${this.props.item.orderNo}`}</Text>
                             </View>
-                            <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                            <View style={{ flex: 9, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                                 <Text style={styles.infoTitle}>发布时间</Text>
                                 <Text style={styles.infoContext}>{`${this.props.item.createTime}`}</Text>
                             </View>
                         </View>
                         <View style={[styles.infoWrapper, { marginBottom: 5 }]}>
-                            <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                            <View style={{ flex: 10, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                                 <Text style={styles.infoTitle}>单价</Text>
                                 <Text style={styles.infoContext}>{`${this.props.item.price} ${this.props.item.fiat}/${this.props.item.token}`}</Text>
                             </View>
-                            <View style={{ flex: 1, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                            <View style={{ flex: 9, height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                                 <Text style={styles.infoTitle}>数量</Text>
-                                <Text style={styles.infoContext}>{`${this.props.item.amount} ${this.props.item.token}`}</Text>
+                                <Text style={[styles.infoContext,{fontWeight:'bold'}]}>{`${this.props.item.amount} ${this.props.item.token}`}</Text>
                             </View>
                         </View>
                         <View style={styles.separate} />
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     },
     infoContext: {
         fontFamily: 'PingFang-SC-Medium',
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         fontSize: 14,
         color: 'rgb(40,46,60)'
     },

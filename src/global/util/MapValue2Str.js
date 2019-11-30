@@ -61,6 +61,7 @@ class Value2Str {
                 break;
             case 2:
                 stateText = '取消';
+                stateTextStyle.color = 'rgb(179,179,179)'
                 break;
             case 4:
                 stateText = '已确认收款';

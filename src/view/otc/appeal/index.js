@@ -21,7 +21,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='申诉类型'
                         value={appealTypeText}
                         editable={false}
@@ -30,7 +30,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='申诉订单号'
                         value={props.orderId}
                         editable={false}
@@ -39,7 +39,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='发起方昵称'
                         value={props.sourceNickName}
                         editable={false}
@@ -48,7 +48,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='对方昵称'
                         value={props.targetNickName}
                         editable={false}
@@ -57,7 +57,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='对方姓名'
                         value={props.targetRealName}
                         editable={false}
@@ -66,7 +66,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='支付备注'
                         value={props.orderMemo}
                         editable={false}
@@ -75,7 +75,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='对方联系电话'
                         value={props.targetPhone}
                         editable={false}
@@ -84,7 +84,7 @@ function AppealInfo(props) {
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='申诉前订单状态'
                         value={beforeStatusTextArr.stateText}
                         editable={false}
@@ -105,7 +105,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='下单时间'
                         value={props.orderCreateTime}
                         editable={false}
@@ -114,7 +114,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='确认支付时间'
                         value={props.orderPayConfirmTime}
                         editable={false}
@@ -123,7 +123,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='申诉时间'
                         value={props.appealBeginTime}
                         editable={false}
@@ -133,7 +133,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='交易单价'
                         value={`${props.price} ${props.fiat}/${props.token}`}
                         editable={false}
@@ -142,7 +142,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='交易数量'
                         value={`${props.amount} ${props.token}`}
                         editable={false}
@@ -153,7 +153,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContext}
+                        inputStyle={styles.itemContext}
                         title='支付方式'
                         value={payTypeText}
                         editable={false}
@@ -162,7 +162,7 @@ function OrderInfo(props) {//payType
                     <Item.Input
                         wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
-                        contextStyle={styles.itemContextBlue}
+                        inputStyle={styles.itemContextBlue}
                         title='交易金额'
                         value={`${props.legalAmount} ${props.fiat}`}
                         editable={false}
@@ -276,7 +276,7 @@ export default class Appeal extends Component {
                     </View>
                     <ImageBackground style={styles.imageBg} source={require('../../../image/otc/appeal/Appeal_bg.png')}>
                         <Image style={{ height: 42, width: 42 }} source={require('../../../image/otc/appeal/Appeal_icon.png')} />
-                        <View style={{ marginLeft: 5 }}>
+                        <View style={{ marginLeft: 14 }}>
                             <Text style={styles.bgTitle}>申诉中</Text>
                             <Text style={styles.bgContext}>该订单存在纠纷,官方会尽快进行处理</Text>
                         </View>
