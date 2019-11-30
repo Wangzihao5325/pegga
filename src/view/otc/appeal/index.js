@@ -17,70 +17,80 @@ function AppealInfo(props) {
     return (
         <View style={{ flex: 1, backgroundColor: 'white', marginTop: 10, alignItems: 'center' }}>
             <KeyboardAwareScrollView>
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='申诉订单号'
-                    value={props.orderId}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='发起方昵称'
-                    value={props.sourceNickName}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='对方昵称'
-                    value={props.targetNickName}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='对方姓名'
-                    value={props.targetRealName}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='支付备注'
-                    value={props.orderMemo}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='对方联系电话'
-                    value={props.targetPhone}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='申诉前订单状态'
-                    value={beforeStatusTextArr.stateText}
-                    editable={false}
-                    bottomLine
-                />
-                <Item.Input
-                    titleStyle={styles.itemTitle}
-                    contextStyle={styles.itemContext}
-                    title='申诉类型'
-                    value={appealTypeText}
-                    editable={false}
-                    bottomLine
-                />
+                <View style={{ backgroundColor: 'white', paddingHorizontal: 15 }} >
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='申诉类型'
+                        value={appealTypeText}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='申诉订单号'
+                        value={props.orderId}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='发起方昵称'
+                        value={props.sourceNickName}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='对方昵称'
+                        value={props.targetNickName}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='对方姓名'
+                        value={props.targetRealName}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='支付备注'
+                        value={props.orderMemo}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='对方联系电话'
+                        value={props.targetPhone}
+                        editable={false}
+                        bottomLine
+                    />
+                    <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
+                        titleStyle={styles.itemTitle}
+                        contextStyle={styles.itemContext}
+                        title='申诉前订单状态'
+                        value={beforeStatusTextArr.stateText}
+                        editable={false}
+                        bottomLine
+                    />
+                </View>
             </KeyboardAwareScrollView>
         </View>
     );
@@ -91,8 +101,9 @@ function OrderInfo(props) {//payType
     return (
         <View style={{ flex: 1, marginTop: 10, alignItems: 'center' }}>
             <KeyboardAwareScrollView>
-                <View style={{ backgroundColor: 'white', paddingHorizontal: 30 }} >
+                <View style={{ backgroundColor: 'white', paddingHorizontal: 15 }} >
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContext}
                         title='下单时间'
@@ -101,6 +112,7 @@ function OrderInfo(props) {//payType
                         bottomLine
                     />
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContext}
                         title='确认支付时间'
@@ -109,6 +121,7 @@ function OrderInfo(props) {//payType
                         bottomLine
                     />
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContext}
                         title='申诉时间'
@@ -116,8 +129,9 @@ function OrderInfo(props) {//payType
                         editable={false}
                     />
                 </View>
-                <View style={{ backgroundColor: 'white', marginTop: 10, paddingHorizontal: 30 }} >
+                <View style={{ backgroundColor: 'white', marginTop: 10, paddingHorizontal: 15 }} >
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContext}
                         title='交易单价'
@@ -126,6 +140,7 @@ function OrderInfo(props) {//payType
                         bottomLine
                     />
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContext}
                         title='交易数量'
@@ -134,8 +149,9 @@ function OrderInfo(props) {//payType
                         bottomLine
                     />
                 </View>
-                <View style={{ backgroundColor: 'white', marginTop: 10, paddingHorizontal: 30 }} >
+                <View style={{ backgroundColor: 'white', marginTop: 10, paddingHorizontal: 15 }} >
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContext}
                         title='支付方式'
@@ -144,6 +160,7 @@ function OrderInfo(props) {//payType
                         bottomLine
                     />
                     <Item.Input
+                        wrapperStyle={{ width: Dimensions.get('window').width - 30 }}
                         titleStyle={styles.itemTitle}
                         contextStyle={styles.itemContextBlue}
                         title='交易金额'

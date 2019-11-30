@@ -20,7 +20,7 @@ function Btn(props) {
 
 function Input(props) {
     return (
-        <View style={[styles.container, props.bottomLine ? styles.borderBottm : null]}>
+        <View style={[styles.container, props.bottomLine ? styles.borderBottm : null,props.wrapperStyle]}>
             <Text style={[styles.title, props.titleStyle]}>{props.title}</Text>
             <View style={[styles.context, props.contextStyle]} >
                 <TextInput secureTextEntry={props.secureTextEntry} style={[{ flex: 1, marginHorizontal: 10, textAlign: 'right' }, props.inputStyle]} placeholder={props.placeholder} value={props.value} onChangeText={(value) => props.callback(value)} editable={props.editable} />
