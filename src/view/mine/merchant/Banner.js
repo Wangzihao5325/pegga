@@ -77,7 +77,7 @@ const Details = (props) => {
     return (
         <View style={styles.detail}>
             <Image style={styles.detailImage} source={imageSource} />
-            <Text style={styles.detailText}>{props.context}</Text>
+            <View style={{ width: Dimensions.get('window').width - 78 - 15 - 12, marginLeft: 12 }}><Text style={styles.detailText}>{props.context}</Text></View>
         </View>
     );
 }
@@ -105,16 +105,38 @@ const ItemContext = (props) => {
 
 const DEALERS_CONTEXT = [
     { select: false, context: '需缴纳激活金成为商家' },
-    { select: true, context: '可参与交易补贴活动' },
     { select: true, context: '具备TO B发布出币广告的权限' },
-    { select: true, context: 'TO B交易量达到标准后,自动退还激活金' }
+    { select: true, context: '可参与交易补贴活动' },
+    { select: true, context: 'TOB交易量达到标准后，可申请退还激活金' },
+    { select: true, context: '邀请好友可获得奖励' }
 ];
 
-const UPGRADE_CONTEXT = [
+const TRUST_CONTEXT = [
+    { select: false, context: '需缴纳激活金成为商家' },
+    { select: true, context: '可参与交易补贴活动，邀请好友成为普通商家，可获得奖励' },
+    { select: true, context: '可随时申请押金退还' },
+    { select: true, context: '具备发布TO B 出币权限，并且在交易过程中，超时未收款则被锁定的币将自动解冻' }
+];
+
+const STAPLE_CONTEXT = [
+    { select: false, context: '需缴纳激活金成为商家' },
+    { select: true, context: '可参与交易补贴活动，邀请好友成为普通商家，可获得奖励' },
+    { select: true, context: '可申请押金退还' },
+    { select: true, context: '具备TO B发布买币广告的权限' }
+];
+
+const SUPREMACY_CONTEXT = [
     { select: false, context: '需缴纳激活金成为商家' },
     { select: true, context: '可参与交易补贴活动' },
     { select: true, context: '具备TO B发布出币广告的权限' },
     { select: true, context: '具备自动解冻权限' }
+];
+
+const TRUST_STAPLE_CONTEXT = [
+    { select: false, context: '需缴纳激活金成为商家' },
+    { select: true, context: '可参与交易补贴活动，邀请好友成为普通商家，可获得奖励' },
+    { select: true, context: '可随时申请押金退还' },
+    { select: true, context: '具备发布TO B 出币权限，并且在站内交易过程中，超时未收款则被锁定的币将自动解冻' }
 ];
 
 class Item extends PureComponent {
@@ -135,10 +157,13 @@ class Item extends PureComponent {
                 contextData = DEALERS_CONTEXT;
                 break;
             case Enum.ROLE.BUSINESS_ROLE[3].key:
-                contextData = UPGRADE_CONTEXT;
+                contextData = TRUST_CONTEXT;
                 break;
             case Enum.ROLE.BUSINESS_ROLE[4].key:
-                contextData = UPGRADE_CONTEXT;
+                contextData = STAPLE_CONTEXT;
+                break;
+            case Enum.ROLE.BUSINESS_ROLE[6].key:
+                contextData = TRUST_STAPLE_CONTEXT;
                 break;
             default:
                 break;
@@ -221,7 +246,6 @@ const styles = StyleSheet.create({
         marginTop: 15,
         paddingVertical: 25,
         paddingLeft: 18,
-        justifyContent: 'space-between'
     },
     detail: {
         height: 30,
@@ -234,10 +258,10 @@ const styles = StyleSheet.create({
         width: 15
     },
     detailText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'PingFang-SC-Regular',
         color: 'rgb(40,46,60)',
-        marginLeft: 12
+        // marginLeft: 12
     },
     itemContainer: {
         width: Dimensions.get('window').width - 24,
