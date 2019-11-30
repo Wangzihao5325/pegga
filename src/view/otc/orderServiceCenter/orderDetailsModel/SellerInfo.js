@@ -49,7 +49,7 @@ export default class SellerInfo extends PureComponent {
         return (
             <View style={styles.container}>
                 <TouchableWithoutFeedback onPress={this.props.seeDetail} style={styles.top}>
-                    <View style={{ padding:15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ padding: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <LinearGradient
                                 style={styles.avater}
@@ -78,6 +78,7 @@ export default class SellerInfo extends PureComponent {
                         <Text style={styles.infoTitle}>近30日胜诉</Text>
                     </View>
                 </View>
+                <View style={{ height: 4, width: Dimensions.get('window').width, backgroundColor: 'white' }} />
             </View>
         )
     }
@@ -126,6 +127,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'rgb(133,133,133)',
         marginTop: 8,
-        textAlignVertical:'center'
+        textAlignVertical: 'center'
     }
 });

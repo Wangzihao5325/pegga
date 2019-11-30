@@ -109,15 +109,15 @@ export default class DetailInfo extends Component {
                     </View>
                     <View style={{ backgroundColor: 'white', marginTop: 10 }}>
                         <View style={{ height: 65, width: Dimensions.get('window').width, flexDirection: 'row' }}>
-                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 <Image style={{ height: 21, width: 21 }} source={nameSource} />
                                 <Text style={styles.identifyTitle}>实名认证</Text>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 <Image style={{ height: 21, width: 21 }} source={mailSource} />
                                 <Text style={styles.identifyTitle}>邮箱认证</Text>
                             </View>
-                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 <Image style={{ height: 21, width: 21 }} source={phoneSource} />
                                 <Text style={styles.identifyTitle}>手机认证</Text>
                             </View>
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
         color: 'rgb(40,46,60)'
     },
     identifyTitle: {
+        marginTop: 4,
         fontSize: 14,
         color: 'rgb(79,84,96)',
         fontFamily: 'PingFang-SC-Regular',
