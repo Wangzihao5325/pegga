@@ -26,7 +26,7 @@ export default class BottomTab extends PureComponent {
             <View style={styles.container}>
                 <View style={{ marginTop: 15, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={styles.title}>当前身份</Text>
-                    <TouchableHighlight onPress={this.drawBack} underlayColor='transparent' style={styles.drawback}><Text style={styles.drawbackText}>退还激活金</Text></TouchableHighlight>
+                    <TouchableHighlight onPress={this.drawBack} underlayColor='transparent' style={styles.drawback}><Text style={styles.drawbackText}>申请降级</Text></TouchableHighlight>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>

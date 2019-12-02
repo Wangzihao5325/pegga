@@ -145,6 +145,9 @@ class MerchantCertification extends Component {
 
     _trust = () => {
         Api.userBusinessApply(result => {//当前身份 信任
+            if (result.status == 2) {
+                Toast.show('您上次提交的申请未通过审核！')
+            }
             if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
                 Api.bussinessApplyInfo(applyInfoData => {
                     let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.activeBalance, token: applyInfoData.token }
@@ -165,6 +168,9 @@ class MerchantCertification extends Component {
 
     _staple = () => {
         Api.userBusinessApply(result => {//当前身份 大宗
+            if (result.status == 2) {
+                Toast.show('您上次提交的申请未通过审核！')
+            }
             if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
                 Api.bussinessApplyInfo(applyInfoData => {
                     let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.activeBalance, token: applyInfoData.token }
@@ -186,6 +192,9 @@ class MerchantCertification extends Component {
     _trustStaple = () => {
         Api.bussinessUpgradeApplyInfo(applyInfoData => {
             Api.userBusinessApply(result => {//当前身份 信任大宗
+                if (result.status == 2) {
+                    Toast.show('您上次提交的申请未通过审核！')
+                }
                 if (result.roleStatus == -1 && result.status == 0) {//展示页面 大宗
                     let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token }
                     this.setState({
