@@ -313,8 +313,6 @@ class NewAd extends Component {
             switch (this.state.customType) {
                 case 1:// to b
                     payload.priceScopeId = this.state.priceScopeId;
-                    console.log('--- ---')
-                    console.log(payload);
                     if (this.state.tradeType === 0) {
                         Api.publishTobAdBuy(payload, (result) => {
                             Toast.show('广告发布成功');

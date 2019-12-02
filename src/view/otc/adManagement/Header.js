@@ -68,7 +68,9 @@ class Header extends Component {
                         isControl
                     />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto.json')} autoPlay />
+                        <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 20 }}>
+                            <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay />
+                        </TouchableHighlight>
                         {/* <Btn.Control
                             style={styles.controlBtn}
                             selectKey={this.props.adAutoFitter}
