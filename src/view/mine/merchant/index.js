@@ -13,6 +13,7 @@ import Api from '../../../socket';
 import Toast from '../../../component/toast';
 import Enum from '../../../global/Enum';
 import BottomTab from './BottomTab';
+import { update_user_info } from '../../../store/actions/userAction';
 
 const DEFAULT_APPLY_INFO = { activeBalance: 0, balance: 0, token: 'PQC' };
 
@@ -247,6 +248,7 @@ class MerchantCertification extends Component {
     }
 
     componentDidMount() {
+        update_user_info();
         this._dataUpdate();
     }
 

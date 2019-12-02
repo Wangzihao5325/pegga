@@ -34,7 +34,7 @@ const Item = (props) => {
             title = '普通商家申请';
             break;
         case 4:
-            title = '认证商家申请';
+            title = '信任商家申请';
             break;
         case 5:
             title = '大宗商家申请';
@@ -62,6 +62,9 @@ const Item = (props) => {
             break;
         case 13:
             title = '代理商补贴';
+            break;
+        case 14:
+            title = '信任大宗商家申请';
             break;
 
     }
