@@ -17,6 +17,7 @@ import Colors from '../../../global/Colors';
 import Select from '../../../component/select';
 import Item from './Item';
 import Header from '../../../component/header';
+import Toast from '../../../component/toast';
 
 
 class OrderManagement extends Component {
@@ -59,7 +60,7 @@ class OrderManagement extends Component {
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={this.props.data}
-                        renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} />}
+                        renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} cancelPress={() => this.orderCancel(item)} />}
                     />
                 </View>
             </SafeAreaView>
@@ -83,7 +84,15 @@ class OrderManagement extends Component {
         this.props.navigation.navigate('OTC_OrderDetails', { orderNum: item.orderNo });
     }
 
-
+    orderCancel = (item) => {
+        Api.cancelOrder(item.orderNo, () => {
+            Toast.show('订单取消成功')
+            this._orderListDataUpdate();
+        }, (result, code, message) => {
+            let msg = message ? message : '取消订单失败！';
+            Toast.show(msg)
+        })
+    }
 }
 
 function mapState2Props(store) {
