@@ -61,6 +61,7 @@ class MerchantCertification extends Component {
                         pageState = 1;
                         break;
                     case 2:
+                        Toast.show('您上次提交的申请未通过审核！')
                         pageState = 2;
                         break;
                     default:
@@ -89,19 +90,33 @@ class MerchantCertification extends Component {
                         });
                         break;
                     case 1:
-                        pageState = 1;
-                        let payload3 = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustDeposit, token: applyInfoData.token };
-                        let payload4 = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token };
-                        this.setState({
-                            listData:
-                                [
-                                    { pageType: Enum.ROLE.BUSINESS_ROLE[3].key, pageState: pageState, applyInfoData: payload3 },
-                                    { pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: pageState, applyInfoData: payload4 }
-                                ]
-                        });
+                        {
+                            pageState = 1;
+                            let payload3 = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustDeposit, token: applyInfoData.token };
+                            let payload4 = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token };
+                            this.setState({
+                                listData:
+                                    [
+                                        { pageType: Enum.ROLE.BUSINESS_ROLE[3].key, pageState: pageState, applyInfoData: payload3 },
+                                        { pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: pageState, applyInfoData: payload4 }
+                                    ]
+                            });
+                        }
                         break;
                     case 2:
-                        pageState = 2;
+                        {
+                            Toast.show('您上次提交的申请未通过审核！')
+                            pageState = 1;
+                            let payload3 = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustDeposit, token: applyInfoData.token };
+                            let payload4 = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token };
+                            this.setState({
+                                listData:
+                                    [
+                                        { pageType: Enum.ROLE.BUSINESS_ROLE[3].key, pageState: pageState, applyInfoData: payload3 },
+                                        { pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: pageState, applyInfoData: payload4 }
+                                    ]
+                            });
+                        }
                         break;
                     default:
                         break;

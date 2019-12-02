@@ -64,7 +64,7 @@ export default class Item extends PureComponent {
                             <CustomizeBtnArea
                                 orderType={this.props.item.orderType}
                                 orderStatus={this.props.item.orderStatus}
-                                cancel={this.itemBtnPress}
+                                cancel={this.cancelPress}
                                 buyerConfirm={this.containerPress}
                             />
                         </View>
@@ -81,8 +81,10 @@ export default class Item extends PureComponent {
         }
     }
 
-    itemBtnPress = () => {
-
+    cancelPress = () => {
+        if (typeof this.props.cancelPress == 'function') {
+            this.props.cancelPress()
+        }
     }
 }
 

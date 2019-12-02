@@ -25,7 +25,7 @@ export default class Assets extends Component {
     };
 
     naviDidFocus = () => {
-        if(Platform.OS =='android'){
+        if (Platform.OS == 'android') {
             StatusBar.setHidden(false);
         }
         assets_info_update();
@@ -42,7 +42,10 @@ export default class Assets extends Component {
                     trans={this.devloping}
                     receive={this.devloping}
                 />
-                <FunTabs />
+                <FunTabs
+                    trans={this.devloping}
+                    receive={this.devloping}
+                />
                 <Separator />
                 <List navi={this.props.navigation} />
             </SafeAreaView>

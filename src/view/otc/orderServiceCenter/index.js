@@ -82,6 +82,8 @@ class OrderManagement extends Component {
     goToOrderDetail = (item) => {
         this.props.navigation.navigate('OTC_OrderDetails', { orderNum: item.orderNo });
     }
+
+
 }
 
 function mapState2Props(store) {
