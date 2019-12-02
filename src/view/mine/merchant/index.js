@@ -13,7 +13,6 @@ import Api from '../../../socket';
 import Toast from '../../../component/toast';
 import Enum from '../../../global/Enum';
 import BottomTab from './BottomTab';
-import { update_user_info } from '../../../store/actions/userAction';
 
 const DEFAULT_APPLY_INFO = { activeBalance: 0, balance: 0, token: 'PQC' };
 
@@ -248,7 +247,6 @@ class MerchantCertification extends Component {
     }
 
     componentDidMount() {
-        update_user_info();
         this._dataUpdate();
     }
 
@@ -260,6 +258,8 @@ class MerchantCertification extends Component {
                         <Header.Normal
                             title='商家认证'
                             goback={() => this.props.navigation.goBack()}
+                            rightBtnTitle='退还激活金'
+                            rightBtnPress={this.drawbackActiveBalance}
                         />
                     </View>
                     <View style={styles.flatListWrapper}>
@@ -280,6 +280,22 @@ class MerchantCertification extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    drawbackActiveBalance = () => {
+        Api.activeBalanceInfo(info => {
+            if (info.orderAmount >= info.backNeedAmount) {
+                Api.drawBackActiveBalance((res, code, msg) => {
+                    let message = msg ? msg : '退款成功';
+                    Toast.show(message);
+                }, (res, code, msg) => {
+                    let message = msg ? msg : '退款失败';
+                    Toast.show(message);
+                })
+            } else {
+                Toast.show(`尚未具有退还资质,当前进度 ${info.orderAmount}/${info.backNeedAmount}`)
+            }
+        })
     }
 
     callback = (pageType, pageState, applyInfoData) => {

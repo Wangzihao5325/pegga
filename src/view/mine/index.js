@@ -15,6 +15,8 @@ import Header from './Header';
 import Item from './Item';
 import Value2Str from '../../global/util/MapValue2Str';
 import Toast from '../../component/toast';
+import { update_user_info } from '../../store/actions/userAction';
+
 
 class Mine extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -32,6 +34,10 @@ class Mine extends Component {
         }
     }
 
+    naviDidFocus = () => {
+        update_user_info();
+    }
+
     naviWillBlur = () => {
         if (Platform.OS == 'android') {
             StatusBar.setTranslucent(false);
@@ -47,6 +53,7 @@ class Mine extends Component {
             <View style={styles.unsafeArea}>
                 <NavigationEvents
                     onWillFocus={this.naviWillFocus}
+                    onDidFocus={this.naviDidFocus}
                     onWillBlur={this.naviWillBlur}
                 />
                 <Header
