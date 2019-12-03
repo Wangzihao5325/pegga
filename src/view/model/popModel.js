@@ -36,7 +36,8 @@ export default class PopModel extends Component {
         }
     };
 
-    constructor() {
+    constructor(props) {
+        super(props);
         this.timer = null;
     }
 

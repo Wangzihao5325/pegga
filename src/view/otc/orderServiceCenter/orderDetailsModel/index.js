@@ -625,7 +625,7 @@ export default class OrderDetail extends Component {
         });
     }
 
-    buyerConfirm = () => {
+    _buyerConfirmCallback = () => {
         Api.buyerConfirmOrder(this.state.orderNo, this.state.paymentSelect, () => {
             Toast.show('您已经确认付款！');
             this._orderInfoUpdate(this.state.orderNo);
@@ -635,7 +635,16 @@ export default class OrderDetail extends Component {
         });
     }
 
-    sellerConfirm = () => {
+    buyerConfirm = () => {
+        this.props.navigation.navigate('PopModel', {
+            confirm: () => this._buyerConfirmCallback(),
+            confirmText: '确认',
+            title: '付款确认',
+            context: '是否已经将钱款支付给对方'
+        });
+    }
+
+    _sellerConfirmcallback = () => {
         Api.sellerConfirmOrder(this.state.orderNo, () => {
             Toast.show('您已经确认收款！');
             this._orderInfoUpdate(this.state.orderNo);
@@ -643,6 +652,15 @@ export default class OrderDetail extends Component {
             let msg = message ? message : '确认付款失败！';
             Toast.show(msg);
         })
+    }
+
+    sellerConfirm = () => {
+        this.props.navigation.navigate('PopModel', {
+            confirm: () => this._sellerConfirmcallback(),
+            confirmText: '确认',
+            title: '收款确认',
+            context: '是否确认已经收到对方支付的钱款'
+        });
     }
 
     cancel = () => {
