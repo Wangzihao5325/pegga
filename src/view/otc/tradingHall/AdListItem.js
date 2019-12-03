@@ -30,11 +30,15 @@ export default class Item extends PureComponent {
         }
     }
 
+    /**
+     * warning: 此处 failed 为成交数量 end为非正常成交（失败的数量），
+     * 与后端对接口没有沟通好造成的问题
+     */
     _orderFailedRateCal = (failed, end) => {
         if (failed + end == 0) {
             return '0%'
         } else {
-            let rate = (end / (failed + end) * 100).toFixed(2);
+            let rate = (failed / (failed + end) * 100).toFixed(2);
             return `${rate}%`
         }
     }

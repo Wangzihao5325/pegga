@@ -52,6 +52,7 @@ import OTC_SellerDetailInfo from '../../view/otc/orderServiceCenter/detailInfoMo
 import Assets_BillTypeSelect from '../../view/assets/moneyFlow/billTypeSelectModel';
 import SelectModel from '../../view/model/selectModel';
 import ImageDetail from '../../view/model/imageDetail';
+import PopModel from '../../view/model/popModel';
 //logout
 import LoginView from '../../view/logout/login';
 import RegisterView from '../../view/logout/register';
@@ -281,6 +282,9 @@ let RouterWithModal = createStackNavigator(
         },
         ImageDetail: {
             screen: ImageDetail
+        },
+        PopModel: {
+            screen: PopModel
         }
     },
     {

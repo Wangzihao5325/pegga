@@ -84,7 +84,7 @@ class OrderManagement extends Component {
         this.props.navigation.navigate('OTC_OrderDetails', { orderNum: item.orderNo });
     }
 
-    orderCancel = (item) => {
+    _cancelConfirmCallback = (item) => {
         Api.cancelOrder(item.orderNo, () => {
             Toast.show('订单取消成功')
             this._orderListDataUpdate();
@@ -92,6 +92,16 @@ class OrderManagement extends Component {
             let msg = message ? message : '取消订单失败！';
             Toast.show(msg)
         })
+    }
+
+    orderCancel = (item) => {
+        this.props.navigation.navigate('PopModel', {
+            confirm: () => this._cancelConfirmCallback(item),
+            confirmText: '确认',
+            title: '确认取消',
+            context: '是否确认取消该订单?'
+        });
+
     }
 }
 
