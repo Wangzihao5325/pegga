@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 10,
         paddingHorizontal: 5,
-        backgroundColor: '#F3F5F9'
+        backgroundColor: '#F3F5F9',
+        paddingVertical: 0
     },
     btn: {
         height: 33,
