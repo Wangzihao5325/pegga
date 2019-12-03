@@ -42,6 +42,16 @@ export default class BottomTab extends PureComponent {
         );
     }
 
+    _downgradeConfirmCallback = () => {
+        Api.downGrade((resut, code, msg) => {
+            Toast.show('提交成功,请等待审核');
+            this.props.navi.goBack();
+        }, (resut, code, message) => {
+            let msg = message ? message : '提交失败';
+            Toast.show(msg);
+        });
+    }
+
     drawBack = () => {
         if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[2].key) {
             // Api.drawBackActiveBalance((res, code, msg) => {
@@ -53,12 +63,11 @@ export default class BottomTab extends PureComponent {
             // })
             Toast.show('认证商家无法降级');
         } else {
-            Api.downGrade((resut, code, msg) => {
-                Toast.show('提交成功,请等待审核');
-                this.props.navi.goBack();
-            }, (resut, code, message) => {
-                let msg = message ? message : '提交失败';
-                Toast.show(msg);
+            this.props.navi.navigate('PopModel', {
+                confirm: () => this._downgradeConfirmCallback(),
+                confirmText: '确认',
+                title: '降级确认',
+                context: '是否确定进行降级操作'
             });
         }
 
