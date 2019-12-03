@@ -43,12 +43,16 @@ function ItemDisplay(props) {
 }
 
 function ItemDisplayWithCopy(props) {
+    let contextShow = props.context ? props.context : '';
+    if (contextShow.length >= 40) {
+        contextShow = `${props.context.substr(0, 37)}...`;
+    }
     return (
         <View style={styles.itemContainer}>
             <Text style={styles.itemTitle}>{props.title}</Text>
             <TouchableHighlight underlayColor='transparent' onPress={() => props.callback(props.context)}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.itemContext}>{props.context}</Text>
+                    <Text ellipsizeMode='middle' style={styles.itemContext}>{contextShow}</Text>
                     <Image style={{ height: 15, width: 15, marginLeft: 10 }} source={require('../../../../image/usual/copy.png')} />
                 </View>
             </TouchableHighlight>
@@ -64,6 +68,34 @@ function ItemDisplayQrCode(props) {
                 <Image style={{ height: 22, width: 22 }} source={require('../../../../image/usual/qrCode.png')} />
             </View>
         </TouchableHighlight>
+    )
+}
+
+function USDTPayInfo(props) {
+    const setClipboard = (value) => {
+        Clipboard.setString(`${value}`);
+        Toast.show('复制成功');
+    }
+    let platformText = '';
+    switch (props.usdtType) {
+        case 0:
+            platformText = '火币';
+            break;
+        case 1:
+            platformText = '币安';
+            break;
+        case 2:
+            platformText = 'OKEx';
+            break;
+        default:
+            break;
+    }
+
+    return (
+        <View>
+            <ItemDisplay title='付款平台' context={platformText} />
+            <ItemDisplayWithCopy title='付款地址' context={props.url} callback={setClipboard} />
+        </View>
     )
 }
 
@@ -86,8 +118,6 @@ function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
     )
 }
 function WechatPayInfo(props) {
-    console.log('22222');
-    console.log(props);
     const setClipboard = (value) => {
         Clipboard.setString(`${value}`);
         Toast.show('复制成功');
@@ -126,6 +156,30 @@ function PaymentSelect(props) {
             case 0:
             case 7:
                 {
+                    if (props.adId == -1) {
+                        return (
+                            <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+                                        <USDTPayInfo usdtType={props.usdtType} url={props.url} />
+                                    </View>
+                                </View>
+                                <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
+                                    <TouchableHighlight onPress={props.contact} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                        <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                        <Text style={styles.bottomBtnText}>取消订单</Text>
+                                    </TouchableHighlight>
+                                    <LinearGradient style={{ flex: 8 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                        <TouchableHighlight onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                            <Text style={styles.bottomBtnText}>确认付款</Text>
+                                        </TouchableHighlight>
+                                    </LinearGradient>
+                                </View>
+                            </View>
+                        );
+                    }
                     if (props.payment.length == 0) {
                         return null;
                     }
@@ -495,6 +549,10 @@ export default class OrderDetail extends Component {
     };
 
     state = {
+        adId: 0,
+        usdtType: 0, //0->火币 1->币安 2->OKEx
+        url: '',
+
         payState: 0,//0 待支付 1:已完成 2:已取消
         orderType: 0, //0买 1卖
 
@@ -514,6 +572,11 @@ export default class OrderDetail extends Component {
     _orderInfoUpdate = (orderNum) => {
         Api.queryOrderById(orderNum, (result) => {
             let payload = {
+                //usdt订单使用
+                adId: result.advertiseId,
+                usdtType: result.usdtType,
+                url: result.url,
+
                 payState: result.orderStatus,
                 orderType: result.orderType,
 
@@ -577,6 +640,10 @@ export default class OrderDetail extends Component {
                         token={this.state.token}
                     />
                     <PaymentSelect
+                        adId={this.state.adId}
+                        usdtType={this.state.usdtType}
+                        url={this.state.url}
+
                         payState={this.state.payState}
                         orderType={this.state.orderType}
                         sellerInfo={this.state.sellerInfo}
@@ -686,11 +753,14 @@ export default class OrderDetail extends Component {
     }
 
     goToAppeal = () => {
-
         this.props.navigation.navigate('Appeal', { orderId: this.state.orderNo, orderType: this.state.orderType });
     }
 
     addAppeal = () => {//此处提交证据的都为发起者
+        if(this.state.adId == -1){
+            Toast.show('USDT订单暂不支持申诉功能');
+            return;
+        }
         this.props.navigation.navigate('AddAppeal', { type: 'source', orderId: this.state.orderNo });
     }
 }
@@ -750,6 +820,6 @@ const styles = StyleSheet.create({
     itemContext: {
         fontFamily: 'PingFang-SC-Medium',
         fontSize: 15,
-        color: 'rgb(40,46,60)'
+        color: 'rgb(40,46,60)',
     }
 });
