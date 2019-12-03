@@ -601,7 +601,11 @@ export default class OrderDetail extends Component {
                     payment.push({ title: '银行卡', key: 2 });
                 }
                 payload.payment = payment;
-                payload.paymentSelect = payment[0].key;
+                if (result.advertiseId == -1) {//USDT订单 支付方式传null
+                    payload.paymentSelect = null;
+                }else{
+                    payload.paymentSelect = payment[0].key;
+                }
             }
             this.setState(payload);
         });
@@ -757,7 +761,7 @@ export default class OrderDetail extends Component {
     }
 
     addAppeal = () => {//此处提交证据的都为发起者
-        if(this.state.adId == -1){
+        if (this.state.adId == -1) {
             Toast.show('USDT订单暂不支持申诉功能');
             return;
         }
