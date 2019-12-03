@@ -54,13 +54,6 @@ export default class BottomTab extends PureComponent {
 
     drawBack = () => {
         if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[2].key) {
-            // Api.drawBackActiveBalance((res, code, msg) => {
-            //     let message = msg ? msg : '退款成功';
-            //     Toast.show(message);
-            // }, (res, code, msg) => {
-            //     let message = msg ? msg : '退款失败';
-            //     Toast.show(message);
-            // })
             Toast.show('认证商家无法降级');
         } else {
             this.props.navi.navigate('PopModel', {
