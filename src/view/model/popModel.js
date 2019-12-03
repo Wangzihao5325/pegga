@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
+import { Animated, View, Text, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const BTN_WIDTH = (Dimensions.get('window').width - 135) / 2;
@@ -36,7 +36,12 @@ export default class PopModel extends Component {
         }
     };
 
+    constructor() {
+        this.timer = null;
+    }
+
     state = {
+        fadeAnim: new Animated.Value(0),
         confirmText: '确认',
         title: '',
         context: ''
@@ -51,29 +56,69 @@ export default class PopModel extends Component {
             title,
             context
         });
+
+        this.timer = setTimeout(() => {
+            this.timer = null
+            Animated.timing(
+                this.state.fadeAnim,
+                {
+                    toValue: 1,
+                }
+            ).start();
+
+        }, 300);
+    }
+
+    componentWillUnmount() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null
+        }
     }
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
-                <Confirm
-                    cancel={this.back}
-                    done={this.done}
-                    title={this.state.title}
-                    context={this.state.context}
-                    comfirmText={this.state.confirmText}
-                />
-            </View>
+            <Animated.View style={{ flex: 1, opacity: this.state.fadeAnim }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <Confirm
+                        cancel={this.back}
+                        done={this.done}
+                        title={this.state.title}
+                        context={this.state.context}
+                        comfirmText={this.state.confirmText}
+                    />
+                </View>
+            </Animated.View>
         );
     }
 
     back = () => {
-        this.props.navigation.goBack();
+        Animated.timing(
+            this.state.fadeAnim,
+            {
+                toValue: 0,
+                duration: 400
+            }
+        ).start();
+        this.timer = setTimeout(() => {
+            this.timer = null;
+            this.props.navigation.goBack();
+        }, 500)
     }
 
     done = () => {
         this.props.navigation.state.params.confirm();
-        this.props.navigation.goBack();
+        Animated.timing(
+            this.state.fadeAnim,
+            {
+                toValue: 0,
+                duration: 400
+            }
+        ).start();
+        this.timer = setTimeout(() => {
+            this.timer = null;
+            this.props.navigation.goBack();
+        }, 500)
     }
 }
 
