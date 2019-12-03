@@ -603,7 +603,7 @@ export default class OrderDetail extends Component {
                 payload.payment = payment;
                 if (result.advertiseId == -1) {//USDT订单 支付方式传null
                     payload.paymentSelect = null;
-                }else{
+                } else {
                     payload.paymentSelect = payment[0].key;
                 }
             }
