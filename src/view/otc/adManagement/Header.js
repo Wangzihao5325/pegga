@@ -69,7 +69,7 @@ class Header extends Component {
                     />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 20 }}>
-                            <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay />
+                            {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
                         </TouchableHighlight>
                         {/* <Btn.Control
                             style={styles.controlBtn}
@@ -109,15 +109,17 @@ class Header extends Component {
         this.myAdListUpdate(null, item.key);
     }
 
-    autoFitterChange = (selectKey) => {
-        store.dispatch(otc_state_change_danger({ adAutoFitter: selectKey }));
-        if (selectKey == 'open') {
-            Api.autoFitterSwichon(() => {
-                Toast.show('已开启自动接单');
-            });
-        } else {
+    autoFitterChange = () => {
+        if (this.props.adAutoFitter == 'open') {
             Api.autoFitterSwichoff(() => {
                 Toast.show('已关闭自动接单');
+                store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
+            });
+
+        } else {
+            Api.autoFitterSwichon(() => {
+                Toast.show('已开启自动接单');
+                store.dispatch(otc_state_change_danger({ adAutoFitter: 'open' }));
             });
         }
     }
