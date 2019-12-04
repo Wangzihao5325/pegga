@@ -50,7 +50,7 @@ import InviteList from '../../view/mine/invite/list';
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
 import OTC_SellerDetailInfo from '../../view/otc/orderServiceCenter/detailInfoModel';
 import Assets_BillTypeSelect from '../../view/assets/moneyFlow/billTypeSelectModel';
-import SelectModel from '../../view/model/selectModel';
+import SelectModel from '../../view/model/selectModelPro';
 import ImageDetail from '../../view/model/imageDetail';
 import PopModel from '../../view/model/popModel';
 //logout
