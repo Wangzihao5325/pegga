@@ -566,7 +566,11 @@ export default class OrderDetail extends Component {
         sellerInfo: {},
         buyerInfo: {},
         payment: [],
-        paymentSelect: ''
+        paymentSelect: '',
+
+        orderAppealCountLastMonth: 0,
+        orderFilledCountLastMonth: 0,
+        orderWinAppealCountLastMonth: 0,
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -608,6 +612,26 @@ export default class OrderDetail extends Component {
                 }
             }
             this.setState(payload);
+            this._sellerInfoUpdate();
+        });
+    }
+
+    _sellerInfoUpdate = () => {
+        let oppoNo = '';
+        if (this.state.orderType === 0) {
+            oppoNo = this.state.sellerInfo.sellerNo;
+        } else {
+            oppoNo = this.state.buyerInfo.buyerNo;
+        }
+        Api.otherUserInfoById(oppoNo, (result, code, msg) => {
+            this.setState({
+                orderAppealCountLastMonth: result.orderAppealCountLastMonth,
+                orderFilledCountLastMonth: result.orderFilledCountLastMonth,
+                orderWinAppealCountLastMonth: result.orderWinAppealCountLastMonth,
+            });
+        }, (result, code, msg) => {
+            let message = msg ? msg : '获取信息失败';
+            Toast.show(message);
         });
     }
 
@@ -633,6 +657,9 @@ export default class OrderDetail extends Component {
                         sellerInfo={this.state.sellerInfo ? this.state.sellerInfo : {}}
                         buyerInfo={this.state.buyerInfo ? this.state.buyerInfo : {}}
                         seeDetail={this.goToDetailInfo}
+                        orderAppealCountLastMonth={this.state.orderAppealCountLastMonth}
+                        orderFilledCountLastMonth={this.state.orderFilledCountLastMonth}
+                        orderWinAppealCountLastMonth={this.state.orderWinAppealCountLastMonth}
                     />
                     <AssetsInfo
                         orderNo={this.state.orderNo}

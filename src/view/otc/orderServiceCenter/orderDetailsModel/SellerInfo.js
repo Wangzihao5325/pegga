@@ -13,31 +13,25 @@ export default class SellerInfo extends PureComponent {
     static getDerivedStateFromProps(props, state) {
         if (props.orderType === 0) {
             const {
-                sellerName = '游客',
-                orderCompleteRateRecentMonth = '',
-                successAppealsRecentMonth = 0,
-                totalAppealsRecentMonth = 0
+                sellerName = '游客'
             } = props.sellerInfo;
 
             return {
                 sellerName: sellerName ? sellerName : '游客',
-                orderCompleteRateRecentMonth: orderCompleteRateRecentMonth ? orderCompleteRateRecentMonth : '0.00 %',
-                successAppealsRecentMonth: successAppealsRecentMonth ? successAppealsRecentMonth : 0,
-                totalAppealsRecentMonth: totalAppealsRecentMonth ? totalAppealsRecentMonth : 0
+                orderCompleteRateRecentMonth: props.orderFilledCountLastMonth,
+                successAppealsRecentMonth: props.orderWinAppealCountLastMonth,
+                totalAppealsRecentMonth: props.orderAppealCountLastMonth
             }
         } else if (props.orderType === 1) {
             const {
                 buyerName = '游客',
-                orderCompleteRateRecentMonth = '',
-                successAppealsRecentMonth = 0,
-                totalAppealsRecentMonth = 0
             } = props.buyerInfo;
 
             return {
                 sellerName: buyerName ? buyerName : '游客',
-                orderCompleteRateRecentMonth: orderCompleteRateRecentMonth ? orderCompleteRateRecentMonth : '0.00 %',
-                successAppealsRecentMonth: successAppealsRecentMonth ? successAppealsRecentMonth : 0,
-                totalAppealsRecentMonth: totalAppealsRecentMonth ? totalAppealsRecentMonth : 0
+                orderCompleteRateRecentMonth: props.orderFilledCountLastMonth,
+                successAppealsRecentMonth: props.orderWinAppealCountLastMonth,
+                totalAppealsRecentMonth: props.orderAppealCountLastMonth
             }
         } else {
             return null;
@@ -67,7 +61,7 @@ export default class SellerInfo extends PureComponent {
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.infoContext}>{`${this.state.orderCompleteRateRecentMonth}`}</Text>
-                        <Text style={styles.infoTitle}>近30日成交率</Text>
+                        <Text style={styles.infoTitle}>近30日成交</Text>
                     </View>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.infoContext}>{`${this.state.totalAppealsRecentMonth}`}</Text>
