@@ -19,7 +19,7 @@ import Btn from '../../../../../component/btn';
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
 const InputReg = { account: '', password: '' };
 
-export default class StepOne extends Component {
+class StepOne extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,

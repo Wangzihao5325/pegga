@@ -81,7 +81,6 @@ export default class Initial extends Component {
                 });
             } else {
                 setTimeout(() => this.props.navigation.navigate('Logout'), 3000);
-                //setTimeout(() => this.props.navigation.navigate('App'), 3000);
             }
         }.bind(this)());
     }
