@@ -423,6 +423,7 @@ class NewAd extends Component {
             {
                 data: JSON.stringify(this.state.priceTypeData),
                 //type: 'multiple',
+                title: '价格类型',
                 callback: (selectDataArr, nowState) => {
                     this.setState({
                         priceType: selectDataArr[0],
@@ -442,10 +443,11 @@ class NewAd extends Component {
             Toast.show('没有多余的支付方式可供选择!');
             return;
         }
-        this.props.navigation.navigate('SelectModel',
+        this.props.navigation.navigate('SelectModelPay',
             {
                 data: JSON.stringify(this.state.payTypeData),
                 type: 'multiple',
+                title: '支付方式',
                 callback: (selectDataArr, nowState) => {
                     this.setState({
                         payType: selectDataArr,

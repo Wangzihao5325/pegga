@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
-import { Animated, TouchableHighlight, View, Text, Dimensions, StyleSheet } from 'react-native';
+import { Animated, Image, TouchableHighlight, View, Text, Dimensions, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import Btn from '../../component/btn';
 
 function Item(props) {//index  data:[select,title,key]
+    console.log(props);
     const btnPress = () => {
         props.itemPress(props.item, props.index);
     }
     let isSelect = props.selectIndexArr.indexOf(props.index) >= 0 ? true : false;
+
+    switch (props.item.key) {
+        case 'aliPay':
+            break;
+        case 'weChat':
+            break;
+        case 'bankCard':
+            break;
+
+    }
     return (
         <TouchableHighlight style={styles.itemContainer} onPress={btnPress} underlayColor='#EEE'>
             <View style={[{ flex: 1, flexDirection: 'row', marginHorizontal: 15, alignItems: 'center' }]}>
+                <Image style={{ height: 30, width: 30 }} />
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={isSelect ? styles.itemTextHighlight : styles.itemTextNormal} >{`${props.item.title}`}</Text>
                 </View>

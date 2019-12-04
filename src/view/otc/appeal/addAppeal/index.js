@@ -125,6 +125,7 @@ export default class AddAppeal extends Component {
             {
                 data: JSON.stringify(this.state.totalData),
                 //type: 'multiple',
+                title: '申诉类型',
                 callback: (selectDataArr, nowState) => {
                     this.setState({
                         data: selectDataArr,
