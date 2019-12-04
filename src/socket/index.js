@@ -56,9 +56,9 @@ class api {
     }
 
     //msg
-    sendSignupMsg(phone, onSuccess, onError) {
+    sendSignupMsg(phone, areaCode, onSuccess, onError) {
         const url = '/api/user/sign_up/send_sms_opt';
-        let payload = { phone };
+        let payload = { phone, areaCode };
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
@@ -68,9 +68,9 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
-    sendForgotPwdMsg(phone, onSuccess, onError) {
+    sendForgotPwdMsg(phone, areaCode, onSuccess, onError) {
         const url = '/api/user/sign_up/send_sms_forget';
-        let payload = { phone };
+        let payload = { phone, areaCode };
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
@@ -90,9 +90,9 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
-    sendPhoneBindMsg(phone, onSuccess, onError) {
+    sendPhoneBindMsg(phone, areaCode, onSuccess, onError) {
         const url = '/api/user/code/phone_bind';
-        let payload = { phone };
+        let payload = { phone, areaCode };
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 

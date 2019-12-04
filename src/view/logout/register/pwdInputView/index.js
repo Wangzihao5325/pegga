@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text, Dimensions, StyleSheet } from 'react-native';
+import { connect } from 'react-redux'
 import Colors from '../../../../global/Colors';
 import Api from '../../../../socket';
 import Toast from '../../../../component/toast';
@@ -11,7 +12,7 @@ import Btn from '../../../../component/btn';
 
 const Reg = { mode: '', account: '', countryCode: '', verCode: '', pwd: '', pwdConfirm: '', inviteCode: '' }
 
-export default class PwdInputView extends Component {
+class PwdInputView extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -94,7 +95,7 @@ export default class PwdInputView extends Component {
             if (Reg.mode == 'phone') {
                 let payload = {
                     confirmPassword: Reg.pwdConfirm,
-                    country: Reg.countryCode,
+                    areaCode: parseInt(this.props.code),
                     password: Reg.pwd,
                     phone: Reg.account,
                     verifyCode: Reg.verCode
@@ -134,7 +135,6 @@ export default class PwdInputView extends Component {
                 verifyCode: Reg.verCode,
                 phone: Reg.account
             }
-            console.log(payload);
             Api.resetPassword(payload, (e) => {
                 Toast.show('重置密码成功,请登陆');
                 store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
@@ -146,6 +146,12 @@ export default class PwdInputView extends Component {
         }
     }
 }
+
+const mapStateToProps = (state) => ({
+    code: state.country.code
+})
+
+export default connect(mapStateToProps)(PwdInputView);
 
 const styles = StyleSheet.create({
     safeContainer: {

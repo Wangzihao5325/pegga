@@ -6,11 +6,9 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
-
+import { connect } from 'react-redux'
 import Colors from '../../../../../global/Colors';
 import Api from '../../../../../socket/index';
-import store from '../../../../../store';
-import { user_login } from '../../../../../store/actions/userAction';
 import Toast from '../../../../../component/toast';
 
 import Header from '../../../../../component/header';
@@ -112,7 +110,8 @@ export default class StepOne extends Component {
             });
         } else {
             if (this.state.key == 'bindAccount') {
-                Api.sendPhoneBindMsg(InputReg.account, (res) => {
+                let areaCode = parseInt(this.props.code);
+                Api.sendPhoneBindMsg(InputReg.account, areaCode, (res) => {
                     this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
                 }, (res, code, msg) => {
                     let message = msg ? msg : '发送验证码失败';
@@ -123,6 +122,12 @@ export default class StepOne extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => ({
+    code: state.country.code
+})
+
+export default connect(mapStateToProps)(StepOne);
 
 const styles = StyleSheet.create({
     safeContainer: {

@@ -79,7 +79,8 @@ class VerCodeInputView extends Component {
         }
         if (this.state.type == 'register') {
             if (this.state.mode == 'phone') {
-                Api.sendSignupMsg(this.state.account, (res) => {
+                let areaCode = parseInt(this.props.code);
+                Api.sendSignupMsg(this.state.account, areaCode, (res) => {
                     Toast.show('发送验证码成功');
                     this._timerSetting();
                 }, (res, code, msg) => {
@@ -96,7 +97,8 @@ class VerCodeInputView extends Component {
                 })
             }
         } else if (this.state.type == 'reset') {
-            Api.sendForgotPwdMsg(this.state.account, (res) => {
+            let areaCode = parseInt(this.props.code);
+            Api.sendForgotPwdMsg(this.state.account, areaCode, (res) => {
                 Toast.show('发送验证码成功');
                 this._timerSetting();
             }, (res, code, msg) => {

@@ -6,6 +6,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux'
 import Api from '../../../socket';
 import Colors from '../../../global/Colors';
 
@@ -20,7 +21,7 @@ const FUNC_TYPE = { register: 'register', reset: 'reset' };
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
 const InputReg = { account: '', password: '' };
 
-export default class Login extends Component {
+class Login extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -60,7 +61,7 @@ export default class Login extends Component {
                 <Text style={styles.titleText}>{`${title}`}</Text>
                 <CountrySelect isShow={this.state.mode === LOGIN_TYPE.phone} callback={this.selectCountry} />
                 <Input.Account
-                    style={{ marginTop: 25, fontSize: 16,height:46 }}
+                    style={{ marginTop: 25, fontSize: 16, height: 46 }}
                     callback={this.accountInputCallback}
                     placeholder={`请输入${this.state.accountPlaceholder}`}
                 />
@@ -97,7 +98,8 @@ export default class Login extends Component {
     sendMessage = () => {
         if (this.state.type == FUNC_TYPE.register) {
             if (this.state.mode == LOGIN_TYPE.phone) {
-                Api.sendSignupMsg(InputReg.account, (res) => {
+                let areaCode = parseInt(this.props.code);
+                Api.sendSignupMsg(InputReg.account, areaCode, (res) => {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
                 }, (res, code, msg) => {
                     let message = msg ? msg : '发送验证码失败';
@@ -112,7 +114,8 @@ export default class Login extends Component {
                 })
             }
         } else if (this.state.type == FUNC_TYPE.reset) {
-            Api.sendForgotPwdMsg(InputReg.account, (res) => {
+            let areaCode = parseInt(this.props.code);
+            Api.sendForgotPwdMsg(InputReg.account,areaCode, (res) => {
                 this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
             }, (res, code, msg) => {
                 let message = msg ? msg : '发送验证码失败';
@@ -142,6 +145,12 @@ export default class Login extends Component {
         });
     }
 }
+
+const mapStateToProps = (state) => ({
+    code: state.country.code
+})
+
+export default connect(mapStateToProps)(Login);
 
 const styles = StyleSheet.create({
     safeContainer: {

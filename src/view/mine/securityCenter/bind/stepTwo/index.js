@@ -80,7 +80,8 @@ class VerCodeInputView extends Component {
         }
         if (this.state.key == 'bindAccount') {
             if (this.state.mode == 'phone') {
-                Api.sendPhoneBindMsg(this.state.account, (res) => {
+                let areaCode = parseInt(this.props.code);
+                Api.sendPhoneBindMsg(this.state.account, areaCode, (res) => {
                     Toast.show('已重新发送验证码');
                     this._timerSetting();
                 }, (res, code, msg) => {
@@ -121,9 +122,11 @@ class VerCodeInputView extends Component {
     verCodeInputDone = (verCode) => {
         if (this.state.key == 'bindAccount') {
             if (this.state.mode == 'phone') {
+                let areaCode = parseInt(this.props.code);
                 let payload = {
                     phone: this.state.account,
-                    verifyCode: verCode
+                    verifyCode: verCode,
+                    areaCode
                 }
                 Api.bindPhone(payload, () => {
                     Toast.show('绑定手机号码成功');
