@@ -4,28 +4,33 @@ import _ from 'lodash';
 import Btn from '../../component/btn';
 
 function Item(props) {//index  data:[select,title,key]
-    console.log(props);
     const btnPress = () => {
         props.itemPress(props.item, props.index);
     }
     let isSelect = props.selectIndexArr.indexOf(props.index) >= 0 ? true : false;
-
+    let source = require('../../image/otc/payment/pay_alipay.png');
     switch (props.item.key) {
         case 'aliPay':
+            source = require('../../image/otc/payment/pay_alipay.png');
             break;
         case 'weChat':
+            source = require('../../image/otc/payment/pay_WeChat.png');
             break;
         case 'bankCard':
+            source = require('../../image/otc/payment/pay_card.png');
             break;
 
     }
+    let selectSource = require('../../image/usual/select.png');
+    let unSelectSource = require('../../image/usual/unSelect.png');
     return (
         <TouchableHighlight style={styles.itemContainer} onPress={btnPress} underlayColor='#EEE'>
             <View style={[{ flex: 1, flexDirection: 'row', marginHorizontal: 15, alignItems: 'center' }]}>
-                <Image style={{ height: 30, width: 30 }} />
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={isSelect ? styles.itemTextHighlight : styles.itemTextNormal} >{`${props.item.title}`}</Text>
+                <Image style={{ height: 25, width: 25 }} source={source} />
+                <View style={{ flex: 1, marginHorizontal: 15, flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={styles.itemTextNormal} >{`${props.item.title}`}</Text>
                 </View>
+                <Image style={{ height: 20, width: 20 }} source={isSelect ? selectSource : unSelectSource} />
             </View>
         </TouchableHighlight>
     );
