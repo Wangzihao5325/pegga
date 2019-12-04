@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { SafeAreaView, TouchableWithoutFeedback, TouchableHighlight, View, Image, Text, Dimensions, StyleSheet } from 'react-native';
+import { Animated, TouchableHighlight, View, Text, Dimensions, StyleSheet } from 'react-native';
 import _ from 'lodash';
+import Btn from '../../component/btn';
 
 function Item(props) {//index  data:[select,title,key]
-    const unselectPath = require('../../image/otc/unSelect.png');
-    const selectPath = require('../../image/otc/select.png');
     const btnPress = () => {
         props.itemPress(props.item, props.index);
     }
     let isSelect = props.selectIndexArr.indexOf(props.index) >= 0 ? true : false;
     return (
         <TouchableHighlight style={styles.itemContainer} onPress={btnPress} underlayColor='#EEE'>
-            <View style={[{ flex: 1, flexDirection: 'row', marginHorizontal: 15, alignItems: 'center' }, props.isLast ? null : { borderBottomColor: '#DAD9DA', borderBottomWidth: 1 }]}>
-                <Image style={{ height: 15, width: 15 }} source={isSelect ? selectPath : unselectPath} />
+            <View style={[{ flex: 1, flexDirection: 'row', marginHorizontal: 15, alignItems: 'center' }]}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text>{`${props.item.title}`}</Text>
+                    <Text style={isSelect ? styles.itemTextHighlight : styles.itemTextNormal} >{`${props.item.title}`}</Text>
                 </View>
             </View>
         </TouchableHighlight>
@@ -29,15 +27,34 @@ export default class SelectModel extends Component {
         }
     };
 
+    constructor(props) {
+        super(props);
+        this.timer = null;
+    }
+
     state = {
+        fadeAnim: new Animated.Value(0),
         type: '',
+        title: null,
         data: [],
         selectIndexArr: []
     }
 
     componentDidMount() {
+        this.timer = setTimeout(() => {
+            this.timer = null
+            Animated.timing(
+                this.state.fadeAnim,
+                {
+                    toValue: 1,
+                }
+            ).start();
+
+        }, 300);
+
         const type = this.props.navigation.getParam('type', 'single');//single multiple
         const dataStr = this.props.navigation.getParam('data', '[]');
+        const title = this.props.navigation.getParam('title', '请选择');
         let data = JSON.parse(dataStr);
         const selectIndexArr = [];
         data.every((item, index) => {
@@ -51,16 +68,27 @@ export default class SelectModel extends Component {
         });
         this.setState({
             type,
+            title,
             data,
             selectIndexArr
         });
     }
 
+    componentWillUnmount() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null
+        }
+    }
+
     render() {
         return (
-            <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => this.goBackWithCallback(0)}>
-                <SafeAreaView style={styles.container}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', borderRadius: 1, borderColor: '#DAD9DA', borderWidth: 1 }}>
+            <Animated.View style={{ flex: 1, opacity: this.state.fadeAnim }}>
+                <View style={styles.container}>
+                    <View>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>{this.state.title}</Text>
+                        </View>
                         {
                             this.state.data.map((item, index) => {
                                 return (
@@ -75,10 +103,30 @@ export default class SelectModel extends Component {
                                 );
                             })
                         }
+                        <Btn.Linear
+                            style={styles.backBtn}
+                            textStyle={styles.backBtnText}
+                            btnPress={() => this.goBackWithCallback(500)}
+                            title='确定'
+                        />
                     </View>
-                </SafeAreaView>
-            </TouchableWithoutFeedback>
+                </View>
+            </Animated.View>
         )
+    }
+
+    back = (value) => {
+        Animated.timing(
+            this.state.fadeAnim,
+            {
+                toValue: 0,
+                duration: 400
+            }
+        ).start();
+        this.timer = setTimeout(() => {
+            this.timer = null;
+            this.props.navigation.goBack();
+        }, value)
     }
 
     goBackWithCallback = (delay) => { //[{},{},{},{}] [1,3]
@@ -95,9 +143,7 @@ export default class SelectModel extends Component {
             return itemCopy;
         });
         this.props.navigation.state.params.callback(selectData, nowState);
-        setTimeout(() => {
-            this.props.navigation.goBack();
-        }, delay);
+        this.back(delay);
     }
 
     itemPress = (item, index) => {
@@ -125,14 +171,49 @@ export default class SelectModel extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(0,0,0,0.5)',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'flex-end'
     },
     itemContainer: {
-        height: 55,
-        width: Dimensions.get('window').width - 120,
+        height: 45,
+        width: Dimensions.get('window').width,
         backgroundColor: 'white'
-    }
+    },
+    itemTextNormal: {
+        fontFamily: 'PingFang-SC-Regular',
+        fontSize: 16,
+        color: 'rgb(40,46,60)'
+    },
+    itemTextHighlight: {
+        fontFamily: 'PingFang-SC-Regular',
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: 'rgb(64,99,213)'
+    },
+    titleContainer: {
+        height: 60,
+        width: Dimensions.get('window').width,
+        backgroundColor: 'white',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
+    },
+    title: {
+        marginTop: 20,
+        alignSelf: 'center',
+        fontFamily: 'PingFang-SC-Regular',
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: 'rgb(40,46,60)'
+    },
+    backBtn: {
+        height: 65,
+        width: Dimensions.get('window').width,
+    },
+    backBtnText: {
+        color: 'white',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 15
+    },
 });
