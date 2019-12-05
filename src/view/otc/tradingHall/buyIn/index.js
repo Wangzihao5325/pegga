@@ -16,6 +16,7 @@ import Value2Str from '../../../../global/util/MapValue2Str';
 import Header from '../../../../component/header';
 import Info from './Info';
 import Num from './Num';
+import I18n from '../../../../global/doc/i18n';
 
 class BuyIn extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -75,6 +76,7 @@ class BuyIn extends Component {
 
     render() {
         let headerTitle = Value2Str.tradeType(this.state.tradeType === 1 ? 0 : 1);
+        let btnTitle = this.state.tradeType ? I18n.BUY_RIGHT_NOW : I18n.SELL_RIGHT_NOW;
         let myAmount = 0;
         if (this.state.tradeType == 1 && this.props.legalWallet[this.state.coinType]) {
             myAmount = this.props.legalWallet[this.state.coinType].available;
@@ -119,7 +121,7 @@ class BuyIn extends Component {
                         style={styles.btn}
                         textStyle={{ color: 'white' }}
                         btnPress={this.buyIn}
-                        title={`立即${headerTitle}`}
+                        title={btnTitle}
                     />
                 </View>
             </SafeAreaView>

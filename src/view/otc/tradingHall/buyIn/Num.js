@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TextInput, Dimensions, StyleSheet } from 'react-native';
+import I18n from '../../../../global/doc/i18n';
 import Btn from '../../../../component/btn';
 
 export default class Num extends PureComponent {
     render() {
+        let allInText = this.props.tradeType ? I18n.ALL_IN_BUY : I18n.ALL_IN_SELL;
         let coinNumText = this.props.tradeType ? '买入' : '卖出';
         let moneyNumText = this.props.tradeType ? '需支出' : '可获得';
         let canTradeNum = this.props.amount;
@@ -27,7 +29,7 @@ export default class Num extends PureComponent {
                     <Btn.Linear
                         style={styles.btn}
                         textStyle={styles.btnText}
-                        title={`全部${coinNumText}`}
+                        title={allInText}
                         btnPress={() => this.props.tradeAll(canTradeNum)}
                     />
                 </View>
@@ -36,7 +38,7 @@ export default class Num extends PureComponent {
                     <View style={styles.coinNumContainer} >
                         <TextInput
                             editable={false}
-                            style={{ flex: 1,paddingVertical: 0 }}
+                            style={{ flex: 1, paddingVertical: 0 }}
                             value={this.props.moneyNum}
                             //onChangeText={(value) => this.props.moneyNumCallback(value)}
                             placeholder={`${moneyNumText}数量`}

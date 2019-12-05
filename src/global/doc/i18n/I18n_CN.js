@@ -13,6 +13,10 @@ const BUY_IN = `${BUY}入`;
 const SELL_OUT = `${SELL}出`;
 const WANNA_BUY = `我要${BUY}`;
 const WANNA_SELL = `我要${SELL}`;
+const BUY_PRICE = `${BUY_IN}价格`;
+const SELL_PRICE = `${SELL_OUT}价格`;
+const LEFT_SELL = '剩余可卖';
+const LEFT_BUY = '剩余可买';
 
 const ORDER_CENTER = '订单中心';
 const AD_MANAGEMENT = '广告管理';
@@ -22,6 +26,16 @@ const AMOUNT = '数量';
 const LIMIT = '限额';
 const MEMO = '备注';
 const TRANS_RATE = '成交率';
+
+const TRADE_LIMIT = '交易限额';
+const PAYMENT_METHOD = '付款方式';
+
+const SELLER_MEMO = '卖家备注';
+const BUYER_MEMO = '买家备注';
+const ALL_IN_SELL = '全部买入';
+const ALL_IN_BUY = '全部卖出';
+const BUY_RIGHT_NOW = '立即买入';
+const SELL_RIGHT_NOW = '立即卖出';
 
 export default {
     LOGIN,
@@ -39,6 +53,10 @@ export default {
     SELL_OUT,
     WANNA_BUY,
     WANNA_SELL,
+    BUY_PRICE,
+    SELL_PRICE,
+    LEFT_BUY,
+    LEFT_SELL,
 
     ORDER_CENTER,
     AD_MANAGEMENT,
@@ -47,5 +65,15 @@ export default {
     AMOUNT,
     LIMIT,
     MEMO,
-    TRANS_RATE
+    TRANS_RATE,
+
+    TRADE_LIMIT,
+    PAYMENT_METHOD,
+
+    SELLER_MEMO,
+    BUYER_MEMO,
+    ALL_IN_SELL,
+    ALL_IN_BUY,
+    BUY_RIGHT_NOW,
+    SELL_RIGHT_NOW
 }

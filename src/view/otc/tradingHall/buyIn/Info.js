@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import I18n from '../../../../global/doc/i18n';
 
 function InfoLine(props) {
     return (
@@ -21,11 +22,12 @@ export default class Info extends PureComponent {
             remark = `${remark.substr(0, 17)}...`;
         }
         //此处是对手方信息，因此和常规方向相反
-        let priceText = this.props.tradeType ? '买入' : '卖出';
-        let typeText = this.props.tradeType ? '买' : '卖';
+        let priceText = this.props.tradeType ? I18n.BUY_PRICE : I18n.SELL_PRICE;
+        let stockText = this.props.tradeType ? I18n.LEFT_BUY : I18n.LEFT_SELL;
+        let memoText = this.props.tradeType ? I18n.BUYER_MEMO : I18n.SELLER_MEMO;
         return (
             <View style={styles.container}>
-                <View style={{ height: 60, width: Dimensions.get('window').width - 60, borderBottomColor: '#F2F2F2', borderBottomWidth: 2*StyleSheet.hairlineWidth, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ height: 60, width: Dimensions.get('window').width - 60, borderBottomColor: '#F2F2F2', borderBottomWidth: 2 * StyleSheet.hairlineWidth, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <LinearGradient
                         style={styles.avater}
                         colors={['#39DFB1', '#6284E4']}
@@ -36,27 +38,27 @@ export default class Info extends PureComponent {
                     </LinearGradient>
                     <Text onPress={this.goToSellerInfo} style={styles.name}>{this.props.name}</Text>
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <Text style={styles.tradeRate}>{`${this.props.tradeRate}成交率`}</Text>
+                        <Text style={styles.tradeRate}>{`${this.props.tradeRate}${I18n.TRANS_RATE}`}</Text>
                     </View>
                 </View>
                 <InfoLine
-                    title={`${priceText}价格`}
+                    title={`${priceText}`}
                     context={`${this.props.price} ${this.props.currencyType}/${this.props.coinType}`}
                     textStyle={styles.priceText}
                 />
                 <InfoLine
-                    title='交易限额'
+                    title={I18n.TRADE_LIMIT}
                     context={`${this.props.minLimit} ~ ${this.props.maxLimit}`}
                     textStyle={styles.limitText}
                 />
                 <InfoLine
-                    title={`剩余可${typeText}`}
+                    title={stockText}
                     context={`${this.props.amount} ${this.props.coinType}`}
                     textStyle={styles.limitText}
                 />
 
                 <View style={styles.infoLine}>
-                    <Text style={styles.lineTitleText}>付款方式</Text>
+                    <Text style={styles.lineTitleText}>{I18n.PAYMENT_METHOD}</Text>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                         {
                             payType.map((item) => {
@@ -81,7 +83,7 @@ export default class Info extends PureComponent {
                     </View>
                 </View>
                 <InfoLine
-                    title={`${typeText}家备注`}
+                    title={memoText}
                     context={remark}
                     textStyle={styles.remark}
                 />
