@@ -4,6 +4,12 @@ const PHONE_NUM = '手机号码';
 const PASSWORD = '密码';
 const EMAIL = '邮箱';
 
+//tab bottom
+const TAB_BTM_MARKRT = '交易';
+const TAB_BTM_ASSETS = '资产';
+const TAB_BTM_DISCOVER = '发现';
+const TAB_BTM_ME = '我的';
+
 //OTC
 const CYN = '人民币';
 const CYN_AREA = `${CYN}区`;
@@ -43,6 +49,12 @@ export default {
     PHONE_NUM,
     PASSWORD,
     EMAIL,
+
+    //tab btm navi
+    TAB_BTM_MARKRT,
+    TAB_BTM_ASSETS,
+    TAB_BTM_DISCOVER,
+    TAB_BTM_ME,
 
     //OTC
     CYN,

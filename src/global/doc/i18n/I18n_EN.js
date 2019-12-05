@@ -1,8 +1,15 @@
+//log out
 const LOGIN = 'Register ';
 const PLEASE_INPUT = 'Please input ';
 const PHONE_NUM = 'phone number';
 const PASSWORD = 'password';
 const EMAIL = 'E-mail';
+
+//tab bottom
+const TAB_BTM_MARKRT = 'Market';
+const TAB_BTM_ASSETS = 'Assets';
+const TAB_BTM_DISCOVER = 'Discover';
+const TAB_BTM_ME = 'Me';
 
 //OTC
 const CYN = 'CYN';
@@ -43,6 +50,12 @@ export default {
     PHONE_NUM,
     PASSWORD,
     EMAIL,
+
+    //tab btm navi
+    TAB_BTM_MARKRT,
+    TAB_BTM_ASSETS,
+    TAB_BTM_DISCOVER,
+    TAB_BTM_ME,
 
     //OTC
     CYN,

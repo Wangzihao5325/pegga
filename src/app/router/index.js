@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import * as In18 from '../../global/In18';
+import I18n from '../../global/doc/i18n';
 import NavigationService from './NavigationService';
 
 //发现
@@ -80,7 +80,7 @@ AssetsStack.navigationOptions = ({ navigation }) => {
         tabBarVisible = false;
     }
     return {
-        tabBarLabel: In18.ASSETS_VIEW_TITLE,
+        tabBarLabel: I18n.TAB_BTM_ASSETS,
         tabBarIcon: ({ focused, tintColor }) => {
             if (focused) {
                 return (
@@ -119,7 +119,7 @@ ExploreStack.navigationOptions = ({ navigation }) => {
         tabBarVisible = false;
     }
     return {
-        tabBarLabel: In18.EXPLORE_VIEW_TITLE,
+        tabBarLabel: I18n.TAB_BTM_DISCOVER,
         tabBarIcon: ({ focused, tintColor }) => {
             if (focused) {
                 return (
@@ -164,7 +164,7 @@ OTCStack.navigationOptions = ({ navigation }) => {
         tabBarVisible = false;
     }
     return {
-        tabBarLabel: In18.OTC_VIEW_TITLE,
+        tabBarLabel: I18n.TAB_BTM_MARKRT,
         tabBarIcon: ({ focused, tintColor }) => {
             if (focused) {
                 return (
@@ -221,7 +221,7 @@ MineStack.navigationOptions = ({ navigation }) => {
         tabBarVisible = false;
     }
     return {
-        tabBarLabel: In18.MINE_VIEW_TITLE,
+        tabBarLabel: I18n.TAB_BTM_ME,
         tabBarIcon: ({ focused, tintColor }) => {
             if (focused) {
                 return (
