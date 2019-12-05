@@ -44,6 +44,12 @@ class api {
                 console.log(url);
             });
     }
+
+    //app version
+    appVersion(onSuccess, onError) {
+        const url = '/api/user/sign_up/system_version';
+        this.request(url, null, onSuccess, onError)
+    }
     //chat board
     sysChatMsg(onSuccess, onError) {
         const url = '/api/user/message/list';
