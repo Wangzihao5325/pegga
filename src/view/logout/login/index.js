@@ -8,6 +8,7 @@ import {
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
+import I18n from '../../../global/doc/i18n';
 
 import Colors from '../../../global/Colors';
 import Api from '../../../socket/index';
@@ -33,7 +34,7 @@ class Login extends Component {
 
     state = {
         mode: LOGIN_TYPE.phone,
-        accountPlaceholder: '手机号码',
+        accountPlaceholder: I18n.PHONE_NUM,
         modeChangePlaceholder: '邮箱'
     }
 
@@ -41,20 +42,20 @@ class Login extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <StatusBar backgroundColor='white' barStyle='dark-content' hidden={false} />
-                <Text style={styles.titleText}>登陆</Text>
+                <Text style={styles.titleText}>{I18n.LOGIN}</Text>
                 <CountrySelect isShow={this.state.mode === LOGIN_TYPE.phone} callback={this.selectCountry} />
                 <Input.Account
-                    style={{ marginTop: 25, fontSize: 16,height:46 }}
+                    style={{ marginTop: 25, fontSize: 16, height: 46 }}
                     callback={this.accountInputCallback}
-                    placeholder={`请输入${this.state.accountPlaceholder}`}
+                    placeholder={`${I18n.PLEASE_INPUT}${this.state.accountPlaceholder}`}
                     value={this.props.accountInput}
                     isControl
                 />
                 <Input.Password
-                    style={{ marginTop: 25,height:46 }}
+                    style={{ marginTop: 25, height: 46 }}
                     inputStyle={{ fontSize: 16 }}
                     callback={this.passwordInputCallback}
-                    placeholder='请输入密码'
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.PASSWORD}`}
                     value={this.props.pwdInput}
                     isControl
                 />
