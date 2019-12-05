@@ -20,7 +20,7 @@ export default class Invite extends Component {
     };
 
     render() {
-        let uri = `${Config.SERVICE_URL.payment}?t=${Variables.account.token}`
+        let uri = `${Config.SERVICE_URL.invite}?t=${Variables.account.token}`
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal

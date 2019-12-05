@@ -2,7 +2,7 @@ const SERVICE_URL = {
     domain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com:4000',
     imageDomain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com',
     payment: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8080',
-    invite: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8081'
+    invite: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8081/#/'
 };
 const INFO = { iosVer: '1.0.0', androidVer: '1.0.0' };
 export {
