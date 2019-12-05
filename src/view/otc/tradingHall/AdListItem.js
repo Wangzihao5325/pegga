@@ -12,6 +12,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
+import I18n from '../../../global/doc/i18n';
 import NavigationService from '../../../app/router/NavigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import Utils from '../../../global/util';
@@ -72,8 +73,8 @@ export default class Item extends PureComponent {
                     </View>
                     <View style={styles.itemContentContainer}>
                         <View style={styles.itemInfoContainer}>
-                            <Text style={styles.itemInfo}>数量   <Text style={styles.itemInfoDetail}>{`${this.props.item.remainAmount} ${this.props.item.token}`}</Text></Text>
-                            <Text style={styles.itemInfo}>限额   <Text style={styles.itemInfoDetail}>{`${this.props.item.minLimit} ~ ${this.props.item.maxLimit}`}</Text></Text>
+                            <Text style={styles.itemInfo}>{`${I18n.AMOUNT}   `}<Text style={styles.itemInfoDetail}>{`${this.props.item.remainAmount} ${this.props.item.token}`}</Text></Text>
+                            <Text style={styles.itemInfo}>{`${I18n.LIMIT}   `}<Text style={styles.itemInfoDetail}>{`${this.props.item.minLimit} ~ ${this.props.item.maxLimit}`}</Text></Text>
                         </View>
                         <View style={styles.itemTradeContainer}>
                             <Btn.Linear
@@ -85,7 +86,7 @@ export default class Item extends PureComponent {
                         </View>
                     </View>
                     <View style={styles.itemRemarkContainer}>
-                        <Text style={styles.itemInfo}>备注   <Text style={styles.itemInfoDetail}>{`${remark}`}</Text></Text>
+                        <Text style={styles.itemInfo}>{`${I18n.MEMO}   `}<Text style={styles.itemInfoDetail}>{`${remark}`}</Text></Text>
                     </View>
                     <View style={styles.itemBottomLine} />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -110,7 +111,7 @@ export default class Item extends PureComponent {
                                 })
                             }
                         </View>
-                        <Text style={styles.rateText}>{`${orderSuccessRate}成交率`}</Text>
+                        <Text style={styles.rateText}>{`${orderSuccessRate}${I18n.TRANS_RATE}`}</Text>
                     </View>
                 </View>
             </View>

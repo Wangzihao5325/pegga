@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import store from '../../../store';
+import I18n from '../../../global/doc/i18n';
 import { otc_state_change_danger } from '../../../store/actions/otcStateAction';
 import { adListUpdate } from '../../../store/actions/adListAction';
 import Select from '../../../component/select';
@@ -31,9 +32,9 @@ const CurrencyBtn = (props) => {
 const PopTab = (props) => {
     return (
         <View style={styles.popContainer}>
-            <Text onPress={props.orderCenter}>订单中心</Text>
-            <Text onPress={props.adManage}>广告管理</Text>
-            <Text onPress={props.publishAd}>发布广告</Text>
+            <Text onPress={props.orderCenter}>{I18n.ORDER_CENTER}</Text>
+            <Text onPress={props.adManage}>{I18n.AD_MANAGEMENT}</Text>
+            <Text onPress={props.publishAd}>{I18n.ISSUE_AD}</Text>
         </View>
     );
 }
@@ -64,13 +65,13 @@ class Header extends PureComponent {
                 </Modal>
                 <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                     <CurrencyBtn
-                        title='人民币区'
+                        title={I18n.CYN_AREA}
                         callback={this.currencyTypeChange}
                     />
                 </View>
                 <View style={[styles.container, { justifyContent: 'space-between', borderBottomColor: '#EEF2F9', borderBottomWidth: 1 }]}>
                     <Select.Swich
-                        data={[{ title: '我要买', key: 0 }, { title: '我要卖', key: 1 }]}
+                        data={[{ title: I18n.WANNA_BUY, key: 0 }, { title: I18n.WANNA_SELL, key: 1 }]}
                         selectValue={this.props.tradeType}
                         callback={this.tradeTypeChange}
                         isControl

@@ -1,10 +1,11 @@
+import I18n from '../doc/i18n';
 class Value2Str {
     tradeType(value) {
         switch (value) {
             case 0:
-                return '买入';
+                return I18n.BUY_IN;
             case 1:
-                return '卖出';
+                return I18n.SELL_OUT;
             default:
                 return '';
         }
