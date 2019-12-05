@@ -391,7 +391,7 @@ class api {
     }
 
     imageUpload(dataObj, onSuccess, onError) {
-        let fullUrl = 'http://192.168.3.144:4000/api/file/upload/image';
+        let fullUrl = Config.SERVICE_URL.imageDomain;
 
         let headers = { 'Content-Type': 'multipart/form-data' };
 
@@ -414,7 +414,7 @@ class api {
     }
 
     async imageUploadPromise(dataObj) {
-        let fullUrl = 'http://192.168.3.144:4000/api/file/upload/image';
+        let fullUrl = Config.SERVICE_URL.imageDomain;
 
         let headers = { 'Content-Type': 'multipart/form-data' };
 

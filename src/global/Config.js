@@ -1,4 +1,9 @@
-const SERVICE_URL = { domain: 'http://192.168.3.144:4000', payment: 'http://yehr9g.natappfree.cc/ali.html' };
+const SERVICE_URL = {
+    domain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com:4000',
+    imageDomain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com',
+    payment: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8080',
+    invite: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8081'
+};
 const INFO = { iosVer: '1.0.1', androidVer: '1.0.1' };
 export {
     SERVICE_URL,

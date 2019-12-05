@@ -9,8 +9,7 @@ import {
 import { WebView } from 'react-native-webview';
 import Header from '../../../component/header';
 import Variables from '../../../global/Variables';
-
-
+import * as Config from '../../../global/Config';
 
 export default class Invite extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -21,7 +20,7 @@ export default class Invite extends Component {
     };
 
     render() {
-        let uri = `http://192.168.3.127:8080/#/?t=${Variables.account.token}`
+        let uri = `${Config.SERVICE_URL.payment}?t=${Variables.account.token}`
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
