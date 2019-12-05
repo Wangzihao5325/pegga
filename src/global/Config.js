@@ -1,6 +1,6 @@
 const SERVICE_URL = {
     domain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com:4000',
-    imageDomain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com:4000',
+    imageDomain: 'http://ec2-54-254-247-159.ap-southeast-1.compute.amazonaws.com:4000/api/file/upload/image',
     payment: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8080',
     invite: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8081/#/'
 };
