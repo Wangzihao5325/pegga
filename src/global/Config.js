@@ -4,7 +4,7 @@ const SERVICE_URL = {
     payment: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8080',
     invite: 'http://ec2-54-255-146-127.ap-southeast-1.compute.amazonaws.com:8081'
 };
-const INFO = { iosVer: '1.0.1', androidVer: '1.0.1' };
+const INFO = { iosVer: '1.0.0', androidVer: '1.0.0' };
 export {
     SERVICE_URL,
     INFO
