@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, TouchableHighlight, Image, Dimensions, StyleSheet } from 'react-native';
-
+import I18n from '../../../../global/doc/i18n';
 import Select from '../../../../component/select';
 
 export default class Header extends PureComponent {
@@ -13,7 +13,7 @@ export default class Header extends PureComponent {
                     </TouchableHighlight>
                 </View>
                 <Select.SwichLinear
-                    data={[{ title: '买入', key: 0 }, { title: '卖出', key: 1 }]}
+                    data={[{ title: I18n.BUY_IN, key: 0 }, { title: I18n.SELL_OUT, key: 1 }]}
                     selectValue={this.props.tradeType}
                     callback={this.tradeTypeChange}
                     isControl

@@ -43,6 +43,16 @@ const ALL_IN_BUY = '全部卖出';
 const BUY_RIGHT_NOW = '立即买入';
 const SELL_RIGHT_NOW = '立即卖出';
 
+//otc-add ad //Select transaction currency
+const TRANSACTION_OBJECT = '交易对象';
+const TRANSACTION_CURRENCY = '选择交易币种';
+const CURRENCY_UNIT = '选择法币单位';
+const PRICE_TYPE = '价格类型';
+const PRICE = '价格';
+const PRICE_INPUT_PLACEHOLDER = '请输入价格';
+const AMT = '交易数量';
+const AMT_INPUT_PLACEHOLDER = '请输入数量';
+
 export default {
     LOGIN,
     PLEASE_INPUT,
@@ -87,5 +97,14 @@ export default {
     ALL_IN_SELL,
     ALL_IN_BUY,
     BUY_RIGHT_NOW,
-    SELL_RIGHT_NOW
+    SELL_RIGHT_NOW,
+
+    TRANSACTION_OBJECT,
+    TRANSACTION_CURRENCY,
+    CURRENCY_UNIT,
+    PRICE_TYPE,
+    PRICE,
+    PRICE_INPUT_PLACEHOLDER,
+    AMT,
+    AMT_INPUT_PLACEHOLDER
 }

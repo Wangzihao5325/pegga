@@ -44,6 +44,16 @@ const ALL_IN_BUY = 'All in';
 const BUY_RIGHT_NOW = 'Buy';
 const SELL_RIGHT_NOW = 'Sell';
 
+//otc-add ad //Select transaction currency
+const TRANSACTION_OBJECT = 'Transaction object';
+const TRANSACTION_CURRENCY = 'Transaction currency';
+const CURRENCY_UNIT = 'Currency unit';
+const PRICE_TYPE = 'Type of price';
+const PRICE = 'Price';
+const PRICE_INPUT_PLACEHOLDER = 'Please enter the price';
+const AMT = 'Amt';
+const AMT_INPUT_PLACEHOLDER = 'Please enter the amt';
+
 export default {
     LOGIN,
     PLEASE_INPUT,
@@ -89,4 +99,13 @@ export default {
     ALL_IN_BUY,
     BUY_RIGHT_NOW,
     SELL_RIGHT_NOW,
+
+    TRANSACTION_OBJECT,
+    TRANSACTION_CURRENCY,
+    CURRENCY_UNIT,
+    PRICE_TYPE,
+    PRICE,
+    PRICE_INPUT_PLACEHOLDER,
+    AMT,
+    AMT_INPUT_PLACEHOLDER
 }

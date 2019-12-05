@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, TextInput, Dimensions, Platform, StyleSheet }
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import I18n from '../../../../global/doc/i18n';
 import Api from '../../../../socket/index';
 import Colors from '../../../../global/Colors';
 import Btn from '../../../../component/btn';
@@ -164,25 +164,25 @@ class NewAd extends Component {
                         <View style={{ paddingHorizontal: 15, marginHorizontal: 15, backgroundColor: 'white', borderRadius: 5, marginTop: 10 }}>
                             <Item.Select
                                 bottomLine
-                                title='交易对象'
+                                title={I18n.TRANSACTION_OBJECT}
                                 defaultValue={this.state.customType}
                                 callback={this.customSelectChange}
                             />
                             <Item.Btn
                                 bottomLine
-                                title='选择交易币种'
+                                title={I18n.TRANSACTION_CURRENCY}
                                 contextText={this.state.coinType}
                                 callback={this.coinSelectChange}
                             />
                             <Item.Btn
                                 bottomLine
-                                title='选择法币单位'
+                                title={I18n.CURRENCY_UNIT}
                                 contextText={this.state.currencyType}
                                 callback={this.currencySelectChange}
                             />
                             <Item.Btn
                                 bottomLine
-                                title='价格类型'
+                                title={I18n.PRICE_TYPE}
                                 contextText={this.state.priceType.title}
                                 callback={this.priceTypeSelect}
                             />
@@ -191,17 +191,17 @@ class NewAd extends Component {
                             <Item.Input
                                 bottomLine
                                 editable={this.state.editable}
-                                title='价格'
+                                title={I18n.PRICE}
                                 unit={this.state.currencyType}
-                                placeholder='请输入价格'
+                                placeholder={I18n.PRICE_INPUT_PLACEHOLDER}
                                 value={this.state.editable ? this.state.inputPrice : this.state.autoFillPrice}
                                 callback={this.priceTextChange}
                                 inputStyle={{ color: 'rgb(133,133,133)' }}
                             />
                             <Item.Input
-                                title='交易数量'
+                                title={I18n.AMT}
                                 unit={this.state.coinType}
-                                placeholder='请输入数量'
+                                placeholder={I18n.AMT_INPUT_PLACEHOLDER}
                                 value={this.state.inputTradeNum}
                                 callback={this.tradeNumTextChange}
                                 inputStyle={{ color: 'rgb(133,133,133)' }}
