@@ -14,6 +14,7 @@ import BoundryUtil from './boundary/boundryUtil';
 import LinearGradient from 'react-native-linear-gradient';
 import QRCode from 'react-native-qrcode-svg';
 import { SERVICE_URL } from '../../../global/Config';
+import * as Config from '../../../global/Config';
 
 const UIDInput = (props) => {
     const showChange = () => {
@@ -39,7 +40,7 @@ const UIDInput = (props) => {
 }
 
 const AppendPart = (props) => {
-    const [qrCode, setQrCode] = useState('https://render.alipay.com/p/f/fd-ixpo7iia/index.html');
+    const [qrCode, setQrCode] = useState(Config.SERVICE_URL.aliUid);
     const [isShow, setIsShow] = useState(false);
     const textChange = (value) => {
         if (isShow) {
@@ -68,7 +69,7 @@ const AppendPart = (props) => {
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, height: 120, width: 160, paddingHorizontal: 30 }}>
                 <QRCode
-                    value="https://render.alipay.com/p/f/fd-ixpo7iia/index.html"
+                    value={Config.SERVICE_URL.aliUid}
                 />
             </View>
             <View style={{ height: 40, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
