@@ -56,7 +56,7 @@ class VerCodeInputView extends Component {
             <SafeAreaView style={styles.safeContainer} >
                 <Header.Normal goback={() => this.props.navigation.goBack()} />
                 <Text style={styles.titleText}>{I18n.INPUT_VER_CODE}</Text>
-                <Text style={styles.sendAddressText}>{`验证码已发送至${this.state.countryCode} ${this.state.account}`}</Text>
+                <Text style={styles.sendAddressText}>{`${I18n.VER_CODE_SEND_TO}${this.state.countryCode} ${this.state.account}`}</Text>
                 <VerCodeInput inputDone={this.verCodeInputDone} />
                 <Tips style={styles.tips} pressCallback={this.sendMsg} />
             </SafeAreaView>

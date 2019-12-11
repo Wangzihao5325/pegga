@@ -84,6 +84,7 @@ const BIND_MOBILE_ACCOUNT = '绑定手机号';
 const BIND_MAIL_ACCOUNT = '绑定邮箱号';
 const INPUT_VER_CODE = '输入验证码';
 const NOT_RECEIVE_VER_CODE = '没有收到验证码?';
+const VER_CODE_SEND_TO = '验证码已发送至';
 
 //payment
 const RECEIVING_RANGE = '接单范围';
@@ -203,6 +204,7 @@ export default {
     BIND_MAIL_ACCOUNT,
     INPUT_VER_CODE,
     NOT_RECEIVE_VER_CODE,
+    VER_CODE_SEND_TO,
 
     RECEIVING_RANGE,
     MORE_DANGER,

@@ -84,7 +84,8 @@ const SET_GOOGLE_PWD = 'Set Google Verification Code';
 const BIND_MOBILE_ACCOUNT = 'Bind Mobile Account';
 const BIND_MAIL_ACCOUNT = 'Bind E-mail Account';
 const INPUT_VER_CODE = 'Verification Code';
-const NOT_RECEIVE_VER_CODE = 'Did not receive verification code?'
+const NOT_RECEIVE_VER_CODE = 'Did not receive verification code?';
+const VER_CODE_SEND_TO = 'code is send already to';
 
 //payment
 const RECEIVING_RANGE = 'Receiving range';
@@ -206,6 +207,7 @@ export default {
     BIND_MAIL_ACCOUNT,
     INPUT_VER_CODE,
     NOT_RECEIVE_VER_CODE,
+    VER_CODE_SEND_TO,
 
     RECEIVING_RANGE,
     MORE_DANGER,
