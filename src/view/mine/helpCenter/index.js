@@ -9,6 +9,7 @@ import {
 import Header from '../../../component/header';
 import Item from '../Item';
 import Toast from '../../../component/toast';
+import I18n from '../../../global/doc/i18n';
 
 export default class HelpCenter extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -22,23 +23,23 @@ export default class HelpCenter extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='帮助中心'
+                    title={I18n.HELP_CENTER}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <Item
                         margin
                         bottomLine
-                        title='新手教程'
+                        title={I18n.NEW_TUTORIAL}
                         btnPress={this.check}
                     />
                     <Item
                         bottomLine
-                        title='谷歌验证'
+                        title={I18n.GOOGLE_PWD}
                         btnPress={this.check}
                     />
                     <Item
-                        title='常见问题'
+                        title={I18n.FAQ}
                         btnPress={this.check}
                     />
                 </View>
@@ -47,7 +48,7 @@ export default class HelpCenter extends Component {
     }
 
     check = () => {
-        Toast.show('btnPress');
+        // Toast.show('btnPress');
     }
 
 }

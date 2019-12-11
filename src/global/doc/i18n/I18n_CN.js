@@ -10,6 +10,7 @@ const SEND_MSG = '发送验证码';
 const RESEND = '重新发送';
 const GOOGLE_PWD = 'google验证码';
 const SUBMIT = '提交';
+const EDIT = '编辑';
 const OLD_PWD = '旧密码';
 const ASSETS = '资金';
 const CHINA = '中国';
@@ -71,6 +72,8 @@ const MERCHANT_CERTIFICATION = '商家认证';
 const HELP_CENTER = '帮助中心';
 const ABOUT_US = '关于我们';
 const SETTINGS = '设置';
+const PERSONAL = '个人中心';
+
 
 //settings
 const UPDATE_CHECK = '检查更新';
@@ -95,12 +98,27 @@ const UNLIMITED_SCOPE = '市级';
 const SELECT_CITY = '选择城市';
 const SELECT_PROVINEC = '选择省份';
 
+//about us
+const AGREEMENT = '用户协议';
+const NEW_TUTORIAL = '新手教程';
+const FAQ = '常见问题';
+
+//personal
+const NICK_NAME = '昵称';
+const CONTACT = '联系方式';
+
 //status
 const IN_REVIEW = '审核中';
 const NOT_APPROVED = '审核失败';
 const NOT_CERTIFIED = '未认证';
 const ALREADY_CERTIFIED = '已认证';
 const VIDEO_CERTIFICATION = '视频认证';
+
+const WECHAT ='微信号';
+const ALIPAY ='支付宝';
+const QQ = 'QQ';
+const TG = 'Telegram';
+const OTHER = '其他';
 
 //toast
 const IN_REVIEW_BE_PATIENT = '信息审核中,请耐心等待';
@@ -134,6 +152,7 @@ export default {
     RESEND,
     GOOGLE_PWD,
     SUBMIT,
+    EDIT,
     OLD_PWD,
     ASSETS,
     CHINA,
@@ -193,6 +212,7 @@ export default {
     HELP_CENTER,
     ABOUT_US,
     SETTINGS,
+    PERSONAL,
 
     UPDATE_CHECK,
 
@@ -214,11 +234,24 @@ export default {
     SELECT_CITY,
     SELECT_PROVINEC,
 
+    AGREEMENT,
+    NEW_TUTORIAL,
+    FAQ,
+
+    NICK_NAME,
+    CONTACT,
+
     IN_REVIEW,
     NOT_APPROVED,
     NOT_CERTIFIED,
     ALREADY_CERTIFIED,
     VIDEO_CERTIFICATION,
+
+    WECHAT,
+    ALIPAY,
+    QQ,
+    TG,
+    OTHER,
 
     IN_REVIEW_BE_PATIENT,
     HAVE_BEEN_AUTHER,

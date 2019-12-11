@@ -11,6 +11,7 @@ const SEND_MSG = 'Send';
 const RESEND = 'Resend';
 const GOOGLE_PWD = 'Google Verification Code';
 const SUBMIT = 'Submit';
+const EDIT = 'Edit';
 const OLD_PWD = 'Old Password';
 const ASSETS = 'Assets';
 const CHINA = 'China';
@@ -72,6 +73,7 @@ const MERCHANT_CERTIFICATION = 'Merchant Certification';
 const HELP_CENTER = 'Help Center';
 const ABOUT_US = 'About Us';
 const SETTINGS = 'Settings';
+const PERSONAL = 'Personal';
 
 //settings
 const UPDATE_CHECK = 'Check for Updates';
@@ -96,12 +98,23 @@ const UNLIMITED_SCOPE = 'Unlimited';
 const SELECT_CITY = 'Select City';
 const SELECT_PROVINEC = 'Select Province';
 
+//about us
+const AGREEMENT = 'Agreement';
+const NEW_TUTORIAL = 'Newbie Tutorial';
+const FAQ = 'FAQ';
+
+//personal
+const NICK_NAME = 'Nickname';
+const CONTACT = 'Contact';
+
 //status
 const IN_REVIEW = 'In Review';
 const NOT_APPROVED = 'Not Approved';
 const NOT_CERTIFIED = 'Not Certified';
 const ALREADY_CERTIFIED = 'Already Certification';
 const VIDEO_CERTIFICATION = 'Video Certification';
+
+//contact
 
 
 //toast
@@ -118,6 +131,12 @@ const BIND_SUCCESS = 'Bind Success';
 const BIND_FAILED = 'Bind Failed';
 const PWD_SHORT = 'Password is too short, please enter at least 8 digits';
 const PWD_INCONSISTENT = 'Inconsistent passwords';
+
+const WECHAT = 'WeChat';
+const ALIPAY = 'Alipay';
+const QQ = 'QQ';
+const TG = 'Telegram';
+const OTHER = 'Other';
 
 const SET_ASSETS_PWD_SUCCESS = 'Funding password set successfully';
 const SET_ASSETS_PWD_Failed = 'Funding password set failed';
@@ -137,6 +156,7 @@ export default {
     RESEND,
     GOOGLE_PWD,
     SUBMIT,
+    EDIT,
     OLD_PWD,
     ASSETS,
     CHINA,
@@ -196,6 +216,7 @@ export default {
     HELP_CENTER,
     ABOUT_US,
     SETTINGS,
+    PERSONAL,
 
     UPDATE_CHECK,
 
@@ -217,11 +238,24 @@ export default {
     SELECT_CITY,
     SELECT_PROVINEC,
 
+    AGREEMENT,
+    NEW_TUTORIAL,
+    FAQ,
+
+    NICK_NAME,
+    CONTACT,
+
     IN_REVIEW,
     NOT_APPROVED,
     NOT_CERTIFIED,
     ALREADY_CERTIFIED,
     VIDEO_CERTIFICATION,
+
+    WECHAT,
+    ALIPAY,
+    QQ,
+    TG,
+    OTHER,
 
     IN_REVIEW_BE_PATIENT,
     HAVE_BEEN_AUTHER,

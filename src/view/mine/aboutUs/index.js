@@ -9,6 +9,7 @@ import {
 import Header from '../../../component/header';
 import Item from '../Item';
 import Toast from '../../../component/toast';
+import I18n from '../../../global/doc/i18n';
 
 export default class About extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -22,18 +23,18 @@ export default class About extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='关于我们'
+                    title={I18n.ABOUT_US}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <Item
                         margin
                         bottomLine
-                        title='用户协议'
+                        title={I18n.AGREEMENT}
                         btnPress={this.check}
                     />
                     <Item
-                        title='关于我们'
+                        title={I18n.ABOUT_US}
                         btnPress={this.check}
                     />
                 </View>
@@ -42,7 +43,7 @@ export default class About extends Component {
     }
 
     check = () => {
-        Toast.show('btnPress');
+        // Toast.show('btnPress');
     }
 
 }

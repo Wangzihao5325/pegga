@@ -15,6 +15,7 @@ import Header from '../../../../component/header';
 import ItemInput from '../../ItemInput';
 import Btn from '../../../../component/btn';
 import Toast from '../../../../component/toast';
+import I18n from '../../../../global/doc/i18n';
 
 class Contact extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -39,7 +40,7 @@ class Contact extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='联系方式'
+                    title={I18n.CONTACT}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <KeyboardAwareScrollView>
@@ -47,8 +48,8 @@ class Contact extends Component {
                         <ItemInput
                             margin
                             isControl
-                            title='手机号码'
-                            placeholder='请输入手机号码'
+                            title={I18n.PHONE_NUM}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.PHONE_NUM}`}
                             value={this.state.phoneNum}
                             callback={this.stateUpdate('phoneNum')}
                             editable={this.state.editable}
@@ -57,8 +58,8 @@ class Contact extends Component {
                             margin
                             bottomLine
                             isControl
-                            title='微信号'
-                            placeholder='请输入微信号'
+                            title={I18n.WECHAT}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.WECHAT}`}
                             value={this.state.weChat}
                             callback={this.stateUpdate('weChat')}
                             editable={this.state.editable}
@@ -66,16 +67,16 @@ class Contact extends Component {
                         <ItemInput
                             bottomLine
                             isControl
-                            title='支付宝'
-                            placeholder='请输入支付宝'
+                            title={I18n.ALIPAY}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.ALIPAY}`}
                             value={this.state.aliPay}
                             callback={this.stateUpdate('aliPay')}
                             editable={this.state.editable}
                         />
                         <ItemInput
                             isControl
-                            title='QQ号'
-                            placeholder='请输入QQ号'
+                            title={I18n.QQ}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.QQ}`}
                             value={this.state.QQ}
                             callback={this.stateUpdate('QQ')}
                             editable={this.state.editable}
@@ -84,8 +85,8 @@ class Contact extends Component {
                             margin
                             bottomLine
                             isControl
-                            title='Telegram'
-                            placeholder='请输入Telegram号码'
+                            title={I18n.TG}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.TG}`}
                             value={this.state.tg}
                             callback={this.stateUpdate('tg')}
                             editable={this.state.editable}
@@ -93,16 +94,16 @@ class Contact extends Component {
                         <ItemInput
                             bottomLine
                             isControl
-                            title='邮箱'
-                            placeholder='请输入邮箱地址'
+                            title={`${I18n.EMAIL}`}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.EMAIL}`}
                             value={this.state.mail}
                             callback={this.stateUpdate('mail')}
                             editable={this.state.editable}
                         />
                         <ItemInput
                             isControl
-                            title='其他'
-                            placeholder='请输入其他联系方式'
+                            title={I18n.OTHER}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.OTHER}${I18n.CONTACT}`}
                             value={this.state.other}
                             callback={this.stateUpdate('other')}
                             editable={this.state.editable}
@@ -111,7 +112,7 @@ class Contact extends Component {
                             style={styles.bottomBtn}
                             textStyle={styles.bottomBtnText}
                             btnPress={this.bottomBtnPress}
-                            title={this.state.editable ? '提交' : '编辑'}
+                            title={this.state.editable ? I18n.SUBMIT : I18n.EDIT}
                         />
 
                     </View>

@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import Header from '../../../component/header';
 import Item from '../Item';
 import Toast from '../../../component/toast';
+import I18n from '../../../global/doc/i18n';
 
 class Info extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -23,21 +24,21 @@ class Info extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='个人中心'
+                    title={I18n.PERSONAL}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <Item
                         margin
                         bottomLine
-                        title='昵称'
+                        title={I18n.NICK_NAME}
                         stateText={this.props.nickName}
                         btnPress={() => this.props.navigation.navigate('NickName')}
                         titleTextStyle={styles.itemTitle}
                         StateTextStyle={styles.itemState}
                     />
                     <Item
-                        title='联系方式'
+                        title={I18n.CONTACT}
                         btnPress={() => this.props.navigation.navigate('Contact')}
                         titleTextStyle={styles.itemTitle}
                     />

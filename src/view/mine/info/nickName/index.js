@@ -14,6 +14,7 @@ import Header from '../../../../component/header';
 import ItemInput from '../../ItemInput';
 import Btn from '../../../../component/btn';
 import Toast from '../../../../component/toast';
+import I18n from '../../../../global/doc/i18n';
 
 class NickName extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -32,7 +33,7 @@ class NickName extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='昵称修改'
+                    title={I18n.NICK_NAME}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <KeyboardAwareScrollView>
@@ -40,8 +41,8 @@ class NickName extends Component {
                         <ItemInput
                             margin
                             isControl
-                            title='昵称'
-                            placeholder='请输入昵称'
+                            title={I18n.NICK_NAME}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.NICK_NAME}`}
                             value={this.state.nickName}
                             callback={this.stateUpdate('nickName')}
                             editable={this.state.editable}
@@ -51,7 +52,7 @@ class NickName extends Component {
                             style={styles.bottomBtn}
                             textStyle={styles.bottomBtnText}
                             btnPress={this.bottomBtnPress}
-                            title={this.state.editable ? '提交' : '编辑'}
+                            title={this.state.editable ? I18n.SUBMIT : I18n.EDIT}
                         />
 
                     </View>
