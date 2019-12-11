@@ -1,18 +1,19 @@
 import React, { PureComponent } from 'react';
 import { View, TouchableHighlight, Text, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import I18n from '../../../../global/doc/i18n';
 
 class Boundary extends PureComponent {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>接单范围<Text style={styles.tips}>(范围越大风险越大)</Text></Text>
+                <Text style={styles.title}>{`${I18n.RECEIVING_RANGE}`}<Text style={styles.tips}>{`${I18n.MORE_DANGER}`}</Text></Text>
                 <View style={styles.btnContainer}>
-                    <TouchableHighlight underlayColor='transparent' onPress={this.props.citySelect} style={this.props.value == 'city' ? styles.highlightBtn : styles.btn}><Text style={this.props.value == 'city' ? styles.highlightBtnTitle : styles.btnTitle}>市级</Text></TouchableHighlight>
+                    <TouchableHighlight underlayColor='transparent' onPress={this.props.citySelect} style={this.props.value == 'city' ? styles.highlightBtn : styles.btn}><Text style={this.props.value == 'city' ? styles.highlightBtnTitle : styles.btnTitle}>{`${I18n.CITY_SCOPE}`}</Text></TouchableHighlight>
                     <View style={{ height: 33, width: 1, backgroundColor: 'rgb(64,99,213)' }} />
-                    <TouchableHighlight underlayColor='transparent' onPress={this.props.provinceSelect} style={this.props.value == 'province' ? styles.highlightBtn : styles.btn}><Text style={this.props.value == 'province' ? styles.highlightBtnTitle : styles.btnTitle}>省级</Text></TouchableHighlight>
+                    <TouchableHighlight underlayColor='transparent' onPress={this.props.provinceSelect} style={this.props.value == 'province' ? styles.highlightBtn : styles.btn}><Text style={this.props.value == 'province' ? styles.highlightBtnTitle : styles.btnTitle}>{`${I18n.PROVINCE_SCOPE}`}</Text></TouchableHighlight>
                     <View style={{ height: 33, width: 1, backgroundColor: 'rgb(64,99,213)' }} />
-                    <TouchableHighlight underlayColor='transparent' onPress={this.props.countrySelect} style={this.props.value == 'country' ? styles.highlightBtn : styles.btn}><Text style={this.props.value == 'country' ? styles.highlightBtnTitle : styles.btnTitle}>不限范围</Text></TouchableHighlight>
+                    <TouchableHighlight underlayColor='transparent' onPress={this.props.countrySelect} style={this.props.value == 'country' ? styles.highlightBtn : styles.btn}><Text style={this.props.value == 'country' ? styles.highlightBtnTitle : styles.btnTitle}>{`${I18n.UNLIMITED_SCOPE}`}</Text></TouchableHighlight>
                 </View>
                 <View style={styles.address}>
                     <Text>{this.props.bName}</Text>
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderColor: 'rgb(64,99,213)',
         borderWidth: 1,
-        borderRadius:5
+        borderRadius: 5
     },
     btn: {
         flex: 1,

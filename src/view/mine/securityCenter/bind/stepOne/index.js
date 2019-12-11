@@ -15,6 +15,7 @@ import Header from '../../../../../component/header';
 import CountrySelect from './CountrySelect';
 import Input from '../../../../../component/input';
 import Btn from '../../../../../component/btn';
+import I18n from '../../../../../global/doc/i18n';
 
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
 const InputReg = { account: '', password: '' };
@@ -29,7 +30,7 @@ class StepOne extends Component {
 
     state = {
         mode: LOGIN_TYPE.phone,
-        accountPlaceholder: '手机号码',
+        accountPlaceholder: I18n.PHONE_NUM,
         headerTitle: '',
         key: ''
     }
@@ -43,30 +44,30 @@ class StepOne extends Component {
                     if (bindKey == 'bindAccount') {
                         return {
                             mode: LOGIN_TYPE.phone,
-                            accountPlaceholder: '手机号码',
-                            headerTitle: '绑定手机号码',
+                            accountPlaceholder: I18n.PHONE_NUM,
+                            headerTitle: I18n.BIND_MOBILE_ACCOUNT,
                             key: bindKey
                         }
                     } else if (bindKey == 'assetsPwd') {//_todoList:暂时废弃,待重构
                         return {
                             mode: LOGIN_TYPE.phone,
-                            accountPlaceholder: '手机号码',
-                            headerTitle: '设置资金密码',
+                            accountPlaceholder: I18n.PHONE_NUM,
+                            headerTitle: I18n.SET_FUND_PWD,
                             key: bindKey
                         }
                     } else if (bindKey == 'loginPwd') {//_todoList:暂时废弃,待重构
                         return {
                             mode: LOGIN_TYPE.phone,
-                            accountPlaceholder: '手机号码',
-                            headerTitle: '设置登陆密码',
+                            accountPlaceholder: I18n.PHONE_NUM,
+                            headerTitle: I18n.SET_LOGIN_PWD,
                             key: bindKey
                         }
                     }
                 case 'mail':
                     return {
                         mode: LOGIN_TYPE.mail,
-                        accountPlaceholder: '邮箱账号',
-                        headerTitle: '绑定邮箱账号',
+                        accountPlaceholder: I18n.MAIL_ACCOUNT,
+                        headerTitle: I18n.BIND_MAIL_ACCOUNT,
                         key: bindKey
                     }
                 default:
@@ -84,9 +85,9 @@ class StepOne extends Component {
                 <Input.Account
                     style={{ marginTop: 25, fontSize: 16 }}
                     callback={this.accountInputCallback}
-                    placeholder={`请输入${this.state.accountPlaceholder}`}
+                    placeholder={`${I18n.PLEASE_INPUT}${this.state.accountPlaceholder}`}
                 />
-                <Btn.Linear style={styles.loginBtn} textStyle={styles.loginBtnText} btnPress={this.sendMessage} title='发送验证码' />
+                <Btn.Linear style={styles.loginBtn} textStyle={styles.loginBtnText} btnPress={this.sendMessage} title={I18n.SEND_MSG} />
             </SafeAreaView>
         );
     }
@@ -105,7 +106,7 @@ class StepOne extends Component {
             Api.sendMailBindMsg(InputReg.account, (res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
             }, (res, code, msg) => {
-                let message = msg ? msg : '发送验证码失败';
+                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                 Toast.show(message);
             });
         } else {
@@ -114,7 +115,7 @@ class StepOne extends Component {
                 Api.sendPhoneBindMsg(InputReg.account, areaCode, (res) => {
                     this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
                 }, (res, code, msg) => {
-                    let message = msg ? msg : '发送验证码失败';
+                    let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                     Toast.show(message);
                 });
             }

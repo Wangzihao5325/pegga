@@ -8,6 +8,7 @@ import Header from '../../../../../component/header';
 import VerCodeInput from '../../../../../component/input/VerCodeInput';
 import Tips from './Tip4SendMsg';
 import Toast from '../../../../../component/toast';
+import I18n from '../../../../../global/doc/i18n';
 
 
 class VerCodeInputView extends Component {
@@ -54,7 +55,7 @@ class VerCodeInputView extends Component {
         return (
             <SafeAreaView style={styles.safeContainer} >
                 <Header.Normal goback={() => this.props.navigation.goBack()} />
-                <Text style={styles.titleText}>输入验证码</Text>
+                <Text style={styles.titleText}>{I18n.INPUT_VER_CODE}</Text>
                 <Text style={styles.sendAddressText}>{`验证码已发送至${this.state.countryCode} ${this.state.account}`}</Text>
                 <VerCodeInput inputDone={this.verCodeInputDone} />
                 <Tips style={styles.tips} pressCallback={this.sendMsg} />
@@ -75,25 +76,25 @@ class VerCodeInputView extends Component {
 
     sendMsg = () => {
         if (!this.state.readyForSend) {
-            Toast.show('发送二维码过于频繁，请稍后再尝试');
+            Toast.show(I18n.SEND_VER_CODE_MANY_TIMES);
             return;
         }
         if (this.state.key == 'bindAccount') {
             if (this.state.mode == 'phone') {
                 let areaCode = parseInt(this.props.code);
                 Api.sendPhoneBindMsg(this.state.account, areaCode, (res) => {
-                    Toast.show('已重新发送验证码');
+                    Toast.show(I18n.RESEND_VER_CODE);
                     this._timerSetting();
                 }, (res, code, msg) => {
-                    let message = msg ? msg : '验证码发送失败';
+                    let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                     Toast.show(message);
                 })
             } else if (this.state.mode == 'mail') {
                 Api.sendMailBindMsg(this.state.account, (res) => {
-                    Toast.show('已重新发送验证码');
+                    Toast.show(I18n.RESEND_VER_CODE);
                     this._timerSetting();
                 }, (res, code, msg) => {
-                    let message = msg ? msg : '验证码发送失败';
+                    let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                     Toast.show(message);
                 })
             }
@@ -110,10 +111,10 @@ class VerCodeInputView extends Component {
             */
         } else if (this.state.key == 'loginPwd') {
             Api.sendChangePwdMsg((res) => {
-                Toast.show('已重新发送验证码');
+                Toast.show(I18n.RESEND_VER_CODE);
                 this._timerSetting();
             }, (res, code, msg) => {
-                let message = msg ? msg : '验证码发送失败';
+                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                 Toast.show(message);
             });
         }
@@ -129,10 +130,10 @@ class VerCodeInputView extends Component {
                     areaCode
                 }
                 Api.bindPhone(payload, () => {
-                    Toast.show('绑定手机号码成功');
+                    Toast.show(I18n.BIND_SUCCESS);
                     this.props.navigation.pop(2);
                 }, (result, code, message) => {
-                    let msg = message ? message : '绑定失败!';
+                    let msg = message ? message : I18n.BIND_FAILED;
                     Toast.show(msg);
                 });
             } else if (this.state.mode == 'mail') {
@@ -141,10 +142,10 @@ class VerCodeInputView extends Component {
                     emailCode: verCode
                 }
                 Api.bindMail(payload, () => {
-                    Toast.show('绑定邮箱成功');
+                    Toast.show(I18n.BIND_SUCCESS);
                     this.props.navigation.pop(2);
                 }, (result, code, message) => {
-                    let msg = message ? message : '绑定失败!';
+                    let msg = message ? message : I18n.BIND_FAILED;
                     Toast.show(msg);
                 });
             }

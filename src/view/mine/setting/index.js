@@ -14,6 +14,7 @@ import Btn from '../../../component/btn';
 import Variables from '../../../global/Variables';
 import store from '../../../store';
 import { user_logout } from '../../../store/actions/userAction';
+import I18n from '../../../global/doc/i18n';
 
 
 export default class Setting extends Component {
@@ -28,18 +29,18 @@ export default class Setting extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='设置'
+                    title={I18n.SETTINGS}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9', flexDirection: 'column', alignItems: 'center' }}>
                     <Item
                         margin
-                        title='检查更新'
+                        title={I18n.UPDATE_CHECK}
                         stateText='v1.1'
                         btnPress={this.check}
                     />
                     <Btn.Linear
-                        title='退出'
+                        title={I18n.LOGOUT}
                         style={styles.btn}
                         textStyle={styles.btnText}
                         btnPress={this.logout}
@@ -51,7 +52,7 @@ export default class Setting extends Component {
     }
 
     check = () => {
-        Toast.show('当前已经是最新版本！');
+        Toast.show(I18n.NOW_THE_LAST_VERSION);
     }
 
     logout = () => {

@@ -11,6 +11,7 @@ import Header from '../../../../../component/header';
 import ItemInput from '../../../ItemInput';
 import Btn from '../../../../../component/btn';
 import Toast from '../../../../../component/toast';
+import I18n from '../../../../../global/doc/i18n';
 
 export default class AssetsPwdFinally extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -33,13 +34,13 @@ export default class AssetsPwdFinally extends Component {
     componentDidMount() {
         const verCode = this.props.navigation.getParam('verCode', '');
         const key = this.props.navigation.getParam('key', '');
-        let subTitle = '资金';
+        let subTitle = I18n.ASSETS;
         switch (key) {
             case 'loginPwd':
-                subTitle = '登陆';
+                subTitle = I18n.LOGIN;
                 break;
             case 'assetsPwd':
-                subTitle = '资金';
+                subTitle = I18n.ASSETS;
                 break;
             default:
                 break;
@@ -55,7 +56,7 @@ export default class AssetsPwdFinally extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title={`设置${this.state.subTitle}密码`}
+                    title={`${this.state.subTitle}${I18n.PASSWORD}`}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
@@ -65,8 +66,8 @@ export default class AssetsPwdFinally extends Component {
                             bottomLine
                             isControl
                             secureTextEntry
-                            title='旧密码'
-                            placeholder={`请输入旧密码`}
+                            title={I18n.OLD_PWD}
+                            placeholder={`${I18n.PLEASE_INPUT}${I18n.OLD_PWD}`}
                             value={this.state.oldPwd}
                             callback={this.stateUpdate('oldPwd')}
                         />
@@ -76,24 +77,24 @@ export default class AssetsPwdFinally extends Component {
                         bottomLine
                         isControl
                         secureTextEntry
-                        title={`${this.state.subTitle}密码`}
-                        placeholder={`请输入${this.state.subTitle}密码`}
+                        title={`${this.state.subTitle}${I18n.PASSWORD}`}
+                        placeholder={`${I18n.PLEASE_INPUT}${this.state.subTitle}${I18n.PASSWORD}`}
                         value={this.state.assetsPwd}
                         callback={this.stateUpdate('assetsPwd')}
                     />
                     <ItemInput
                         isControl
                         secureTextEntry
-                        title={`确认${this.state.subTitle}密码`}
-                        placeholder={`请确认${this.state.subTitle}密码`}
+                        title={`${this.state.subTitle}${I18n.PASSWORD}`}
+                        placeholder={`${I18n.PLEASE_CONFIRM}${this.state.subTitle}${I18n.PASSWORD}`}
                         value={this.state.confirmAssetsPwd}
                         callback={this.stateUpdate('confirmAssetsPwd')}
                     />
                     <ItemInput
                         isControl
                         secureTextEntry
-                        title='google密码'
-                        placeholder='请输入google密码'
+                        title={I18n.GOOGLE_PWD}
+                        placeholder={`${I18n.PLEASE_INPUT}${I18n.GOOGLE_PWD}`}
                         value={this.state.googlePwd}
                         callback={this.stateUpdate('googlePwd')}
                     />
@@ -101,7 +102,7 @@ export default class AssetsPwdFinally extends Component {
                         style={styles.bottomBtn}
                         textStyle={styles.bottomBtnText}
                         btnPress={this.bottomBtnPress}
-                        title='提交'
+                        title={I18n.SUBMIT}
                     />
                 </View>
             </SafeAreaView>
@@ -118,11 +119,11 @@ export default class AssetsPwdFinally extends Component {
 
     bottomBtnPress = () => {
         if (this.state.assetsPwd < 8) {
-            Toast.show('密码过短，请至少输入8位密码');
+            Toast.show(I18n.PWD_SHORT);
             return;
         }
         if (this.state.assetsPwd != this.state.confirmAssetsPwd) {
-            Toast.show('密码不一致，请进行确认');
+            Toast.show(I18n.PWD_INCONSISTENT);
             return;
         }
         if (this.state.key == 'assetsPwd') {
@@ -133,10 +134,10 @@ export default class AssetsPwdFinally extends Component {
                 verifyCode: this.state.verCode
             };
             Api.assetsPwd(payload, () => {
-                Toast.show('设置资金密码成功!');
+                Toast.show(I18n.SET_ASSETS_PWD_SUCCESS);
                 this.props.navigation.pop(3);
             }, (result, code, message) => {
-                let msg = message ? message : '设置资金密码失败';
+                let msg = message ? message : I18n.SET_ASSETS_PWD_Failed;
                 Toast.show(msg);
             });
         } else if (this.state.key == 'loginPwd') {
@@ -148,10 +149,10 @@ export default class AssetsPwdFinally extends Component {
                 verifyCode: this.state.verCode
             };
             Api.loginPwdUpdate(payload, () => {
-                Toast.show('更新登陆密码成功!');
+                Toast.show(I18n.UPDATE_LOGIN_PWD_SUCCESS);
                 this.props.navigation.pop(3);
             }, (result, code, message) => {
-                let msg = message ? message : '更新登陆密码失败';
+                let msg = message ? message : I18n.UPDATE_LOGIN_PWD_Failed;
                 Toast.show(msg);
             });
         }

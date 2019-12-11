@@ -27,11 +27,11 @@ class Value2Str {
     _kycLevel(level) {
         switch (level) {
             case 0:
-                return '未认证';
+                return I18n.NOT_CERTIFIED;
             case 1:
-                return '已认证';
+                return I18n.ALREADY_CERTIFIED;
             case 2:
-                return '视频认证';
+                return I18n.VIDEO_CERTIFICATION;
             default:
                 return '';
         }
@@ -40,11 +40,11 @@ class Value2Str {
     kycStatusText(status, level) {
         switch (status) {
             case 0:
-                return '审核中';
+                return I18n.IN_REVIEW;
             case 1:
                 return this._kycLevel(level);
             case 2:
-                return '审核失败';
+                return I18n.NOT_APPROVED;
             default:
                 return this._kycLevel(level);
         }

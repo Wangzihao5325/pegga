@@ -9,6 +9,7 @@ import Api from '../../../socket';
 import Header from '../../../component/header';
 import Item from '../Item';
 import Toast from '../../../component/toast';
+import I18n from '../../../global/doc/i18n';
 
 class SecurityCenter extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -24,37 +25,37 @@ class SecurityCenter extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='安全中心'
+                    title={I18n.SAFETY_CENTER}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <Item
                         margin
-                        title='登陆密码'
+                        title={I18n.LOGIN_PWD}
                         btnPress={() => this.pwd('loginPwd')}
                     />
                     <Item
                         margin
                         bottomLine
-                        title='资金密码设置'
+                        title={I18n.SET_FUND_PWD}
                         btnPress={() => this.pwd('assetsPwd')}
                     />
                     <Item
-                        title='谷歌验证码设置'
+                        title={I18n.SET_GOOGLE_PWD}
                         btnPress={() => this.navigate('SecurityCenter')}
                     />
                     {isShowBindPhone &&
                         <Item
                             margin
                             bottomLine={isShowBindEmail}
-                            title='绑定手机号'
+                            title={I18n.BIND_MOBILE_ACCOUNT}
                             btnPress={() => this.bindAccount('phone')}
                         />
                     }
                     {isShowBindEmail &&
                         <Item
                             margin={!isShowBindPhone}
-                            title='绑定邮箱号'
+                            title={I18n.BIND_MAIL_ACCOUNT}
                             btnPress={() => this.bindAccount('mail')}
                         />
                     }
@@ -66,7 +67,7 @@ class SecurityCenter extends Component {
     pwd = (key) => {
         const { isSmsVerified } = this.props.state;
         if (!isSmsVerified) {
-            Toast.show('请先绑定手机号!');
+            Toast.show(I18n.BIND_PHONE_ACCOUNT_FIRST);
             return;
         }
         const { bindPhone } = this.props.info;
@@ -74,14 +75,14 @@ class SecurityCenter extends Component {
             Api.sendChangePwdMsg((res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
             }, (res, code, msg) => {
-                let message = msg ? msg : '发送验证码失败';
+                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                 Toast.show(message);
             });
         } else if (key == 'assetsPwd') {
             Api.sendChangeAssetsPwdMsg((res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
             }, (res, code, msg) => {
-                let message = msg ? msg : '发送验证码失败';
+                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
                 Toast.show(message);
             });
         }
@@ -90,10 +91,10 @@ class SecurityCenter extends Component {
     bindAccount = (type) => {
         const { isEmailVerified, isSmsVerified } = this.props.state;
         if (type == 'phone' && isSmsVerified) {
-            Toast.show('您已经绑定过手机号,无需再次绑定!');
+            Toast.show(I18n.HAVE_BEENN_BIND_MOBILE);
             return;
         } else if (type == 'mail' && isEmailVerified) {
-            Toast.show('您已经绑定过邮箱,无需再次绑定!');
+            Toast.show(I18n.HAVE_BEENN_BIND_MAIL);
             return;
         }
         this.props.navigation.navigate('BindStepOne', { type });

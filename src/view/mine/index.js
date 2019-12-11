@@ -16,6 +16,7 @@ import Item from './Item';
 import Value2Str from '../../global/util/MapValue2Str';
 import Toast from '../../component/toast';
 import { update_user_info } from '../../store/actions/userAction';
+import I18n from '../../global/doc/i18n';
 
 
 class Mine extends Component {
@@ -68,26 +69,26 @@ class Mine extends Component {
                 </View>
                 <Item
                     bottomLine
-                    title='安全中心'
+                    title={I18n.SAFETY_CENTER}
                     avater={require('../../image/mine/security_center.png')}
                     btnPress={() => this.navigate('SecurityCenter')}
                 />
                 <Item
                     bottomLine
-                    title='身份认证'
+                    title={I18n.IDENTITY_AUTH}
                     stateText={kycStatusText}
                     avater={require('../../image/mine/identity.png')}
                     btnPress={this.goToIdentity}
                 />
                 <Item
-                    title='支付方式管理'
+                    title={I18n.PAYMENT_MANAGEMENT}
                     avater={require('../../image/mine/pay_manage.png')}
                     btnPress={() => this.navigate('PayManager')}
                 />
 
                 <Item
                     margin
-                    title='商家认证'
+                    title={I18n.MERCHANT_CERTIFICATION}
                     avater={require('../../image/mine/businssCer.png')}
                     btnPress={() => this.navigate('MerchantCertification')}
                 />
@@ -95,19 +96,19 @@ class Mine extends Component {
                 <Item
                     margin
                     bottomLine
-                    title='帮助中心'
+                    title={I18n.HELP_CENTER}
                     avater={require('../../image/mine/help.png')}
                     btnPress={() => this.navigate('HelpCenter')}
                 />
                 <Item
-                    title='关于我们'
+                    title={I18n.ABOUT_US}
                     avater={require('../../image/mine/about.png')}
                     btnPress={() => this.navigate('AboutUs')}
                 />
 
                 <Item
                     margin
-                    title='设置'
+                    title={I18n.SETTINGS}
                     avater={require('../../image/mine/setting.png')}
                     btnPress={() => this.navigate('Setting')}
                 />
@@ -118,12 +119,12 @@ class Mine extends Component {
     goToIdentity = () => {
         const { kycAuditStatus, kycLevel } = this.props.kyc;
         if (kycAuditStatus == 0) {//审核中
-            Toast.show('信息审核中,请耐心等待');
+            Toast.show(I18n.IN_REVIEW_BE_PATIENT);
         } else if (kycAuditStatus == 1) {
             if (kycLevel == 0) {
                 this.navigate('Identity');
             } else {
-                Toast.show('您已进行过身份认证');
+                Toast.show(I18n.HAVE_BEEN_AUTHER);
             }
         } else {
             this.navigate('Identity');

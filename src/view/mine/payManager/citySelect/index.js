@@ -18,6 +18,7 @@ import Enum from '../../../../global/Enum';
 
 import Header from '../../../../component/header';
 import Toast from '../../../../component/toast';
+import I18n from '../../../../global/doc/i18n';
 
 function SectionHeader(props) {
     return (
@@ -70,7 +71,7 @@ class CitySelect extends Component {
                 end,
                 type,
                 data,
-                title: '选择省份'
+                title: I18n.SELECT_PROVINEC
             });
         } else if (type == 'city') {
             let dataKey = this.props.bCode[1];
@@ -79,7 +80,7 @@ class CitySelect extends Component {
                 end,
                 type,
                 data,
-                title: '选择城市'
+                title: I18n.SELECT_CITY
             });
         }
     }
@@ -116,13 +117,13 @@ class CitySelect extends Component {
 
     itemPress = (item) => {
         if (this.state.end == 'province') {
-            let bName = `中国-${item[1]}`;
+            let bName = `${I18n.CHINA}-${item[1]}`;
             let bCode = [Enum.COUNTRY_NUM.CHINA, item[0]];
             store.dispatch(boundry_change(bName, bCode));
             this.props.navigation.goBack();
         } else if (this.state.end == 'city') {
             if (this.state.type == 'province') {
-                let bName = `中国-${item[1]}`;
+                let bName = `${I18n.CHINA}-${item[1]}`;
                 let bCode = [Enum.COUNTRY_NUM.CHINA, item[0]];
                 store.dispatch(boundry_change(bName, bCode));
                 this.props.navigation.push('CitySelect', { type: 'city', end: 'city' })
