@@ -15,14 +15,12 @@ import Api from '../../../socket/index';
 import store from '../../../store';
 import { user_login, user_info, update_payment_info } from '../../../store/actions/userAction';
 import { storage_update } from '../../../store/actions/storageAction';
-import Toast from '../../../component/toast';
 import CountrySelect from './CountrySelect';
 import Tips from './Tip4Register';
 import Input from '../../../component/input';
 import Btn from '../../../component/btn';
 
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
-const InputReg = { account: '', password: '' };
 
 class Login extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -92,12 +90,10 @@ class Login extends Component {
 
     accountInputCallback = (value) => {
         store.dispatch(storage_update({ login_account_input: value }));
-        //InputReg.account = value;
     }
 
     passwordInputCallback = (value) => {
         store.dispatch(storage_update({ login_pwd_input: value }));
-        //InputReg.password = value;
     }
 
     login = () => {
@@ -108,9 +104,6 @@ class Login extends Component {
                 store.dispatch(user_info(result));
                 this.props.navigation.navigate('App');
             });
-        }, (result, code, message) => {
-            let toastMsg = message ? message : '登陆失败！';
-            Toast.show(toastMsg);
         });
     }
 

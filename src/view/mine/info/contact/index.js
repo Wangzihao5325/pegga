@@ -149,9 +149,6 @@ class Contact extends Component {
                     Toast.show('更新联系方式成功');
                     this.props.navigation.goBack();
                 });
-            }, (result, code, message) => {
-                let toastText = message ? message : '更新联系方式失败!';
-                Toast.show(toastText);
             });
         } else {
             this.setState({

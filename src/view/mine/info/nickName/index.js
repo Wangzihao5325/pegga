@@ -85,8 +85,6 @@ class NickName extends Component {
                         update_user_info();
                         Toast.show('修改昵称成功!');
                         this.props.navigation.goBack();
-                    }, (result, code, message) => {
-                        Toast.show('修改昵称失败!');
                     })
                 } else {
                     Toast.show('该昵称已经被占用,请重新输入!');

@@ -7,7 +7,6 @@ import Api from '../../../socket/index';
 import Colors from '../../../global/Colors';
 import Header from '../../../component/header';
 import Select from './Select';
-import Toast from '../../../component/toast';
 
 const Item = (props) => {
     let uri = require('../../../image/arrow/in.png');

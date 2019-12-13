@@ -183,9 +183,6 @@ class WechatPay extends Component {
         }
         Api.weChat(payload, () => {
             Toast.show('微信支付信息提交成功！')
-        }, (result, code, message) => {
-            let msg = message ? message : '绑定微信支付失败!';
-            Toast.show(msg)
         })
     }
 }

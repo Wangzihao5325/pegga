@@ -52,9 +52,6 @@ class List extends Component {
         } else if (item.status === 1) {//正上架广告->下架
             Api.cancelAd(item.advertiseNo, (result, code, mes) => {
                 this._updateListData();
-            }, (result, code, message) => {
-                let msg = message ? message : '下架广告失败';
-                Toast.show(msg);
             })
         }
     }

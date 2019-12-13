@@ -138,9 +138,6 @@ class BankCardPay extends PureComponent {
         }
         Api.bankCard(payload, () => {
             Toast.show('绑定银行卡成功');
-        }, (result, code, message) => {
-            let msg = message ? message : '绑定支付宝失败!';
-            Toast.show(msg)
         });
     }
 }

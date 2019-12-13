@@ -305,9 +305,6 @@ class NewAd extends Component {
                 Toast.show('广告修改发布成功');
                 this.props.navigation.pop();
                 //this.props.navigation.navigate('AdManagementStack');
-            }, (result, code, message) => {
-                let msg = message ? message : '广告修改发布失败';
-                Toast.show(msg);
             });
         } else {//发布广告
             switch (this.state.customType) {
@@ -317,17 +314,11 @@ class NewAd extends Component {
                         Api.publishTobAdBuy(payload, (result) => {
                             Toast.show('广告发布成功');
                             this.props.navigation.goBack();
-                        }, (result, code, message) => {
-                            let msg = message ? message : '广告发布失败';
-                            Toast.show(msg);
                         });
                     } else if (this.state.tradeType === 1) {
                         Api.publishTobAdSell(payload, (result) => {
                             Toast.show('广告发布成功');
                             this.props.navigation.goBack();
-                        }, (result, code, message) => {
-                            let msg = message ? message : '广告发布失败';
-                            Toast.show(msg);
                         });
                     }
                     break;
@@ -336,17 +327,11 @@ class NewAd extends Component {
                         Api.publishTocAdBuy(payload, (result) => {
                             Toast.show('广告发布成功');
                             this.props.navigation.goBack();
-                        }, (result, code, message) => {
-                            let msg = message ? message : '广告发布失败';
-                            Toast.show(msg);
                         });
                     } else if (this.state.tradeType === 1) {
                         Api.publishTocAdSell(payload, (result) => {
                             Toast.show('广告发布成功');
                             this.props.navigation.goBack();
-                        }, (result, code, message) => {
-                            let msg = message ? message : '广告发布失败';
-                            Toast.show(msg);
                         });
                     }
                     break;

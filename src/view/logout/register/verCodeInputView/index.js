@@ -83,17 +83,11 @@ class VerCodeInputView extends Component {
                 Api.sendSignupMsg(this.state.account, areaCode, (res) => {
                     Toast.show('发送验证码成功');
                     this._timerSetting();
-                }, (res, code, msg) => {
-                    let message = msg ? msg : '发送验证码失败';
-                    Toast.show(message);
                 })
             } else {
                 Api.sendMailSignupMsg(this.state.account, (res) => {
                     Toast.show('发送验证码成功');
                     this._timerSetting();
-                }, (res, code, msg) => {
-                    let message = msg ? msg : '发送验证码失败';
-                    Toast.show(message);
                 })
             }
         } else if (this.state.type == 'reset') {
@@ -101,9 +95,6 @@ class VerCodeInputView extends Component {
             Api.sendForgotPwdMsg(this.state.account, areaCode, (res) => {
                 Toast.show('发送验证码成功');
                 this._timerSetting();
-            }, (res, code, msg) => {
-                let message = msg ? msg : '发送验证码失败';
-                Toast.show(message);
             })
         }
     }

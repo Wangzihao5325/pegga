@@ -101,25 +101,16 @@ class Login extends Component {
                 let areaCode = parseInt(this.props.code);
                 Api.sendSignupMsg(InputReg.account, areaCode, (res) => {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
-                }, (res, code, msg) => {
-                    let message = msg ? msg : '发送验证码失败';
-                    Toast.show(message);
                 })
             } else {
                 Api.sendMailSignupMsg(InputReg.account, (res) => {
                     this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
-                }, (res, code, msg) => {
-                    let message = msg ? msg : '发送验证码失败';
-                    Toast.show(message);
                 })
             }
         } else if (this.state.type == FUNC_TYPE.reset) {
             let areaCode = parseInt(this.props.code);
-            Api.sendForgotPwdMsg(InputReg.account,areaCode, (res) => {
+            Api.sendForgotPwdMsg(InputReg.account, areaCode, (res) => {
                 this.props.navigation.navigate('VerCodeInputView', { account: InputReg.account, mode: this.state.mode, type: this.state.type });
-            }, (res, code, msg) => {
-                let message = msg ? msg : '发送验证码失败';
-                Toast.show(message);
             })
         }
     }

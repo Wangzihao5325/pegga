@@ -5,7 +5,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import Api from '../../../../socket';
 import Colors from '../../../../global/Colors';
 import Header from '../../../../component/header';
-import Toast from '../../../../component/toast';
 
 export default class DetailInfo extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -46,9 +45,6 @@ export default class DetailInfo extends Component {
                 kycLevel: result.kycLevel,
                 nickName: result.nickName ? result.nickName : '游客'
             });
-        }, (result, code, msg) => {
-            let message = msg ? msg : '获取信息失败';
-            Toast.show(message);
         });
     }
 

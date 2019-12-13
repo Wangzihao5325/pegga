@@ -85,37 +85,19 @@ class VerCodeInputView extends Component {
                 Api.sendPhoneBindMsg(this.state.account, areaCode, (res) => {
                     Toast.show(I18n.RESEND_VER_CODE);
                     this._timerSetting();
-                }, (res, code, msg) => {
-                    let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                    Toast.show(message);
                 })
             } else if (this.state.mode == 'mail') {
                 Api.sendMailBindMsg(this.state.account, (res) => {
                     Toast.show(I18n.RESEND_VER_CODE);
                     this._timerSetting();
-                }, (res, code, msg) => {
-                    let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                    Toast.show(message);
                 })
             }
         } else if (this.state.key == 'assetsPwd') {
             //_todoList:更换资产密码的接口暂无
-            /*
-            Api.sendChangePwdMsg((res) => {
-                Toast.show('已重新发送验证码');
-                 this._timerSetting();
-            }, (res, code, msg) => {
-                let message = msg ? msg : '验证码发送失败';
-                Toast.show(message);
-            });
-            */
         } else if (this.state.key == 'loginPwd') {
             Api.sendChangePwdMsg((res) => {
                 Toast.show(I18n.RESEND_VER_CODE);
                 this._timerSetting();
-            }, (res, code, msg) => {
-                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                Toast.show(message);
             });
         }
     }
@@ -132,9 +114,6 @@ class VerCodeInputView extends Component {
                 Api.bindPhone(payload, () => {
                     Toast.show(I18n.BIND_SUCCESS);
                     this.props.navigation.pop(2);
-                }, (result, code, message) => {
-                    let msg = message ? message : I18n.BIND_FAILED;
-                    Toast.show(msg);
                 });
             } else if (this.state.mode == 'mail') {
                 let payload = {
@@ -144,9 +123,6 @@ class VerCodeInputView extends Component {
                 Api.bindMail(payload, () => {
                     Toast.show(I18n.BIND_SUCCESS);
                     this.props.navigation.pop(2);
-                }, (result, code, message) => {
-                    let msg = message ? message : I18n.BIND_FAILED;
-                    Toast.show(msg);
                 });
             }
         } else if (this.state.key == 'assetsPwd' || this.state.key == 'loginPwd') {

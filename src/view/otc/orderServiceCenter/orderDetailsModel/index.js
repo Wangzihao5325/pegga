@@ -629,9 +629,6 @@ export default class OrderDetail extends Component {
                 orderFilledCountLastMonth: result.orderFilledCountLastMonth,
                 orderWinAppealCountLastMonth: result.orderWinAppealCountLastMonth,
             });
-        }, (result, code, msg) => {
-            let message = msg ? msg : '获取信息失败';
-            Toast.show(message);
         });
     }
 
@@ -698,8 +695,8 @@ export default class OrderDetail extends Component {
     }
 
     concat = () => {
-        let user = this.state.buyerInfo ? this.state.buyerInfo : this.state.sellerInfo;
-        Api.otherUserInfoById(user.buyerNo, (result) => {
+        let userNo = this.state.buyerInfo ? this.state.buyerInfo.buyerNo : this.state.sellerInfo.sellerNo;
+        Api.otherUserInfoById(userNo, (result) => {
             if (result.mobileContact) {
                 Linking.canOpenURL(`tel:${result.mobileContact}`).then((supported) => {
                     if (!supported) {
@@ -711,9 +708,6 @@ export default class OrderDetail extends Component {
             } else {
                 Toast.show('对方暂时没有留下联系方式');
             }
-        }, (result, code, msg) => {
-            let message = msg ? msg : '获取对方联系方式失败!';
-            Toast.show(message);
         })
     }
 
@@ -727,9 +721,6 @@ export default class OrderDetail extends Component {
         Api.buyerConfirmOrder(this.state.orderNo, this.state.paymentSelect, () => {
             Toast.show('您已经确认付款！');
             this._orderInfoUpdate(this.state.orderNo);
-        }, (result, code, message) => {
-            let msg = message ? message : '确认付款失败！';
-            Toast.show(msg);
         });
     }
 
@@ -746,9 +737,6 @@ export default class OrderDetail extends Component {
         Api.sellerConfirmOrder(this.state.orderNo, () => {
             Toast.show('您已经确认收款！');
             this._orderInfoUpdate(this.state.orderNo);
-        }, (result, code, message) => {
-            let msg = message ? message : '确认付款失败！';
-            Toast.show(msg);
         })
     }
 
@@ -765,9 +753,6 @@ export default class OrderDetail extends Component {
         Api.cancelOrder(this.state.orderNo, () => {
             Toast.show('订单取消成功')
             this._orderInfoUpdate(this.state.orderNo);
-        }, (result, code, message) => {
-            let msg = message ? message : '取消订单失败！';
-            Toast.show(msg)
         })
     }
 

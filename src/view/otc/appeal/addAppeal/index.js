@@ -170,9 +170,6 @@ export default class AddAppeal extends Component {
         Api.appealBySource(payload, () => {
             Toast.show('提交证据成功！');
             this.props.navigation.goBack();
-        }, (result, code, msg) => {
-            let message = msg ? msg : '提交证据失败！';
-            Toast.show(`${message}`);
         });
 
     }
@@ -199,9 +196,6 @@ export default class AddAppeal extends Component {
         Api.appealByTarget(payload, () => {
             Toast.show('提交证据成功！');
             this.props.navigation.goBack();
-        }, (result, code, msg) => {
-            let message = msg ? msg : '提交证据失败！';
-            Toast.show(`${message}`);
         });
     }
 }

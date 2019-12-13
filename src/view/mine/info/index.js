@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 import Header from '../../../component/header';
 import Item from '../Item';
-import Toast from '../../../component/toast';
 import I18n from '../../../global/doc/i18n';
 
 class Info extends Component {

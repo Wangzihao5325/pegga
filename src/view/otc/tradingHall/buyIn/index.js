@@ -10,7 +10,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Api from '../../../../socket/index';
 import Colors from '../../../../global/Colors';
 import Btn from '../../../../component/btn';
-import Toast from '../../../../component/toast';
 
 import Value2Str from '../../../../global/util/MapValue2Str';
 import Header from '../../../../component/header';
@@ -163,9 +162,6 @@ class BuyIn extends Component {
             let orderNum = result.orderNo;
             this.props.navigation.pop();
             this.props.navigation.navigate('OTC_OrderDetails', { orderNum });
-        }, (result, code, msg) => {
-            let message = msg ? msg : '生成订单失败';
-            Toast.show(message);
         })
     }
 

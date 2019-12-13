@@ -136,9 +136,6 @@ export default class AssetsPwdFinally extends Component {
             Api.assetsPwd(payload, () => {
                 Toast.show(I18n.SET_ASSETS_PWD_SUCCESS);
                 this.props.navigation.pop(3);
-            }, (result, code, message) => {
-                let msg = message ? message : I18n.SET_ASSETS_PWD_Failed;
-                Toast.show(msg);
             });
         } else if (this.state.key == 'loginPwd') {
             let payload = {
@@ -151,9 +148,6 @@ export default class AssetsPwdFinally extends Component {
             Api.loginPwdUpdate(payload, () => {
                 Toast.show(I18n.UPDATE_LOGIN_PWD_SUCCESS);
                 this.props.navigation.pop(3);
-            }, (result, code, message) => {
-                let msg = message ? message : I18n.UPDATE_LOGIN_PWD_Failed;
-                Toast.show(msg);
             });
         }
     }

@@ -74,16 +74,10 @@ class SecurityCenter extends Component {
         if (key == 'loginPwd') {
             Api.sendChangePwdMsg((res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
-            }, (res, code, msg) => {
-                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                Toast.show(message);
             });
         } else if (key == 'assetsPwd') {
             Api.sendChangeAssetsPwdMsg((res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: bindPhone, mode: 'phone', key });
-            }, (res, code, msg) => {
-                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                Toast.show(message);
             });
         }
     }

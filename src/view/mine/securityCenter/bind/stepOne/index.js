@@ -9,7 +9,6 @@ import {
 import { connect } from 'react-redux'
 import Colors from '../../../../../global/Colors';
 import Api from '../../../../../socket/index';
-import Toast from '../../../../../component/toast';
 
 import Header from '../../../../../component/header';
 import CountrySelect from './CountrySelect';
@@ -105,18 +104,12 @@ class StepOne extends Component {
         if (this.state.mode == LOGIN_TYPE.mail) {
             Api.sendMailBindMsg(InputReg.account, (res) => {
                 this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
-            }, (res, code, msg) => {
-                let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                Toast.show(message);
             });
         } else {
             if (this.state.key == 'bindAccount') {
                 let areaCode = parseInt(this.props.code);
                 Api.sendPhoneBindMsg(InputReg.account, areaCode, (res) => {
                     this.props.navigation.navigate('BindStepTwo', { account: InputReg.account, mode: this.state.mode, key: this.state.key });
-                }, (res, code, msg) => {
-                    let message = msg ? msg : I18n.SEND_MOBILE_MSG_FAILED;
-                    Toast.show(message);
                 });
             }
         }

@@ -88,9 +88,6 @@ class OrderManagement extends Component {
         Api.cancelOrder(item.orderNo, () => {
             Toast.show('订单取消成功')
             this._orderListDataUpdate();
-        }, (result, code, message) => {
-            let msg = message ? message : '取消订单失败！';
-            Toast.show(msg)
         })
     }
 

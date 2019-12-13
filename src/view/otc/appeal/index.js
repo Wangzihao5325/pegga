@@ -6,7 +6,6 @@ import Api from '../../../socket';
 import Header from '../../../component/header';
 import Select from '../../../component/select';
 import Item from '../../otc/tradingHall/newAd/Item';
-import Toast from '../../../component/toast';
 import Value2Str from '../../../global/util/MapValue2Str';
 import EvidenceItem from './EvidenceItem';
 import LinearGradient from 'react-native-linear-gradient';
@@ -259,9 +258,6 @@ export default class Appeal extends Component {
                         // orderType: orderType
                     }
                 });
-            }, (result, code, msg) => {
-                let message = msg ? msg : '获取申诉信息失败';
-                Toast.show(`${message}`);
             })
         }
     }

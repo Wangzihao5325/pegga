@@ -187,9 +187,6 @@ class Container extends Component {
             };
             Api.onceCall(payload, (result, code, msg) => {
                 Toast.show('广告创建成功!');
-            }, (result, code, msg) => {
-                let message = msg ? msg : '创建广告失败!';
-                Toast.show(message);
             });
         } else {
             Toast.show('请输入正确的数目/金额!');

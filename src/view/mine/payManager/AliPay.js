@@ -315,9 +315,6 @@ class AliPay extends Component {
         }
         Api.aliPay(payload, () => {
             Toast.show('支付宝支付信息提交成功！')
-        }, (result, code, message) => {
-            let msg = message ? message : '绑定支付宝失败!';
-            Toast.show(msg)
         })
     }
 }

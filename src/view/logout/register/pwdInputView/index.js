@@ -107,8 +107,6 @@ class PwdInputView extends Component {
                     Toast.show('注册成功,请登陆');
                     store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                     this.props.navigation.popToTop();
-                }, (e, code, message) => {
-                    Toast.show(message ? `注册失败:${message}` : '注册失败');
                 });
             } else {
                 let payload = {
@@ -124,8 +122,6 @@ class PwdInputView extends Component {
                     Toast.show('注册成功,请登陆');
                     store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                     this.props.navigation.popToTop();
-                }, (e, code, message) => {
-                    Toast.show(message ? `注册失败:${message}` : '注册失败');
                 });
             }
         } else if (this.state.type == 'reset') {
@@ -139,8 +135,6 @@ class PwdInputView extends Component {
                 Toast.show('重置密码成功,请登陆');
                 store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                 this.props.navigation.popToTop();
-            }, (e, code, message) => {
-                Toast.show(message ? `重置密码失败:${message}` : '重置密码失败');
             });
 
         }

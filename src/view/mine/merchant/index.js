@@ -276,9 +276,6 @@ class MerchantCertification extends Component {
                 Api.drawBackActiveBalance((res, code, msg) => {
                     let message = msg ? msg : '退款成功';
                     Toast.show(message);
-                }, (res, code, msg) => {
-                    let message = msg ? msg : '退款失败';
-                    Toast.show(message);
                 })
             } else {
                 Toast.show(`尚未具有退还资质,当前进度 ${info.orderAmount}/${info.backNeedAmount}`)
@@ -290,9 +287,6 @@ class MerchantCertification extends Component {
         Api.downGrade((result, code, message) => {
             Toast.show('提交成功,请等待审核');
             this.props.navigation.goBack();
-        }, (result, code, message) => {
-            let msg = message ? message : '提交失败';
-            Toast.show(msg);
         });
     }
 
@@ -312,9 +306,6 @@ class MerchantCertification extends Component {
                         Toast.show('提交成功，请等待审核');
                         this.props.navigation.goBack();
                         // to do刷新数据
-                    }, (result, code, message) => {
-                        let msg = message ? message : '提交失败';
-                        Toast.show(msg);
                     });
                     break;
                 case Enum.ROLE.BUSINESS_ROLE[3].key:
@@ -335,9 +326,6 @@ class MerchantCertification extends Component {
                             Toast.show('提交成功，请等待审核');
                             this.props.navigation.goBack();
                             // to do刷新数据
-                        }, (result, code, message) => {
-                            let msg = message ? message : '提交失败';
-                            Toast.show(msg);
                         });
                     }
                     break;
@@ -353,9 +341,6 @@ class MerchantCertification extends Component {
                             Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
                             // to do刷新数据
-                        }, (result, code, message) => {
-                            let msg = message ? message : '提交失败';
-                            Toast.show(msg);
                         });
                     }
                     break;
@@ -377,9 +362,6 @@ class MerchantCertification extends Component {
                             Toast.show('提交成功,请等待审核');
                             this.props.navigation.goBack();
                             // to do刷新数据
-                        }, (result, code, message) => {
-                            let msg = message ? message : '提交失败';
-                            Toast.show(msg);
                         });
                     }
                     break;

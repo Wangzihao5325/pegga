@@ -7,6 +7,7 @@ import Banner from './Banner';
 import CapitalOperation from './CapitalOperation';
 import RecordList from './recordList';
 import Toast from '../../../component/toast';
+import I18n from '../../../global/doc/i18n';
 
 export default class AssetsDetail extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -78,7 +79,7 @@ export default class AssetsDetail extends Component {
     }
 
     developing = () => {
-        Toast.show('暂未开放');
+        Toast.show(I18n.IN_DEVELOPING);
     }
 }
 

@@ -17,7 +17,6 @@ import TotalData from '../../../../global/doc/city-picker.data';
 import Enum from '../../../../global/Enum';
 
 import Header from '../../../../component/header';
-import Toast from '../../../../component/toast';
 import I18n from '../../../../global/doc/i18n';
 
 function SectionHeader(props) {

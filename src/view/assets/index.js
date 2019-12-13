@@ -15,6 +15,7 @@ import Banner from './Banner';
 import FunTabs from './FunTabs';
 import Separator from './Separator';
 import List from './List';
+import I18n from '../../global/doc/i18n';
 
 export default class Assets extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -53,7 +54,7 @@ export default class Assets extends Component {
     }
 
     devloping = () => {
-        Toast.show('暂未开放');
+        Toast.show(I18n.IN_DEVELOPING);
     }
 }
 
