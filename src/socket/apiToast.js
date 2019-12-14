@@ -466,5 +466,47 @@ const ErrorCodeToast = (code) => {
         case 31000:
             toastStr = I18n.CODE_ERROR;
             break;
+        case 9001:
+            toastStr = I18n.CODE_USER_NOT_EXIST;
+            break;
+        case 9002:
+            toastStr = I18n.CODE_SIGN_IN_CHANNEL_NOT_EXIST;
+            break;
+        case 9003:
+            toastStr = I18n.CODE_PAY_TYPE_IS_EXIST;
+            break;
+        case 60001:
+            toastStr = I18n.CODE_NO_BALANCE2;
+            break;
+        case 60002:
+            toastStr = I18n.CODE_BACK_DEPOSIT_ERROR;
+            break;
+        case 60003:
+            toastStr = I18n.CODE_BACK_ACTIVE_BALANCE_ERROR2;
+            break;
+        case 60004:
+            toastStr = I18n.CODE_BACK_ACTIVE_BALANCE_ALREADY;
+            break;
+        case 70001:
+            toastStr = I18n.CODE_IMAGE_ERROR;
+            break;
+        case 70002:
+            toastStr = I18n.CODE_FILE_EMPTY2;
+            break;
+        case 6001:
+            toastStr = I18n.CODE_INVALID_MATCH_AREA;
+            break;
+        case 6002:
+            toastStr = I18n.CODE_NO_ORDER_TO_MATCH;
+            break;
+        case 6999:
+            toastStr = I18n.CODE_MATCH_ERROR;
+            break;
+        case 6010:
+            toastStr = I18n.CODE_APP_ID_NOT_EXIST;
+            break;
     }
+    return toastStr;
 }
+
+export default ErrorCodeToast;

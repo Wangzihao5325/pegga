@@ -3,6 +3,7 @@ import qs from 'qs';
 import * as Config from '../global/Config';
 import Variables from '../global/Variables';
 import Toast from '../component/toast';
+import ErrorCodeToast from './apiToast';
 
 class api {
     request(url, formData, onSuccess, onError, pagePayload) {
@@ -35,7 +36,10 @@ class api {
                         console.log(error);
                     }
                 } else {
-                    if (message) { Toast.show(message) }
+                    if (typeof code == 'number') {
+                        let toastStr = ErrorCodeToast(code);
+                        Toast.show(toastStr);
+                    }
                     onError ? onError(result, code, message, responseJson) : console.log(responseJson);
                 }
             })
