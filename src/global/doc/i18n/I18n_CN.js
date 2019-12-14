@@ -119,6 +119,17 @@ const ABOUT_US = '关于我们';
 const SETTINGS = '设置';
 const PERSONAL = '个人中心';
 
+//identity
+const IDENTITY_AUTHER = '身份认证';
+const IDENTITY_TIPS = '确保您使用的是本人真实身份进行验证,我们会保护您的信息安全'
+const IDENTITY_NAME = '姓名';
+const IDENTITY_INPUT_NAME = '请输入真实姓名';
+const ID_CARD = '身份证号';
+const ID_CARD_INPUT = '请输入身份证号';
+const ID_IMAGE = '证件照片';
+const FRONT_IMAGE = '证件照正面照';
+const BACK_IMAGE = '证件照反面照';
+const HAND_HELD = '手持证件照片';
 
 //settings
 const UPDATE_CHECK = '检查更新';
@@ -479,6 +490,17 @@ export default {
     ABOUT_US,
     SETTINGS,
     PERSONAL,
+
+    IDENTITY_AUTHER,
+    IDENTITY_TIPS,
+    IDENTITY_NAME,
+    IDENTITY_INPUT_NAME,
+    ID_CARD,
+    ID_CARD_INPUT,
+    ID_IMAGE,
+    FRONT_IMAGE,
+    BACK_IMAGE,
+    HAND_HELD,
 
     UPDATE_CHECK,
 

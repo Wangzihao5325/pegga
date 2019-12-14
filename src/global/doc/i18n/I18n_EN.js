@@ -119,6 +119,18 @@ const ABOUT_US = 'About Us';
 const SETTINGS = 'Settings';
 const PERSONAL = 'Personal';
 
+//identity
+const IDENTITY_AUTHER = 'Identity Authentication';
+const IDENTITY_TIPS = 'Make sure you are using your true identity for authentication'
+const IDENTITY_NAME = 'Name';
+const IDENTITY_INPUT_NAME = 'Please Input Name';
+const ID_CARD = 'Certificate Number';
+const ID_CARD_INPUT = 'Please Input Certificate Number';
+const ID_IMAGE = 'Photos of Docs';
+const FRONT_IMAGE = 'Front Photo';
+const BACK_IMAGE = 'Back Photo';
+const HAND_HELD = 'Hand-held ID Photo';
+
 //settings
 const UPDATE_CHECK = 'Check for Updates';
 
@@ -482,6 +494,17 @@ export default {
     ABOUT_US,
     SETTINGS,
     PERSONAL,
+
+    IDENTITY_AUTHER,
+    IDENTITY_TIPS,
+    IDENTITY_NAME,
+    IDENTITY_INPUT_NAME,
+    ID_CARD,
+    ID_CARD_INPUT,
+    ID_IMAGE,
+    FRONT_IMAGE,
+    BACK_IMAGE,
+    HAND_HELD,
 
     UPDATE_CHECK,
 

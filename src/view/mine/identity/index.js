@@ -15,7 +15,7 @@ import Header from '../../../component/header';
 import Btn from '../../../component/btn';
 import ItemInput from '../ItemInput';
 import ImageUpload from './ImageUpload';
-
+import I18n from '../../../global/doc/i18n';
 import Toast from '../../../component/toast';
 
 const IMAGE_HEIGHT = (Dimensions.get('window').width - 45) / 2 / 160 * 90;
@@ -43,41 +43,41 @@ export default class About extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='身份认证'
+                    title={I18n.IDENTITY_AUTHER}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ paddingHorizontal: 15, height: 50, width: Dimensions.get('window').width, backgroundColor: '#DAE1F6', flexDirection: 'row', alignItems: 'center' }}>
                     <Image style={{ height: 21, width: 21 }} source={require('../../../image/usual/Caution_icon.png')} />
-                    <View style={{ width: Dimensions.get('window').width - 30 - 21 - 10, marginLeft: 10 }}><Text style={{ color: '#4b88e3', lineHeight: 20 }}>确保您使用的是本人真实身份进行验证,我们会保护您的信息安全</Text></View>
+                    <View style={{ width: Dimensions.get('window').width - 30 - 21 - 10, marginLeft: 10 }}><Text style={{ color: '#4b88e3', lineHeight: 20 }}>{`${I18n.IDENTITY_TIPS}`}</Text></View>
                 </View>
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <ItemInput
                         bottomLine
                         isControl
-                        title='姓名'
-                        placeholder='请输入真实姓名'
+                        title={I18n.IDENTITY_NAME}
+                        placeholder={I18n.IDENTITY_INPUT_NAME}
                         value={this.state.name}
                         callback={this.stateUpdate('name')}
                     />
                     <ItemInput
                         isControl
-                        title='身份证号'
-                        placeholder='请输入身份证号'
+                        title={I18n.ID_CARD}
+                        placeholder={I18n.ID_CARD_INPUT}
                         value={this.state.idCard}
                         callback={this.stateUpdate('idCard')}
                     />
 
                     <View style={styles.idCardImageUpload}>
-                        <Text style={styles.titleText}>证件照片</Text>
+                        <Text style={styles.titleText}>{`${I18n.ID_IMAGE}`}</Text>
                         <View style={styles.imageUploadWrapper}>
                             <ImageUpload
-                                title='证件照正面照'
+                                title={I18n.FRONT_IMAGE}
                                 value={this.state.frontData}
                                 callback={() => this.uploadImage('frontData')}
                                 del={() => this.delImage('frontData')}
                             />
                             <ImageUpload
-                                title='证件照反面照'
+                                title={I18n.BACK_IMAGE}
                                 value={this.state.backData}
                                 callback={() => this.uploadImage('backData')}
                                 del={() => this.delImage('backData')}
@@ -86,10 +86,10 @@ export default class About extends Component {
                     </View>
 
                     <View style={styles.idCardImageUpload}>
-                        <Text style={styles.titleText}>手持证件照片</Text>
+                        <Text style={styles.titleText}>{`${I18n.HAND_HELD}`}</Text>
                         <View style={styles.imageUploadWrapper}>
                             <ImageUpload
-                                title='手持证件照片'
+                                title={I18n.HAND_HELD}
                                 value={this.state.handleData}
                                 callback={() => this.uploadImage('handleData')}
                                 del={() => this.delImage('handleData')}
@@ -97,7 +97,7 @@ export default class About extends Component {
                         </View>
                     </View>
 
-                    <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.submit} title='提交' />
+                    <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.submit} title={I18n.SUBMIT} />
                 </View>
             </SafeAreaView>
         );
