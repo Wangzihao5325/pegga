@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import I18n from '../../../global/doc/i18n';
 
 export default class CountrySelect extends PureComponent {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>还没有账号? <Text style={styles.registerText} onPress={this.registerTextPress}>注册</Text></Text>
+                <Text style={styles.text}>{`${I18n.DO_NOT_HAVE_ACCOUNT}`}<Text style={styles.registerText} onPress={this.registerTextPress}>{`${I18n.REGISTER}`}</Text></Text>
             </View>
         );
     }

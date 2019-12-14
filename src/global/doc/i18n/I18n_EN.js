@@ -1,9 +1,11 @@
 //log out
-const LOGIN = 'Register ';
+const LOGIN = 'Login ';
 const LOGOUT = 'Logout';
+const REGISTER = 'Register ';
 const PLEASE_INPUT = 'Please input ';
 const PLEASE_CONFIRM = 'Please confrim ';
 const PHONE_NUM = 'phone number';
+const PHONE = 'phone ';
 const MAIL_ACCOUNT = 'E-mail';
 const PASSWORD = 'password';
 const EMAIL = 'E-mail';
@@ -15,6 +17,10 @@ const EDIT = 'Edit';
 const OLD_PWD = 'Old Password';
 const ASSETS = 'Assets';
 const CHINA = 'China';
+
+const CHANGE_TO = 'to ';
+const FORGOT_PWD = 'lost password?';
+const DO_NOT_HAVE_ACCOUNT = "Don't have account? ";
 
 //tab bottom
 const TAB_BTM_MARKRT = 'Market';
@@ -319,9 +325,11 @@ const CODE_APP_ID_NOT_EXIST = 'appId不存在';
 export default {
     LOGIN,
     LOGOUT,
+    REGISTER,
     PLEASE_INPUT,
     PLEASE_CONFIRM,
     PHONE_NUM,
+    PHONE,
     MAIL_ACCOUNT,
     PASSWORD,
     EMAIL,
@@ -333,6 +341,10 @@ export default {
     OLD_PWD,
     ASSETS,
     CHINA,
+
+    CHANGE_TO,
+    FORGOT_PWD,
+    DO_NOT_HAVE_ACCOUNT,
 
     //tab btm navi
     TAB_BTM_MARKRT,

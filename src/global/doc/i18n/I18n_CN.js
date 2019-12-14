@@ -1,8 +1,10 @@
 const LOGIN = '登录';
 const LOGOUT = '退出';
+const REGISTER = '注册';
 const PLEASE_INPUT = '请输入';
 const PLEASE_CONFIRM = '请确认';
 const PHONE_NUM = '手机号码';
+const PHONE = '手机';
 const MAIL_ACCOUNT = '邮箱账号';
 const PASSWORD = '密码';
 const EMAIL = '邮箱';
@@ -14,6 +16,10 @@ const EDIT = '编辑';
 const OLD_PWD = '旧密码';
 const ASSETS = '资金';
 const CHINA = '中国';
+
+const CHANGE_TO ='切换到';
+const FORGOT_PWD = '忘记密码?';
+const DO_NOT_HAVE_ACCOUNT = '还没有账号? ';
 
 //tab bottom
 const TAB_BTM_MARKRT = '交易';
@@ -316,9 +322,11 @@ const CODE_APP_ID_NOT_EXIST = 'appId不存在';
 export default {
     LOGIN,
     LOGOUT,
+    REGISTER,
     PLEASE_INPUT,
     PLEASE_CONFIRM,
     PHONE_NUM,
+    PHONE,
     MAIL_ACCOUNT,
     PASSWORD,
     EMAIL,
@@ -330,6 +338,10 @@ export default {
     OLD_PWD,
     ASSETS,
     CHINA,
+
+    CHANGE_TO,
+    FORGOT_PWD,
+    DO_NOT_HAVE_ACCOUNT,
 
     //tab btm navi
     TAB_BTM_MARKRT,

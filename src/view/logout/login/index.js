@@ -33,7 +33,7 @@ class Login extends Component {
     state = {
         mode: LOGIN_TYPE.phone,
         accountPlaceholder: I18n.PHONE_NUM,
-        modeChangePlaceholder: '邮箱'
+        modeChangePlaceholder: I18n.EMAIL
     }
 
     render() {
@@ -62,14 +62,14 @@ class Login extends Component {
                         style={[styles.naviBtn, { marginLeft: 20 }]}
                         textStyle={styles.naviBtnText}
                         underlayColor='transparent'
-                        title={`切换到${this.state.modeChangePlaceholder}`}
+                        title={`${I18n.CHANGE_TO}${this.state.modeChangePlaceholder}`}
                         btnPress={this.loginModeChange}
                     />
                     <Btn.Normal
                         style={[styles.naviBtn, { marginRight: 20 }]}
                         textStyle={styles.naviBtnText}
                         underlayColor='transparent'
-                        title='忘记密码?'
+                        title={I18n.FORGOT_PWD}
                         btnPress={this.naviToResetPassword}
                     />
                 </View>
@@ -77,7 +77,7 @@ class Login extends Component {
                     style={styles.loginBtn}
                     textStyle={styles.loginBtnText}
                     btnPress={this.login}
-                    title='登录'
+                    title={I18n.LOGIN}
                 />
                 <Tips pressCallback={this.naviToRegister} />
             </SafeAreaView>
@@ -121,14 +121,14 @@ class Login extends Component {
                 case LOGIN_TYPE.phone:
                     return {
                         mode: LOGIN_TYPE.mail,
-                        accountPlaceholder: '邮箱账号',
-                        modeChangePlaceholder: '手机'
+                        accountPlaceholder: I18n.MAIL_ACCOUNT,
+                        modeChangePlaceholder: I18n.PHONE
                     }
                 case LOGIN_TYPE.mail:
                     return {
                         mode: LOGIN_TYPE.phone,
-                        accountPlaceholder: '手机号码',
-                        modeChangePlaceholder: '邮箱'
+                        accountPlaceholder: I18n.PHONE_NUM,
+                        modeChangePlaceholder: I18n.EMAIL
                     }
                 default:
                     return null;
