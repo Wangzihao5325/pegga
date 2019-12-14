@@ -38,7 +38,7 @@ export default class Assets extends Component {
                 <NavigationEvents
                     onDidFocus={this.naviDidFocus}
                 />
-                <Header.Normal title='资产' showBackBtn={false} />
+                <Header.Normal title={I18n.ASSETS_ASSETS} showBackBtn={false} />
                 <Banner
                     trans={this.devloping}
                     receive={this.devloping}

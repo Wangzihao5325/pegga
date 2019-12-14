@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, View, Image, Text, StatusBar, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
+import I18n from '../../../global/doc/i18n';
 
 import Api from '../../../socket/index';
 import Colors from '../../../global/Colors';
@@ -74,7 +75,7 @@ const Item = (props) => {
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                     <View style={{ flex: 1, marginLeft: 10, flexDirection: 'column' }}>
                         <Text style={{ fontSize: 15, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium' }}>{`${title}`}</Text>
-                        {typeof props.item.orderId == 'string' && <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`订单编号${props.item.orderId}`}</Text>}
+                        {typeof props.item.orderId == 'string' && <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`${I18n.ASSETS_ORDER_NO}${props.item.orderId}`}</Text>}
                     </View>
                     <View style={{ width: 150, height: 80, alignItems: 'flex-end', justifyContent: 'center', flexDirection: 'column' }}>
                         <Text style={[{ fontSize: 16, fontWeight: 'bold' }, amountColor]}>{`${sign} ${props.item.amount} PQC`}</Text>
@@ -143,7 +144,7 @@ class MoneyFlow extends Component {
                     onDidFocus={this.naviDidFocus}
                 />
                 <SafeAreaView style={styles.safeContainer}>
-                    <Header.Normal title='账单信息' goback={() => this.props.navigation.goBack()} />
+                    <Header.Normal title={I18n.ASSETS_BILL_INFO} goback={() => this.props.navigation.goBack()} />
                     <Select
                         type={this.props.billType}
                         timeType={this.props.billTime}

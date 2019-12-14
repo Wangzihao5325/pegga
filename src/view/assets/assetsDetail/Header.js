@@ -7,6 +7,7 @@ import {
     Dimensions,
     StyleSheet
 } from 'react-native';
+import I18n from '../../../global/doc/i18n';
 
 export default class Header extends PureComponent {
     render() {
@@ -20,7 +21,7 @@ export default class Header extends PureComponent {
                     <Text style={{ marginLeft: 5, color: 'white', fontSize: 17 }}>{this.props.title}</Text>
                 </View>
                 <TouchableHighlight style={styles.rightBtnContainer} onPress={this.props.goMoneyFlow} underlayColor='transparent'>
-                    <Text style={{ color: 'white', fontSize: 15 }}>账单</Text>
+                    <Text style={{ color: 'white', fontSize: 15 }}>{I18n.ASSETS_BILL}</Text>
                 </TouchableHighlight>
             </View>
         );

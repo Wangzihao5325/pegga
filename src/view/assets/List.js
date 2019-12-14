@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Text, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import I18n from '../../global/doc/i18n';
 
 import { assets_info_update } from '../../store/actions/assetsAction';
 import Item from './ListItem';
@@ -9,7 +10,7 @@ import Item from './ListItem';
 function Header() {
     return (
         <View style={styles.headerContainer}>
-            <Text style={styles.headerTitleText}>资产</Text>
+            <Text style={styles.headerTitleText}>{I18n.ASSETS_ASSETS}</Text>
         </View>
     );
 }

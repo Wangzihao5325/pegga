@@ -345,7 +345,7 @@ export default class Appeal extends Component {
     }
 
     connect = () => {
-
+    
     }
 
     btnPress = () => {

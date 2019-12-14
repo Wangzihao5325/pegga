@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
-import { ImageBackground, View, Text, Dimensions, StyleSheet } from 'react-native';
+import { ImageBackground, Text, Dimensions, StyleSheet } from 'react-native';
+import I18n from '../../../global/doc/i18n';
 
 export default class Banner extends PureComponent {
     render() {
         return (
             <ImageBackground style={styles.contaner} source={require('../../../image/assets/assets_details_banner_bg.png')}>
-                <Text style={styles.totalText}>总资产</Text>
+                <Text style={styles.totalText}>{I18n.ASSETS_ALL_ASSETS}</Text>
                 <Text style={styles.totalNumText}>{this.props.assets}</Text>
-                <Text style={styles.frozenText}>冻结资产</Text>
+                <Text style={styles.frozenText}>{I18n.ASSETS_FROZEN_ASSETS}</Text>
                 <Text style={styles.frozenNum}>{this.props.frozen}</Text>
             </ImageBackground>
         );

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, TouchableHighlight, Image, Text, Dimensions, StyleSheet } from 'react-native';
+import I18n from '../../../global/doc/i18n';
 class Item extends PureComponent {
     render() {
         return (
@@ -24,17 +25,17 @@ export default class CapitalOperation extends PureComponent {
         return (
             <View style={styles.container}>
                 <Item
-                    title='充值'
+                    title={I18n.ASSETS_RECHARGE}
                     source={require('../../../image/assets/Recharge.png')}
                     callback={this.props.recharge}
                 />
                 <Item
-                    title='提币'
+                    title={I18n.ASSETS_WITHDRAW}
                     source={require('../../../image/assets/Cash-out.png')}
                     callback={this.props.cashOut}
                 />
                 <Item
-                    title='转账'
+                    title={I18n.ASSETS_TRANSFER}
                     source={require('../../../image/assets/Transfer.png')}
                     callback={this.props.transfer}
                 />
@@ -46,7 +47,7 @@ export default class CapitalOperation extends PureComponent {
 const styles = StyleSheet.create({
     itemContainer: {
         height: 60,
-        width: 60,
+        width: 65,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

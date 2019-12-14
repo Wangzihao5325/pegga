@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, TouchableHighlight, Image, Text, Dimensions, StyleSheet } from 'react-native';
+import I18n from '../../global/doc/i18n';
 
 export default class FunTabs extends PureComponent {
     render() {
@@ -8,14 +9,14 @@ export default class FunTabs extends PureComponent {
                 <TouchableHighlight style={styles.btn} onPress={this.trans} underlayColor='transparent'>
                     <View style={styles.btn}>
                         <Image style={styles.icon} source={require('../../image/assets/trans.png')} />
-                        <Text style={styles.btnTitle}>转账</Text>
+                        <Text style={styles.btnTitle}>{I18n.ASSETS_TRANSFER}</Text>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.separator} />
                 <TouchableHighlight style={styles.btn} onPress={this.receive} underlayColor='transparent'>
                     <View style={styles.btn}>
                         <Image style={styles.icon} source={require('../../image/assets/receivables.png')} />
-                        <Text style={styles.btnTitle}>收款</Text>
+                        <Text style={styles.btnTitle}>{I18n.ASSETS_COLLECTION}</Text>
                     </View>
                 </TouchableHighlight>
             </View>

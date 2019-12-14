@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 import store from '../../store';
 import { assets_show_state_change } from '../../store/actions/assetsAction';
-import Colors from '../../global/Colors';
+import I18n from '../../global/doc/i18n';
 
 class Banner extends PureComponent {
     state = {
@@ -31,7 +31,7 @@ class Banner extends PureComponent {
                 resizeMode='cover'
             >
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>资产总估值</Text>
+                    <Text style={styles.titleText}>{I18n.ASSETS_ALL_ASSETS}</Text>
                     <TouchableHighlight style={styles.eyeBtn} onPress={this.showStateChange} underlayColor='transparent' >
                         <Image style={{ height: 20, width: 20 }} source={imageSource} />
                     </TouchableHighlight>

@@ -33,6 +33,21 @@ const CONFIRM_PWD = 'Confirm password';
 const PWD_RULE = '6-20 characters (combination of letters, numbers and symbols)';
 const INVITE_CODE = 'Invitation code (optional)';
 
+//assets
+const ASSETS_ASSETS = 'Assets';
+const ASSETS_ALL_ASSETS = 'All Assets';
+const ASSETS_TRANSFER = 'Transfer';
+const ASSETS_COLLECTION = 'Collection';
+const ASSETS_FROZEN_ASSETS = 'Frozen Assets';
+const ASSETS_RECHARGE = 'Recharge';
+const ASSETS_WITHDRAW = 'Withdraw';
+const ASSETS_BILL = 'Bill';
+const ASSETS_RECHARGE_RECORD = 'Recharge';
+const ASSETS_WITHDRAW_RECORD = 'Withdraw';
+const ASSETS_TRANSFER_RECORD = 'Transfer';
+const ASSETS_BILL_INFO = 'Bill Info';
+const ASSETS_ORDER_NO = 'Order No.';
+
 //explore
 const EXPLORE_MARKET = 'Market';
 const EXPLORE_ARTICLE = 'Articles';
@@ -384,6 +399,21 @@ export default {
     CONFIRM_PWD,
     PWD_RULE,
     INVITE_CODE,
+
+    ASSETS_ASSETS,
+    ASSETS_ALL_ASSETS,
+    ASSETS_TRANSFER,
+    ASSETS_COLLECTION,
+    ASSETS_FROZEN_ASSETS,
+    ASSETS_RECHARGE,
+    ASSETS_WITHDRAW,
+    ASSETS_BILL,
+    ASSETS_RECHARGE_RECORD,
+    ASSETS_WITHDRAW_RECORD,
+    ASSETS_TRANSFER_RECORD,
+    ASSETS_BILL_INFO,
+    ASSETS_ORDER_NO,
+
 
     EXPLORE_MARKET,
     EXPLORE_ARTICLE,

@@ -32,6 +32,22 @@ const CONFIRM_PWD = '确认密码';
 const PWD_RULE = '6-20个字符(字母,数字和符号的组合),字母必须同时包含大写和小写字母';
 const INVITE_CODE = '输入邀请码(选填)';
 
+//assets
+const ASSETS_ASSETS = '资产';
+const ASSETS_ALL_ASSETS = '资产总估值';
+const ASSETS_TRANSFER = '转账';
+const ASSETS_COLLECTION = '收款';
+const ASSETS_FROZEN_ASSETS = '冻结资产';
+const ASSETS_RECHARGE = '充值';
+const ASSETS_WITHDRAW = '提币';
+const ASSETS_BILL = '账单';
+const ASSETS_RECHARGE_RECORD = '充值记录';
+const ASSETS_WITHDRAW_RECORD = '提现记录';
+const ASSETS_TRANSFER_RECORD = '转账记录';
+const ASSETS_BILL_INFO = '账单信息';
+const ASSETS_ORDER_NO = '订单编号';
+
+
 //explore
 const EXPLORE_MARKET = '行情';
 const EXPLORE_ARTICLE = '资讯';
@@ -381,6 +397,20 @@ export default {
     CONFIRM_PWD,
     PWD_RULE,
     INVITE_CODE,
+
+    ASSETS_ASSETS,
+    ASSETS_ALL_ASSETS,
+    ASSETS_TRANSFER,
+    ASSETS_COLLECTION,
+    ASSETS_FROZEN_ASSETS,
+    ASSETS_RECHARGE,
+    ASSETS_WITHDRAW,
+    ASSETS_BILL,
+    ASSETS_RECHARGE_RECORD,
+    ASSETS_WITHDRAW_RECORD,
+    ASSETS_TRANSFER_RECORD,
+    ASSETS_BILL_INFO,
+    ASSETS_ORDER_NO,
 
     EXPLORE_MARKET,
     EXPLORE_ARTICLE,
