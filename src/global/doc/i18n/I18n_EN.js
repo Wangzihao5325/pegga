@@ -33,6 +33,18 @@ const CONFIRM_PWD = 'Confirm password';
 const PWD_RULE = '6-20 characters (combination of letters, numbers and symbols)';
 const INVITE_CODE = 'Invitation code (optional)';
 
+//explore
+const EXPLORE_MARKET = 'Market';
+const EXPLORE_ARTICLE = 'Articles';
+const EXPLORE_NEWS = 'News';
+const EXPLORE_ASSETS = 'Assets';
+const EXPLORE_USDT = 'USDT';
+const EXPLORE_24H = '24H';
+const EXPLORE_MARKET_VALUE = 'Market';
+const HUNDRED_MILLION = 'HM';
+const THOUSAND_BILLION = 'TB';
+const NIU_YAN = '-Data sources ”NIUYAN”-';
+
 //tab bottom
 const TAB_BTM_MARKRT = 'Market';
 const TAB_BTM_ASSETS = 'Assets';
@@ -372,6 +384,17 @@ export default {
     CONFIRM_PWD,
     PWD_RULE,
     INVITE_CODE,
+
+    EXPLORE_MARKET,
+    EXPLORE_ARTICLE,
+    EXPLORE_NEWS,
+    EXPLORE_ASSETS,
+    EXPLORE_USDT,
+    EXPLORE_24H,
+    EXPLORE_MARKET_VALUE,
+    HUNDRED_MILLION,
+    THOUSAND_BILLION,
+    NIU_YAN,
 
     //tab btm navi
     TAB_BTM_MARKRT,

@@ -32,6 +32,18 @@ const CONFIRM_PWD = '确认密码';
 const PWD_RULE = '6-20个字符(字母,数字和符号的组合),字母必须同时包含大写和小写字母';
 const INVITE_CODE = '输入邀请码(选填)';
 
+//explore
+const EXPLORE_MARKET = '行情';
+const EXPLORE_ARTICLE = '资讯';
+const EXPLORE_NEWS = '快讯';
+const EXPLORE_ASSETS = '资产';
+const EXPLORE_USDT = '美元';
+const EXPLORE_24H = '24H';
+const EXPLORE_MARKET_VALUE = '市值';
+const HUNDRED_MILLION = '亿';
+const THOUSAND_BILLION = '万亿';
+const NIU_YAN = '- 数据来源“牛眼行情” -';
+
 //tab bottom
 const TAB_BTM_MARKRT = '交易';
 const TAB_BTM_ASSETS = '资产';
@@ -369,6 +381,17 @@ export default {
     CONFIRM_PWD,
     PWD_RULE,
     INVITE_CODE,
+
+    EXPLORE_MARKET,
+    EXPLORE_ARTICLE,
+    EXPLORE_NEWS,
+    EXPLORE_ASSETS,
+    EXPLORE_USDT,
+    EXPLORE_24H,
+    EXPLORE_MARKET_VALUE,
+    HUNDRED_MILLION,
+    THOUSAND_BILLION,
+    NIU_YAN,
 
     //tab btm navi
     TAB_BTM_MARKRT,

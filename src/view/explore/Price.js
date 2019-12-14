@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Image, TouchableHighlight, FlatList, Dimensions, StyleSheet } from 'react-native';
 import Api from '../../socket';
+import I18n from '../../global/doc/i18n';
 //none,currency_asc,curreency_des,hour_asc,hour_des 
 const Header = (props) => {
     let currencyImage = require('../../image/explore/default.png');
@@ -28,22 +29,22 @@ const Header = (props) => {
     return (
         <View style={styles.headerContainer}>
             <View style={{ flex: 10, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Text style={styles.headerText}>资产</Text>
+                <Text style={styles.headerText}>{I18n.EXPLORE_ASSETS}</Text>
             </View>
             <TouchableHighlight style={{ flex: 9 }} onPress={() => props.callback('currency', props.state)} underlayColor='transparent'>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                    <Text style={styles.headerText}>美元</Text>
+                    <Text style={styles.headerText}>{I18n.EXPLORE_USDT}</Text>
                     <Image style={{ height: 11, width: 11 }} source={currencyImage} />
                 </View>
             </TouchableHighlight>
             <TouchableHighlight style={{ flex: 8 }} onPress={() => props.callback('hour', props.state)} underlayColor='transparent'>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <Text style={styles.headerText}>24H</Text>
+                    <Text style={styles.headerText}>{I18n.EXPLORE_24H}</Text>
                     <Image style={{ height: 11, width: 11 }} source={hourImage} />
                 </View>
             </TouchableHighlight>
             <View style={{ flex: 8, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                <Text style={styles.headerText}>市值</Text>
+                <Text style={styles.headerText}>{I18n.EXPLORE_MARKET_VALUE}</Text>
             </View>
         </View>
     )
@@ -51,9 +52,9 @@ const Header = (props) => {
 
 const Item = (props) => {
     let cap = (props.item[9] / 100000000).toFixed(0);
-    let capStr = `${cap}亿`;
+    let capStr = `${cap}${I18n.HUNDRED_MILLION}`;
     if (cap / 10000 > 1) {
-        capStr = `${(cap / 10000).toFixed(2)}万亿`;
+        capStr = `${(cap / 10000).toFixed(2)}${I18n.THOUSAND_BILLION}`;
     }
     let textStyle = { fontSize: 17, color: 'rgb(20,153,64)' };
     if (props.item[14] < 0) {
@@ -84,7 +85,7 @@ const Item = (props) => {
 const Footer = (props) => {
     return (
         <View style={styles.footer}>
-            <Text style={styles.footerText}>- 数据来源“牛眼行情” -</Text>
+            <Text style={styles.footerText}>{I18n.NIU_YAN}</Text>
         </View>
     );
 }

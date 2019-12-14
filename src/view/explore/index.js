@@ -3,7 +3,7 @@ import {
     SafeAreaView,
 } from 'react-native';
 import Select from '../../component/select';
-import Api from '../../socket';
+import I18n from '../../global/doc/i18n';
 
 import ShortInfo from './ShortInfo';
 import Info from './Info';
@@ -28,7 +28,7 @@ export default class Assets extends Component {
         return (
             <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
                 <Select.ScrollLinear
-                    data={[{ title: '行情', key: 'price' }, { title: '资讯', key: 'info' }, { title: '快讯', key: 'shortInfo' }]}
+                    data={[{ title: I18n.EXPLORE_MARKET, key: 'price' }, { title: I18n.EXPLORE_ARTICLE, key: 'info' }, { title: I18n.EXPLORE_NEWS, key: 'shortInfo' }]}
                     isFlex={true}
                     style={{ backgroundColor: 'white' }}
                     selectValue={this.state.type}
