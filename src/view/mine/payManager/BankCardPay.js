@@ -6,6 +6,7 @@ import Toast from '../../../component/toast';
 import Api from '../../../socket';
 import ItemInput from '../ItemInput';
 import Btn from '../../../component/btn';
+import I18n from '../../../global/doc/i18n';
 
 class BankCardPay extends PureComponent {
     state = {
@@ -26,9 +27,9 @@ class BankCardPay extends PureComponent {
         if (props.bank && state.bank !== props.bank) {
             let auditStatusText = '';
             if (props.bank.auditStatus == 0) {
-                auditStatusText = '您提交的支付信息正在审核中，请耐心等待';
+                auditStatusText = I18n.PAYMENT_CHECKING;
             } else if (props.bank.auditStatus == 2) {
-                auditStatusText = '您提交的支付信息审核失败，请重新提交';
+                auditStatusText = I18n.PAYMENT_CHECK_FAILED;
             }
             return {
                 bank: props.bank,
@@ -56,8 +57,8 @@ class BankCardPay extends PureComponent {
                 <ItemInput
                     margin={this.state.auditStatus == 1}
                     isControl
-                    title='姓名'
-                    placeholder='请输入账号姓名'
+                    title={I18n.IDENTITY_NAME}
+                    placeholder={I18n.PLEASE_INPUT_PAY_NAME}
                     value={this.state.accountName}
                     callback={this.stateUpdate('accountName')}
                 />
@@ -65,33 +66,33 @@ class BankCardPay extends PureComponent {
                     margin
                     bottomLine
                     isControl
-                    title='开户银行'
-                    placeholder='请输入开户银行'
+                    title={I18n.BANK}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.BANK}`}
                     value={this.state.bankName}
                     callback={this.stateUpdate('bankName')}
                 />
                 <ItemInput
                     bottomLine
                     isControl
-                    title='开户支行'
-                    tips='(选填)'
-                    placeholder='请输入开户支行'
+                    title={I18n.SUB_BANK}
+                    tips={I18n.CHOOSE_INPUT}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.SUB_BANK}`}
                     value={this.state.subBranchName}
                     callback={this.stateUpdate('subBranchName')}
                 />
                 <ItemInput
                     bottomLine
                     isControl
-                    title='银行卡号'
-                    placeholder='请输入银行卡号'
+                    title={I18n.BANK_CARD}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.BANK_CARD}`}
                     value={this.state.account}
                     callback={this.stateUpdate('account')}
                 />
                 <ItemInput
                     isControl
-                    title='每日收款限额'
-                    tips='(选填)'
-                    placeholder='请输入每日收款上限'
+                    title={I18n.DAILY_MAX}
+                    tips={I18n.CHOOSE_INPUT}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.DAILY_MAX}`}
                     value={this.state.max}
                     callback={this.stateUpdate('max')}
                 />
@@ -99,15 +100,15 @@ class BankCardPay extends PureComponent {
                     secureTextEntry
                     margin
                     isControl
-                    title='资金密码'
-                    placeholder='请输入资金密码'
+                    title={I18n.ASSETS_PWD}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.ASSETS_PWD}`}
                     value={this.state.assetsPwd}
                     callback={this.stateUpdate('assetsPwd')}
                 />
                 <Btn.Linear
                     style={styles.btn}
                     textStyle={styles.btnText}
-                    title='完成设置'
+                    title={I18n.SETTING_DONE}
                     btnPress={this.upload}
                 />
             </View>
@@ -137,7 +138,7 @@ class BankCardPay extends PureComponent {
             tradePassword: this.state.assetsPwd
         }
         Api.bankCard(payload, () => {
-            Toast.show('绑定银行卡成功');
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
         });
     }
 }

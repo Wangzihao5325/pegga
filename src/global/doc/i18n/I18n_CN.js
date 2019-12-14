@@ -119,6 +119,40 @@ const ABOUT_US = '关于我们';
 const SETTINGS = '设置';
 const PERSONAL = '个人中心';
 
+//payment 
+const PAY_TITLE = '支付管理';
+const PAY_ALIPAY = '支付宝';
+const PAY_WECHAT = '微信';
+const PAY_CARD = '银行卡';
+const PACK_UP = '收起';
+const METHOD = '获取方法';
+const ALI_UID = '支付宝UID';
+const ALI_UID_INPUT = '请输入支付宝用户ID';
+const ALI_TIPS = '说明:此操作关系到收款的安全性,请务必根据流程操作';
+const ALI_GET_UID = '用支付宝扫码二维码,获取用户ID';
+const GEN_PAY_QR_CODE = '生成收款码';
+const CONFIRM_QR_CODE = '验证收款二维码'
+const PAY001 = "请用他人手机扫描下方二维码并支付0.01元,您将收到该款项";
+const ALI_USER_ID = '支付宝用户ID';
+const PLEASE_INPUT_PAY_NAME = '请输入账号姓名';
+const ALI_ACCOUNT = '支付宝账号';
+const ALI_NICKNAME = '支付宝昵称';
+const UPLOAD_QR_CODE = '上传收款二维码';
+const ASSETS_PWD = '资金密码';
+const SETTING_DONE = '完成设置';
+const INFO_SUBMITTING = '信息提交中，请勿进行其他操作';
+const PLS_SELECT_QR_CODE = '请选择支付二维码';
+const INFO_SUBMIT_SUCCESS = '信息提交成功';
+const WECHAT_ACCOUNT = '支付宝账号';
+const WECHAT_NICKNAME = '支付宝昵称';
+const PAYMENT_CHECKING = '您提交的支付信息正在审核中，请耐心等待';
+const PAYMENT_CHECK_FAILED = '您提交的支付信息审核失败，请重新提交';
+const BANK = '开户银行';
+const SUB_BANK = '开户支行';
+const BANK_CARD = '银行卡号';
+const DAILY_MAX = '每日收款限额';
+const CHOOSE_INPUT = '(选填)';
+
 //identity
 const IDENTITY_AUTHER = '身份认证';
 const IDENTITY_TIPS = '确保您使用的是本人真实身份进行验证,我们会保护您的信息安全'
@@ -490,6 +524,39 @@ export default {
     ABOUT_US,
     SETTINGS,
     PERSONAL,
+
+    PAY_TITLE,
+    PAY_ALIPAY,
+    PAY_WECHAT,
+    PAY_CARD,
+    PACK_UP,
+    METHOD,
+    ALI_UID,
+    ALI_UID_INPUT,
+    ALI_TIPS,
+    ALI_GET_UID,
+    GEN_PAY_QR_CODE,
+    CONFIRM_QR_CODE,
+    PAY001,
+    ALI_USER_ID,
+    PLEASE_INPUT_PAY_NAME,
+    ALI_ACCOUNT,
+    ALI_NICKNAME,
+    UPLOAD_QR_CODE,
+    ASSETS_PWD,
+    SETTING_DONE,
+    INFO_SUBMITTING,
+    PLS_SELECT_QR_CODE,
+    INFO_SUBMIT_SUCCESS,
+    WECHAT_ACCOUNT,
+    WECHAT_NICKNAME,
+    PAYMENT_CHECKING,
+    PAYMENT_CHECK_FAILED,
+    BANK,
+    SUB_BANK,
+    BANK_CARD,
+    DAILY_MAX,
+    CHOOSE_INPUT,
 
     IDENTITY_AUTHER,
     IDENTITY_TIPS,

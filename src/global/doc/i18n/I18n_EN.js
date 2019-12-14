@@ -119,6 +119,40 @@ const ABOUT_US = 'About Us';
 const SETTINGS = 'Settings';
 const PERSONAL = 'Personal';
 
+//payment 
+const PAY_TITLE = 'Payment';
+const PAY_ALIPAY = 'Alipay';
+const PAY_WECHAT = 'Wechat';
+const PAY_CARD = 'Card';
+const PACK_UP = 'pack up';
+const METHOD = 'get method';
+const ALI_UID = 'Alipay UID';
+const ALI_UID_INPUT = 'Please input alipay user Id';
+const ALI_TIPS = 'please be sure to operate according to the process';
+const ALI_GET_UID = 'Scan the QR code with Alipay to get the user ID';
+const GEN_PAY_QR_CODE = 'QR code';
+const CONFIRM_QR_CODE = 'Verify payment QR code'
+const PAY001 = "Please scan the QR code below with someone else's mobile phone and pay 0.01, you will receive the payment";
+const ALI_USER_ID = 'Alipay UID';
+const PLEASE_INPUT_PAY_NAME = 'Please input account name';
+const ALI_ACCOUNT = 'Alipay Account';
+const ALI_NICKNAME = 'Alipay Nickname';
+const UPLOAD_QR_CODE = 'Upload Payment QR code';
+const ASSETS_PWD = 'Assets Password';
+const SETTING_DONE = 'Done';
+const INFO_SUBMITTING = 'Do not perform other operations while submitting information';
+const PLS_SELECT_QR_CODE = 'Please select payment QR code';
+const INFO_SUBMIT_SUCCESS = 'Information submitted successfully';
+const WECHAT_ACCOUNT = 'Wechat Account';
+const WECHAT_NICKNAME = 'Wechat Nickname';
+const PAYMENT_CHECKING = 'Please wait while we review';
+const PAYMENT_CHECK_FAILED = 'Review failed, please resubmit';
+const BANK = 'Bank Name';
+const SUB_BANK = 'Branch Name';
+const BANK_CARD = 'Bank Card Number';
+const DAILY_MAX = 'Daily Collection Limit';
+const CHOOSE_INPUT = '(Optional)';
+
 //identity
 const IDENTITY_AUTHER = 'Identity Authentication';
 const IDENTITY_TIPS = 'Make sure you are using your true identity for authentication'
@@ -494,6 +528,39 @@ export default {
     ABOUT_US,
     SETTINGS,
     PERSONAL,
+
+    PAY_TITLE,
+    PAY_ALIPAY,
+    PAY_WECHAT,
+    PAY_CARD,
+    PACK_UP,
+    METHOD,
+    ALI_UID,
+    ALI_UID_INPUT,
+    ALI_TIPS,
+    ALI_GET_UID,
+    GEN_PAY_QR_CODE,
+    CONFIRM_QR_CODE,
+    PAY001,
+    ALI_USER_ID,
+    PLEASE_INPUT_PAY_NAME,
+    ALI_ACCOUNT,
+    ALI_NICKNAME,
+    UPLOAD_QR_CODE,
+    ASSETS_PWD,
+    SETTING_DONE,
+    INFO_SUBMITTING,
+    PLS_SELECT_QR_CODE,
+    INFO_SUBMIT_SUCCESS,
+    WECHAT_ACCOUNT,
+    WECHAT_NICKNAME,
+    PAYMENT_CHECKING,
+    PAYMENT_CHECK_FAILED,
+    BANK,
+    SUB_BANK,
+    BANK_CARD,
+    DAILY_MAX,
+    CHOOSE_INPUT,
 
     IDENTITY_AUTHER,
     IDENTITY_TIPS,

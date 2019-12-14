@@ -11,6 +11,7 @@ import PhotoUpload from '../../../component/photoUpload';
 import Boundary from './boundary';
 import Btn from '../../../component/btn';
 import BoundryUtil from './boundary/boundryUtil';
+import I18n from '../../../global/doc/i18n';
 
 class WechatPay extends Component {
     state = {
@@ -30,9 +31,9 @@ class WechatPay extends Component {
         if (props.wechat && state.wechat !== props.wechat) {
             let auditStatusText = '';
             if (props.wechat.auditStatus == 0) {
-                auditStatusText = '您提交的支付信息正在审核中，请耐心等待';
+                auditStatusText = I18n.PAYMENT_CHECKING;
             } else if (props.wechat.auditStatus == 2) {
-                auditStatusText = '您提交的支付信息审核失败，请重新提交';
+                auditStatusText = I18n.PAYMENT_CHECK_FAILED;
             }
             let rangeType = BoundryUtil(props.wechat.provinceId, props.wechat.cityId)
             //修改bname bcode
@@ -63,28 +64,28 @@ class WechatPay extends Component {
                     margin={this.state.auditStatus == 1}
                     bottomLine
                     isControl
-                    title='姓名'
-                    placeholder='请输入账号姓名'
+                    title={I18n.IDENTITY_NAME}
+                    placeholder={I18n.PLEASE_INPUT_PAY_NAME}
                     value={this.state.accountName}
                     callback={this.stateUpdate('accountName')}
                 />
                 <ItemInput
                     bottomLine
                     isControl
-                    title='微信账号'
-                    placeholder='请输入微信账号'
+                    title={I18n.WECHAT_ACCOUNT}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.WECHAT_ACCOUNT}`}
                     value={this.state.account}
                     callback={this.stateUpdate('account')}
                 />
                 <ItemInput
                     isControl
-                    title='微信昵称'
-                    placeholder='请输入微信昵称'
+                    title={I18n.WECHAT_NICKNAME}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.WECHAT_NICKNAME}`}
                     value={this.state.weChatAlias}
                     callback={this.stateUpdate('weChatAlias')}
                 />
                 <View style={{ height: 180, width: Dimensions.get('window').width, marginTop: 10, paddingBottom: 10, backgroundColor: 'white' }}>
-                    <Text style={styles.uploadText}>上传收款二维码</Text>
+                    <Text style={styles.uploadText}>{`${I18n.UPLOAD_QR_CODE}`}</Text>
                     <PhotoUpload
                         initValue={[{ size: -1, path: this.state.url, sourceURL: this.state.url }]}
                         ref={imageUpload => this.imageUpload = imageUpload}
@@ -101,15 +102,15 @@ class WechatPay extends Component {
                     margin
                     bottomLine
                     isControl
-                    title='资金密码'
-                    placeholder='请输入资金密码'
+                    title={I18n.ASSETS_PWD}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.ASSETS_PWD}`}
                     value={this.state.assetsPwd}
                     callback={this.stateUpdate('assetsPwd')}
                 />
                 <Btn.Linear
                     style={styles.btn}
                     textStyle={styles.btnText}
-                    title='完成设置'
+                    title={I18n.SETTING_DONE}
                     btnPress={this.upload}
                 />
             </View>
@@ -136,7 +137,7 @@ class WechatPay extends Component {
         this.setState({
             rangeType: 'country'
         }, () => {
-            store.dispatch(boundry_change('中国', [1]));
+            store.dispatch(boundry_change(I18n.CHINA, [1]));
         })
     }
 
@@ -172,17 +173,17 @@ class WechatPay extends Component {
         let refStateData = this.imageUpload.state.imageSelectData;
         let qrCodeUrl = null
         if (refStateData[0].size > 0) {
-            Toast.show('信息提交中，请勿进行其他操作');
+            Toast.show(I18n.INFO_SUBMITTING);
             qrCodeUrl = await Api.imageUploadPromise(refStateData[0]);
             payload.weixinQrCode = qrCodeUrl.data
         } else if (refStateData[0].size == 0) {
-            Toast.show('请选择支付二维码');
+            Toast.show(I18n.PLS_SELECT_QR_CODE);
             return;
         } else if (refStateData[0].size < 0) {
             payload.weixinQrCode = refStateData[0].path
         }
         Api.weChat(payload, () => {
-            Toast.show('微信支付信息提交成功！')
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS)
         })
     }
 }

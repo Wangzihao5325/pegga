@@ -14,6 +14,7 @@ import Select from '../../../component/select';
 import AliPay from './AliPay';
 import WechatPay from './WechatPay';
 import BankCardPay from './BankCardPay';
+import I18n from '../../../global/doc/i18n';
 
 export default class PayManager extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -35,13 +36,13 @@ export default class PayManager extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='支付管理'
+                    title={I18n.PAY_TITLE}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9', flexDirection: 'column', alignItems: 'center', paddingTop: 1 }}>
                     <KeyboardAwareScrollView>
                         <Select.ScrollLinear
-                            data={[{ title: '支付宝', key: 'aliPay' }, { title: '微信', key: 'wechatPay' }, { title: '银行卡', key: 'card' }]}
+                            data={[{ title: I18n.PAY_ALIPAY, key: 'aliPay' }, { title: I18n.PAY_WECHAT, key: 'wechatPay' }, { title: I18n.PAY_CARD, key: 'card' }]}
                             isFlex={true}
                             style={{ backgroundColor: 'white' }}
                             selectValue={this.state.type}

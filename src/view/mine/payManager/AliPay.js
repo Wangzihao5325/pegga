@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import QRCode from 'react-native-qrcode-svg';
 import { SERVICE_URL } from '../../../global/Config';
 import * as Config from '../../../global/Config';
+import I18n from '../../../global/doc/i18n';
 
 const UIDInput = (props) => {
     const showChange = () => {
@@ -27,14 +28,14 @@ const UIDInput = (props) => {
             props.textChange(value)
         }
     }
-    let btnText = props.isShow ? '收起' : '获取方法';
+    let btnText = props.isShow ? I18n.PACK_UP : I18n.METHOD;
     return (
         <View style={{ height: 110, width: Dimensions.get('window').width, padding: 15 }}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(40,46,60)', }}>支付宝UID</Text>
+                <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(40,46,60)', }}>{`${I18n.ALI_UID}`}</Text>
                 <Text onPress={showChange} style={{ fontSize: 13, color: 'rgb(75,136,227)', fontFamily: 'PingFang-SC-Medium' }}>{`${btnText}`}</Text>
             </View>
-            <TextInput placeholder='请输入支付宝用户ID' value={props.value} onChangeText={(value) => textChange(value)} style={{ paddingHorizontal: 15, paddingVertical: 0, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
+            <TextInput placeholder={I18n.ALI_UID_INPUT} value={props.value} onChangeText={(value) => textChange(value)} style={{ paddingHorizontal: 15, paddingVertical: 0, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
         </View>
     )
 }
@@ -59,13 +60,13 @@ const AppendPart = (props) => {
     return (
         <View style={{ paddingHorizontal: 15 }}>
             <View style={{ height: 43, width: Dimensions.get('window').width - 30, borderRadius: 5, backgroundColor: '#EDF3FC', justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 13, fontFamily: 'PingFang-SC-Medium', color: 'rgb(75,136,227)' }}>说明:此操作关系到收款的安全性,请务必根据流程操作</Text>
+                <Text style={{ fontSize: 13, fontFamily: 'PingFang-SC-Medium', color: 'rgb(75,136,227)' }}>{`${I18n.ALI_TIPS}`}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
                 <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 15, width: 15, justifyContent: 'center', alignItems: 'center', borderRadius: 7 }}>
                     <Text style={{ color: 'white' }}>1</Text>
                 </LinearGradient>
-                <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>用支付宝扫码二维码,获取用户ID</Text>
+                <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>{`${I18n.ALI_GET_UID}`}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, height: 120, width: 160, paddingHorizontal: 30 }}>
                 <QRCode
@@ -73,26 +74,26 @@ const AppendPart = (props) => {
                 />
             </View>
             <View style={{ height: 40, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
-                <TextInput placeholder='请输入支付宝用户ID' value={props.value} onChangeText={(value) => textChange(value)} style={{ marginLeft: 10, marginRight: 10, paddingHorizontal: 15, paddingVertical: 0, width: Dimensions.get('window').width - 55 - 94 - 10, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
+                <TextInput placeholder={I18n.ALI_UID_INPUT} value={props.value} onChangeText={(value) => textChange(value)} style={{ marginLeft: 10, marginRight: 10, paddingHorizontal: 15, paddingVertical: 0, width: Dimensions.get('window').width - 55 - 94 - 10, height: 40, borderRadius: 5, borderColor: '#DDDFE5', borderWidth: 1 }} />
                 <Btn.Linear
                     style={{ height: 40, width: 94, borderRadius: 5 }}
                     textStyle={{ color: 'white', textAlign: 'center', textAlignVertical: 'center', fontSize: 15 }}
                     btnPress={makeQrCode}
-                    title='生成收款码'
+                    title={I18n.GEN_PAY_QR_CODE}
                 />
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
                 <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 15, width: 15, justifyContent: 'center', alignItems: 'center', borderRadius: 7 }}>
                     <Text style={{ color: 'white' }}>2</Text>
                 </LinearGradient>
-                <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>验证收款二维码</Text>
+                <Text style={{ marginLeft: 10, fontSize: 15, fontFamily: 'PingFang-SC-Medium', color: 'rgb(40,46,60)' }}>{`${I18n.CONFIRM_QR_CODE}`}</Text>
             </View>
-            <Text style={{ marginTop: 10, marginLeft: 25, fontSize: 12, fontFamily: 'PingFang-SC-Medium', color: 'rgb(124,125,129)' }}>请用他人手机扫描下方二维码并支付0.01元,您将收到该款项</Text>
+            <Text style={{ marginTop: 10, marginLeft: 25, fontSize: 12, fontFamily: 'PingFang-SC-Medium', color: 'rgb(124,125,129)' }}>{`${I18n.PAY001}`}</Text>
             <View style={{ position: 'relative', flexDirection: 'row', alignItems: 'center', paddingVertical: 10, height: 120, width: 160, paddingHorizontal: 30 }}>
                 {!isShow &&
                     <View style={{ padding: 5, zIndex: 100, position: 'absolute', top: 45, left: 45, backgroundColor: '#858585', borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'white', fontSize: 10 }}>请输入</Text>
-                        <Text style={{ color: 'white', fontSize: 10 }}>支付宝用户ID</Text>
+                        <Text style={{ color: 'white', fontSize: 10 }}>{`${I18n.PLEASE_INPUT}`}</Text>
+                        <Text style={{ color: 'white', fontSize: 10 }}>{`${I18n.ALI_USER_ID}`}</Text>
                     </View>
                 }
                 <QRCode
@@ -150,9 +151,9 @@ class AliPay extends Component {
         if (props.alipay && state.alipay !== props.alipay) {
             let auditStatusText = '';
             if (props.alipay.auditStatus == 0) {
-                auditStatusText = '您提交的支付信息正在审核中，请耐心等待';
+                auditStatusText = I18n.PAYMENT_CHECKING;
             } else if (props.alipay.auditStatus == 2) {
-                auditStatusText = '您提交的支付信息审核失败，请重新提交';
+                auditStatusText = I18n.PAYMENT_CHECK_FAILED;
             }
             let rangeType = BoundryUtil(props.alipay.provinceId, props.alipay.cityId)
             //修改bname bcode
@@ -184,24 +185,24 @@ class AliPay extends Component {
                     margin={this.state.auditStatus == 1}
                     bottomLine
                     isControl
-                    title='姓名'
-                    placeholder='请输入账号姓名'
+                    title={I18n.IDENTITY_NAME}
+                    placeholder={I18n.PLEASE_INPUT_PAY_NAME}
                     value={this.state.accountName}
                     callback={this.stateUpdate('accountName')}
                 />
                 <ItemInput
                     bottomLine
                     isControl
-                    title='支付宝账号'
-                    placeholder='请输入支付宝账号'
+                    title={I18n.ALI_ACCOUNT}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.ALI_ACCOUNT}`}
                     value={this.state.account}
                     callback={this.stateUpdate('account')}
                 />
                 <ItemInput
                     bottomLine
                     isControl
-                    title='支付宝昵称'
-                    placeholder='请输入昵称'
+                    title={I18n.ALI_NICKNAME}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.ALI_NICKNAME}`}
                     value={this.state.accountNickName}
                     callback={this.stateUpdate('accountNickName')}
                 />
@@ -214,7 +215,7 @@ class AliPay extends Component {
                     callback={this.stateUpdate('uuid')}
                 /> */}
                 <View style={{ height: 180, width: Dimensions.get('window').width, marginTop: 10, paddingBottom: 10, backgroundColor: 'white' }}>
-                    <Text style={styles.uploadText}>上传收款二维码</Text>
+                    <Text style={styles.uploadText}>{`${I18n.UPLOAD_QR_CODE}`}</Text>
                     <PhotoUpload
                         initValue={[{ size: -1, path: this.state.url, sourceURL: this.state.url }]}
                         ref={imageUpload => this.imageUpload = imageUpload}
@@ -232,15 +233,15 @@ class AliPay extends Component {
                     margin
                     bottomLine
                     isControl
-                    title='资金密码'
-                    placeholder='请输入资金密码'
+                    title={I18n.ASSETS_PWD}
+                    placeholder={`${I18n.PLEASE_INPUT}${I18n.ASSETS_PWD}`}
                     value={this.state.assetsPwd}
                     callback={this.stateUpdate('assetsPwd')}
                 />
                 <Btn.Linear
                     style={styles.btn}
                     textStyle={styles.btnText}
-                    title='完成设置'
+                    title={I18n.SETTING_DONE}
                     btnPress={this.upload}
                 />
             </View>
@@ -267,7 +268,7 @@ class AliPay extends Component {
         this.setState({
             rangeType: 'country'
         }, () => {
-            store.dispatch(boundry_change('中国', [100000]));
+            store.dispatch(boundry_change(I18n.CHINA, [100000]));
         })
     }
 
@@ -304,17 +305,17 @@ class AliPay extends Component {
         let refStateData = this.imageUpload.state.imageSelectData;
         let qrCodeUrl = null
         if (refStateData[0].size > 0) {
-            Toast.show('信息提交中，请勿进行其他操作');
+            Toast.show(I18n.INFO_SUBMITTING);
             qrCodeUrl = await Api.imageUploadPromise(refStateData[0]);
             payload.aliQrCode = qrCodeUrl.data
         } else if (refStateData[0].size == 0) {
-            Toast.show('请选择支付二维码');
+            Toast.show(I18n.PLS_SELECT_QR_CODE);
             return;
         } else if (refStateData[0].size < 0) {
             payload.aliQrCode = refStateData[0].path
         }
         Api.aliPay(payload, () => {
-            Toast.show('支付宝支付信息提交成功！')
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS)
         })
     }
 }
