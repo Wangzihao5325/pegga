@@ -17,9 +17,20 @@ const OLD_PWD = '旧密码';
 const ASSETS = '资金';
 const CHINA = '中国';
 
-const CHANGE_TO ='切换到';
+const CHANGE_TO = '切换到';
 const FORGOT_PWD = '忘记密码?';
 const DO_NOT_HAVE_ACCOUNT = '还没有账号? ';
+const ALREADY_HAVE_ACCOUNT = '已有账号? ';
+const RESET_PWD = '重置密码';
+const WELCOME_REGISTER = '欢迎注册';
+const SEND_MESSAGE = '发送验证码';
+const VER_CODE_ALREADY_SEND = '验证码已发送至';
+const NO_RECEIVE_VER_CODE = '没有收到验证码?';
+const NEXT = '下一步';
+const SET_PWD = '设置密码';
+const CONFIRM_PWD = '确认密码';
+const PWD_RULE = '6-20个字符(字母,数字和符号的组合),字母必须同时包含大写和小写字母';
+const INVITE_CODE = '输入邀请码(选填)';
 
 //tab bottom
 const TAB_BTM_MARKRT = '交易';
@@ -100,7 +111,7 @@ const RECEIVING_RANGE = '接单范围';
 const MORE_DANGER = '(范围越大风险越大)';
 const CITY_SCOPE = '市级';
 const PROVINCE_SCOPE = '省级';
-const UNLIMITED_SCOPE = '市级';
+const UNLIMITED_SCOPE = '国家';
 const SELECT_CITY = '选择城市';
 const SELECT_PROVINEC = '选择省份';
 
@@ -319,6 +330,11 @@ const CODE_NO_ORDER_TO_MATCH = '没有匹配的订单，请更换支付方式后
 const CODE_MATCH_ERROR = '匹配服务错误';
 const CODE_APP_ID_NOT_EXIST = 'appId不存在';
 
+const SEND_MSG_SUCCESS = '发送验证码成功';
+const SEND_MSG_FREQUENT = '发送二维码过于频繁，请稍后再尝试';
+const REGISTER_SUCCESS = '注册成功,请登陆';
+const RESET_PWD_SUCCESS = '重置密码成功,请登陆';
+
 export default {
     LOGIN,
     LOGOUT,
@@ -342,6 +358,17 @@ export default {
     CHANGE_TO,
     FORGOT_PWD,
     DO_NOT_HAVE_ACCOUNT,
+    ALREADY_HAVE_ACCOUNT,
+    RESET_PWD,
+    WELCOME_REGISTER,
+    SEND_MESSAGE,
+    VER_CODE_ALREADY_SEND,
+    NO_RECEIVE_VER_CODE,
+    NEXT,
+    SET_PWD,
+    CONFIRM_PWD,
+    PWD_RULE,
+    INVITE_CODE,
 
     //tab btm navi
     TAB_BTM_MARKRT,
@@ -629,4 +656,9 @@ export default {
     CODE_NO_ORDER_TO_MATCH,
     CODE_MATCH_ERROR,
     CODE_APP_ID_NOT_EXIST,
+
+    SEND_MSG_SUCCESS,
+    SEND_MSG_FREQUENT,
+    REGISTER_SUCCESS,
+    RESET_PWD_SUCCESS,
 }

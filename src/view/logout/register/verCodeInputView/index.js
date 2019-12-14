@@ -7,6 +7,7 @@ import Header from '../../../../component/header';
 import VerCodeInput from '../../../../component/input/VerCodeInput';
 import Tips from './Tip4SendMsg';
 import Toast from '../../../../component/toast';
+import I18n from '../../../../global/doc/i18n';
 
 
 class VerCodeInputView extends Component {
@@ -53,8 +54,8 @@ class VerCodeInputView extends Component {
         return (
             <SafeAreaView style={styles.safeContainer} >
                 <Header.Normal goback={() => this.props.navigation.goBack()} />
-                <Text style={styles.titleText}>输入验证码</Text>
-                <Text style={styles.sendAddressText}>{`验证码已发送至${this.state.countryCode} ${this.state.account}`}</Text>
+                <Text style={styles.titleText}>{`${I18n.INPUT_VER_CODE}`}</Text>
+                <Text style={styles.sendAddressText}>{`${I18n.VER_CODE_ALREADY_SEND}${this.state.countryCode} ${this.state.account}`}</Text>
                 <VerCodeInput inputDone={this.verCodeInputDone} />
                 <Tips style={styles.tips} pressCallback={this.sendMsg} />
             </SafeAreaView>
@@ -74,26 +75,26 @@ class VerCodeInputView extends Component {
 
     sendMsg = () => {
         if (!this.state.readyForSend) {
-            Toast.show('发送二维码过于频繁，请稍后再尝试');
+            Toast.show(I18n.SEND_MSG_FREQUENT);
             return;
         }
         if (this.state.type == 'register') {
             if (this.state.mode == 'phone') {
                 let areaCode = parseInt(this.props.code);
                 Api.sendSignupMsg(this.state.account, areaCode, (res) => {
-                    Toast.show('发送验证码成功');
+                    Toast.show(I18n.SEND_MSG_SUCCESS);
                     this._timerSetting();
                 })
             } else {
                 Api.sendMailSignupMsg(this.state.account, (res) => {
-                    Toast.show('发送验证码成功');
+                    Toast.show(I18n.SEND_MSG_SUCCESS);
                     this._timerSetting();
                 })
             }
         } else if (this.state.type == 'reset') {
             let areaCode = parseInt(this.props.code);
             Api.sendForgotPwdMsg(this.state.account, areaCode, (res) => {
-                Toast.show('发送验证码成功');
+                Toast.show(I18n.SEND_MSG_SUCCESS);
                 this._timerSetting();
             })
         }

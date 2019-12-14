@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import I18n from '../../../../global/doc/i18n';
 
 export default class CountrySelect extends PureComponent {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>没有收到验证码? <Text style={styles.sendText} onPress={this.sendTextPress}>重新发送</Text></Text>
+                <Text style={styles.text}>{`${I18n.NO_RECEIVE_VER_CODE}`}<Text style={styles.sendText} onPress={this.sendTextPress}>{`${I18n.RESEND}`}</Text></Text>
             </View>
         );
     }

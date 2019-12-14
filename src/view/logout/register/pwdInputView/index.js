@@ -9,6 +9,7 @@ import { storage_update } from '../../../../store/actions/storageAction';
 import Header from '../../../../component/header';
 import Input from '../../../../component/input';
 import Btn from '../../../../component/btn';
+import I18n from '../../../../global/doc/i18n';
 
 const Reg = { mode: '', account: '', countryCode: '', verCode: '', pwd: '', pwdConfirm: '', inviteCode: '' }
 
@@ -43,32 +44,32 @@ class PwdInputView extends Component {
         return (
             <SafeAreaView style={styles.safeContainer} >
                 <Header.Normal goback={() => this.props.navigation.goBack()} />
-                <Text style={styles.titleText}>设置登陆密码</Text>
+                <Text style={styles.titleText}>{`${I18n.SET_LOGIN_PWD}`}</Text>
                 <Input.Account
                     style={{ marginTop: 25, fontSize: 16 }}
                     callback={this.pwdInputCallback}
-                    placeholder='设置密码'
+                    placeholder={I18n.SET_PWD}
                     security={true}
                 />
-                <Text style={styles.rule}>6-20个字符(字母,数字和符号的组合),字母必须同时包含大写和小写字母</Text>
+                <Text style={styles.rule}>{`${I18n.PWD_RULE}`}</Text>
                 <Input.Account
                     style={{ marginTop: 25, fontSize: 16 }}
                     callback={this.pwdConfirmInputCallback}
-                    placeholder='确认密码'
+                    placeholder={I18n.CONFIRM_PWD}
                     security={true}
                 />
                 {this.state.type == 'register' &&
                     <Input.Account
                         style={{ marginTop: 25, fontSize: 16 }}
                         callback={this.inviteCodeInputCallback}
-                        placeholder='输入邀请码(选填)'
+                        placeholder={I18n.INVITE_CODE}
                     />
                 }
                 <Btn.Linear
                     style={styles.nextStepBtn}
                     textStyle={styles.nextStepBtnText}
                     btnPress={this.register}
-                    title='下一步'
+                    title={I18n.NEXT}
                 />
             </SafeAreaView>
         );
@@ -88,7 +89,7 @@ class PwdInputView extends Component {
 
     register = () => {
         if (Reg.pwd !== Reg.pwdConfirm) {
-            Toast.show('密码不一致，请输入相同的密码!');
+            Toast.show(I18n.PWD_INCONSISTENT);
             return;
         }
         if (this.state.type == 'register') {
@@ -104,7 +105,7 @@ class PwdInputView extends Component {
                     payload.inviteCode = Reg.inviteCode;
                 }
                 Api.registerByPhone(payload, (e) => {
-                    Toast.show('注册成功,请登陆');
+                    Toast.show(I18n.REGISTER_SUCCESS);
                     store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                     this.props.navigation.popToTop();
                 });
@@ -119,7 +120,7 @@ class PwdInputView extends Component {
                     payload.inviteCode = Reg.inviteCode;
                 }
                 Api.registerByMail(payload, (e) => {
-                    Toast.show('注册成功,请登陆');
+                    Toast.show(I18n.REGISTER_SUCCESS);
                     store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                     this.props.navigation.popToTop();
                 });
@@ -132,7 +133,7 @@ class PwdInputView extends Component {
                 phone: Reg.account
             }
             Api.resetPassword(payload, (e) => {
-                Toast.show('重置密码成功,请登陆');
+                Toast.show(I18n.RESET_PWD_SUCCESS);
                 store.dispatch(storage_update({ login_account_input: Reg.account, login_pwd_input: Reg.pwd }));
                 this.props.navigation.popToTop();
             });

@@ -21,6 +21,17 @@ const CHINA = 'China';
 const CHANGE_TO = 'to ';
 const FORGOT_PWD = 'lost password?';
 const DO_NOT_HAVE_ACCOUNT = "Don't have account? ";
+const ALREADY_HAVE_ACCOUNT = 'Already have account? ';
+const RESET_PWD = 'Reset Password';
+const WELCOME_REGISTER = 'Welcome';
+const SEND_MESSAGE = 'Send Message';
+const VER_CODE_ALREADY_SEND = 'verification code is send already to';
+const NO_RECEIVE_VER_CODE = "can't recevie verification code?";
+const NEXT = 'Next';
+const SET_PWD = 'Set password';
+const CONFIRM_PWD = 'Confirm password';
+const PWD_RULE = '6-20 characters (combination of letters, numbers and symbols)';
+const INVITE_CODE = 'Invitation code (optional)';
 
 //tab bottom
 const TAB_BTM_MARKRT = 'Market';
@@ -322,6 +333,11 @@ const CODE_NO_ORDER_TO_MATCH = '没有匹配的订单，请更换支付方式后
 const CODE_MATCH_ERROR = '匹配服务错误';
 const CODE_APP_ID_NOT_EXIST = 'appId不存在';
 
+const SEND_MSG_SUCCESS = 'Verification code sent successfully';
+const SEND_MSG_FREQUENT = 'Sending verification code is too frequent';
+const REGISTER_SUCCESS = 'Registration is successful, please log in';
+const RESET_PWD_SUCCESS = 'Password reset successful, please log in';
+
 export default {
     LOGIN,
     LOGOUT,
@@ -345,6 +361,17 @@ export default {
     CHANGE_TO,
     FORGOT_PWD,
     DO_NOT_HAVE_ACCOUNT,
+    ALREADY_HAVE_ACCOUNT,
+    RESET_PWD,
+    WELCOME_REGISTER,
+    SEND_MESSAGE,
+    VER_CODE_ALREADY_SEND,
+    NO_RECEIVE_VER_CODE,
+    NEXT,
+    SET_PWD,
+    CONFIRM_PWD,
+    PWD_RULE,
+    INVITE_CODE,
 
     //tab btm navi
     TAB_BTM_MARKRT,
@@ -631,4 +658,9 @@ export default {
     CODE_NO_ORDER_TO_MATCH,
     CODE_MATCH_ERROR,
     CODE_APP_ID_NOT_EXIST,
+
+    SEND_MSG_SUCCESS,
+    SEND_MSG_FREQUENT,
+    REGISTER_SUCCESS,
+    RESET_PWD_SUCCESS,
 }

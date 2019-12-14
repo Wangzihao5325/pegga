@@ -9,13 +9,13 @@ import {
 import { connect } from 'react-redux'
 import Api from '../../../socket';
 import Colors from '../../../global/Colors';
+import I18n from '../../../global/doc/i18n';
 
 import Header from '../../../component/header';
 import CountrySelect from './CountrySelect';
 import Tips from './Tip4Login';
 import Input from '../../../component/input';
 import Btn from '../../../component/btn';
-import Toast from '../../../component/toast';
 
 const FUNC_TYPE = { register: 'register', reset: 'reset' };
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
@@ -31,8 +31,8 @@ class Login extends Component {
 
     state = {
         mode: LOGIN_TYPE.phone,
-        accountPlaceholder: '手机号码',
-        modeChangePlaceholder: '邮箱',
+        accountPlaceholder: I18n.PHONE_NUM,
+        modeChangePlaceholder: I18n.EMAIL,
         type: FUNC_TYPE.register//register reset
     }
 
@@ -47,10 +47,10 @@ class Login extends Component {
         let title = '';
         switch (this.state.type) {
             case FUNC_TYPE.register:
-                title = '欢迎注册';
+                title = I18n.WELCOME_REGISTER;
                 break;
             case FUNC_TYPE.reset:
-                title = '重置密码';
+                title = I18n.RESET_PWD;
                 break;
             default:
                 break;
@@ -63,7 +63,7 @@ class Login extends Component {
                 <Input.Account
                     style={{ marginTop: 25, fontSize: 16, height: 46 }}
                     callback={this.accountInputCallback}
-                    placeholder={`请输入${this.state.accountPlaceholder}`}
+                    placeholder={`${I18n.PLEASE_INPUT}${this.state.accountPlaceholder}`}
                 />
                 <View style={styles.naviBtnWrapper} >
                     {this.state.type == FUNC_TYPE.register &&
@@ -71,7 +71,7 @@ class Login extends Component {
                             style={[styles.naviBtn, { marginLeft: 20 }]}
                             textStyle={styles.naviBtnText}
                             underlayColor='transparent'
-                            title={`切换到${this.state.modeChangePlaceholder}注册`}
+                            title={`${I18n.CHANGE_TO}${this.state.modeChangePlaceholder}`}
                             btnPress={this.loginModeChange}
                         />
                     }
@@ -80,7 +80,7 @@ class Login extends Component {
                     style={styles.registerBtn}
                     textStyle={styles.registerBtnText}
                     btnPress={this.sendMessage}
-                    title='发送验证码'
+                    title={I18n.SEND_MESSAGE}
                 />
                 <Tips pressCallback={() => this.props.navigation.goBack()} />
             </SafeAreaView>
@@ -121,14 +121,14 @@ class Login extends Component {
                 case LOGIN_TYPE.phone:
                     return {
                         mode: LOGIN_TYPE.mail,
-                        accountPlaceholder: '邮箱账号',
-                        modeChangePlaceholder: '手机'
+                        accountPlaceholder: I18n.MAIL_ACCOUNT,
+                        modeChangePlaceholder: I18n.PHONE
                     }
                 case LOGIN_TYPE.mail:
                     return {
                         mode: LOGIN_TYPE.phone,
-                        accountPlaceholder: '手机号码',
-                        modeChangePlaceholder: '邮箱'
+                        accountPlaceholder: I18n.PHONE_NUM,
+                        modeChangePlaceholder: I18n.EMAIL
                     }
                 default:
                     return null;
