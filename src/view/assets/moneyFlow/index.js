@@ -52,7 +52,7 @@ const Item = (props) => {
             title = '达量补贴';
             break;
         case 10:
-            title = '分享补贴';
+            title = '邀请奖励';
             break;
         case 11:
             title = '退还激活金';
@@ -65,6 +65,9 @@ const Item = (props) => {
             break;
         case 14:
             title = '信任大宗商家申请';
+            break;
+        case 15:
+            title = '下级交易贡献';
             break;
 
     }
