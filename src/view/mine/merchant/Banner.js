@@ -4,23 +4,24 @@ import { connect } from 'react-redux';
 import Btn from '../../../component/btn';
 import Enum from '../../../global/Enum';
 import Api from '../../../socket';
+import I18n from '../../../global/doc/i18n';
 
 const ItemHeader = (props) => {
     let btnStyle = null;
     let btnTextStyle = null;
     let imageSource = require('../../../image/mine/merchant/merchantcertifi.png');
-    let titleText = '商家认证';
+    let titleText = I18n.MERCHANT_CERTIFICATION;
     let payTitle = '激活数量';
     let btnText = '立即激活';
     switch (props.pageType) {
         case Enum.ROLE.BUSINESS_ROLE[2].key:
             imageSource = require('../../../image/mine/merchant/merchantcertifi.png');
-            titleText = '商家认证';
+            titleText = I18n.MERCHANT_CERTIFICATION;
             payTitle = '激活数量';
             if (props.pageState == 1 || props.pageState == 2) {
                 btnText = '立即激活';
             } else if (props.pageState == 0) {
-                btnText = '审核中';
+                btnText = I18n.IN_REVIEW;
             }
             break;
         case Enum.ROLE.BUSINESS_ROLE[3].key://信任 
@@ -31,7 +32,7 @@ const ItemHeader = (props) => {
             if (props.pageState == 1 || props.pageState == 2) {
                 btnText = props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ? '申请解冻' : '立即申请';
             } else if (props.pageState == 0) {
-                btnText = '审核中';
+                btnText = I18n.IN_REVIEW;
             }
             break;
         case Enum.ROLE.BUSINESS_ROLE[4].key://大宗
@@ -43,7 +44,7 @@ const ItemHeader = (props) => {
             if (props.pageState == 1 || props.pageState == 2) {
                 btnText = props.role.roleName == Enum.ROLE.BUSINESS_ROLE[3].key ? '申请解冻' : '立即申请';
             } else if (props.pageState == 0) {
-                btnText = '审核中';
+                btnText = I18n.IN_REVIEW;
             }
             break;
         case Enum.ROLE.BUSINESS_ROLE[6].key://信任大宗
@@ -55,7 +56,7 @@ const ItemHeader = (props) => {
             if (props.pageState == 1 || props.pageState == 2) {
                 btnText = props.role.trustStaple ? '申请解冻' : '立即申请';
             } else if (props.pageState == 0) {
-                btnText = '审核中';
+                btnText = I18n.IN_REVIEW;
             }
             break;
         default:

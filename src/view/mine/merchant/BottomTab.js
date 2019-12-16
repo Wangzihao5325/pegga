@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableHighlight, StyleSheet, Dimensions } from 'r
 import Enum from '../../../global/Enum';
 import Api from '../../../socket';
 import Toast from '../../../component/toast';
+import I18n from '../../../global/doc/i18n';
 
 export default class BottomTab extends PureComponent {
     render() {
@@ -25,8 +26,8 @@ export default class BottomTab extends PureComponent {
         return (
             <View style={styles.container}>
                 <View style={{ marginTop: 15, marginBottom: 15, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text style={styles.title}>当前身份</Text>
-                    <TouchableHighlight onPress={this.drawBack} underlayColor='transparent' style={styles.drawback}><Text style={styles.drawbackText}>申请降级</Text></TouchableHighlight>
+                    <Text style={styles.title}>{`${I18n.CURRENT_IDENTITY}`}</Text>
+                    <TouchableHighlight onPress={this.drawBack} underlayColor='transparent' style={styles.drawback}><Text style={styles.drawbackText}>{`${I18n.DOWNGRADE_APPLY}`}</Text></TouchableHighlight>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flexDirection: 'row' }}>
@@ -34,8 +35,8 @@ export default class BottomTab extends PureComponent {
                         <Text style={styles.role}>{`${this.props.role.roleChainName}`}</Text>
                     </View>
                     <View>
-                        <Text style={styles.context}>1.具备TO B发布广告的权限</Text>
-                        <Text style={styles.context}>2.交易量达标后自动退还激活金</Text>
+                        <Text style={styles.context}>{`${I18n.MERCHANT_TIPS_ONE}`}</Text>
+                        <Text style={styles.context}>{`${I18n.MERCHANT_TIPS_TWO}`}</Text>
                     </View>
                 </View>
             </View>
@@ -44,20 +45,20 @@ export default class BottomTab extends PureComponent {
 
     _downgradeConfirmCallback = () => {
         Api.downGrade((resut, code, msg) => {
-            Toast.show('提交成功,请等待审核');
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
             this.props.navi.goBack();
         });
     }
 
     drawBack = () => {
         if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[2].key) {
-            Toast.show('认证商家无法降级');
+            Toast.show(I18n.CER_MERCHANT_CAN_NOT_DOENGRADE);
         } else {
             this.props.navi.navigate('PopModel', {
                 confirm: () => this._downgradeConfirmCallback(),
-                confirmText: '确认',
-                title: '降级确认',
-                context: '是否确定进行降级操作'
+                confirmText: I18n.CONFIRM,
+                title: I18n.DOWNGRADE,
+                context: I18n.MAKE_SURE_DOENGRADE
             });
         }
 

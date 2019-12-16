@@ -153,6 +153,20 @@ const BANK_CARD = 'Bank Card Number';
 const DAILY_MAX = 'Daily Collection Limit';
 const CHOOSE_INPUT = '(Optional)';
 
+//merchant
+const MERCHANT_CHECK_FAILED = 'Your last submitted application failed';
+const REFUND = 'Refund';
+const REFUND_SUCCESS = 'Refund successfully';
+const CAN_NOT_REFUND = 'Not eligible for refund, progress ';
+const CONFIRM = 'Confrim';
+const DOWNGRADE = 'Downgrade';
+const MAKE_SURE_DOENGRADE = 'Are you sure you want to downgrade?';
+const CURRENT_IDENTITY = 'Current Identity';
+const DOWNGRADE_APPLY = 'Apply for downgrade';
+const MERCHANT_TIPS_ONE = '1.Can advertising for digital currency to B';
+const MERCHANT_TIPS_TWO = '2.Can refund the activation fee after the transaction volume reaches the standard';
+const CER_MERCHANT_CAN_NOT_DOENGRADE = 'Certified merchants cannot be downgraded';
+
 //identity
 const IDENTITY_AUTHER = 'Identity Authentication';
 const IDENTITY_TIPS = 'Make sure you are using your true identity for authentication'
@@ -561,6 +575,19 @@ export default {
     BANK_CARD,
     DAILY_MAX,
     CHOOSE_INPUT,
+
+    MERCHANT_CHECK_FAILED,
+    REFUND,
+    REFUND_SUCCESS,
+    CAN_NOT_REFUND,
+    CONFIRM,
+    DOWNGRADE,
+    MAKE_SURE_DOENGRADE,
+    CURRENT_IDENTITY,
+    DOWNGRADE_APPLY,
+    MERCHANT_TIPS_ONE,
+    MERCHANT_TIPS_TWO,
+    CER_MERCHANT_CAN_NOT_DOENGRADE,
 
     IDENTITY_AUTHER,
     IDENTITY_TIPS,

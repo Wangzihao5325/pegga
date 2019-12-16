@@ -143,8 +143,8 @@ const SETTING_DONE = '完成设置';
 const INFO_SUBMITTING = '信息提交中，请勿进行其他操作';
 const PLS_SELECT_QR_CODE = '请选择支付二维码';
 const INFO_SUBMIT_SUCCESS = '信息提交成功';
-const WECHAT_ACCOUNT = '支付宝账号';
-const WECHAT_NICKNAME = '支付宝昵称';
+const WECHAT_ACCOUNT = '微信账号';
+const WECHAT_NICKNAME = '微信昵称';
 const PAYMENT_CHECKING = '您提交的支付信息正在审核中，请耐心等待';
 const PAYMENT_CHECK_FAILED = '您提交的支付信息审核失败，请重新提交';
 const BANK = '开户银行';
@@ -152,6 +152,21 @@ const SUB_BANK = '开户支行';
 const BANK_CARD = '银行卡号';
 const DAILY_MAX = '每日收款限额';
 const CHOOSE_INPUT = '(选填)';
+
+//merchant
+const MERCHANT_CHECK_FAILED = '您上次提交的申请未通过审核';
+const REFUND = '退还激活金';
+const REFUND_SUCCESS = '退款成功';
+const CAN_NOT_REFUND = '尚未具有退还资质,当前进度 ';
+const CONFIRM = '确认';
+const DOWNGRADE = '降级确认';
+const MAKE_SURE_DOENGRADE = '是否确定进行降级操作';
+const CURRENT_IDENTITY = '当前身份';
+const DOWNGRADE_APPLY = '申请降级';
+const MERCHANT_TIPS_ONE = '1.具备TO B发布广告的权限';
+const MERCHANT_TIPS_TWO = '2.交易量达标后自动退还激活金';
+const CER_MERCHANT_CAN_NOT_DOENGRADE = '认证商家无法降级';
+
 
 //identity
 const IDENTITY_AUTHER = '身份认证';
@@ -557,6 +572,19 @@ export default {
     BANK_CARD,
     DAILY_MAX,
     CHOOSE_INPUT,
+
+    MERCHANT_CHECK_FAILED,
+    REFUND,
+    REFUND_SUCCESS,
+    CAN_NOT_REFUND,
+    CONFIRM,
+    DOWNGRADE,
+    MAKE_SURE_DOENGRADE,
+    CURRENT_IDENTITY,
+    DOWNGRADE_APPLY,
+    MERCHANT_TIPS_ONE,
+    MERCHANT_TIPS_TWO,
+    CER_MERCHANT_CAN_NOT_DOENGRADE,
 
     IDENTITY_AUTHER,
     IDENTITY_TIPS,

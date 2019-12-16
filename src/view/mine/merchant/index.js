@@ -13,6 +13,7 @@ import Api from '../../../socket';
 import Toast from '../../../component/toast';
 import Enum from '../../../global/Enum';
 import BottomTab from './BottomTab';
+import I18n from '../../../global/doc/i18n';
 
 const DEFAULT_APPLY_INFO = { activeBalance: 0, balance: 0, token: 'PQC' };
 
@@ -61,7 +62,7 @@ class MerchantCertification extends Component {
                         pageState = 1;
                         break;
                     case 2:
-                        Toast.show('您上次提交的申请未通过审核！')
+                        Toast.show(I18n.MERCHANT_CHECK_FAILED)
                         pageState = 2;
                         break;
                     default:
@@ -105,7 +106,7 @@ class MerchantCertification extends Component {
                         break;
                     case 2:
                         {
-                            Toast.show('您上次提交的申请未通过审核！')
+                            Toast.show(I18n.MERCHANT_CHECK_FAILED)
                             pageState = 1;
                             let payload3 = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustDeposit, token: applyInfoData.token };
                             let payload4 = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token };
@@ -128,7 +129,7 @@ class MerchantCertification extends Component {
     _trust = () => {
         Api.userBusinessApply(result => {//当前身份 信任
             if (result.status == 2) {
-                Toast.show('您上次提交的申请未通过审核！')
+                Toast.show(I18n.MERCHANT_CHECK_FAILED)
             }
             if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
                 Api.bussinessApplyInfo(applyInfoData => {
@@ -151,7 +152,7 @@ class MerchantCertification extends Component {
     _staple = () => {
         Api.userBusinessApply(result => {//当前身份 大宗
             if (result.status == 2) {
-                Toast.show('您上次提交的申请未通过审核！')
+                Toast.show(I18n.MERCHANT_CHECK_FAILED)
             }
             if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
                 Api.bussinessApplyInfo(applyInfoData => {
@@ -175,7 +176,7 @@ class MerchantCertification extends Component {
         Api.bussinessUpgradeApplyInfo(applyInfoData => {
             Api.userBusinessApply(result => {//当前身份 信任大宗
                 if (result.status == 2) {
-                    Toast.show('您上次提交的申请未通过审核！')
+                    Toast.show(I18n.MERCHANT_CHECK_FAILED)
                 }
                 if (result.roleStatus == -1 && result.status == 0) {//展示页面 大宗
                     let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token }
@@ -244,9 +245,9 @@ class MerchantCertification extends Component {
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <View style={{ backgroundColor: 'white' }}>
                         <Header.Normal
-                            title='商家认证'
+                            title={I18n.MERCHANT_CERTIFICATION}
                             goback={() => this.props.navigation.goBack()}
-                            rightBtnTitle='退还激活金'
+                            rightBtnTitle={I18n.REFUND}
                             rightBtnPress={this.drawbackActiveBalance}
                         />
                     </View>
@@ -274,36 +275,35 @@ class MerchantCertification extends Component {
         Api.activeBalanceInfo(info => {
             if (info.orderAmount >= info.backNeedAmount) {
                 Api.drawBackActiveBalance((res, code, msg) => {
-                    let message = msg ? msg : '退款成功';
-                    Toast.show(message);
+                    Toast.show(I18n.REFUND_SUCCESS);
                 })
             } else {
-                Toast.show(`尚未具有退还资质,当前进度 ${info.orderAmount}/${info.backNeedAmount}`)
+                Toast.show(`${I18n.CAN_NOT_REFUND}${info.orderAmount}/${info.backNeedAmount}`)
             }
         })
     }
 
     _downgradeConfirmCallback = () => {
         Api.downGrade((result, code, message) => {
-            Toast.show('提交成功,请等待审核');
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
             this.props.navigation.goBack();
         });
     }
 
     callback = (pageType, pageState, applyInfoData) => {
         if (pageState == 0) {
-            Toast.show('正在审核中请您耐心等待!');
+            Toast.show(I18n.IN_REVIEW_BE_PATIENT);
             return;
         } else {
             let payload = { deposit: applyInfoData.activeBalance, token: applyInfoData.token };
             switch (pageType) {
                 case Enum.ROLE.BUSINESS_ROLE[2].key:
                     if (applyInfoData.activeBalance > applyInfoData.balance) {
-                        Toast.show('账号余额不足');
+                        Toast.show(I18n.CODE_NO_BALANCE);
                         return;
                     }
                     Api.dealerApply(payload, (result) => {
-                        Toast.show('提交成功，请等待审核');
+                        Toast.show(I18n.INFO_SUBMIT_SUCCESS);
                         this.props.navigation.goBack();
                         // to do刷新数据
                     });
@@ -313,17 +313,17 @@ class MerchantCertification extends Component {
                         //降级
                         this.props.navigation.navigate('PopModel', {
                             confirm: () => this._downgradeConfirmCallback(),
-                            confirmText: '确认',
-                            title: '降级确认',
-                            context: '是否确定进行降级操作'
+                            confirmText: I18n.CONFIRM,
+                            title: I18n.DOWNGRADE,
+                            context: I18n.MAKE_SURE_DOENGRADE
                         });
                     } else {
                         if (applyInfoData.activeBalance > applyInfoData.balance) {
-                            Toast.show('账号余额不足');
+                            Toast.show(I18n.CODE_NO_BALANCE);
                             return;
                         }
                         Api.trustApply(payload, (result) => {
-                            Toast.show('提交成功，请等待审核');
+                            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
                             this.props.navigation.goBack();
                             // to do刷新数据
                         });
@@ -334,11 +334,11 @@ class MerchantCertification extends Component {
                         //大宗商家的退款通过bottom tab
                     } else {
                         if (applyInfoData.activeBalance > applyInfoData.balance) {
-                            Toast.show('账号余额不足');
+                            Toast.show(I18n.CODE_NO_BALANCE);
                             return;
                         }
                         Api.stapleApply(payload, (result) => {
-                            Toast.show('提交成功,请等待审核');
+                            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
                             this.props.navigation.goBack();
                             // to do刷新数据
                         });
@@ -348,18 +348,18 @@ class MerchantCertification extends Component {
                     if (this.props.role.trustStaple) {//是信任大宗 降级
                         this.props.navigation.navigate('PopModel', {
                             confirm: () => this._downgradeConfirmCallback(),
-                            confirmText: '确认',
-                            title: '降级确认',
-                            context: '是否确定进行降级操作'
+                            confirmText: I18n.CONFIRM,
+                            title: I18n.DOWNGRADE,
+                            context: I18n.MAKE_SURE_DOENGRADE
                         });
                     } else {
                         if (applyInfoData.activeBalance > applyInfoData.balance) {
-                            Toast.show('账号余额不足');
+                            Toast.show(I18n.CODE_NO_BALANCE);
                             return;
                         }
                         payload.deposit = 5000;
                         Api.trustStapleApply(payload, (result) => {
-                            Toast.show('提交成功,请等待审核');
+                            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
                             this.props.navigation.goBack();
                             // to do刷新数据
                         });
