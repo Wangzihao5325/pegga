@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { View, Text, Dimensions, TextInput, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -107,24 +107,30 @@ const AppendPart = (props) => {
 
 const UIDComponent = (props) => {
     const [isShow, setShow] = useState(false);
-    const [UIDText, setUIDText] = useState('');
+    //const [UIDText, setUIDText] = useState('');
 
     const showCallback = (value) => {
         setShow(!value)
     }
+
+    const textUpdate = (value) => {
+        //setUIDText(value);
+        props.callback(value);
+    }
+
     return (
         <View style={{ backgroundColor: 'white' }}>
             <UIDInput
                 isShow={isShow}
                 callback={showCallback}
-                value={UIDText}
-                textChange={(value) => setUIDText(value)}
+                value={props.value}
+                textChange={textUpdate}
             />
             {
                 isShow &&
                 <AppendPart
-                    value={UIDText}
-                    textChange={(value) => setUIDText(value)}
+                    value={props.value}
+                    textChange={textUpdate}
                 />
             }
         </View>
@@ -206,7 +212,10 @@ class AliPay extends Component {
                     value={this.state.accountNickName}
                     callback={this.stateUpdate('accountNickName')}
                 />
-                <UIDComponent />
+                <UIDComponent
+                    value={this.state.uuid}
+                    callback={this.stateUpdate('uuid')}
+                />
                 {/* <ItemInput
                     isControl
                     title='支付宝uuid'
