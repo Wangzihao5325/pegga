@@ -31,7 +31,7 @@ export default class About extends Component {
                         margin
                         bottomLine
                         title={I18n.AGREEMENT}
-                        btnPress={this.check}
+                        btnPress={this.toAgreement}
                     />
                     <Item
                         title={I18n.ABOUT_US}
@@ -40,6 +40,10 @@ export default class About extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    toAgreement = () => {
+        this.props.navigation.navigate('Agreement');
     }
 
     check = () => {
