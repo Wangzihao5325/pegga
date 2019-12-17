@@ -216,8 +216,8 @@ class MoneyFlow extends Component {
                         style={{ flex: 1 }}
                         data={this.state.data}
                         renderItem={({ item }) => <Item item={item} key={item.orderId} />}
-                        refreshing={this.state.isLoading}
-                        onRefresh={this.listUpdate}
+                        // refreshing={this.state.isLoading}
+                        // onRefresh={this.listUpdate}
                         onEndReached={this._nextPage}
                         onEndReachedThreshold={0.2}
                     />
