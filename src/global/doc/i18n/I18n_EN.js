@@ -248,6 +248,7 @@ const SET_ASSETS_PWD_Failed = 'Funding password set failed';
 const UPDATE_LOGIN_PWD_SUCCESS = 'Update login password successfully';
 const UPDATE_LOGIN_PWD_Failed = 'Update login password failed';
 const IN_DEVELOPING = 'In Developing';
+const YOU_HAVE_BEEN_SUPREMACY = 'You have been superemacy';
 
 //code toast
 const CODE_UNAUTHER = '未登录';
@@ -659,6 +660,7 @@ export default {
     UPDATE_LOGIN_PWD_SUCCESS,
     UPDATE_LOGIN_PWD_Failed,
     IN_DEVELOPING,
+    YOU_HAVE_BEEN_SUPREMACY,
 
     CODE_UNAUTHER,
     CODE_INVALID_SESSION,

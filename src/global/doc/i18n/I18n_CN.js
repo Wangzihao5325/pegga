@@ -245,6 +245,7 @@ const SET_ASSETS_PWD_Failed = '设置资金密码失败!';
 const UPDATE_LOGIN_PWD_SUCCESS = '更新登陆密码成功!';
 const UPDATE_LOGIN_PWD_Failed = '更新登陆密码失败!';
 const IN_DEVELOPING = '暂未开放';
+const YOU_HAVE_BEEN_SUPREMACY = '您已经是至尊商家';
 
 //code toast
 const CODE_UNAUTHER = '未登录';
@@ -656,6 +657,7 @@ export default {
     UPDATE_LOGIN_PWD_SUCCESS,
     UPDATE_LOGIN_PWD_Failed,
     IN_DEVELOPING,
+    YOU_HAVE_BEEN_SUPREMACY,
 
     CODE_UNAUTHER,
     CODE_INVALID_SESSION,

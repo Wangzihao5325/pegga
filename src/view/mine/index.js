@@ -17,6 +17,7 @@ import Value2Str from '../../global/util/MapValue2Str';
 import Toast from '../../component/toast';
 import { update_user_info } from '../../store/actions/userAction';
 import I18n from '../../global/doc/i18n';
+import Enum from '../../global/Enum';
 
 
 class Mine extends Component {
@@ -90,7 +91,7 @@ class Mine extends Component {
                     margin
                     title={I18n.MERCHANT_CERTIFICATION}
                     avater={require('../../image/mine/businssCer.png')}
-                    btnPress={() => this.navigate('MerchantCertification')}
+                    btnPress={this.goToBusinessRole}
                 />
 
                 <Item
@@ -131,6 +132,14 @@ class Mine extends Component {
         }
     }
 
+    goToBusinessRole = () => {
+        if (this.props.role.roleName == Enum.ROLE.BUSINESS_ROLE[5].key) {//至尊
+            Toast.show(I18n.YOU_HAVE_BEEN_SUPREMACY);
+            return;
+        }
+        this.navigate('MerchantCertification');
+    }
+
     navigate = (view) => {
         this.props.navigation.navigate(view);
     }
@@ -142,7 +151,8 @@ class Mine extends Component {
 
 function mapState2Props(store) {
     return {
-        kyc: store.user.state.kyc
+        kyc: store.user.state.kyc,
+        role: store.user.role,
     }
 }
 
