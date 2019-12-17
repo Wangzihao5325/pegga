@@ -7,7 +7,7 @@ import Utils from '../../../global/util';
 const CustomizeBtnArea = (props) => {
     return (
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-            {props.orderType === 0 && (props.orderStatus === 0 || props.orderStatus === 7) &&
+            {props.orderType === 0 && props.orderStatus === 0 &&
                 <View style={{ flexDirection: 'row' }}>
                     <Btn.Normal
                         style={styles.whiteBtn}

@@ -154,7 +154,6 @@ function PaymentSelect(props) {
     if (props.orderType === 0) {
         switch (props.payState) {
             case 0:
-            case 7:
                 {
                     if (props.adId == -1) {
                         return (
@@ -216,6 +215,74 @@ function PaymentSelect(props) {
                                 <LinearGradient style={{ flex: 8 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                                     <TouchableHighlight onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                         <Text style={styles.bottomBtnText}>确认付款</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                }
+            case 7://支付超时
+                {
+                    if (props.adId == -1) {
+                        return (
+                            <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+                                        <USDTPayInfo usdtType={props.usdtType} url={props.url} />
+                                    </View>
+                                </View>
+                                <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
+                                    <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                        <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                    </TouchableHighlight>
+                                    {/* <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                        <Text style={styles.bottomBtnText}>取消订单</Text>
+                                    </TouchableHighlight> */}
+                                    <LinearGradient style={{ flex: 2 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                        <TouchableHighlight onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                            <Text style={styles.bottomBtnText}>取消订单</Text>
+                                        </TouchableHighlight>
+                                    </LinearGradient>
+                                </View>
+                            </View>
+                        );
+                    }
+                    if (props.payment.length == 0) {
+                        return null;
+                    }
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1 }}>
+                                <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+                                    <Select.ScrollLinear
+                                        data={props.payment}
+                                        isFlex={true}
+                                        style={{ backgroundColor: 'white' }}
+                                        selectValue={props.paymentSelect}
+                                        selectChange={props.selectChange}
+                                        isControl
+                                    />
+                                    {props.paymentSelect === 0 &&
+                                        <AliPayInfo info={props.sellerInfo.aliPayInfo} />
+                                    }
+                                    {props.paymentSelect === 1 &&
+                                        <WechatPayInfo info={props.sellerInfo.weixinPayInfo} />
+                                    }
+                                    {props.paymentSelect === 2 &&
+                                        <BankCardInfo info={props.sellerInfo.bankPayInfo} />
+                                    }
+                                </View>
+                            </View>
+                            <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
+                                <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                    <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                </TouchableHighlight>
+                                {/* <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>取消订单</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ flex: 2 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>取消订单</Text>
                                     </TouchableHighlight>
                                 </LinearGradient>
                             </View>
