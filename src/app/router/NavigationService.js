@@ -21,6 +21,8 @@ function nowRouter() {
     return nowRouter.routeName;
 }
 
+
+
 // add other navigation functions that you need and export them
 
 export default {

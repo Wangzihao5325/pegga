@@ -20,8 +20,6 @@ export function assets_update_bill_time_type(billTime) {
 
 export function assets_info_update(callback) {
     Api.assetsDetail((result) => {
-        console.log('123');
-        console.log(result);
         let payload = {
             balance: result.allAssets,
             balanceSymbol: 'CNY',

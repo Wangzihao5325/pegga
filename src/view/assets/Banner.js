@@ -20,9 +20,10 @@ class Banner extends PureComponent {
     }
 
     render() {
+        let safeAmount = (this.props.legalWallet && this.props.legalWallet.PQC) ? this.props.legalWallet.PQC.allAmount : 0
         let imageSource = this.props.show ? require('../../image/security/see.png') : require('../../image/security/close_see.png');
         let assetsNum = this.props.show ? this.props.balance : '******';
-        let PQCNum = this.props.show ? this.props.legalWallet.PQC.allAmount : '******';
+        let PQCNum = this.props.show ? safeAmount : '******';
         return (
             <ImageBackground
                 imageStyle={{ borderRadius: 10 }}
