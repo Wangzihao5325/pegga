@@ -9,6 +9,8 @@ import Colors from '../../../global/Colors';
 import Header from '../../../component/header';
 import Select from './Select';
 
+const DEFAULT_PAGE_LOAD = { current: 1, size: 10 };
+
 const Item = (props) => {
     let uri = require('../../../image/arrow/in.png');
     let sign = '+';
@@ -101,9 +103,12 @@ class MoneyFlow extends Component {
     state = {
         data: [],
         page: null,
+        total: null,
+        isLoading: false,
+        pagePayload: DEFAULT_PAGE_LOAD,
     }
 
-    _flowDataUpdate = (billType, billTime) => {
+    _flowDataUpdate = (billType, billTime, pagePayload) => {
         let payload = { type: 'ALL', token: 'PQC', days: 7 };
         switch (billType.key) {
             case 0:
@@ -128,16 +133,69 @@ class MoneyFlow extends Component {
             default:
                 break;
         }
+        this.setState({
+            isLoading: true
+        });
         Api.moneyFlowList(payload, (result) => {
             this.setState({
                 data: result.records,
-                page: result.pages
+                page: result.pages,
+                total: result.total,
+                isLoading: false
             });
+        }, null, pagePayload);
+    }
+
+    _flowDataAppend = (billType, billTime, pagePayload) => {
+        let payload = { type: 'ALL', token: 'PQC', days: 7 };
+        switch (billType.key) {
+            case 0:
+                payload.type = 'ALL';
+                break;
+            case 1:
+                payload.type = 'INCOME';
+                break;
+            case 2:
+                payload.type = 'EXPEND';
+                break;
+            default:
+                break;
+        }
+        switch (billTime.key) {
+            case 0:
+                payload.days = 7;
+                break;
+            case 1:
+                payload.days = 30;
+                break;
+            default:
+                break;
+        }
+        this.setState({
+            isLoading: true
         });
+        Api.moneyFlowList(payload, (result) => {
+            this.setState((preState) => {
+                return {
+                    data: preState.data.concat(result.records),
+                    page: result.pages,
+                    isLoading: false,
+                    total: result.total
+                }
+            });
+        }, null, pagePayload);
     }
 
     naviDidFocus = () => {
-        this._flowDataUpdate(this.props.billType, this.props.billTime);
+        this._flowDataUpdate(this.props.billType, this.props.billTime, this.state.pagePayload);
+    }
+
+    listUpdate = () => {
+        this.setState({
+            pagePayload: { current: 1, size: 10 }
+        }, () => {
+            this._flowDataUpdate(this.props.billType, this.props.billTime, this.state.pagePayload);
+        });
     }
 
     render() {
@@ -158,6 +216,10 @@ class MoneyFlow extends Component {
                         style={{ flex: 1 }}
                         data={this.state.data}
                         renderItem={({ item }) => <Item item={item} key={item.orderId} />}
+                        refreshing={this.state.isLoading}
+                        onRefresh={this.listUpdate}
+                        onEndReached={this._nextPage}
+                        onEndReachedThreshold={0.2}
                     />
                 </SafeAreaView>
             </>
@@ -166,6 +228,14 @@ class MoneyFlow extends Component {
 
     goToSelectModel = (typeKey) => {
         this.props.navigation.navigate('Assets_BillTypeSelect', { type: typeKey });
+    }
+
+    _nextPage = () => {
+        if (this.state.pagePayload.current > this.state.page) {
+            return
+        }
+        this.state.pagePayload.current++;
+        this._flowDataAppend(this.props.billType, this.props.billTime, this.state.pagePayload);
     }
 }
 

@@ -271,10 +271,10 @@ class api {
         this.request(url, null, onSuccess, onError);
     }
 
-    moneyFlowList(payload, onSuccess, onError) {
+    moneyFlowList(payload, onSuccess, onError, pagePayload) {
         let payloadStr = qs.stringify({ ...payload, token: 'PQC' });
         const url = `/api/otc/bill/bills?${payloadStr}`;
-        this.request(url, null, onSuccess, onError)
+        this.request(url, null, onSuccess, onError, pagePayload)
     }
 
     //otc

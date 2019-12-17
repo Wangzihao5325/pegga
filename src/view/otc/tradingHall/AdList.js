@@ -2,17 +2,11 @@ import React, { PureComponent } from 'react';
 import {
     View,
     FlatList,
-    RefreshControl,
-    Dimensions,
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
-import LottieView from 'lottie-react-native';
-
-import store from '../../../store';
 import { adListUpdate, adListPush } from '../../../store/actions/adListAction';
-import Api from '../../../socket/index';
 import AdListItem from './AdListItem';
 
 const DEFAULT_PAGE_LOAD = { current: 1, size: 10 };

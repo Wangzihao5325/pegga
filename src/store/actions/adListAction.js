@@ -42,10 +42,6 @@ export function adListPush(payloadParam, pageload = DEFAULT_PAGE_LOAD, beforeCal
     }
     payload.type = payload.type == '1' ? '0' : '1';
     Api.adList(payload, (result) => {
-        // console.log('here');
-        // console.log(payloadParam);
-        // console.log(pageload);
-        // console.log(result);
         let dataReg = store.getState().adList.data.concat(result.records);
         let storePayload = {
             data: dataReg,
