@@ -59,7 +59,7 @@ class Mine extends Component {
                 />
                 <Header
                     toNews={this.test}
-                    toService={() => this.navigate('CustomService')}
+                    toService={() => this.navigate('IMChat')}
                     toInfo={() => this.navigate('Info')}
                 />
                 <View style={styles.invite}>
