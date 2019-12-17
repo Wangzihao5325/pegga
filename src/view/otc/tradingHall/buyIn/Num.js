@@ -5,7 +5,7 @@ import Btn from '../../../../component/btn';
 
 export default class Num extends PureComponent {
     render() {
-        let allInText = this.props.tradeType ? I18n.ALL_IN_BUY : I18n.ALL_IN_SELL;
+        let allInText = this.props.tradeType ? I18n.ALL_IN_SELL : I18n.ALL_IN_BUY;
         let coinNumText = this.props.tradeType ? '买入' : '卖出';
         let moneyNumText = this.props.tradeType ? '需支出' : '可获得';
         let canTradeNum = this.props.amount;
