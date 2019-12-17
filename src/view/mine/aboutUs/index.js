@@ -37,6 +37,10 @@ export default class About extends Component {
                         title={I18n.ABOUT_US}
                         btnPress={this.check}
                     />
+                    <Item
+                        title={I18n.BUG_FEEDBACK}
+                        btnPress={this.toBugFeedBack}
+                    />
                 </View>
             </SafeAreaView>
         );
@@ -44,6 +48,10 @@ export default class About extends Component {
 
     toAgreement = () => {
         this.props.navigation.navigate('Agreement');
+    }
+
+    toBugFeedBack = () => {
+        this.props.navigation.navigate('CustomService');
     }
 
     check = () => {

@@ -205,6 +205,7 @@ const SELECT_PROVINEC = '选择省份';
 
 //about us
 const AGREEMENT = '用户协议';
+const BUG_FEEDBACK = '问题反馈';
 const NEW_TUTORIAL = '新手教程';
 const FAQ = '常见问题';
 
@@ -618,6 +619,7 @@ export default {
     SELECT_PROVINEC,
 
     AGREEMENT,
+    BUG_FEEDBACK,
     NEW_TUTORIAL,
     FAQ,
 

@@ -204,6 +204,7 @@ const SELECT_PROVINEC = 'Select Province';
 
 //about us
 const AGREEMENT = 'Agreement';
+const BUG_FEEDBACK = 'Bug Feedback';
 const NEW_TUTORIAL = 'Newbie Tutorial';
 const FAQ = 'FAQ';
 
@@ -621,6 +622,7 @@ export default {
     SELECT_PROVINEC,
 
     AGREEMENT,
+    BUG_FEEDBACK,
     NEW_TUTORIAL,
     FAQ,
 
