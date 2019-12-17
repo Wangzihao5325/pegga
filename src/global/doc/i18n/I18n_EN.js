@@ -156,7 +156,7 @@ const CHOOSE_INPUT = '(Optional)';
 //merchant
 const MERCHANT_CHECK_FAILED = 'Your last submitted application failed';
 const REFUND = 'Refund';
-const REFUND_SUCCESS = 'Refund successfully';
+const REFUND_SUCCESS = 'Refund application submit successfully';
 const CAN_NOT_REFUND = 'Not eligible for refund, progress ';
 const CONFIRM = 'Confrim';
 const DOWNGRADE = 'Downgrade';

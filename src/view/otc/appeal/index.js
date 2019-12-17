@@ -345,7 +345,20 @@ export default class Appeal extends Component {
     }
 
     connect = () => {
-    
+        let userNo = this.state.buyerInfo ? this.state.buyerInfo.buyerNo : this.state.sellerInfo.sellerNo;
+        Api.otherUserInfoById(userNo, (result) => {
+            if (result.mobileContact) {
+                Linking.canOpenURL(`tel:${result.mobileContact}`).then((supported) => {
+                    if (!supported) {
+                        Toast.show('该设备不支持拨打电话');
+                    } else {
+                        Linking.openURL(`tel:${result.mobileContact}`);
+                    }
+                })
+            } else {
+                Toast.show('对方暂时没有留下联系方式');
+            }
+        })
     }
 
     btnPress = () => {

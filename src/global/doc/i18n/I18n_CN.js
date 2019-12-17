@@ -156,7 +156,7 @@ const CHOOSE_INPUT = '(选填)';
 //merchant
 const MERCHANT_CHECK_FAILED = '您上次提交的申请未通过审核';
 const REFUND = '退还激活金';
-const REFUND_SUCCESS = '退款成功';
+const REFUND_SUCCESS = '退还申请成功，请等待客服审核';
 const CAN_NOT_REFUND = '尚未具有退还资质,当前进度 ';
 const CONFIRM = '确认';
 const DOWNGRADE = '降级确认';
