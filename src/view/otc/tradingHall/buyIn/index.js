@@ -136,7 +136,7 @@ class BuyIn extends Component {
         if (value || value.length > 0) {
             this.setState({
                 coinNum: value,
-                moneyNum: `${parseFloat(value) * this.state.price}`
+                moneyNum: `${parseFloat((parseFloat(value) * this.state.price).toFixed(8))}`
             });
         } else {
             this.setState({
