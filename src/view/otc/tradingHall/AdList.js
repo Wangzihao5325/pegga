@@ -15,7 +15,8 @@ class AdList extends PureComponent {
 
     state = {
         pageload: DEFAULT_PAGE_LOAD,
-        isLoading: false
+        isLoading: false,
+        isFetching: false,
     }
 
     naviDidFocus = () => {
@@ -28,8 +29,32 @@ class AdList extends PureComponent {
     }
 
     _nextPage = () => {
+        if (this.state.pageload.current > this.state.pages) {
+            return;
+        }
+        if (this.state.isFetching) {
+            return;
+        }
         this.state.pageload.current++;
-        adListPush(null, this.state.pageload);
+        adListPush(null, this.state.pageload, () => {
+            this.setState({
+                isFetching: true
+            });
+        }, (payloadParam, pageload, result) => {
+            this.setState({
+                pages: result.pages,
+                isFetching: false
+            });
+        });
+    }
+
+    _onFresh = () => {
+        adListUpdate();
+        this.setState({
+            pageload: { current: 1, size: 10 },
+            isLoading: false,
+            isFetching: false,
+        });
     }
 
     render() {
@@ -42,7 +67,7 @@ class AdList extends PureComponent {
                     nestedScrollEnabled={true}
                     //style={{ height: Dimensions.get('window').height, width: Dimensions.get('window').width }}
                     refreshing={this.state.isLoading}
-                    onRefresh={() => adListUpdate()}
+                    onRefresh={this._onFresh}
                     onEndReached={this._nextPage}
                     onEndReachedThreshold={0.2}
                     showsVerticalScrollIndicator={false}
