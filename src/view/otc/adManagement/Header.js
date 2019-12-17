@@ -17,6 +17,7 @@ import Select from '../../../component/select';
 import Btn from '../../../component/btn';
 import Toast from '../../../component/toast/index';
 import LottieView from 'lottie-react-native';
+import Enum from '../../../global/Enum';
 
 
 class Header extends Component {
@@ -37,7 +38,9 @@ class Header extends Component {
     }
 
     naviDidFocus = () => {
-        this._autoFitterState();
+        if (this.props.role.roleName != Enum.ROLE.BUSINESS_ROLE[0].key && this.props.role.roleName != Enum.ROLE.BUSINESS_ROLE[1].key) {
+            this._autoFitterState();
+        }
     }
 
     naviWillBlur = () => {
@@ -147,7 +150,8 @@ function mapState2Props(store) {
     return {
         adTradeType: store.otcState.adTradeType,
         adStateType: store.otcState.adStateType,
-        adAutoFitter: store.otcState.adAutoFitter
+        adAutoFitter: store.otcState.adAutoFitter,
+        role: store.user.role
     }
 }
 
