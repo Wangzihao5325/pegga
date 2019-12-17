@@ -137,7 +137,7 @@ class WechatPay extends Component {
         this.setState({
             rangeType: 'country'
         }, () => {
-            store.dispatch(boundry_change(I18n.CHINA, [1]));
+            store.dispatch(boundry_change(I18n.CHINA, [100000]));
         })
     }
 
