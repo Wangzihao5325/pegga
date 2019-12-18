@@ -118,7 +118,7 @@ class Header extends PureComponent {
     }
 
     coinTypeChange = (item, index) => {
-        Toast.show('其他币种尚未开放，敬请期待!');
+        Toast.show('其他类别尚未开放，敬请期待!');
         // store.dispatch(otc_state_change_danger({coinType: item.key }));
         //adListUpdate({token: item.key });
     }
