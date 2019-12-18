@@ -84,7 +84,7 @@ class BuyIn extends Component {
         }
         return (
             <SafeAreaView style={styles.safeContainer}>
-                <Header.Normal title={`${headerTitle}${this.state.coinType}`} goback={() => this.props.navigation.goBack()} />
+                <Header.Normal title={`${headerTitle}`} goback={() => this.props.navigation.goBack()} />
                 <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', backgroundColor: '#F2F2F2' }}>
                     <KeyboardAwareScrollView>
                         <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>

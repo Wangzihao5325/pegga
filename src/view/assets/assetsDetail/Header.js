@@ -18,7 +18,7 @@ export default class Header extends PureComponent {
                 </TouchableHighlight>
                 <View style={{ flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <Image style={{ height: 20, width: 20, borderRadius: 15, marginRight: 10 }} source={require('../../../image/coinIcon/PQC.png')} />
-                    <Text style={{ marginLeft: 5, color: 'white', fontSize: 17 }}>{this.props.title}</Text>
+                    <Text style={{ marginLeft: 5, color: 'white', fontSize: 17 }}>点卡</Text>
                 </View>
                 <TouchableHighlight style={styles.rightBtnContainer} onPress={this.props.goMoneyFlow} underlayColor='transparent'>
                     <Text style={{ color: 'white', fontSize: 15 }}>{I18n.ASSETS_BILL}</Text>

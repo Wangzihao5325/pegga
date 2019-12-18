@@ -43,7 +43,7 @@ export default class Info extends PureComponent {
                 </View>
                 <InfoLine
                     title={`${priceText}`}
-                    context={`${this.props.price} ${this.props.currencyType}/${this.props.coinType}`}
+                    context={`${this.props.price} ${this.props.currencyType}/点卡`}
                     textStyle={styles.priceText}
                 />
                 <InfoLine
@@ -53,7 +53,7 @@ export default class Info extends PureComponent {
                 />
                 <InfoLine
                     title={stockText}
-                    context={`${this.props.amount} ${this.props.coinType}`}
+                    context={`${this.props.amount} 点卡`}
                     textStyle={styles.limitText}
                 />
 

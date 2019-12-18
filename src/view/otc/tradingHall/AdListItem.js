@@ -73,14 +73,14 @@ export default class Item extends PureComponent {
                     </View>
                     <View style={styles.itemContentContainer}>
                         <View style={styles.itemInfoContainer}>
-                            <Text style={styles.itemInfo}>{`${I18n.AMOUNT}   `}<Text style={styles.itemInfoDetail}>{`${this.props.item.remainAmount} ${this.props.item.token}`}</Text></Text>
+                            <Text style={styles.itemInfo}>{`${I18n.AMOUNT}   `}<Text style={styles.itemInfoDetail}>{`${this.props.item.remainAmount} 点卡`}</Text></Text>
                             <Text style={styles.itemInfo}>{`${I18n.LIMIT}   `}<Text style={styles.itemInfoDetail}>{`${this.props.item.minLimit} ~ ${this.props.item.maxLimit}`}</Text></Text>
                         </View>
                         <View style={styles.itemTradeContainer}>
                             <Btn.Linear
                                 style={styles.itemTradeBtn}
                                 textStyle={styles.itemTradeBtnText}
-                                title={`${tradeTpeStr}${this.props.item.token}`}
+                                title={`${tradeTpeStr}`}
                                 btnPress={this.tradeBtnPress}
                             />
                         </View>

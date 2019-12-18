@@ -83,7 +83,7 @@ const Item = (props) => {
                         {typeof props.item.orderId == 'string' && <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`${I18n.ASSETS_ORDER_NO}${props.item.orderId}`}</Text>}
                     </View>
                     <View style={{ width: 150, height: 80, alignItems: 'flex-end', justifyContent: 'center', flexDirection: 'column' }}>
-                        <Text style={[{ fontSize: 16, fontWeight: 'bold' }, amountColor]}>{`${sign} ${props.item.amount} PQC`}</Text>
+                        <Text style={[{ fontSize: 16, fontWeight: 'bold' }, amountColor]}>{`${sign} ${props.item.amount} 点卡`}</Text>
                         <Text style={{ fontSize: 13, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Regular', marginTop: 10 }}>{`${props.item.createTime}`}</Text>
                     </View>
                 </View>

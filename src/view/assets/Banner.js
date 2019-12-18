@@ -41,7 +41,7 @@ class Banner extends PureComponent {
                     <Text style={styles.assetsText}>{`${assetsNum}`} <Text style={styles.unitText} >CNY</Text></Text>
                 </View>
                 <View style={styles.PQCassets}>
-                    <Text style={styles.PQCassetsText}>{`≈${PQCNum}`} <Text style={styles.unitText} >PQC</Text></Text>
+                    <Text style={styles.PQCassetsText}>{`≈${PQCNum}`} <Text style={styles.unitText} >点卡</Text></Text>
                 </View>
             </ImageBackground>
         );

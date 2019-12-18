@@ -26,7 +26,7 @@ export default class AssetsInfo extends PureComponent {
                     </View>
                     <View style={{ marginBottom:4,flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={styles.title}>交易数量</Text>
-                        <Text style={styles.context}>{`${this.props.amount} ${this.props.token}`}</Text>
+                        <Text style={styles.context}>{`${this.props.amount} 点卡`}</Text>
                     </View>
                 </View>
             </View>

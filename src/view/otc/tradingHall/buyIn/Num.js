@@ -14,7 +14,7 @@ export default class Num extends PureComponent {
         // }
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{`${this.props.coinType}`}</Text>
+                <Text style={styles.title}>{`点卡`}</Text>
                 <View style={styles.coinNum}>
                     <View style={styles.coinNumContainer} >
                         <TextInput
@@ -24,7 +24,7 @@ export default class Num extends PureComponent {
                             onChangeText={(value) => this.props.coinNumCallback(value)}
                             placeholder={`可${coinNumText}数量${canTradeNum}`}
                         />
-                        <Text style={styles.unitText}>{`${this.props.coinType}`}</Text>
+                        <Text style={styles.unitText}>{`点卡`}</Text>
                     </View>
                     <Btn.Linear
                         style={styles.btn}

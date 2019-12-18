@@ -87,7 +87,7 @@ class Header extends PureComponent {
                 </View>
                 <View style={{ height: 45, width: Dimensions.get('window').width }}>
                     <Select.Scroll
-                        data={[{ title: 'PQC', key: 'PQC' }, { title: 'USDT', key: 'USDT' }, { title: 'BTC', key: 'BTC' }, { title: 'EOS', key: 'EOS' }, { title: 'ECT', key: 'ETC' }]}
+                        data={[{ title: '点卡', key: 'PQC' }, { title: '男装', key: 'USDT' }, { title: '女装', key: 'BTC' }, { title: '鞋包', key: 'EOS' }, { title: '日常', key: 'ETC' }]}
                         selectValue={this.props.coinType}
                         selectChange={this.coinTypeChange}
                         isControl

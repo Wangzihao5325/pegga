@@ -34,7 +34,7 @@ export default class Item extends PureComponent {
                 <TouchableWithoutFeedback onPress={this.containerPress}>
                     <View style={styles.container}>
                         <View style={styles.header}>
-                            <Text style={styles.title}>{`${tradeTypeStr} ${this.props.item.token}/${this.props.item.fiat}`}</Text>
+                            <Text style={styles.title}>{`${tradeTypeStr} 点卡/${this.props.item.fiat}`}</Text>
                             <Text style={stateTextStyle}>{`${stateText}`}</Text>
                         </View>
 
@@ -51,11 +51,11 @@ export default class Item extends PureComponent {
                         <View style={[styles.infoWrapper, { marginBottom: 5 }]}>
                             <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                 <Text style={styles.infoTitle}>单价</Text>
-                                <Text style={[styles.infoContext, { marginTop: 5 }]}>{`${this.props.item.price} ${this.props.item.fiat}/${this.props.item.token}`}</Text>
+                                <Text style={[styles.infoContext, { marginTop: 5 }]}>{`${this.props.item.price} ${this.props.item.fiat}/点卡`}</Text>
                             </View>
                             <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                 <Text style={styles.infoTitle}>数量</Text>
-                                <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{`${this.props.item.amount} ${this.props.item.token}`}</Text>
+                                <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{`${this.props.item.amount} 点卡`}</Text>
                             </View>
                         </View>
                         <View style={styles.separate} />

@@ -23,7 +23,7 @@ class Item extends PureComponent {
             <TouchableHighlight style={styles.btnContainer} onPress={this.itemPress} underlayColor='transparent'>
                 <View style={styles.wrapper}>
                     <Image style={styles.icon} source={require('../../image/coinIcon/PQC.png')} />
-                    <Text style={styles.titleText}>{this.props.title}</Text>
+                    <Text style={styles.titleText}>点卡</Text>
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
                             <Text style={{ color: 'rgb(73,73,73)', fontSize: 17 }}>{coinNum}</Text>

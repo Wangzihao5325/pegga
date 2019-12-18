@@ -172,7 +172,7 @@ class NewAd extends Component {
                             <Item.Btn
                                 bottomLine
                                 title={I18n.TRANSACTION_CURRENCY}
-                                contextText={this.state.coinType}
+                                contextText={'点卡'}
                                 callback={this.coinSelectChange}
                             />
                             <Item.Btn
@@ -201,7 +201,7 @@ class NewAd extends Component {
                             />
                             <Item.Input
                                 title={I18n.AMT}
-                                unit={this.state.coinType}
+                                unit={'点卡'}
                                 placeholder={I18n.AMT_INPUT_PLACEHOLDER}
                                 value={this.state.inputTradeNum}
                                 callback={this.tradeNumTextChange}
