@@ -565,6 +565,132 @@ const ErrorCodeToast = (code) => {
         case 81000:
             toastStr = I18n.PARAMETER_ERROR;
             break;
+        case 90001:
+            toastStr = I18n.ALIPAY_REALNAME_BLANK;
+            break;
+        case 90002:
+            toastStr = I18n.ALIPAY_TRADE_PASSWORD_BLANK;
+            break;
+        case 90003:
+            toastStr = I18n.ALIPAY_NO_BLANK;
+            break;
+        case 90004:
+            toastStr = I18n.ALIPAY_NICK_BLANK;
+            break;
+        case 90005:
+            toastStr = I18n.ALIPAY_QRCODE_BLANK;
+            break;
+        case 90006:
+            toastStr = I18n.ALIPAY_UUID_BLANK;
+            break;
+        case 90007:
+            toastStr = I18n.BANK_REALNAME_BLANK;
+            break;
+        case 90008:
+            toastStr = I18n.BANK_TRADE_PASSWORD_BLANK;
+            break;
+        case 90009:
+            toastStr = I18n.BANK_CARD_NO_BLANK;
+            break;
+        case 90010:
+            toastStr = I18n.BANK_NAME_BLANK;
+            break;
+        case 90011:
+            toastStr = I18n.BANK_BRANCH_BLANK;
+            break;
+        case 90012:
+            toastStr = I18n.CLOUD_REALNAME_BLANK;
+            break;
+        case 90013:
+            toastStr = I18n.CLOUD_TRADE_PASSWORD_BLANK;
+            break;
+        case 90014:
+            toastStr = I18n.WEIXIN_REALNAME_BLANK;
+            break;
+        case 90015:
+            toastStr = I18n.WEIXIN_TRADE_PASSWORD_BLANK;
+            break;
+        case 90016:
+            toastStr = I18n.WEIXIN_NO_BLANK;
+            break;
+        case 90017:
+            toastStr = I18n.WEIXIN_NICK_BLANK;
+            break;
+        case 90018:
+            toastStr = I18n.WEIXIN_QRCODE_BLANK;
+            break;
+        case 90019:
+            toastStr = I18n.EMAIL_FORMAT_ERROR;
+            break;
+        case 90020:
+            toastStr = I18n.EMAIL_BLANK;
+            break;
+        case 90021:
+            toastStr = I18n.MOBILE_BLANK;
+            break;
+        case 90022:
+            toastStr = I18n.CAPTION_BLANK;
+            break;
+        case 90023:
+            toastStr = I18n.NEW_PASSWORD_BLANK;
+            break;
+        case 90024:
+            toastStr = I18n.CONFIRM_PASSWORD_BLANK;
+            break;
+        case 90025:
+            toastStr = I18n.TOKEN_BLANK;
+            break;
+        case 90026:
+            toastStr = I18n.AMOUNT_BLANK;
+            break;
+        case 90027:
+            toastStr = I18n.MESSAGE_CONTENT_BLANK;
+            break;
+        case 90028:
+            toastStr = I18n.MESSAGE_TYPE_BLANK;
+            break;
+        case 90029:
+            toastStr = I18n.DEPOSIT_EMPTY;
+            break;
+        case 90030:
+            toastStr = I18n.COUNTRY_CODE_BLANK;
+            break;
+        case 90031:
+            toastStr = I18n.PASSWORD_BLANK;
+            break;
+        case 90032:
+            toastStr = I18n.MOBILE_OR_EMAIL_BLANK;
+            break;
+        case 90033:
+            toastStr = I18n.USER_NICK_BLANK;
+            break;
+        case 90034:
+            toastStr = I18n.EMAIL_CAPTION_BLANK;
+            break;
+        case 90035:
+            toastStr = I18n.TRADE_PASSWORD_BLANK;
+            break;
+        case 90036:
+            toastStr = I18n.ID_NUMBER_BLANK;
+            break;
+        case 90037:
+            toastStr = I18n.ID_CARD_FRONT_BLANK;
+            break;
+        case 90038:
+            toastStr = I18n.ID_CARD_BACK_BLANK;
+            break;
+        case 90039:
+            toastStr = I18n.ID_CARD_HAND_BLANK;
+            break;
+        case 90040:
+            toastStr = I18n.USER_UUID_BLANK;
+            break;
+        case 90041:
+            toastStr = I18n.PAY_TYPE_BLANK;
+            break;
+        case 90042:
+            toastStr = I18n.RETURN_RATE_BLANK;
+            break;
         default:
             toastStr = I18n.UNKNOW_ERROR;
             break;

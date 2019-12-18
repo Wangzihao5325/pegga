@@ -446,8 +446,51 @@ const APPEAL_REASON_NOT_NULL = '请输入申诉理由';
 const LEGAL_AMOUNT_NOT_NULL = '请输入法币金额';
 const PAY_VOUCHER_NOT_NULL = '请上传支付凭证';
 const PARAMETER_ERROR = '缺少必要参数';
-const UNKNOW_ERROR ='未知错误';
-const VISITOR_ERROR ='请先绑定收款方式';
+const UNKNOW_ERROR = '未知错误';
+const VISITOR_ERROR = '请先绑定收款方式';
+
+const ALIPAY_REALNAME_BLANK = '真实姓名不能为空';
+const ALIPAY_TRADE_PASSWORD_BLANK = '交易密码不能为空';
+const ALIPAY_NO_BLANK = '支付宝账号不能为空';
+const ALIPAY_NICK_BLANK = '支付宝昵称不能为空';
+const ALIPAY_QRCODE_BLANK = '支付宝二维码不能为空';
+const ALIPAY_UUID_BLANK = '支付宝uuid不能为空';
+const BANK_REALNAME_BLANK = '真实姓名不能为空';
+const BANK_TRADE_PASSWORD_BLANK = '支付密码不能为空';
+const BANK_CARD_NO_BLANK = '卡号不能为空';
+const BANK_NAME_BLANK = '银行不能为空';
+const BANK_BRANCH_BLANK = '银行支行不能为空';
+const CLOUD_REALNAME_BLANK = '真实姓名不能为空';
+const CLOUD_TRADE_PASSWORD_BLANK = '交易密码不能为空';
+const WEIXIN_REALNAME_BLANK = '真实姓名不能为空';
+const WEIXIN_TRADE_PASSWORD_BLANK = '交易密码不能为空';
+const WEIXIN_NO_BLANK = '微信号不能为空';
+const WEIXIN_NICK_BLANK = '微信昵称不能为空';
+const WEIXIN_QRCODE_BLANK = '微信二维码不能为空';
+const EMAIL_FORMAT_ERROR = '邮箱格式错误';
+const EMAIL_BLANK = '邮箱地址不能为空';
+const MOBILE_BLANK = '请输入手机号';
+const CAPTION_BLANK = '手机验证码不能为空';
+const NEW_PASSWORD_BLANK = '请输入新密码';
+const CONFIRM_PASSWORD_BLANK = '请输入确认登录密码';
+const TOKEN_BLANK = '币种不能为空';
+const AMOUNT_BLANK = '数量不能为空';
+const MESSAGE_CONTENT_BLANK = '消息内容不能为空';
+const MESSAGE_TYPE_BLANK = '消息类型不能为空';
+const DEPOSIT_EMPTY = '保证金不能为空';
+const COUNTRY_CODE_BLANK = '手机区号不能为空';
+const PASSWORD_BLANK = '密码不能为空';
+const MOBILE_OR_EMAIL_BLANK = '手机号或邮箱不能为空';
+const USER_NICK_BLANK = '用户昵称不能为空';
+const EMAIL_CAPTION_BLANK = '邮箱验证码不能为空';
+const TRADE_PASSWORD_BLANK = '交易密码不能为空';
+const ID_NUMBER_BLANK = '身份证号码不能为空';
+const ID_CARD_FRONT_BLANK = '身份证正面不能为空';
+const ID_CARD_BACK_BLANK = '身份证后面不能为空';
+const ID_CARD_HAND_BLANK = '手持身份证不能为空';
+const USER_UUID_BLANK = '用户ID不能为空';
+const PAY_TYPE_BLANK = '支付方式不能为空';
+const RETURN_RATE_BLANK = '返佣比例不能为空';
 
 export default {
     LOGIN,
@@ -881,5 +924,48 @@ export default {
     PAY_VOUCHER_NOT_NULL,
     PARAMETER_ERROR,
     UNKNOW_ERROR,
-    VISITOR_ERROR
+    VISITOR_ERROR,
+
+    ALIPAY_REALNAME_BLANK,
+    ALIPAY_TRADE_PASSWORD_BLANK,
+    ALIPAY_NO_BLANK,
+    ALIPAY_NICK_BLANK,
+    ALIPAY_QRCODE_BLANK,
+    ALIPAY_UUID_BLANK,
+    BANK_REALNAME_BLANK,
+    BANK_TRADE_PASSWORD_BLANK,
+    BANK_CARD_NO_BLANK,
+    BANK_NAME_BLANK,
+    BANK_BRANCH_BLANK,
+    CLOUD_REALNAME_BLANK,
+    CLOUD_TRADE_PASSWORD_BLANK,
+    WEIXIN_REALNAME_BLANK,
+    WEIXIN_TRADE_PASSWORD_BLANK,
+    WEIXIN_NO_BLANK,
+    WEIXIN_NICK_BLANK,
+    WEIXIN_QRCODE_BLANK,
+    EMAIL_FORMAT_ERROR,
+    EMAIL_BLANK,
+    MOBILE_BLANK,
+    CAPTION_BLANK,
+    NEW_PASSWORD_BLANK,
+    CONFIRM_PASSWORD_BLANK,
+    TOKEN_BLANK,
+    AMOUNT_BLANK,
+    MESSAGE_CONTENT_BLANK,
+    MESSAGE_TYPE_BLANK,
+    DEPOSIT_EMPTY,
+    COUNTRY_CODE_BLANK,
+    PASSWORD_BLANK,
+    MOBILE_OR_EMAIL_BLANK,
+    USER_NICK_BLANK,
+    EMAIL_CAPTION_BLANK,
+    TRADE_PASSWORD_BLANK,
+    ID_NUMBER_BLANK,
+    ID_CARD_FRONT_BLANK,
+    ID_CARD_BACK_BLANK,
+    ID_CARD_HAND_BLANK,
+    USER_UUID_BLANK,
+    PAY_TYPE_BLANK,
+    RETURN_RATE_BLANK,
 }
