@@ -426,6 +426,27 @@ const SEND_MSG_SUCCESS = 'Verification code sent successfully';
 const SEND_MSG_FREQUENT = 'Sending verification code is too frequent';
 const REGISTER_SUCCESS = 'Registration is successful, please log in';
 const RESET_PWD_SUCCESS = 'Password reset successful, please log in';
+const CLICK_TOO_FAST = '正在与服务器进行通信，请您耐心等待';
+const SERVER_BUSY = '服务器忙，请稍后再试';
+const PRICE_NOT_NULL = '请输入单价';
+const TOKEN_NOT_NULL = '请选择币种';
+const FIAT_NOT_NULL = '请选择货币';
+const PRICE_TYPE_NOT_NULL = '请选择单价类型';
+const AMOUNT_NOT_NULL = '请输入数量';
+const MIN_LIMIT_NOT_NULL = '请输入单笔最低成交额';
+const MIN_LIMIT_MIN = '单笔最低交易不能低于0';
+const MAX_LIMIT_NOT_NULL = '请输入单笔最高成交额';
+const MAX_LIMIT_MIN = '单笔最高交易不能低于0';
+const PAY_TYPE_NOT_NULL = '请选择收款方式';
+const TRADE_PASSWORD_NOT_NULL = '请输入资金密码';
+const ADVERTISE_ID_NOT_NULL = '广告id不能为空';
+const ORDER_ID_NOT_NULL = '订单id不能为空';
+const APPEAL_TYPE_NOT_NULL = '请选择申诉类型';
+const APPEAL_REASON_NOT_NULL = '请输入申诉理由';
+const LEGAL_AMOUNT_NOT_NULL = '请输入法币金额';
+const PAY_VOUCHER_NOT_NULL = '请上传支付凭证';
+const PARAMETER_ERROR = '缺少必要参数';
+const UNKNOW_ERROR ='未知错误';
 
 export default {
     LOGIN,
@@ -837,4 +858,26 @@ export default {
     SEND_MSG_FREQUENT,
     REGISTER_SUCCESS,
     RESET_PWD_SUCCESS,
+    CLICK_TOO_FAST,
+    BUSSINESS_AD_CAN_NOT_BE_FLEX,
+    SERVER_BUSY,
+    PRICE_NOT_NULL,
+    TOKEN_NOT_NULL,
+    FIAT_NOT_NULL,
+    PRICE_TYPE_NOT_NULL,
+    AMOUNT_NOT_NULL,
+    MIN_LIMIT_NOT_NULL,
+    MIN_LIMIT_MIN,
+    MAX_LIMIT_NOT_NULL,
+    MAX_LIMIT_MIN,
+    PAY_TYPE_NOT_NULL,
+    TRADE_PASSWORD_NOT_NULL,
+    ADVERTISE_ID_NOT_NULL,
+    ORDER_ID_NOT_NULL,
+    APPEAL_TYPE_NOT_NULL,
+    APPEAL_REASON_NOT_NULL,
+    LEGAL_AMOUNT_NOT_NULL,
+    PAY_VOUCHER_NOT_NULL,
+    PARAMETER_ERROR,
+    UNKNOW_ERROR
 }

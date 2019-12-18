@@ -29,6 +29,9 @@ const ErrorCodeToast = (code) => {
         case 10010:
             toastStr = I18n.CODE_FILE_EMPTY;
             break;
+        case 10012:
+            toastStr = I18n.SERVER_BUSY;
+            break;
         case 20001:
             toastStr = I18n.CODE_ADVERTISE_EMPTY;
             break;
@@ -504,6 +507,63 @@ const ErrorCodeToast = (code) => {
             break;
         case 6010:
             toastStr = I18n.CODE_APP_ID_NOT_EXIST;
+            break;
+        case 81001:
+            toastStr = I18n.PRICE_NOT_NULL;
+            break;
+        case 81002:
+            toastStr = I18n.TOKEN_NOT_NULL;
+            break;
+        case 81003:
+            toastStr = I18n.FIAT_NOT_NULL;
+            break;
+        case 81004:
+            toastStr = I18n.PRICE_TYPE_NOT_NULL;
+            break;
+        case 81005:
+            toastStr = I18n.AMOUNT_NOT_NULL;
+            break;
+        case 81006:
+            toastStr = I18n.MIN_LIMIT_NOT_NULL;
+            break;
+        case 81007:
+            toastStr = I18n.MIN_LIMIT_MIN;
+            break;
+        case 81008:
+            toastStr = I18n.MAX_LIMIT_NOT_NULL;
+            break;
+        case 81009:
+            toastStr = I18n.MAX_LIMIT_MIN;
+            break;
+        case 81010:
+            toastStr = I18n.PAY_TYPE_NOT_NULL;
+            break;
+        case 81011:
+            toastStr = I18n.TRADE_PASSWORD_NOT_NULL;
+            break;
+        case 81012:
+            toastStr = I18n.ADVERTISE_ID_NOT_NULL;
+            break;
+        case 81013:
+            toastStr = I18n.ORDER_ID_NOT_NULL;
+            break;
+        case 81014:
+            toastStr = I18n.APPEAL_TYPE_NOT_NULL;
+            break;
+        case 81015:
+            toastStr = I18n.APPEAL_REASON_NOT_NULL;
+            break;
+        case 81016:
+            toastStr = I18n.LEGAL_AMOUNT_NOT_NULL;
+            break;
+        case 81017:
+            toastStr = I18n.PAY_VOUCHER_NOT_NULL;
+            break;
+        case 81000:
+            toastStr = I18n.PARAMETER_ERROR;
+            break;
+        default:
+            toastStr = I18n.UNKNOW_ERROR;
             break;
     }
     return toastStr;
