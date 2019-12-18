@@ -16,6 +16,7 @@ import Header from '../../../../component/header';
 import Info from './Info';
 import Num from './Num';
 import I18n from '../../../../global/doc/i18n';
+import Toast from '../../../../component/toast';
 
 class BuyIn extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -42,6 +43,7 @@ class BuyIn extends Component {
 
         coinNum: '',
         moneyNum: '',
+        isBuying: false,
     }
 
     _rateCal = (failed, end) => {
@@ -154,11 +156,21 @@ class BuyIn extends Component {
     }
 
     buyIn = () => {
+        if (this.state.isBuying) {
+            Toast.show(I18n.CLICK_TOO_FAST);
+            return;
+        }
+        this.setState({
+            isBuying: true
+        });
         Api.newOrder({
             advertiseNo: this.state.id,
             amount: parseFloat(this.state.coinNum),
             legalAmount: parseFloat(this.state.moneyNum)
         }, (result) => {
+            this.setState({
+                isBuying: false
+            });
             let orderNum = result.orderNo;
             this.props.navigation.pop();
             this.props.navigation.navigate('OTC_OrderDetails', { orderNum });
