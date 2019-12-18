@@ -21,18 +21,6 @@ import Select from '../../../../component/select';
 import Toast from '../../../../component/toast';
 import NavigationService from '../../../../app/router/NavigationService';
 
-function InfoBanner(props) {
-    return (
-        <View style={styles.infoTab}>
-            <Image style={{ height: 85, width: 85 }} source={props.source} />
-            <View style={{ marginLeft: 15 }}>
-                <Text style={styles.infoTabTitle} >{props.title}</Text>
-                <Text style={styles.infoTabContext}>{props.remark}</Text>
-            </View>
-        </View>
-    );
-}
-
 function ItemDisplay(props) {
     return (
         <View style={styles.itemContainer}>
@@ -40,6 +28,22 @@ function ItemDisplay(props) {
             <Text style={styles.itemContext}>{props.context}</Text>
         </View>
     )
+}
+
+function InfoBanner(props) {
+    return (
+        <View style={{ backgroundColor: 'white' }}>
+            {typeof props.tradeMemo == 'string' && <ItemDisplay title='支付备注' context={props.tradeMemo} />}
+            {typeof props.tradeMemo == 'string' && <View style={{ height: 1, width: Dimensions.get('window').width, backgroundColor: '#EDEDED' }} />}
+            <View style={styles.infoTab}>
+                <Image style={{ height: 85, width: 85 }} source={props.source} />
+                <View style={{ marginLeft: 15 }}>
+                    <Text style={styles.infoTabTitle} >{props.title}</Text>
+                    <Text style={styles.infoTabContext}>{props.remark}</Text>
+                </View>
+            </View>
+        </View>
+    );
 }
 
 function ItemDisplayWithCopy(props) {
@@ -114,6 +118,7 @@ function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
             <ItemDisplay title='支付宝昵称' context={props.info.nickName} />
             <ItemDisplayWithCopy title='支付宝账号' context={props.info.no} callback={setClipboard} />
             <ItemDisplayQrCode title='收款二维码' callback={toQrCode} />
+            <ItemDisplay title='支付备注' context={props.tradeMemo} />
         </View>
     )
 }
@@ -132,6 +137,7 @@ function WechatPayInfo(props) {
             <ItemDisplay title='微信昵称' context={props.info.nickName} />
             <ItemDisplayWithCopy title='微信账号' context={props.info.no} callback={setClipboard} />
             <ItemDisplayQrCode title='收款二维码' callback={toQrCode} />
+            <ItemDisplay title='支付备注' context={props.tradeMemo} />
         </View>
     )
 }
@@ -146,6 +152,7 @@ function BankCardInfo(props) {
             <ItemDisplay title='银行名称' context={props.info.bank} />
             <ItemDisplay title='开户支行' context={props.info.branch} />
             <ItemDisplayWithCopy title='银行卡号' context={props.info.card} callback={setClipboard} />
+            <ItemDisplay title='支付备注' context={props.tradeMemo} />
         </View>
     )
 }
@@ -195,13 +202,13 @@ function PaymentSelect(props) {
                                         isControl
                                     />
                                     {props.paymentSelect === 0 &&
-                                        <AliPayInfo info={props.sellerInfo.aliPayInfo} />
+                                        <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
                                     }
                                     {props.paymentSelect === 1 &&
-                                        <WechatPayInfo info={props.sellerInfo.weixinPayInfo} />
+                                        <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
                                     }
                                     {props.paymentSelect === 2 &&
-                                        <BankCardInfo info={props.sellerInfo.bankPayInfo} />
+                                        <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
                                     }
                                 </View>
                             </View>
@@ -263,13 +270,13 @@ function PaymentSelect(props) {
                                         isControl
                                     />
                                     {props.paymentSelect === 0 &&
-                                        <AliPayInfo info={props.sellerInfo.aliPayInfo} />
+                                        <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
                                     }
                                     {props.paymentSelect === 1 &&
-                                        <WechatPayInfo info={props.sellerInfo.weixinPayInfo} />
+                                        <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
                                     }
                                     {props.paymentSelect === 2 &&
-                                        <BankCardInfo info={props.sellerInfo.bankPayInfo} />
+                                        <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
                                     }
                                 </View>
                             </View>
@@ -432,6 +439,7 @@ function PaymentSelect(props) {
                                 source={require('../../../../image/otc/orderState/Order_Appeal.png')}
                                 title='订单待支付'
                                 remark='请等待买家进行支付'
+                                tradeMemo={props.tradeMemo}
                             />
                         </View>
                         <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
@@ -454,6 +462,7 @@ function PaymentSelect(props) {
                                 source={require('../../../../image/otc/orderState/Order_overtime.png')}
                                 title='订单支付超时'
                                 remark='买家支付超时,您可联系买家,或进行申诉'
+                                tradeMemo={props.tradeMemo}
                             />
                         </View>
                         <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
@@ -476,6 +485,7 @@ function PaymentSelect(props) {
                                 source={require('../../../../image/otc/orderState/Order_complete.png')}
                                 title='买家已确认付款'
                                 remark='请尽快确认钱款是否到账'
+                                tradeMemo={props.tradeMemo}
                             />
                         </View>
                         <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
@@ -498,6 +508,7 @@ function PaymentSelect(props) {
                                 source={require('../../../../image/otc/orderState/Order_overtime.png')}
                                 title='确认收款超时'
                                 remark='可继续确认收款或发起申诉'
+                                tradeMemo={props.tradeMemo}
                             />
                         </View>
                         <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
@@ -638,6 +649,7 @@ export default class OrderDetail extends Component {
         orderAppealCountLastMonth: 0,
         orderFilledCountLastMonth: 0,
         orderWinAppealCountLastMonth: 0,
+        tradeMemo: '',
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -658,7 +670,8 @@ export default class OrderDetail extends Component {
                 fiat: result.fiat,
                 token: result.token,
                 sellerInfo: result.sellerInfo,
-                buyerInfo: result.buyerInfo
+                buyerInfo: result.buyerInfo,
+                tradeMemo: result.memo,
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -755,6 +768,7 @@ export default class OrderDetail extends Component {
                         addAppeal={this.addAppeal}
                         cancel={this.cancel}
                         contact={this.concat}
+                        tradeMemo={this.state.tradeMemo}
                     />
                 </View>
             </SafeAreaView>
