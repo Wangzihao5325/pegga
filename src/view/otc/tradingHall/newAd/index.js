@@ -49,6 +49,7 @@ class NewAd extends Component {
         googlePassword: '',
 
         adNo: null,
+        isAddingAd: false,
     }
 
     componentDidMount() {
@@ -276,6 +277,13 @@ class NewAd extends Component {
     }
 
     publishNewAd = () => {
+        if (this.state.isAddingAd) {
+            Toast.show(I18n.CLICK_TOO_FAST);
+            return;
+        }
+        this.setState({
+            isAddingAd: true
+        });
         let payType = this.state.payType.map((item) => {
             switch (item.key) {
                 case 'aliPay':
@@ -303,21 +311,37 @@ class NewAd extends Component {
             payload.origin = this.state.customType;
             Api.modifyAd(payload, () => {
                 Toast.show('广告修改发布成功');
+                this.setState({
+                    isAddingAd: false
+                });
                 this.props.navigation.pop();
                 //this.props.navigation.navigate('AdManagementStack');
             });
         } else {//发布广告
             switch (this.state.customType) {
                 case 1:// to b
+                    if (payload.priceType == PRICE_TYPE[1].key) {
+                        Toast.show(I18n.BUSSINESS_AD_CAN_NOT_BE_FLEX);
+                        this.setState({
+                            isAddingAd: false
+                        });
+                        return;
+                    }
                     payload.priceScopeId = this.state.priceScopeId;
                     if (this.state.tradeType === 0) {
                         Api.publishTobAdBuy(payload, (result) => {
                             Toast.show('广告发布成功');
+                            this.setState({
+                                isAddingAd: false
+                            });
                             this.props.navigation.goBack();
                         });
                     } else if (this.state.tradeType === 1) {
                         Api.publishTobAdSell(payload, (result) => {
                             Toast.show('广告发布成功');
+                            this.setState({
+                                isAddingAd: false
+                            });
                             this.props.navigation.goBack();
                         });
                     }
@@ -326,16 +350,25 @@ class NewAd extends Component {
                     if (this.state.tradeType === 0) {
                         Api.publishTocAdBuy(payload, (result) => {
                             Toast.show('广告发布成功');
+                            this.setState({
+                                isAddingAd: false
+                            });
                             this.props.navigation.goBack();
                         });
                     } else if (this.state.tradeType === 1) {
                         Api.publishTocAdSell(payload, (result) => {
                             Toast.show('广告发布成功');
+                            this.setState({
+                                isAddingAd: false
+                            });
                             this.props.navigation.goBack();
                         });
                     }
                     break;
                 default:
+                    this.setState({
+                        isAddingAd: false
+                    });
                     break;
             }
         }
