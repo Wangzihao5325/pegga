@@ -7,16 +7,16 @@ const ONLINE_SERVICE_URL = {
     invite: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/#/',
     aliUid: 'https://render.alipay.com/p/f/fd-ixpo7iia/index.html',
     agreement: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/userAgreement.html',
-    chat: '',
+    chat: 'https://www.pqpay.io/?#/',
 };
 const TEST_SERVICE_URL = {
     domain: 'http://192.168.3.144:4000',
     imageDomain: 'http://192.168.3.144:4000/api/file/upload/image',
-    payment: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8080/ali.html',
+    payment: 'http://6h3rix.natappfree.cc/ali.html',
     invite: 'http://192.168.3.127:8081/index.html/#/',
     aliUid: 'https://render.alipay.com/p/f/fd-ixpo7iia/index.html',
     agreement: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/userAgreement.html',
-    chat: '',
+    chat: 'https://www.pqpay.io/?#/',
 };
 const YUE_SERVICE_URL = {
     domain: 'http://192.168.3.140:4000',
@@ -25,7 +25,7 @@ const YUE_SERVICE_URL = {
     invite: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/#/',
     aliUid: 'https://render.alipay.com/p/f/fd-ixpo7iia/index.html',
     agreement: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/userAgreement.html',
-    chat: '',
+    chat: 'https://www.pqpay.io/?#/',
 };
 const urlSwich = (envirment) => {
     let result = null;
