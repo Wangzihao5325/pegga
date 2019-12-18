@@ -94,14 +94,16 @@ class Mine extends Component {
                     btnPress={this.goToBusinessRole}
                 />
 
-                <Item
+                {/* <Item
                     margin
                     bottomLine
                     title={I18n.HELP_CENTER}
                     avater={require('../../image/mine/help.png')}
                     btnPress={() => this.navigate('HelpCenter')}
-                />
+                /> */}
                 <Item
+                    margin
+                    bottomLine
                     title={I18n.ABOUT_US}
                     avater={require('../../image/mine/about.png')}
                     btnPress={() => this.navigate('AboutUs')}

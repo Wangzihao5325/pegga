@@ -33,10 +33,10 @@ export default class About extends Component {
                         title={I18n.AGREEMENT}
                         btnPress={this.toAgreement}
                     />
-                    <Item
+                    {/* <Item
                         title={I18n.ABOUT_US}
                         btnPress={this.check}
-                    />
+                    /> */}
                     <Item
                         title={I18n.BUG_FEEDBACK}
                         btnPress={this.toBugFeedBack}
