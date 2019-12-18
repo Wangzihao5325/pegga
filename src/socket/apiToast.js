@@ -301,6 +301,9 @@ const ErrorCodeToast = (code) => {
         case 50048:
             toastStr = I18n.CODE_PAY_TYPE_NOT_CHOOSE;
             break;
+        case 50055:
+            toastStr = I18n.VISITOR_ERROR;
+            break;
         case 30001:
             toastStr = I18n.CODE_TRADE_PASSWORD_ERROR_LOCK;
             break;

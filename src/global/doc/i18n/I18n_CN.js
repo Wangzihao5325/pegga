@@ -447,6 +447,7 @@ const LEGAL_AMOUNT_NOT_NULL = '请输入法币金额';
 const PAY_VOUCHER_NOT_NULL = '请上传支付凭证';
 const PARAMETER_ERROR = '缺少必要参数';
 const UNKNOW_ERROR ='未知错误';
+const VISITOR_ERROR ='请先绑定收款方式';
 
 export default {
     LOGIN,
@@ -879,5 +880,6 @@ export default {
     LEGAL_AMOUNT_NOT_NULL,
     PAY_VOUCHER_NOT_NULL,
     PARAMETER_ERROR,
-    UNKNOW_ERROR
+    UNKNOW_ERROR,
+    VISITOR_ERROR
 }
