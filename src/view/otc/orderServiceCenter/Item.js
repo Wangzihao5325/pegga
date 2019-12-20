@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TouchableWithoutFeedback, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
-
+import BusinessLabel from '../../../component/label';
 import Btn from '../../../component/btn';
 import Utils from '../../../global/util';
 
@@ -29,12 +29,21 @@ export default class Item extends PureComponent {
     render() {
         let tradeTypeStr = Utils.mapValue2Str.tradeType(this.props.item.orderType);
         let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.item.orderStatus, 15);
+        let labelType = this.props.item.isMatch ? 'green' : 'blue';
+        let labelTitle = this.props.item.isMatch ? 'TOB' : 'TOC';
         return (
             <View style={styles.wrapper}>
                 <TouchableWithoutFeedback onPress={this.containerPress}>
                     <View style={styles.container}>
                         <View style={styles.header}>
-                            <Text style={styles.title}>{`${tradeTypeStr} 点卡/${this.props.item.fiat}`}</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Text style={styles.title}>{`${tradeTypeStr} 点卡/${this.props.item.fiat}`}</Text>
+                                <BusinessLabel
+                                    marginLeft={5}
+                                    type={labelType}
+                                    title={labelTitle}
+                                />
+                            </View>
                             <Text style={stateTextStyle}>{`${stateText}`}</Text>
                         </View>
 

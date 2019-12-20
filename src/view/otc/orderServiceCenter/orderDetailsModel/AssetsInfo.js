@@ -1,16 +1,25 @@
 import React, { PureComponent } from 'react';
 import { View, Text, TouchableWithoutFeedback, Image, Dimensions, StyleSheet } from 'react-native';
-
+import BusinessLabel from '../../../../component/label';
 import Utils from '../../../../global/util';
 
 export default class AssetsInfo extends PureComponent {
     render() {
         let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.payState, 18);
+        let labelType = this.props.isMatch ? 'green' : 'blue';
+        let labelTitle = this.props.isMatch ? 'TOB' : 'TOC';
         return (
             <View style={styles.container}>
                 <View style={[styles.wrapper, { flexDirection: 'row' }]}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
-                        <Text style={styles.title}>交易金额</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={styles.title}>交易金额</Text>
+                            <BusinessLabel
+                                marginLeft={5}
+                                type={labelType}
+                                title={labelTitle}
+                            />
+                        </View>
                         <Text style={{ marginTop: 10, fontFamily: 'PingFang-SC-medium', fontWeight: 'bold', fontSize: 18, color: 'rgb(40,46,60)' }}>{`${this.props.legalAmount} ${this.props.fiat}`}</Text>
                     </View>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -24,7 +33,7 @@ export default class AssetsInfo extends PureComponent {
                         <Text style={styles.title}>交易价格</Text>
                         <Text style={styles.context}>{`${this.props.price} ${this.props.fiat}`}</Text>
                     </View>
-                    <View style={{ marginBottom:4,flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ marginBottom: 4, flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={styles.title}>交易数量</Text>
                         <Text style={styles.context}>{`${this.props.amount} 点卡`}</Text>
                     </View>
