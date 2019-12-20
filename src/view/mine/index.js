@@ -18,7 +18,7 @@ import Toast from '../../component/toast';
 import { update_user_info } from '../../store/actions/userAction';
 import I18n from '../../global/doc/i18n';
 import Enum from '../../global/Enum';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Mine extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -68,53 +68,57 @@ class Mine extends Component {
                         <Image style={{ height: 68, width: Dimensions.get('window').width - 20, borderTopLeftRadius: 5, borderTopRightRadius: 5 }} source={require('../../image/mine/invite/invite_banner.png')} />
                     </TouchableHighlight>
                 </View>
-                <Item
-                    bottomLine
-                    title={I18n.SAFETY_CENTER}
-                    avater={require('../../image/mine/security_center.png')}
-                    btnPress={() => this.navigate('SecurityCenter')}
-                />
-                <Item
-                    bottomLine
-                    title={I18n.IDENTITY_AUTH}
-                    stateText={kycStatusText}
-                    avater={require('../../image/mine/identity.png')}
-                    btnPress={this.goToIdentity}
-                />
-                <Item
-                    title={I18n.PAYMENT_MANAGEMENT}
-                    avater={require('../../image/mine/pay_manage.png')}
-                    btnPress={() => this.navigate('PayManager')}
-                />
+                <KeyboardAwareScrollView>
+                    <View>
+                        <Item
+                            bottomLine
+                            title={I18n.SAFETY_CENTER}
+                            avater={require('../../image/mine/security_center.png')}
+                            btnPress={() => this.navigate('SecurityCenter')}
+                        />
+                        <Item
+                            bottomLine
+                            title={I18n.IDENTITY_AUTH}
+                            stateText={kycStatusText}
+                            avater={require('../../image/mine/identity.png')}
+                            btnPress={this.goToIdentity}
+                        />
+                        <Item
+                            title={I18n.PAYMENT_MANAGEMENT}
+                            avater={require('../../image/mine/pay_manage.png')}
+                            btnPress={() => this.navigate('PayManager')}
+                        />
 
-                <Item
-                    margin
-                    title={I18n.MERCHANT_CERTIFICATION}
-                    avater={require('../../image/mine/businssCer.png')}
-                    btnPress={this.goToBusinessRole}
-                />
+                        <Item
+                            margin
+                            title={I18n.MERCHANT_CERTIFICATION}
+                            avater={require('../../image/mine/businssCer.png')}
+                            btnPress={this.goToBusinessRole}
+                        />
 
-                {/* <Item
+                        {/* <Item
                     margin
                     bottomLine
                     title={I18n.HELP_CENTER}
                     avater={require('../../image/mine/help.png')}
                     btnPress={() => this.navigate('HelpCenter')}
                 /> */}
-                <Item
-                    margin
-                    bottomLine
-                    title={I18n.ABOUT_US}
-                    avater={require('../../image/mine/about.png')}
-                    btnPress={() => this.navigate('AboutUs')}
-                />
+                        <Item
+                            margin
+                            bottomLine
+                            title={I18n.ABOUT_US}
+                            avater={require('../../image/mine/about.png')}
+                            btnPress={() => this.navigate('AboutUs')}
+                        />
 
-                <Item
-                    margin
-                    title={I18n.SETTINGS}
-                    avater={require('../../image/mine/setting.png')}
-                    btnPress={() => this.navigate('Setting')}
-                />
+                        <Item
+                            margin
+                            title={I18n.SETTINGS}
+                            avater={require('../../image/mine/setting.png')}
+                            btnPress={() => this.navigate('Setting')}
+                        />
+                    </View>
+                </KeyboardAwareScrollView>
             </View>
         );
     }
