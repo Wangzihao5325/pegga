@@ -650,6 +650,7 @@ export default class OrderDetail extends Component {
         orderFilledCountLastMonth: 0,
         orderWinAppealCountLastMonth: 0,
         tradeMemo: '',
+        isMatch: false
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -672,6 +673,7 @@ export default class OrderDetail extends Component {
                 sellerInfo: result.sellerInfo,
                 buyerInfo: result.buyerInfo,
                 tradeMemo: result.memo,
+                isMatch: result.isMatch,// true:toB false:toC
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -746,6 +748,7 @@ export default class OrderDetail extends Component {
                         amount={this.state.amount}
                         fiat={this.state.fiat}
                         token={this.state.token}
+                        isMatch={this.state.isMatch}
                     />
                     <PaymentSelect
                         adId={this.state.adId}

@@ -3,6 +3,7 @@ import { View, Text, Button, Dimensions, StyleSheet } from 'react-native';
 
 import Utils from '../../../global/util';
 import Btn from '../../../component/btn';
+import BusinessLabel from '../../../component/label';
 //上架中 1  已下架 0 已完成 2
 
 export default class Item extends PureComponent {
@@ -26,11 +27,34 @@ export default class Item extends PureComponent {
             default:
                 break;
         }
+        let labelType = '';
+        let title = '';
+        switch (this.props.item.origin) {
+            case 0:
+                title = 'TOC';
+                labelType = 'blue';
+                break;
+            case 1:
+                title = 'TOB';
+                labelType = 'green';
+                break;
+            default:
+                title = '';
+                labelType = 'white';
+                break;
+        }
         return (
             <View style={styles.wrapper}>
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.title}>{`${tradeTypeStr} ${this.props.item.token}/${this.props.item.fiat}`}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={styles.title}>{`${tradeTypeStr} ${this.props.item.token}/${this.props.item.fiat}`}</Text>
+                            <BusinessLabel
+                                marginLeft={5}
+                                type={labelType}
+                                title={title}
+                            />
+                        </View>
                         <Text style={[styles.stateText, stateStyle]}>{`${stateTypeStr}`}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
