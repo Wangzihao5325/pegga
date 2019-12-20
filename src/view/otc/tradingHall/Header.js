@@ -32,10 +32,16 @@ const CurrencyBtn = (props) => {
 const PopTab = (props) => {
     return (
         <View style={styles.popContainer}>
-            <Text onPress={props.orderCenter}>{I18n.ORDER_CENTER}</Text>
-            <Text onPress={props.adManage}>{I18n.AD_MANAGEMENT}</Text>
-            <Text onPress={props.publishAd}>{I18n.ISSUE_AD}</Text>
-        </View>
+            <TouchableHighlight style={{ height: 50, width: 100, justifyContent: 'center', alignItems: 'center' }} underlayColor='transparent' onPress={props.orderCenter} >
+                <Text>{I18n.ORDER_CENTER}</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={{ height: 50, width: 100, justifyContent: 'center', alignItems: 'center' }} underlayColor='transparent' onPress={props.adManage} >
+                <Text>{I18n.AD_MANAGEMENT}</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={{ height: 50, width: 100, justifyContent: 'center', alignItems: 'center' }} underlayColor='transparent' onPress={props.publishAd} >
+                <Text>{I18n.ISSUE_AD}</Text>
+            </TouchableHighlight>
+        </View >
     );
 }
 

@@ -5,7 +5,8 @@ import {
     Text,
     Dimensions,
     StatusBar,
-    StyleSheet
+    StyleSheet,
+    AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import I18n from '../../../global/doc/i18n';
@@ -19,6 +20,9 @@ import CountrySelect from './CountrySelect';
 import Tips from './Tip4Register';
 import Input from '../../../component/input';
 import Btn from '../../../component/btn';
+import Toast from '../../../component/toast';
+import Variables from '../../../global/Variables';
+
 
 const LOGIN_TYPE = { phone: 'phone', mail: 'mail' };
 
@@ -33,7 +37,8 @@ class Login extends Component {
     state = {
         mode: LOGIN_TYPE.phone,
         accountPlaceholder: I18n.PHONE_NUM,
-        modeChangePlaceholder: I18n.EMAIL
+        modeChangePlaceholder: I18n.EMAIL,
+        isLoging: false
     }
 
     render() {
@@ -97,13 +102,35 @@ class Login extends Component {
     }
 
     login = () => {
+        if (this.state.isLoging) {
+            Toast.show(I18n.CLICK_TOO_FAST);
+            return;
+        }
+        this.setState({
+            isLoging: true
+        });
         Api.login(this.props.accountInput, this.props.pwdInput, (result, code, message) => {
             store.dispatch(user_login());
             update_payment_info();
             Api.userInfo((result) => {
+                this.setState({
+                    isLoging: false
+                });
                 store.dispatch(user_info(result));
                 this.props.navigation.navigate('App');
+            }, () => {
+                this.setState({
+                    isLoging: false
+                });
+                Variables.account.token = '';
+                AsyncStorage.setItem('App_token', '');
             });
+        }, () => {
+            this.setState({
+                isLoging: false
+            });
+            Variables.account.token = '';
+            AsyncStorage.setItem('App_token', '');
         });
     }
 
