@@ -323,11 +323,11 @@ export default class Appeal extends Component {
                             buyerName={this.state.buyerName}
                         />
                     }
-                    <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row' }}>
-                        <TouchableHighlight onPress={this.connect} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                    <View style={{ height: 50, width: Dimensions.get('window').width, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        {/* <TouchableHighlight onPress={this.connect} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                             <Text style={styles.bottomBtnText}>联系买家</Text>
-                        </TouchableHighlight>
-                        <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ flex: 2, position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+                        </TouchableHighlight> */}
+                        <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 50, width: Dimensions.get('window').width - 30, position: 'relative', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
                             <TouchableHighlight onPress={this.btnPress} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={styles.bottomBtnText}>{`${btnText}`}</Text>
                             </TouchableHighlight>
