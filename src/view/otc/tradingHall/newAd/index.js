@@ -49,11 +49,11 @@ class NewAd extends Component {
         googlePassword: '',
 
         adNo: null,
-        isAddingAd: false,
+        isAddingAd: false,//是否在提交 & 是否在拉取固定价格
     }
 
     componentDidMount() {
-        let iconRatePayload = { dealType: this.state.tradeType, fiat: this.state.currencyType, token: this.state.coinType };
+        let iconRatePayload = { origin: this.state.customType, dealType: this.state.tradeType, fiat: this.state.currencyType, token: this.state.coinType };
         const itemStr = this.props.navigation.getParam('itemStr', '');
         if (itemStr) {
             let itemData = JSON.parse(itemStr);
@@ -116,6 +116,7 @@ class NewAd extends Component {
             iconRatePayload.dealType = itemData.type;
             //iconRatePayload.fiat = itemData.origin;
             iconRatePayload.token = itemData.token;
+            iconRatePayload.origin = itemData.origin;
 
             this.setState({
                 tradeType: itemData.type,
@@ -316,6 +317,10 @@ class NewAd extends Component {
                 });
                 this.props.navigation.pop();
                 //this.props.navigation.navigate('AdManagementStack');
+            }, () => {
+                this.setState({
+                    isAddingAd: false
+                });
             });
         } else {//发布广告
             switch (this.state.customType) {
@@ -335,6 +340,10 @@ class NewAd extends Component {
                                 isAddingAd: false
                             });
                             this.props.navigation.goBack();
+                        }, () => {
+                            this.setState({
+                                isAddingAd: false
+                            });
                         });
                     } else if (this.state.tradeType === 1) {
                         Api.publishTobAdSell(payload, (result) => {
@@ -343,6 +352,10 @@ class NewAd extends Component {
                                 isAddingAd: false
                             });
                             this.props.navigation.goBack();
+                        }, () => {
+                            this.setState({
+                                isAddingAd: false
+                            });
                         });
                     }
                     break;
@@ -354,6 +367,10 @@ class NewAd extends Component {
                                 isAddingAd: false
                             });
                             this.props.navigation.goBack();
+                        }, () => {
+                            this.setState({
+                                isAddingAd: false
+                            });
                         });
                     } else if (this.state.tradeType === 1) {
                         Api.publishTocAdSell(payload, (result) => {
@@ -362,6 +379,10 @@ class NewAd extends Component {
                                 isAddingAd: false
                             });
                             this.props.navigation.goBack();
+                        }, () => {
+                            this.setState({
+                                isAddingAd: false
+                            });
                         });
                     }
                     break;
@@ -380,9 +401,10 @@ class NewAd extends Component {
             Toast.show('编辑广告不支持修改买/卖方向');
         } else {
             this.setState({
-                tradeType: item.key
+                tradeType: item.key,
+                isAddingAd: true
             });
-            let iconRatePayload = { dealType: item.key, fiat: this.state.currencyType, token: this.state.coinType };
+            let iconRatePayload = { origin: this.state.customType, dealType: item.key, fiat: this.state.currencyType, token: this.state.coinType };
             Api.iconRate(iconRatePayload, (result) => {
                 let regArr = result.filter((item) => {
                     return item.token == this.state.coinType
@@ -392,7 +414,12 @@ class NewAd extends Component {
                     autoFillMin: typeof regArr[0].minLimit == 'number' ? `${regArr[0].minLimit}` : '100',
                     autoFillMax: typeof regArr[0].maxLimit == 'number' ? `${regArr[0].maxLimit}` : '100000',
                     priceScopeId: typeof regArr[0].priceScopeId == 'number' ? regArr[0].priceScopeId : 0,
+                    isAddingAd: false
                 })
+            }, () => {
+                this.setState({
+                    isAddingAd: false
+                });
             });
         }
     }
@@ -407,13 +434,32 @@ class NewAd extends Component {
                     customType: key,
                     priceType: PRICE_TYPE[0],
                     priceTypeData: PRICE_TYPE,
-                    editable: PRICE_TYPE[0].key == 1
+                    editable: PRICE_TYPE[0].key == 1,
+                    isAddingAd: true
                 });
             } else {
                 this.setState({
-                    customType: key
+                    customType: key,
+                    isAddingAd: true,
                 });
             }
+            let iconRatePayload = { origin: key, dealType: this.state.tradeType, fiat: this.state.currencyType, token: this.state.coinType };
+            Api.iconRate(iconRatePayload, (result) => {
+                let regArr = result.filter((item) => {
+                    return item.token == this.state.coinType
+                });
+                this.setState({
+                    autoFillPrice: typeof regArr[0].rate == 'number' ? `${regArr[0].rate}` : '暂无系统定价',//'暂无系统定价'
+                    autoFillMin: typeof regArr[0].minLimit == 'number' ? `${regArr[0].minLimit}` : '100',
+                    autoFillMax: typeof regArr[0].maxLimit == 'number' ? `${regArr[0].maxLimit}` : '100000',
+                    priceScopeId: typeof regArr[0].priceScopeId == 'number' ? regArr[0].priceScopeId : 0,
+                    isAddingAd: false
+                })
+            }, () => {
+                this.setState({
+                    isAddingAd: false
+                });
+            });
         }
     }
 
