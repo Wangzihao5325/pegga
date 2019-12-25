@@ -190,7 +190,7 @@ function PaymentSelect(props) {
                                         <Text style={styles.bottomBtnText}>取消订单</Text>
                                     </TouchableHighlight> */}
                                     <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                        <TouchableHighlight onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                             <Text style={styles.bottomBtnText}>确认付款</Text>
                                         </TouchableHighlight>
                                     </LinearGradient>
@@ -233,7 +233,7 @@ function PaymentSelect(props) {
                                     <Text style={styles.bottomBtnText}>取消订单</Text>
                                 </TouchableHighlight> */}
                                 <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                    <TouchableHighlight onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                         <Text style={styles.bottomBtnText}>确认付款</Text>
                                     </TouchableHighlight>
                                 </LinearGradient>
@@ -259,7 +259,7 @@ function PaymentSelect(props) {
                                         <Text style={styles.bottomBtnText}>取消订单</Text>
                                     </TouchableHighlight>  */}
                                     <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                        <TouchableHighlight onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                             <Text style={styles.bottomBtnText}>取消订单</Text>
                                         </TouchableHighlight>
                                     </LinearGradient>
@@ -301,7 +301,7 @@ function PaymentSelect(props) {
                                     <Text style={styles.bottomBtnText}>取消订单</Text>
                                 </TouchableHighlight> */}
                                 <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                    <TouchableHighlight onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                         <Text style={styles.bottomBtnText}>取消订单</Text>
                                     </TouchableHighlight>
                                 </LinearGradient>
@@ -324,7 +324,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系卖家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -346,7 +346,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系卖家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>发起申诉</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -368,7 +368,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系卖家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -390,7 +390,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系卖家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -412,7 +412,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系卖家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -434,7 +434,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.appeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.appeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>查看申诉</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -460,7 +460,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -483,7 +483,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>发起申诉</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -506,7 +506,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>确认收款</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -533,7 +533,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>发起申诉</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>确认收款</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -555,7 +555,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -577,7 +577,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -599,7 +599,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.goBack} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>返回首页</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
@@ -621,7 +621,7 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight onPress={props.appeal} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.appeal} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                     <Text style={styles.bottomBtnText}>查看申诉</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
