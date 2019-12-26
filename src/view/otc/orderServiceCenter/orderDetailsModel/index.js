@@ -474,8 +474,8 @@ function PaymentSelect(props) {
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                    <Text style={styles.bottomBtnText}>确认收款</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
                         </View>
@@ -492,13 +492,14 @@ function PaymentSelect(props) {
                                 tradeMemo={props.tradeMemo}
                             />
                         </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                        <View style={styles.bottomContainer}>
+                            <DetailBtn onPress={props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
                             {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                                 <Text style={styles.bottomBtnText}>联系买家</Text>
                             </TouchableHighlight> */}
                             <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>发起申诉</Text>
+                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                    <Text style={styles.bottomBtnText}>确认收款</Text>
                                 </TouchableHighlight>
                             </LinearGradient>
                         </View>
