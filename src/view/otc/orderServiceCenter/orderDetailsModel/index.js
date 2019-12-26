@@ -125,7 +125,9 @@ function AliPayInfo(props) {//uuid: props.info.uui memo:props.info.memo
     }
     return (
         <View style={{ height: 170, width: Dimensions.get('window').width, backgroundColor: 'white', display: 'flex', alignItems: 'center' }}>
-            <Image style={{ height: 100, width: 100, marginTop: 15 }} source={{ uri: props.info.qrCode }} />
+            <TouchableHighlight style={{ height: 100, width: 100, marginTop: 15 }} underlayColor='transparent' onPress={toQrCode}>
+                <Image style={{ height: 100, width: 100 }} source={{ uri: props.info.qrCode }} />
+            </TouchableHighlight>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
                 <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(133,133,133)' }}>付款备注</Text>
                 <Text style={{ marginLeft: 8, marginRight: 10, fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'black' }}>{`${props.tradeMemo}`}</Text>
