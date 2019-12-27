@@ -71,6 +71,15 @@ const Item = (props) => {
         case 15:
             title = '下级交易贡献';
             break;
+        case 21:
+            title = '系统打款';
+            break;
+        case 22:
+            title = '系统扣款';
+            break;
+        // default:
+        //     title = '未知交易';
+        //     break;
 
     }
     return (
