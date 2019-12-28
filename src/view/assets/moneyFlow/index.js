@@ -190,7 +190,7 @@ class MoneyFlow extends Component {
     }
 
     naviDidFocus = () => {
-        this._flowDataUpdate(this.props.billType, this.props.billTime, this.state.pagePayload);
+        this._flowDataUpdate(this.props.billType, this.props.billTime, { current: 1, size: 10 });
     }
 
     listUpdate = () => {
