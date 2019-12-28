@@ -77,7 +77,7 @@ const Details = (props) => {
     return (
         <View style={styles.detail}>
             <Image style={styles.detailImage} source={imageSource} />
-            <View style={{ width: Dimensions.get('window').width - 78 - 15 - 12, marginLeft: 12 }}><Text style={styles.detailText}>{props.context}</Text></View>
+            <View style={{ width: Dimensions.get('window').width - 78 - 15 - 12, marginLeft: 12 }}><Text numberOfLines={2} style={styles.detailText}>{props.context}</Text></View>
         </View>
     );
 }
@@ -237,18 +237,20 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'rgb(40,46,60)',
         fontFamily: 'PingFang-SC-Medium',
-        marginTop: 20,
+        marginTop: 10,
     },
     descriptionContext: {
         height: 175,
         width: Dimensions.get('window').width - 60,
         backgroundColor: '#F7F7F8',
         marginTop: 15,
-        paddingVertical: 25,
         paddingLeft: 18,
+        display: 'flex',
+        justifyContent: 'space-around',
+        paddingVertical: 2
     },
     detail: {
-        height: 30,
+        height: 40,
         width: Dimensions.get('window').width - 78,
         flexDirection: 'row',
         alignItems: 'center'
@@ -258,7 +260,7 @@ const styles = StyleSheet.create({
         width: 15
     },
     detailText: {
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: 'PingFang-SC-Regular',
         color: 'rgb(40,46,60)',
         // marginLeft: 12
