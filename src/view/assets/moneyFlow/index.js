@@ -9,8 +9,6 @@ import Colors from '../../../global/Colors';
 import Header from '../../../component/header';
 import Select from './Select';
 
-const DEFAULT_PAGE_LOAD = { current: 1, size: 10 };
-
 const Item = (props) => {
     let uri = require('../../../image/arrow/in.png');
     let sign = '+';
@@ -77,10 +75,6 @@ const Item = (props) => {
         case 22:
             title = '系统扣款';
             break;
-        // default:
-        //     title = '未知交易';
-        //     break;
-
     }
     return (
         <View style={styles.itemContainer}>
@@ -114,7 +108,7 @@ class MoneyFlow extends Component {
         page: null,
         total: null,
         isLoading: false,
-        pagePayload: DEFAULT_PAGE_LOAD,
+        pagePayload: { current: 1, size: 10 },
     }
 
     _flowDataUpdate = (billType, billTime, pagePayload) => {
