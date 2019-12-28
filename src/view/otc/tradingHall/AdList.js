@@ -9,12 +9,10 @@ import { NavigationEvents } from 'react-navigation';
 import { adListUpdate, adListPush } from '../../../store/actions/adListAction';
 import AdListItem from './AdListItem';
 
-const DEFAULT_PAGE_LOAD = { current: 1, size: 10 };
-
 class AdList extends PureComponent {
 
     state = {
-        pageload: DEFAULT_PAGE_LOAD,
+        pageload: { current: 1, size: 10 },
         isLoading: false,
         isFetching: false,
     }
