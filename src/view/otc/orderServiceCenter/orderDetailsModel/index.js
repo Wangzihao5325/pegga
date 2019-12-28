@@ -157,12 +157,26 @@ function WechatPayInfo(props) {
 
     }
     return (
-        <View>
-            <ItemDisplay title='收款人' context={props.info.realName} />
+        <View style={{ height: 170, width: Dimensions.get('window').width, backgroundColor: 'white', display: 'flex', alignItems: 'center' }}>
+            <TouchableHighlight style={{ height: 100, width: 100, marginTop: 15 }} underlayColor='transparent' onPress={toQrCode}>
+                <Image style={{ height: 100, width: 100 }} source={{ uri: props.info.qrCode }} />
+            </TouchableHighlight>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
+                <Text style={{ fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'rgb(133,133,133)' }}>付款备注</Text>
+                <Text style={{ marginLeft: 8, marginRight: 10, fontFamily: 'PingFang-SC-Medium', fontSize: 15, color: 'black' }}>{`${props.tradeMemo}`}</Text>
+                <TouchableHighlight
+                    underlayColor='rgb(227,234,247)'
+                    style={{ height: 22, width: 45, backgroundColor: 'rgb(227,234,247)', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
+                    onPress={() => setClipboard(props.tradeMemo)}
+                >
+                    <Text style={{ fontSize: 12, color: 'rgb(64,99,213)', fontFamily: 'PingFang-SC-Medium' }}>复制</Text>
+                </TouchableHighlight>
+            </View>
+            {/* <ItemDisplay title='收款人' context={props.info.realName} />
             <ItemDisplay title='微信昵称' context={props.info.nickName} />
             <ItemDisplayWithCopy title='微信账号' context={props.info.no} callback={setClipboard} />
             <ItemDisplayQrCode title='收款二维码' callback={toQrCode} />
-            <ItemDisplay title='支付备注' context={props.tradeMemo} />
+            <ItemDisplay title='支付备注' context={props.tradeMemo} /> */}
         </View>
     )
 }
@@ -176,8 +190,8 @@ function BankCardInfo(props) {
             <ItemDisplay title='收款人' context={props.info.realName} />
             <ItemDisplay title='银行名称' context={props.info.bank} />
             <ItemDisplay title='开户支行' context={props.info.branch} />
-            <ItemDisplayWithCopy title='银行卡号' context={props.info.card} callback={setClipboard} />
-            <ItemDisplay title='支付备注' context={props.tradeMemo} />
+            <ItemDisplayWithCopy title='银行卡号' context={props.info.card} callback={() => setClipboard(props.info.card)} />
+            <ItemDisplayWithCopy title='支付备注' context={props.tradeMemo} callback={() => setClipboard(props.tradeMemo)} />
         </View>
     )
 }
