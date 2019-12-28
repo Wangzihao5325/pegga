@@ -191,7 +191,7 @@ function BankCardInfo(props) {
             <ItemDisplay title='银行名称' context={props.info.bank} />
             <ItemDisplay title='开户支行' context={props.info.branch} />
             <ItemDisplayWithCopy title='银行卡号' context={props.info.card} callback={() => setClipboard(props.info.card)} />
-            <ItemDisplayWithCopy title='支付备注' context={props.tradeMemo} callback={() => setClipboard(props.tradeMemo)} />
+            <ItemDisplayWithCopy title='付款备注' context={props.tradeMemo} callback={() => setClipboard(props.tradeMemo)} />
         </View>
     )
 }
