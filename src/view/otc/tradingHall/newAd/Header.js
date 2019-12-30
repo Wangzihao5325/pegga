@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, TouchableHighlight, Image, Dimensions, StyleSheet } from 'react-native';
+import { View, TouchableHighlight, Text, Image, Dimensions, StyleSheet } from 'react-native';
 import I18n from '../../../../global/doc/i18n';
 import Select from '../../../../component/select';
 
@@ -18,9 +18,17 @@ export default class Header extends PureComponent {
                     callback={this.tradeTypeChange}
                     isControl
                 />
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }} />
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }} >
+                    <TouchableHighlight underlayColor='transparent' onPress={this.goAdList}>
+                        <Text>广告管理</Text>
+                    </TouchableHighlight>
+                </View>
             </View>
         );
+    }
+
+    goAdList = () => {
+        this.props.navi.replace('AdManagementView');
     }
 
     goBack = () => {
