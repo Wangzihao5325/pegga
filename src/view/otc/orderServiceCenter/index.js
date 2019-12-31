@@ -3,7 +3,10 @@ import {
     SafeAreaView,
     FlatList,
     View,
+    TouchableHighlight,
+    Image,
     Text,
+    Dimensions,
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -18,7 +21,8 @@ import Select from '../../../component/select';
 import Item from './Item';
 import Header from '../../../component/header';
 import Toast from '../../../component/toast';
-
+import LottieView from 'lottie-react-native';
+import Enum from '../../../global/Enum';
 
 class OrderManagement extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -40,15 +44,64 @@ class OrderManagement extends Component {
         })
     }
 
+    _autoFitterState = () => {
+        Api.adAutoFitter((result) => {
+            store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
+        });
+        this.timer = setInterval(() => {
+            Api.adAutoFitter((result) => {
+                store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
+            });
+        }, 3000);
+    }
+
+    naviDidFocus = () => {
+        this._orderListDataUpdate();
+        if (this.props.role.roleName != Enum.ROLE.BUSINESS_ROLE[0].key && this.props.role.roleName != Enum.ROLE.BUSINESS_ROLE[1].key) {
+            this._autoFitterState();
+        }
+    }
+
+    naviWillBlur = () => {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <NavigationEvents
-                    onDidFocus={this._orderListDataUpdate}
+                    //onDidFocus={this._orderListDataUpdate}
+                    onDidFocus={this.naviDidFocus}
+                    onWillBlur={this.naviWillBlur}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2', alignItems: 'center' }}>
                     <View style={{ backgroundColor: 'white' }}>
-                        <Header.Normal title='订单中心' goback={() => this.props.navigation.goBack()} />
+                        <View style={styles.header}>
+                            <View style={styles.wrapper}>
+                                <TouchableHighlight
+                                    style={styles.image}
+                                    onPress={() => this.props.navigation.goBack()}
+                                    underlayColor='transparent'
+                                >
+                                    <Image
+                                        style={styles.image}
+                                        source={require('../../../image/arrow/back_arrow_black.png')}
+                                    />
+                                </TouchableHighlight>
+                            </View>
+                            <View style={styles.centerWrapper}>
+                                <Text style={styles.title}>订单中心</Text>
+                            </View>
+                            <View style={[styles.wrapper, { justifyContent: 'center' }]}>
+                                <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 20 }}>
+                                    {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                        {/* <Header.Normal title='订单中心' goback={() => this.props.navigation.goBack()} /> */}
                         <Select.ScrollLinear
                             data={[{ title: '进行中', key: 'going' }, { title: '已完成', key: 'completed' }, { title: '已取消', key: 'canceled' }]}
                             selectValue={this.props.orderType}
@@ -65,6 +118,21 @@ class OrderManagement extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    autoFitterChange = () => {
+        if (this.props.adAutoFitter == 'open') {
+            Api.autoFitterSwichoff(() => {
+                Toast.show('已关闭自动接单');
+                store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
+            });
+
+        } else {
+            Api.autoFitterSwichon(() => {
+                Toast.show('已开启自动接单');
+                store.dispatch(otc_state_change_danger({ adAutoFitter: 'open' }));
+            });
+        }
     }
 
     orderTypeChange = (item, index) => {
@@ -105,10 +173,11 @@ class OrderManagement extends Component {
 function mapState2Props(store) {
     return {
         orderType: store.otcState.orderType,
-
         data: store.orderList.data,
         currentPage: store.orderList.currentPage,
-        totalPage: store.orderList.totalPage
+        totalPage: store.orderList.totalPage,
+        adAutoFitter: store.otcState.adAutoFitter,
+        role: store.user.role
     }
 }
 
@@ -121,5 +190,36 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.MAIN_BG_COLOR,
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    header: {
+        height: 44,
+        width: Dimensions.get('window').width,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        borderBottomColor: 'rgb(238,242,249)',
+        borderBottomWidth: StyleSheet.hairlineWidth
+    },
+    wrapper: {
+        height: 44,
+        width: 100,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    centerWrapper: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    image: {
+        height: 20,
+        width: 20
+    },
+    title: {
+        fontSize: 20
     }
 });
