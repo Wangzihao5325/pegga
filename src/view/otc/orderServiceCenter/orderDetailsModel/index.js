@@ -8,7 +8,8 @@ import {
     Dimensions,
     StyleSheet,
     Clipboard,
-    Linking
+    Linking,
+    ScrollView
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -233,23 +234,25 @@ function PaymentSelect(props) {
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1 }}>
                                 <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                    <Select.ScrollLinear
-                                        data={props.payment}
-                                        isFlex={true}
-                                        style={{ backgroundColor: 'white' }}
-                                        selectValue={props.paymentSelect}
-                                        selectChange={props.selectChange}
-                                        isControl
-                                    />
-                                    {props.paymentSelect === 0 &&
-                                        <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
-                                    }
-                                    {props.paymentSelect === 1 &&
-                                        <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
-                                    }
-                                    {props.paymentSelect === 2 &&
-                                        <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
-                                    }
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <Select.ScrollLinear
+                                            data={props.payment}
+                                            isFlex={true}
+                                            style={{ backgroundColor: 'white' }}
+                                            selectValue={props.paymentSelect}
+                                            selectChange={props.selectChange}
+                                            isControl
+                                        />
+                                        {props.paymentSelect === 0 &&
+                                            <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
+                                        }
+                                        {props.paymentSelect === 1 &&
+                                            <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
+                                        }
+                                        {props.paymentSelect === 2 &&
+                                            <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
+                                        }
+                                    </ScrollView>
                                 </View>
                             </View>
                             <View style={styles.bottomContainer}>
@@ -302,23 +305,27 @@ function PaymentSelect(props) {
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1 }}>
                                 <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                    <Select.ScrollLinear
-                                        data={props.payment}
-                                        isFlex={true}
-                                        style={{ backgroundColor: 'white' }}
-                                        selectValue={props.paymentSelect}
-                                        selectChange={props.selectChange}
-                                        isControl
-                                    />
-                                    {props.paymentSelect === 0 &&
-                                        <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
-                                    }
-                                    {props.paymentSelect === 1 &&
-                                        <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
-                                    }
-                                    {props.paymentSelect === 2 &&
-                                        <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
-                                    }
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <Select.ScrollLinear
+                                            data={props.payment}
+                                            isFlex={true}
+                                            style={{ backgroundColor: 'white' }}
+                                            selectValue={props.paymentSelect}
+                                            selectChange={props.selectChange}
+                                            isControl
+                                        />
+                                        {props.paymentSelect === 0 &&
+                                            <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
+                                        }
+                                        {props.paymentSelect === 1 &&
+                                            <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
+                                        }
+                                        {props.paymentSelect === 2 &&
+                                            <ScrollView >
+                                                <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
+                                            </ScrollView>
+                                        }
+                                    </ScrollView>
                                 </View>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>

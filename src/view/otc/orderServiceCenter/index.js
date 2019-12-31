@@ -118,7 +118,7 @@ class OrderManagement extends Component {
                             <View style={styles.centerWrapper}>
                                 <Text style={styles.title}>订单中心</Text>
                             </View>
-                            <View style={[styles.wrapper, { justifyContent: 'center' }]}>
+                            <View style={[styles.wrapper, { flexDirection: 'row-reverse' }]}>
                                 <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 20 }}>
                                     {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
                                 </TouchableHighlight>
