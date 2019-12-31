@@ -46,7 +46,22 @@ class OrderManagement extends Component {
                 totalPage: result.pages,
             }
             store.dispatch(update_order_list_data(payload));
-        })
+        }, null, { current: 1, size: 10 })
+    }
+
+    _nextPage = () => {
+        if (this.props.totalPage > this.props.currentPage) {
+            let params = { status: this.props.orderType };
+            Api.myOrder(params, (result) => {
+                let newData = this.props.data.concat(result.records);
+                let payload = {
+                    data: newData,
+                    currentPage: result.current,
+                    totalPage: result.pages,
+                }
+                store.dispatch(update_order_list_data(payload));
+            }, null, { current: this.props.currentPage + 1, size: 10 })
+        }
     }
 
     _autoFitterState = () => {
@@ -122,6 +137,8 @@ class OrderManagement extends Component {
                         showsVerticalScrollIndicator={false}
                         data={this.props.data}
                         renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} cancelPress={() => this.orderCancel(item)} />}
+                        onEndReached={this._nextPage}
+                        onEndReachedThreshold={0.2}
                     />
                 </View>
             </SafeAreaView>
@@ -155,7 +172,7 @@ class OrderManagement extends Component {
                 totalPage: result.pages,
             }
             store.dispatch(update_order_list_data(payload));
-        })
+        }, null, { current: 1, size: 10 })
     }
 
     goToOrderDetail = (item) => {
