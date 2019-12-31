@@ -362,10 +362,10 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError)
     }
 
-    myOrder(payload, onSuccess, onError) {
+    myOrder(payload, onSuccess, onError, pagePayload) {
         let payloadStr = qs.stringify(payload)
         const url = `/api/otc/order/orders?${payloadStr}`;
-        this.request(url, null, onSuccess, onError);
+        this.request(url, null, onSuccess, onError, pagePayload);
     }
 
     queryOrderById(no, onSuccess, onError) {
