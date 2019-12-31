@@ -1,5 +1,5 @@
 const envirmentType = ['online', 'test', 'yuejun']
-const envirment = envirmentType[0];
+const envirment = envirmentType[1];
 const ONLINE_SERVICE_URL = {
     domain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000',
     imageDomain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000/api/file/upload/image',

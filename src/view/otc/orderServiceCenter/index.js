@@ -32,6 +32,11 @@ class OrderManagement extends Component {
         }
     };
 
+    constructor(props) {
+        super(props);
+        this.timer = null;
+    }
+
     _orderListDataUpdate = () => {
         let params = { status: this.props.orderType };
         Api.myOrder(params, (result) => {
@@ -47,12 +52,15 @@ class OrderManagement extends Component {
     _autoFitterState = () => {
         Api.adAutoFitter((result) => {
             store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
+
+            if (result.open) {
+                this.timer = setInterval(() => {
+                    Api.adAutoFitter((result) => {
+                        store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
+                    });
+                }, 3000);
+            }
         });
-        this.timer = setInterval(() => {
-            Api.adAutoFitter((result) => {
-                store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
-            });
-        }, 3000);
     }
 
     naviDidFocus = () => {
@@ -125,12 +133,14 @@ class OrderManagement extends Component {
             Api.autoFitterSwichoff(() => {
                 Toast.show('已关闭自动接单');
                 store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
+                this.naviWillBlur();
             });
 
         } else {
             Api.autoFitterSwichon(() => {
                 Toast.show('已开启自动接单');
                 store.dispatch(otc_state_change_danger({ adAutoFitter: 'open' }));
+                this._autoFitterState();
             });
         }
     }
