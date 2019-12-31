@@ -147,7 +147,7 @@ class Header extends Component {
                 myAdTotalPage: result.pages
             };
             store.dispatch(update_ad_list_data(storePayload));
-        });
+        }, null, { current: 1, size: 10 });
     }
 }
 
