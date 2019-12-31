@@ -23,7 +23,21 @@ class List extends Component {
                 myAdTotalPage: result.pages
             };
             store.dispatch(update_ad_list_data(storePayload));
-        });
+        }, null, { current: 1, size: 10 });
+    }
+
+    _nextPage = () => {
+        if (this.props.myAdTotalPage > this.props.myAdCurrentPage) {
+            Api.myAd(payload, (result) => {
+                let newData = this.props.myAdData.concat(result.records);
+                let storePayload = {
+                    myAdData: newData,
+                    myAdCurrentPage: result.current,
+                    myAdTotalPage: result.pages
+                };
+                store.dispatch(update_ad_list_data(storePayload));
+            }, null, { current: this.props.myAdCurrentPage + 1, size: 10 });
+        }
     }
 
     naviDidFocus = () => {
@@ -40,6 +54,8 @@ class List extends Component {
                     data={this.props.myAdData}
                     renderItem={({ item, index }) => <Item key={item.advertiseNo} item={item} index={index} callback={this.itemPress} />}
                     showsVerticalScrollIndicator={false}
+                    onEndReached={this._nextPage}
+                    onEndReachedThreshold={0.2}
                 />
             </View>
         );

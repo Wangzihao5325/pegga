@@ -299,10 +299,10 @@ class api {
         this.request(url, null, onSuccess, onError, pagePayload);
     }
 
-    myAd(payload, onSuccess, onError) {
+    myAd(payload, onSuccess, onError, pagePayload) {
         let payloadStr = qs.stringify(payload);
         const url = `/api/otc/advertise/advertises?${payloadStr}`;
-        this.request(url, null, onSuccess, onError);
+        this.request(url, null, onSuccess, onError, pagePayload);
     }
 
     publishTobAdBuy(payload, onSuccess, onError) {
