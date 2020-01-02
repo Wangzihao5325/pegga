@@ -42,7 +42,7 @@ class api {
                     if (typeof code == 'number') {
                         let toastStr = ErrorCodeToast(code);
                         Toast.show(toastStr);
-                        if (code == 10002 || code == 1003) {
+                        if (code == 10002 || code == 10003) {
                             let isLogin = store.getState().user.isLogin;
                             if (isLogin) {
                                 AsyncStorage.setItem('App_token', '');
