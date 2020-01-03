@@ -174,6 +174,10 @@ class BuyIn extends Component {
             let orderNum = result.orderNo;
             this.props.navigation.pop();
             this.props.navigation.navigate('OTC_OrderDetails', { orderNum });
+        }, () => {
+            this.setState({
+                isBuying: false
+            });
         })
     }
 

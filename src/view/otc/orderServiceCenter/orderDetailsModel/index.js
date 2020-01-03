@@ -676,6 +676,11 @@ export default class OrderDetail extends Component {
         }
     };
 
+    constructor(props) {
+        super(props);
+        this.timer = null;
+    }
+
     state = {
         adId: 0,
         usdtType: 0, //0->火币 1->币安 2->OKEx
@@ -700,7 +705,8 @@ export default class OrderDetail extends Component {
         orderFilledCountLastMonth: 0,
         orderWinAppealCountLastMonth: 0,
         tradeMemo: '',
-        isMatch: false
+        isMatch: false,
+        timeout: 0
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -724,6 +730,7 @@ export default class OrderDetail extends Component {
                 buyerInfo: result.buyerInfo,
                 tradeMemo: result.memo,
                 isMatch: result.isMatch,// true:toB false:toC
+                timeout: result.payTimeoutStamp ? result.payTimeoutStamp : result.receivedTimeoutStamp
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -743,9 +750,28 @@ export default class OrderDetail extends Component {
                     payload.paymentSelect = payment[0].key;
                 }
             }
+            this._timerSet(payload.timeout, payload.orderNo);
             this.setState(payload);
             this._sellerInfoUpdate();
+
         });
+    }
+
+    _timerSet = (timeStamp, orderNo) => {
+        if (typeof timeStamp == 'number') {
+            let now = new Date();
+            let time = now.getTime();
+            let leftTime = timeStamp * 1000 - time;
+            if (leftTime > 0) {
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                    this.timer = null;
+                }
+                this.timer = setTimeout(() => {
+                    this._orderInfoUpdate(orderNo);
+                }, leftTime + 3000);
+            }
+        }
     }
 
     _sellerInfoUpdate = () => {
@@ -768,6 +794,13 @@ export default class OrderDetail extends Component {
         const orderNum = this.props.navigation.getParam('orderNum', '');
         if (orderNum) {
             this._orderInfoUpdate(orderNum);
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
         }
     }
 
