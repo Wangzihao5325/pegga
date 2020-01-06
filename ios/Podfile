@@ -34,20 +34,14 @@ target 'pegga' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'peggaTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
   use_native_modules!
-end
-
-target 'pegga-tvOS' do
-  # Pods for pegga-tvOS
-
-  target 'pegga-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
