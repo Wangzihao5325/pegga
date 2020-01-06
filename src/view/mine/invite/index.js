@@ -4,12 +4,15 @@ import {
     Dimensions,
     Text,
     TouchableHighlight,
+    Platform,
     StyleSheet,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
+import CameraRoll from "@react-native-community/cameraroll";
 import Header from '../../../component/header';
 import Variables from '../../../global/Variables';
 import * as Config from '../../../global/Config';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default class Invite extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -18,6 +21,37 @@ export default class Invite extends Component {
             headerBackTitle: null
         }
     };
+
+    _image_save = async (url) => {
+        const runSuccess = `window.myToast('保存完成');
+        true;`;
+        const runFailed = `window.myToast('保存失败');
+        true;`;
+        if (Platform.OS == 'ios') {
+            let newPath = await CameraRoll.saveToCameraRoll(url, 'photo');
+            if (newPath) {
+                this.webView.injectJavaScript(runSuccess);
+            } else {
+                this.webView.injectJavaScript(runFailed);
+            }
+        } else if (Platform.OS == 'android') {
+            let res = await RNFetchBlob.config({ fileCache: true, appendExt: 'png' }).fetch('GET', url);
+            let path = res.path();
+            let newPath = await CameraRoll.saveToCameraRoll(`file://${path}`, 'photo');
+            if (newPath) {
+                this.webView.injectJavaScript(runSuccess);
+            } else {
+                this.webView.injectJavaScript(runFailed);
+            }
+        }
+    }
+
+    _h5_save = async (event) => {
+        let get_data = JSON.parse(event.nativeEvent.data);
+        if (get_data.type === 'save_image') {
+            await this._image_save(get_data.imageUrl);
+        }
+    }
 
     render() {
         let uri = `${Config.SERVICE_URL.invite}?t=${Variables.account.token}`
@@ -30,8 +64,10 @@ export default class Invite extends Component {
                     rightBtnPress={this.toDetail}
                 />
                 <WebView
+                    ref={webView => this.webView = webView}
                     source={{ uri }}
                     style={{ width: Dimensions.get('window').width }}
+                    onMessage={this._h5_save}
                 />
             </SafeAreaView>
         );
