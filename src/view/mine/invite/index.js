@@ -6,6 +6,7 @@ import {
     TouchableHighlight,
     Platform,
     StyleSheet,
+    PermissionsAndroid,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import CameraRoll from "@react-native-community/cameraroll";
@@ -27,6 +28,8 @@ export default class Invite extends Component {
         true;`;
         const runFailed = `window.myToast('保存失败');
         true;`;
+        const noAccess = `window.myToast('权限不足');
+        true;`;
         if (Platform.OS == 'ios') {
             let newPath = await CameraRoll.saveToCameraRoll(url, 'photo');
             if (newPath) {
@@ -35,13 +38,24 @@ export default class Invite extends Component {
                 this.webView.injectJavaScript(runFailed);
             }
         } else if (Platform.OS == 'android') {
-            let res = await RNFetchBlob.config({ fileCache: true, appendExt: 'png' }).fetch('GET', url);
-            let path = res.path();
-            let newPath = await CameraRoll.saveToCameraRoll(`file://${path}`, 'photo');
-            if (newPath) {
-                this.webView.injectJavaScript(runSuccess);
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    'title': '请求读写内存卡权限',
+                    'message': '请给予读写内存卡权限以保存海报'
+                }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                let res = await RNFetchBlob.config({ fileCache: true, appendExt: 'png' }).fetch('GET', url);
+                let path = res.path();
+                let newPath = await CameraRoll.saveToCameraRoll(`file://${path}`, 'photo');
+                if (newPath) {
+                    this.webView.injectJavaScript(runSuccess);
+                } else {
+                    this.webView.injectJavaScript(runFailed);
+                }
             } else {
-                this.webView.injectJavaScript(runFailed);
+                this.webView.injectJavaScript(noAccess);
             }
         }
     }
