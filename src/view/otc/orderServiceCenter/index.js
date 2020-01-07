@@ -119,8 +119,11 @@ class OrderManagement extends Component {
                                 <Text style={styles.title}>订单中心</Text>
                             </View>
                             <View style={[styles.wrapper, { flexDirection: 'row-reverse' }]}>
-                                <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 20 }}>
-                                    {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
+                                <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 80 }}>
+                                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                                        {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
+                                        <Text style={[styles.autoBtnText, this.props.adAutoFitter == 'open' ? { color: '#282e3c' } : { color: '#bcc0cb' }]}>{this.props.adAutoFitter == 'open' ? '接单中' : '未开启'}</Text>
+                                    </View>
                                 </TouchableHighlight>
                             </View>
                         </View>
@@ -248,5 +251,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20
+    },
+    autoBtnText: {
+        marginLeft: 5,
+        fontSize: 13,
     }
 });
