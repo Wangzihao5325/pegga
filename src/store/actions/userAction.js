@@ -76,15 +76,46 @@ export function user_info(result) {
 export function user_payment(result) {
     const { alipay, weixin, bank } = result;
     let passedPayment = [];
-    if (alipay && alipay.auditStatus == 1) {
+    let aliPassed = alipay.filter((item) => {
+        if (item.auditStatus == 1) {
+            return true;
+        } else {
+            return false
+        }
+    });
+    let wechatPassed = weixin.filter((item) => {
+        if (item.auditStatus == 1) {
+            return true;
+        } else {
+            return false
+        }
+    });
+    let bankPassed = bank.filter((item) => {
+        if (item.auditStatus == 1) {
+            return true;
+        } else {
+            return false
+        }
+    });
+    if (aliPassed.length > 0) {
         passedPayment.push({ select: true, title: '支付宝', key: 'aliPay' });
     }
-    if (weixin && weixin.auditStatus == 1) {
+    if (wechatPassed.length > 0) {
         passedPayment.push({ select: true, title: '微信', key: 'weChat' });
     }
-    if (bank && bank.auditStatus == 1) {
+    if (bankPassed.length > 0) {
         passedPayment.push({ select: true, title: '银行卡', key: 'bankCard' });
     }
+    // let passedPayment = [];
+    // if (alipay && alipay.auditStatus == 1) {
+    //     passedPayment.push({ select: true, title: '支付宝', key: 'aliPay' });
+    // }
+    // if (weixin && weixin.auditStatus == 1) {
+    //     passedPayment.push({ select: true, title: '微信', key: 'weChat' });
+    // }
+    // if (bank && bank.auditStatus == 1) {
+    //     passedPayment.push({ select: true, title: '银行卡', key: 'bankCard' });
+    // }
 
     return { type: Types.USER_PAYMENT, payload: { alipay, weixin, bank, passedPayment } }
 }
@@ -97,6 +128,7 @@ export function update_user_info() {
 
 export function update_payment_info() {
     Api.payments((result, code, msg) => {
+        console.log(result);
         store.dispatch(user_payment(result));
     })
 }

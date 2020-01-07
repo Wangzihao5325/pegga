@@ -139,6 +139,7 @@ const UIDComponent = (props) => {
 
 class AliPay extends Component {
     state = {
+        alipayId: null,
         accountName: '',
         account: '',
         uuid: '',
@@ -164,6 +165,7 @@ class AliPay extends Component {
             let rangeType = BoundryUtil(props.alipay.provinceId, props.alipay.cityId)
             //修改bname bcode
             return {
+                alipayId: props.alipay.alipayId ? props.alipay.alipayId : null,
                 alipay: props.alipay,
                 account: props.alipay.alipayNo,
                 accountNickName: props.alipay.alipayNick,
@@ -250,7 +252,7 @@ class AliPay extends Component {
                 <Btn.Linear
                     style={styles.btn}
                     textStyle={styles.btnText}
-                    title={I18n.SETTING_DONE}
+                    title='确认添加'
                     btnPress={this.upload}
                 />
             </View>
@@ -302,6 +304,9 @@ class AliPay extends Component {
             alipayNick: this.state.accountNickName,
             tradePassword: this.state.assetsPwd,
         }
+        if (this.state.alipayId) {
+            payload.alipayId = this.state.alipayId;
+        }
         if (this.props.bCode.length >= 1) {
             payload.countryId = this.props.bCode[0];
         }
@@ -324,7 +329,8 @@ class AliPay extends Component {
             payload.aliQrCode = refStateData[0].path
         }
         Api.aliPay(payload, () => {
-            Toast.show(I18n.INFO_SUBMIT_SUCCESS)
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
+            this.props.navi.goBack();
         })
     }
 }
@@ -333,7 +339,7 @@ function mapState2Props(store) {
     return {
         bName: store.country.boundryName,
         bCode: store.country.boundryCode,
-        alipay: store.user.payment.alipay
+        //alipay: store.user.payment.alipay
     }
 }
 

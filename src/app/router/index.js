@@ -31,6 +31,7 @@ import NickName from '../../view/mine/info/nickName';
 import Contact from '../../view/mine/info/contact';
 import SecurityCenter from '../../view/mine/securityCenter';
 import PayManager from '../../view/mine/payManager';
+import PaymentAdd from '../../view/mine/payManager/PaymentAdd';
 import HelpCenter from '../../view/mine/helpCenter';
 import AboutUs from '../../view/mine/aboutUs';
 import Setting from '../../view/mine/setting';
@@ -197,6 +198,7 @@ let MineStack = createStackNavigator({
     Contact,
     SecurityCenter,
     PayManager,
+    PaymentAdd,
     HelpCenter,
     AboutUs,
     Setting,

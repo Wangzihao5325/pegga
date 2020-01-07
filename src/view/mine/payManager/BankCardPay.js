@@ -8,8 +8,9 @@ import ItemInput from '../ItemInput';
 import Btn from '../../../component/btn';
 import I18n from '../../../global/doc/i18n';
 
-class BankCardPay extends PureComponent {
+export default class BankCardPay extends PureComponent {
     state = {
+        bankId: null,
         accountName: '',
         bankName: '',
         subBranchName: '',
@@ -32,6 +33,7 @@ class BankCardPay extends PureComponent {
                 auditStatusText = I18n.PAYMENT_CHECK_FAILED;
             }
             return {
+                bankId: props.bank.bankId ? props.bank.bankId : null,
                 bank: props.bank,
                 accountName: props.bank.realName,
                 bankName: props.bank.bank,
@@ -108,7 +110,7 @@ class BankCardPay extends PureComponent {
                 <Btn.Linear
                     style={styles.btn}
                     textStyle={styles.btnText}
-                    title={I18n.SETTING_DONE}
+                    title='确认添加'
                     btnPress={this.upload}
                 />
             </View>
@@ -137,19 +139,15 @@ class BankCardPay extends PureComponent {
             realName: this.state.accountName,
             tradePassword: this.state.assetsPwd
         }
+        if (this.state.bankId) {
+            payload.bankId = this.state.bankId;
+        }
         Api.bankCard(payload, () => {
             Toast.show(I18n.INFO_SUBMIT_SUCCESS);
+            this.props.navi.goBack();
         });
     }
 }
-
-function mapState2Props(store) {
-    return {
-        bank: store.user.payment.bank
-    }
-}
-
-export default connect(mapState2Props)(BankCardPay);
 
 const styles = StyleSheet.create({
     container: {
