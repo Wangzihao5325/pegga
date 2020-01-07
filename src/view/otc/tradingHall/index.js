@@ -41,8 +41,8 @@ export default class TradingHall extends Component {
                         showsVerticalScrollIndicator={false}
                         nestedScrollEnabled={true}
                     > */}
-                        {/* <Container navi={this.props.navigation} /> */}
-                        <AdList navi={this.props.navigation} />
+                    {/* <Container navi={this.props.navigation} /> 不能开启，，开启需要考虑多个ali wexin支付账号的问题 */}
+                    <AdList navi={this.props.navigation} />
                     {/* </ScrollView> */}
                     <AdBtn btnPress={() => this.props.navigation.navigate('NewAd')} />
                 </View>

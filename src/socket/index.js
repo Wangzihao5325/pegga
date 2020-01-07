@@ -184,7 +184,7 @@ class api {
     }
 
     payments(onSuccess, onError) {
-        const url = '/api/user/payment/payments';
+        const url = '/api/user/payment/pay_types';
         this.request(url, null, onSuccess, onError);
     }
 

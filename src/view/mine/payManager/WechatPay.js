@@ -15,6 +15,7 @@ import I18n from '../../../global/doc/i18n';
 
 class WechatPay extends Component {
     state = {
+        weixinId: null,
         accountName: '',
         account: '',
         weChatAlias: '',
@@ -38,6 +39,7 @@ class WechatPay extends Component {
             let rangeType = BoundryUtil(props.wechat.provinceId, props.wechat.cityId)
             //修改bname bcode
             return {
+                weixinId: props.wechat.weixinId ? props.wechat.weixinId : null,
                 wechat: props.wechat,
                 account: props.wechat.weixinNo,
                 weChatAlias: props.wechat.weixinNick,
@@ -110,7 +112,7 @@ class WechatPay extends Component {
                 <Btn.Linear
                     style={styles.btn}
                     textStyle={styles.btnText}
-                    title={I18n.SETTING_DONE}
+                    title='确认添加'
                     btnPress={this.upload}
                 />
             </View>
@@ -161,6 +163,9 @@ class WechatPay extends Component {
             weixinNick: this.state.weChatAlias,
             tradePassword: this.state.assetsPwd,
         }
+        if (this.state.weixinId) {
+            payload.weixinId = this.state.weixinId;
+        }
         if (this.props.bCode.length >= 1) {
             payload.countryId = this.props.bCode[0];
         }
@@ -183,7 +188,8 @@ class WechatPay extends Component {
             payload.weixinQrCode = refStateData[0].path
         }
         Api.weChat(payload, () => {
-            Toast.show(I18n.INFO_SUBMIT_SUCCESS)
+            Toast.show(I18n.INFO_SUBMIT_SUCCESS);
+            this.props.navi.goBack();
         })
     }
 }
@@ -192,7 +198,7 @@ function mapState2Props(store) {
     return {
         bName: store.country.boundryName,
         bCode: store.country.boundryCode,
-        wechat: store.user.payment.weixin
+        //wechat: store.user.payment.weixin
     }
 }
 
