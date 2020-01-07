@@ -3,6 +3,7 @@ import {
     View,
     TouchableHighlight,
     Image,
+    Text,
     Dimensions,
     StyleSheet,
 } from 'react-native';
@@ -74,19 +75,13 @@ class Header extends Component {
                         isControl
                     />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 20 }}>
-                            {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
+                        <TouchableHighlight onPress={this.autoFitterChange} underlayColor='transparent' style={{ height: 20, width: 80 }}>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                                {this.props.adAutoFitter == 'open' ? <LottieView style={{ height: 20, width: 20 }} source={require('../../../image/animate/auto_receipt.json')} autoPlay /> : <Image style={{ height: 20, width: 20 }} source={require('../../../image/otc/auto.png')} />}
+                                <Text style={[styles.autoBtnText, this.props.adAutoFitter == 'open' ? { color: '#282e3c' } : { color: '#bcc0cb' }]}>{this.props.adAutoFitter == 'open' ? '接单中' : '未开启'}</Text>
+                            </View>
                         </TouchableHighlight>
-                        {/* <Btn.Control
-                            style={styles.controlBtn}
-                            selectKey={this.props.adAutoFitter}
-                            data={{ open: '自动接单', close: '开启接单' }}
-                            callback={this.autoFitterChange}
-                        /> */}
                     </View>
-                    {/* <TouchableHighlight style={[styles.backBtn]} onPress={this.btnPress} underlayColor='transparent'>
-                        <Image style={styles.backBtnImage} source={require('../../../image/no_image/logo_default.png')} />
-                    </TouchableHighlight> */}
                 </View>
                 <Select.ScrollLinear
                     data={[{ title: '全部', key: 3 }, { title: '上架中', key: 1 }, { title: '已下架', key: 0 }, { title: '完成', key: 2 }]}
@@ -179,5 +174,9 @@ const styles = StyleSheet.create({
     backBtnImage: {
         height: 20,
         width: 20
+    },
+    autoBtnText: {
+        marginLeft: 5,
+        fontSize: 13,
     }
 });
