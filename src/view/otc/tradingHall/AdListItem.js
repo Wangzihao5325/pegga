@@ -52,7 +52,7 @@ export default class Item extends PureComponent {
         if (remark.length >= 20) {
             remark = `${remark.substr(0, 17)}...`;
         }
-        let payType = this.props.item.payType ? this.props.item.payType.split(',') : [];
+        let payType = this.props.item.payType ? this.props.item.payType.split('#') : [];
         let orderSuccessRate = this._orderFailedRateCal(this.props.item.orderFilledCount, this.props.item.orderEndCount);
         return (
             <View style={styles.itemContainer}>
@@ -93,14 +93,15 @@ export default class Item extends PureComponent {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                             {
                                 payType.map((item) => {
+                                    let key = item.split(':')[0];
                                     let url = require('../../../image/otc/payment/pay_card.png');
                                     let wrapperStyle = { height: 20, width: 20, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' };
                                     let imageStyle = { height: 20, width: 20, borderRadius: 3 };
-                                    if (item == 0) {
+                                    if (key == 0) {
                                         url = require('../../../image/otc/payment/pay_alipay.png');
-                                    } else if (item == 1) {
+                                    } else if (key == 1) {
                                         url = require('../../../image/otc/payment/pay_WeChat.png');
-                                    } else if (item == 2) {
+                                    } else if (key == 2) {
                                         url = require('../../../image/otc/payment/pay_card.png');
                                     }
                                     return (

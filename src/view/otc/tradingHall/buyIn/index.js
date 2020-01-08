@@ -17,6 +17,8 @@ import Info from './Info';
 import Num from './Num';
 import I18n from '../../../../global/doc/i18n';
 import Toast from '../../../../component/toast';
+import Item from '../newAd/Item';
+
 
 class BuyIn extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -44,6 +46,9 @@ class BuyIn extends Component {
         coinNum: '',
         moneyNum: '',
         isBuying: false,
+        myPayTypeData: {},
+        myPayType: {},
+        myDefaultCPayType: {}
     }
 
     _rateCal = (failed, end) => {
@@ -55,9 +60,28 @@ class BuyIn extends Component {
         }
     }
 
+    _toCDefaultPaymentSelect = (passedPayment) => {
+        let passPayCopy = JSON.parse(JSON.stringify(passedPayment));
+        let passPayReg = JSON.parse(JSON.stringify(passedPayment));
+        if (passPayCopy.aliPassed.length >= 1) {
+            passPayCopy.aliPassed.length = 1;
+            passPayReg.aliPassed[0].isSelect = true;
+        }
+        if (passPayCopy.wexinPassed.length >= 1) {
+            passPayCopy.wexinPassed.length = 1;
+            passPayReg.wexinPassed[0].isSelect = true;
+        }
+        if (passPayCopy.bankPassed.length >= 1) {
+            passPayCopy.bankPassed.length = 1;
+            passPayReg.bankPassed[0].isSelect = true;
+        }
+        return { passPayCopy, passPayReg };
+    }
+
     componentDidMount() {
         const itemStr = this.props.navigation.getParam('itemStr', '{}');
         let itemData = JSON.parse(itemStr);
+        let { passPayCopy, passPayReg } = this._toCDefaultPaymentSelect(this.props.passedPayment);
         this.setState({
             name: itemData.nikeName ? itemData.nikeName : '游客',
             tradeType: itemData.type,
@@ -71,7 +95,10 @@ class BuyIn extends Component {
             remark: itemData.remark,
             orderFillRateLastMonth: this._rateCal(itemData.orderFilledCount, itemData.orderEndCount),
             id: itemData.advertiseNo,
-            userNo: itemData.userNo
+            userNo: itemData.userNo,
+            myPayTypeData: passPayReg,
+            myPayType: passPayCopy,
+            myDefaultCPayType: passPayCopy
         });
     }
 
@@ -114,6 +141,15 @@ class BuyIn extends Component {
                                 coinNumCallback={this.coinNumChange}
                             //moneyNumCallback={this.moneyNumChange}
                             />
+                            {this.state.tradeType === 0 &&
+                                <View style={{ backgroundColor: 'white', width: Dimensions.get('window').width - 30, borderRadius: 5, marginTop: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Item.SelectType2
+                                        title='支付方式'
+                                        data={this.state.myPayType}
+                                        callback={this.payTypeSelect}
+                                    />
+                                </View>
+                            }
                         </View>
                     </KeyboardAwareScrollView>
                 </View>
@@ -127,6 +163,35 @@ class BuyIn extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    payTypeSelect = () => {
+
+        if (this.state.myPayTypeData.aliPassed.length == 0 &&
+            this.state.myPayTypeData.wexinPassed.length == 0 &&
+            this.state.myPayTypeData.bankPassed.length == 0) {
+            Toast.show('没有可用的支付方式!');
+            return;
+        }
+        if (this.state.myPayTypeData.aliPassed.length +
+            this.state.myPayTypeData.wexinPassed.length +
+            this.state.myPayTypeData.bankPassed.length
+            == 1) {
+            Toast.show('没有多余的支付方式可供选择!');
+            return;
+        }
+        this.props.navigation.navigate('SelectModelPay',
+            {
+                data: JSON.stringify(this.state.myPayTypeData),
+                type: 'single',
+                title: '选择支付方式',
+                callback: (selectDataArr, nowState) => {
+                    this.setState({
+                        myPayType: selectDataArr,
+                        myPayTypeData: nowState,
+                    });
+                }
+            });
     }
 
     goToSellerInfo = () => {
@@ -163,10 +228,76 @@ class BuyIn extends Component {
         this.setState({
             isBuying: true
         });
+
+        let payType = [];
+        let payload_ali = null;
+        let payload_wx = null;
+        let payload_bank = null;
+        if (this.state.tradeType === 0) {
+            let aliPaySelect = this.state.myPayType['aliPassed'];
+            if (aliPaySelect.length >= 1) {
+                let aliPayTypeInfo = aliPaySelect.map((item) => {
+                    return item.id
+                });
+                payload_ali = { payType: 0, payTypeInfo: aliPayTypeInfo };
+                payType.push(payload_ali);
+            }
+            let weixinSelect = this.state.myPayType['wexinPassed'];
+            if (weixinSelect.length >= 1) {
+                let weixinTypeInfo = weixinSelect.map((item) => {
+                    return item.id
+                });
+                payload_wx = { payType: 1, payTypeInfo: weixinTypeInfo };
+                payType.push(payload_wx);
+            }
+            let bankSelect = this.state.myPayType['bankPassed'];
+            if (bankSelect.length >= 1) {
+                let bankTypeInfo = bankSelect.map((item) => {
+                    return item.id
+                });
+                payload_bank = { payType: 2, payTypeInfo: bankTypeInfo };
+                payType.push(payload_bank);
+            }
+
+            let buyerPayType = this.state.payType.split('#');
+
+            let noSamePayment = buyerPayType.every((item) => {
+                let key = item.split(':')[0];
+                switch (key) {
+                    case '0':
+                        if (!payload_ali) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    case '1':
+                        if (!payload_wx) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    case '2':
+                        if (!payload_bank) {
+                            return true
+                        } else {
+                            return false
+                        }
+                }
+            });
+            if (noSamePayment) {
+                Toast.show('请至少选择一种对方支持的支付方式！');
+                this.setState({
+                    isBuying: false
+                });
+                return;
+            }
+        }
+
         Api.newOrder({
             advertiseNo: this.state.id,
             amount: parseFloat(this.state.coinNum),
-            legalAmount: parseFloat(this.state.moneyNum)
+            legalAmount: parseFloat(this.state.moneyNum),
+            payType: this.state.tradeType === 0 ? payType : null
         }, (result) => {
             this.setState({
                 isBuying: false
@@ -188,7 +319,8 @@ class BuyIn extends Component {
 
 function mapState2Props(store) {
     return {
-        legalWallet: store.assets.legalWallet
+        legalWallet: store.assets.legalWallet,
+        passedPayment: store.user.passedPayment,
     }
 }
 

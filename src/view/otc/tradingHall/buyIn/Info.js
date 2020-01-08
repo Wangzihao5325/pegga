@@ -16,7 +16,7 @@ function InfoLine(props) {
 
 export default class Info extends PureComponent {
     render() {
-        let payType = this.props.payType ? this.props.payType.split(',') : [];
+        let payType = this.props.payType ? this.props.payType.split('#') : [];
         let remark = this.props.remark ? this.props.remark : '该用户没有留下任何备注!';
         if (remark.length >= 20) {
             remark = `${remark.substr(0, 17)}...`;
@@ -62,14 +62,15 @@ export default class Info extends PureComponent {
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                         {
                             payType.map((item) => {
+                                let key = item.split(':')[0];
                                 let url = require('../../../../image/otc/payment/pay_card.png');
                                 let wrapperStyle = { height: 20, width: 20, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' };
                                 let imageStyle = { height: 20, width: 20, borderRadius: 3 };
-                                if (item == 0) {
+                                if (key == 0) {
                                     url = require('../../../../image/otc/payment/pay_alipay.png');
-                                } else if (item == 1) {
+                                } else if (key == 1) {
                                     url = require('../../../../image/otc/payment/pay_WeChat.png');
-                                } else if (item == 2) {
+                                } else if (key == 2) {
                                     url = require('../../../../image/otc/payment/pay_card.png');
                                 }
 
