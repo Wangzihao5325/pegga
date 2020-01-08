@@ -1,38 +1,60 @@
 import React, { Component } from 'react';
-import { Animated, Image, TouchableHighlight, View, Text, Dimensions, StyleSheet } from 'react-native';
+import { Animated, Image, TouchableHighlight, FlatList, View, Text, Dimensions, StyleSheet } from 'react-native';
 import _ from 'lodash';
 import Btn from '../../component/btn';
+import Select from '../../component/select';
+import I18n from '../../global/doc/i18n';
 
 function Item(props) {//index  data:[select,title,key]
     const btnPress = () => {
-        props.itemPress(props.item, props.index);
+        props.itemPress(props.item, props.index, props.type);
     }
-    let isSelect = props.selectIndexArr.indexOf(props.index) >= 0 ? true : false;
-    let source = require('../../image/otc/payment/pay_alipay.png');
-    switch (props.item.key) {
-        case 'aliPay':
-            source = require('../../image/otc/payment/pay_alipay.png');
+    let selectImage = props.item.isSelect ? require('../../image/otc/payment/payment_select.png') : require('../../image/otc/payment/payment_unselect.png');
+    let iconUrl = require('../../image/otc/payment/pay_alipay.png');
+    let title = '支付宝';
+    let account = '';
+    let name = '';
+    switch (props.type) {
+        case 'aliPassed':
+            iconUrl = require('../../image/otc/payment/pay_alipay.png');
+            title = '支付宝';
+            account = props.item.no;
+            name = props.item.nickName;
             break;
-        case 'weChat':
-            source = require('../../image/otc/payment/pay_WeChat.png');
+        case 'wexinPassed':
+            iconUrl = require('../../image/otc/payment/pay_WeChat.png');
+            title = '微信';
+            account = props.item.no;
+            name = props.item.nickName;
             break;
-        case 'bankCard':
-            source = require('../../image/otc/payment/pay_card.png');
+        case 'bankPassed':
+            iconUrl = require('../../image/otc/payment/pay_card.png');
+            title = props.item.bank;
+            account = props.item.card;
+            name = props.item.realName;
             break;
-
     }
-    let selectSource = require('../../image/usual/select.png');
-    let unSelectSource = require('../../image/usual/unSelect.png');
     return (
-        <TouchableHighlight style={styles.itemContainer} onPress={btnPress} underlayColor='#EEE'>
-            <View style={[{ flex: 1, flexDirection: 'row', marginHorizontal: 15, alignItems: 'center' }]}>
-                <Image style={{ height: 25, width: 25 }} source={source} />
-                <View style={{ flex: 1, marginHorizontal: 15, flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={styles.itemTextNormal} >{`${props.item.title}`}</Text>
+        <View style={styles.itemContainer}>
+            <TouchableHighlight underlayColor='transparent' onPress={btnPress}>
+                <View style={styles.itemBody}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', width: Dimensions.get('window').width - 60 }}>
+                        <Image style={styles.itemIcon} source={iconUrl} />
+                        <Text style={styles.itemTitle}>{`${title}`}</Text>
+                        <View style={{ flex: 1, flexDirection: 'row-reverse' }}><Image style={{ height: 16, width: 16 }} source={selectImage} /></View>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
+                            <Text style={styles.itemAccount}>{`${account}`}</Text>
+                            <Text style={styles.itemAccountName}>{`${name}`}</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row-reverse', alignItems: 'flex-end' }}>
+                            <Image style={{ height: 25, width: 25 }} source={require('../../image/otc/payment/qrCode.png')} />
+                        </View>
+                    </View>
                 </View>
-                <Image style={{ height: 20, width: 20 }} source={isSelect ? selectSource : unSelectSource} />
-            </View>
-        </TouchableHighlight>
+            </TouchableHighlight>
+        </View>
     );
 }
 
@@ -53,8 +75,10 @@ export default class SelectModel extends Component {
         fadeAnim: new Animated.Value(0),
         type: '',
         title: null,
-        data: [],
-        selectIndexArr: []
+        data: {},
+        selectIndexArr: [],
+        selectType: 'aliPassed',
+        listData: []
     }
 
     componentDidMount() {
@@ -73,21 +97,11 @@ export default class SelectModel extends Component {
         const dataStr = this.props.navigation.getParam('data', '[]');
         const title = this.props.navigation.getParam('title', '请选择');
         let data = JSON.parse(dataStr);
-        const selectIndexArr = [];
-        data.every((item, index) => {
-            if (item.select) {
-                selectIndexArr.push(index);
-                if (type == 'single') {
-                    return false;
-                }
-            }
-            return true;
-        });
         this.setState({
             type,
             title,
             data,
-            selectIndexArr
+            listData: data[this.state.selectType]
         });
     }
 
@@ -106,20 +120,22 @@ export default class SelectModel extends Component {
                         <View style={styles.titleContainer}>
                             <Text style={styles.title}>{this.state.title}</Text>
                         </View>
-                        {
-                            this.state.data.map((item, index) => {
-                                return (
-                                    <Item
-                                        key={item.key}
-                                        item={item}
-                                        index={index}
-                                        selectIndexArr={this.state.selectIndexArr}
-                                        itemPress={this.itemPress}
-                                        isLast={index == this.state.data.length - 1}
-                                    />
-                                );
-                            })
-                        }
+                        <View style={styles.listWrapper}>
+                            <Select.ScrollLinear
+                                data={[{ title: I18n.PAY_ALIPAY, key: 'aliPassed' }, { title: I18n.PAY_WECHAT, key: 'wexinPassed' }, { title: I18n.PAY_CARD, key: 'bankPassed' }]}
+                                isFlex={true}
+                                style={{ backgroundColor: 'white' }}
+                                selectValue={this.state.selectType}
+                                selectChange={this.selectChange}
+                                isControl
+                            />
+                            <FlatList
+                                data={this.state.listData}
+                                renderItem={({ item, index }) => <Item itemPress={this.itemPress} index={index} item={item} type={this.state.selectType} />}
+                                extraData={this.state.selectType}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </View>
                         <Btn.Linear
                             style={styles.backBtn}
                             textStyle={styles.backBtnText}
@@ -130,6 +146,37 @@ export default class SelectModel extends Component {
                 </View>
             </Animated.View>
         )
+    }
+
+    itemPress = (item, index, type) => {
+        let dataCopy = JSON.parse(JSON.stringify(this.state.data));
+        let isSelect = dataCopy[type][index].isSelect;
+        dataCopy[type][index].isSelect = !isSelect;
+        if (this.state.type == 'multiple') {
+            this.setState({
+                data: dataCopy,
+                listData: dataCopy[this.state.selectType]
+            });
+        } else if (this.state.type == 'single') {
+            let singleList = dataCopy[type].map((item, singleIndex) => {
+                if (item.isSelect && singleIndex !== index) {
+                    item.isSelect = false;
+                }
+                return item;
+            });
+            dataCopy[type] = singleList
+            this.setState({
+                data: dataCopy,
+                listData: dataCopy[this.state.selectType]
+            });
+        }
+    }
+
+    selectChange = (item) => {
+        this.setState({
+            selectType: item.key,
+            listData: this.state.data[item.key]
+        })
     }
 
     back = (value) => {
@@ -146,43 +193,37 @@ export default class SelectModel extends Component {
         }, value)
     }
 
-    goBackWithCallback = (delay) => { //[{},{},{},{}] [1,3]
-        let selectData = [];
-        let oldData = this.state.data.concat();
-        let nowState = oldData.map((item, index) => {
-            let itemCopy = _.assign({}, item);
-            if (this.state.selectIndexArr.indexOf(index) >= 0) {
-                itemCopy.select = true;
-                selectData.push(itemCopy);
+    goBackWithCallback = (delay) => {
+        let aliSelect = this.state.data['aliPassed'].filter((item) => {
+            if (item.isSelect) {
+                return true
             } else {
-                itemCopy.select = false;
+                return false
             }
-            return itemCopy;
         });
-        this.props.navigation.state.params.callback(selectData, nowState);
+        let wexinSelect = this.state.data['wexinPassed'].filter((item) => {
+            if (item.isSelect) {
+                return true
+            } else {
+                return false
+            }
+        });
+        let bankSelect = this.state.data['bankPassed'].filter((item) => {
+            if (item.isSelect) {
+                return true
+            } else {
+                return false
+            }
+        });
+        let selectData = {
+            aliPassed: aliSelect,
+            wexinPassed: wexinSelect,
+            bankPassed: bankSelect
+        }
+        this.props.navigation.state.params.callback(selectData, this.state.data);
         this.back(delay);
     }
 
-    itemPress = (item, index) => {
-        if (this.state.type == 'single') {
-            this.setState({
-                selectIndexArr: [index]
-            }, () => {
-                this.goBackWithCallback(500);
-            });
-        } else if (this.state.type == 'multiple') {
-            let multIndex = this.state.selectIndexArr.indexOf(index);
-            let reg = this.state.selectIndexArr.concat();
-            if (multIndex >= 0) {
-                reg.splice(multIndex, 1);
-            } else {
-                reg.push(index);
-            }
-            this.setState({
-                selectIndexArr: reg
-            });
-        }
-    }
 }
 
 const styles = StyleSheet.create({
@@ -233,4 +274,44 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: 15
     },
+    listWrapper: {
+        height: 300,
+        width: Dimensions.get('window').width,
+        backgroundColor: 'rgb(243,245,249)'
+    },
+    itemContainer: {
+        height: 120,
+        width: Dimensions.get('window').width,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    itemBody: {
+        height: 110,
+        width: Dimensions.get('window').width - 30,
+        backgroundColor: 'white',
+        borderRadius: 5,
+        paddingHorizontal: 15,
+        paddingVertical: 15
+    },
+    itemIcon: {
+        height: 22,
+        width: 22
+    },
+    itemTitle: {
+        marginLeft: 5,
+        fontFamily: 'PingFang-SC-Medium',
+        fontSize: 14,
+        color: 'rgb(68,68,68)'
+    },
+    itemAccountName: {
+        marginTop: 10,
+        fontFamily: 'PingFang-SC-Medium',
+        fontSize: 14,
+        color: 'rgb(133,133,133)'
+    },
+    itemAccount: {
+        fontFamily: 'PingFang-SC-Medium',
+        fontSize: 15,
+        color: 'rgb(40,46,60)'
+    }
 });

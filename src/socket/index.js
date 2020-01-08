@@ -183,6 +183,11 @@ class api {
         this.request(url, JSON.stringify(payload), onSuccess, onError);
     }
 
+    activePayments(onSuccess, onError) {
+        const url = '/api/otc/advertise/payTypes';
+        this.request(url, null, onSuccess, onError)
+    }
+
     payments(onSuccess, onError) {
         const url = '/api/user/payment/pay_types';
         this.request(url, null, onSuccess, onError);

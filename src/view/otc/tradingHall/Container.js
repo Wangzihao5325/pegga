@@ -17,7 +17,7 @@ import Btn from '../../../component/btn';
 import store from '../../../store';
 import { otc_state_change_danger } from '../../../store/actions/otcStateAction';
 import Toast from '../../../component/toast';
-
+//一键买入暂时废弃 不能开启 不支持多种支付方式
 function Payment(props) {
     return (
         <TouchableHighlight underlayColor='transparent' onPress={props.btnPress} >
