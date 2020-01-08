@@ -43,8 +43,9 @@ class NewAd extends Component {
         autoFillMax: '',
         priceScopeId: 0,
 
-        payType: [],
-        payTypeData: [],
+        payType: {},//当前选择的支付方式
+        payTypeData: {},//b端默认选择的支付方式+所有可以选择的支付方式
+        defaultCPayType: {},//c端默认选择的支付方式
         assetsPassword: '',
         googlePassword: '',
 
@@ -52,72 +53,34 @@ class NewAd extends Component {
         isAddingAd: false,//是否在提交 & 是否在拉取固定价格
     }
 
+    _toCDefaultPaymentSelect = (passedPayment) => {
+        let passPayCopy = JSON.parse(JSON.stringify(passedPayment));
+        let passPayReg = JSON.parse(JSON.stringify(passedPayment));
+        if (passPayCopy.aliPassed.length >= 1) {
+            passPayCopy.aliPassed.length = 1;
+            passPayReg.aliPassed[0].isSelect = true;
+        }
+        if (passPayCopy.wexinPassed.length >= 1) {
+            passPayCopy.wexinPassed.length = 1;
+            passPayReg.wexinPassed[0].isSelect = true;
+        }
+        if (passPayCopy.bankPassed.length >= 1) {
+            passPayCopy.bankPassed.length = 1;
+            passPayReg.bankPassed[0].isSelect = true;
+        }
+        return { passPayCopy, passPayReg };
+    }
+
     componentDidMount() {
         let iconRatePayload = { origin: this.state.customType, dealType: this.state.tradeType, fiat: this.state.currencyType, token: this.state.coinType };
         const itemStr = this.props.navigation.getParam('itemStr', '');
         if (itemStr) {
             let itemData = JSON.parse(itemStr);
-            let payArr = itemData.payType.split(',');
-            let reg = [];
-            payArr.every((item) => {
-                switch (item) {
-                    case '0':
-                        reg.push({ select: true, title: "支付宝", key: "aliPay" });
-                        break;
-                    case '1':
-                        reg.push({ select: true, title: "微信", key: "weChat" });
-                        break;
-                    case '2':
-                        reg.push({ select: true, title: "银行卡", key: "bankCard" });
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            });
-
-            let reg2 = this.props.passedPayment.map((item) => {
-                switch (item.key) {
-                    case 'aliPay':
-                        {
-                            let itemCopy = _.assign({}, item);
-                            if (payArr.indexOf('0') >= 0) {
-                                itemCopy.select = true;
-                            } else {
-                                itemCopy.select = false;
-                            }
-                            return itemCopy;
-                        }
-                    case 'weChat':
-                        {
-                            let itemCopy = _.assign({}, item);
-                            if (payArr.indexOf('1') >= 0) {
-                                itemCopy.select = true;
-                            } else {
-                                itemCopy.select = false;
-                            }
-                            return itemCopy;
-                        }
-                    case 'bankCard':
-                        {
-                            let itemCopy = _.assign({}, item);
-                            if (payArr.indexOf('2') >= 0) {
-                                itemCopy.select = true;
-                            } else {
-                                itemCopy.select = false;
-                            }
-                            return itemCopy;
-                        }
-                    default:
-                        return item;
-                }
-            });
-
             iconRatePayload.dealType = itemData.type;
             //iconRatePayload.fiat = itemData.origin;
             iconRatePayload.token = itemData.token;
             iconRatePayload.origin = itemData.origin;
-
+            let { passPayCopy, passPayReg } = this._toCDefaultPaymentSelect(this.props.passedPayment);
             this.setState({
                 tradeType: itemData.type,
                 customType: itemData.origin,
@@ -130,14 +93,17 @@ class NewAd extends Component {
                 priceType: { select: true, title: '灵活定价', key: 1 },
                 priceTypeData: [{ select: false, title: '固定价格', key: 0 }, { select: true, title: '灵活定价', key: 1 }],
                 editable: true,
-                payTypeData: reg2,
-                payType: reg,
+                payTypeData: passPayReg,
+                payType: passPayCopy,
+                defaultCPayType: passPayCopy,
                 adNo: itemData.advertiseNo
             });
         } else {
+            let { passPayCopy, passPayReg } = this._toCDefaultPaymentSelect(this.props.passedPayment);
             this.setState({
-                payTypeData: this.props.passedPayment,
-                payType: this.props.passedPayment,
+                payTypeData: passPayReg,
+                payType: passPayCopy,
+                defaultCPayType: passPayCopy
             });
         }
         Api.iconRate(iconRatePayload, (result) => {
@@ -285,16 +251,32 @@ class NewAd extends Component {
         this.setState({
             isAddingAd: true
         });
-        let payType = this.state.payType.map((item) => {
-            switch (item.key) {
-                case 'aliPay':
-                    return 0;
-                case 'weChat':
-                    return 1;
-                case 'bankCard':
-                    return 2;
-            }
-        });
+        let payType = []
+        let aliPaySelect = this.state.payType['aliPassed'];
+        if (aliPaySelect.length >= 1) {
+            aliPayTypeInfo = aliPaySelect.map((item) => {
+                return item.id
+            });
+            let payload = { payType: 0, payTypeInfo: aliPayTypeInfo };
+            payType.push(payload);
+        }
+        let weixinSelect = this.state.payType['wexinPassed'];
+        if (weixinSelect.length >= 1) {
+            weixinTypeInfo = weixinSelect.map((item) => {
+                return item.id
+            });
+            let payload = { payType: 1, payTypeInfo: weixinTypeInfo };
+            payType.push(payload);
+        }
+        let bankSelect = this.state.payType['bankPassed'];
+        if (bankSelect.length >= 1) {
+            bankTypeInfo = bankSelect.map((item) => {
+                return item.id
+            });
+            let payload = { payType: 2, payTypeInfo: bankTypeInfo };
+            payType.push(payload);
+        }
+
         let payload = {
             amount: parseFloat(this.state.inputTradeNum),
             fiat: this.state.currencyType,
@@ -499,19 +481,25 @@ class NewAd extends Component {
     }
 
     payTypeSelect = () => {
-        if (this.state.payTypeData.length == 0) {
+
+        if (this.state.payTypeData.aliPassed.length == 0 &&
+            this.state.payTypeData.wexinPassed.length == 0 &&
+            this.state.payTypeData.bankPassed.length == 0) {
             Toast.show('没有可用的支付方式!');
             return;
         }
-        if (this.state.payTypeData.length == 1) {
+        if (this.state.payTypeData.aliPassed.length +
+            this.state.payTypeData.wexinPassed.length +
+            this.state.payTypeData.bankPassed.length
+            == 1) {
             Toast.show('没有多余的支付方式可供选择!');
             return;
         }
         this.props.navigation.navigate('SelectModelPay',
             {
                 data: JSON.stringify(this.state.payTypeData),
-                type: 'multiple',
-                title: '支付方式',
+                type: this.state.customType == 0 ? 'single' : 'multiple',
+                title: '选择支付方式',
                 callback: (selectDataArr, nowState) => {
                     this.setState({
                         payType: selectDataArr,
@@ -566,7 +554,7 @@ class NewAd extends Component {
 }
 
 const mapStateToProps = (store) => ({
-    passedPayment: store.user.payment.passedPayment,
+    passedPayment: store.user.passedPayment,
 })
 
 export default connect(mapStateToProps)(NewAd);

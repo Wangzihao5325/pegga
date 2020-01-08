@@ -20,7 +20,7 @@ function Btn(props) {
 
 function Input(props) {
     return (
-        <View style={[styles.container, props.bottomLine ? styles.borderBottm : null,props.wrapperStyle]}>
+        <View style={[styles.container, props.bottomLine ? styles.borderBottm : null, props.wrapperStyle]}>
             <Text style={[styles.title, props.titleStyle]}>{props.title}</Text>
             <View style={[styles.context, props.contextStyle]} >
                 <TextInput secureTextEntry={props.secureTextEntry} style={[{ flex: 1, marginHorizontal: 10, textAlign: 'right' }, props.inputStyle]} placeholder={props.placeholder} value={props.value} onChangeText={(value) => props.callback(value)} editable={props.editable} />
@@ -63,6 +63,7 @@ function Select(props) {
 }
 
 function SelectType2(props) {
+    let keys = Object.keys(props.data);
     return (
         <View style={[styles.container, props.bottomLine ? styles.borderBottm : null]}>
             <Text style={styles.title}>{props.title}</Text>
@@ -70,22 +71,30 @@ function SelectType2(props) {
                 <View style={styles.context} >
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         {
-                            props.data.map((item, index) => {
-                                let style = { height: 20, width: 20, marginHorizontal: 2 };
-                                let source = require('../../../../image/otc/payment/pay_alipay.png');
-                                switch (item.key) {
-                                    case 'weChat':
-                                        source = require('../../../../image/otc/payment/pay_WeChat.png');
-                                        break;
-                                    case 'bankCard':
-                                        source = require('../../../../image/otc/payment/pay_card.png');
-                                        break;
-                                    default:
-                                        break;
+                            keys.map((item, index) => {
+                                let itemArr = props.data[item];
+                                if (itemArr.length >= 1) {
+                                    let style = { height: 20, width: 20, marginHorizontal: 2 };
+                                    let source = require('../../../../image/otc/payment/pay_alipay.png');
+                                    switch (item) {
+                                        case 'aliPassed':
+                                            source = require('../../../../image/otc/payment/pay_alipay.png');
+                                            break;
+                                        case 'wexinPassed':
+                                            source = require('../../../../image/otc/payment/pay_WeChat.png');
+                                            break;
+                                        case 'bankPassed':
+                                            source = require('../../../../image/otc/payment/pay_card.png');
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    return (
+                                        <Image key={item} style={style} source={source} />
+                                    )
+                                } else {
+                                    return null
                                 }
-                                return (
-                                    <Image key={item.key} style={style} source={source} />
-                                )
                             })
                         }
                         <Image style={{ height: 15, width: 15, marginLeft: 5 }} source={require('../../../../image/arrow/arrow_right.png')} />

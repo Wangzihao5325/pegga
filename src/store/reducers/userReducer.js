@@ -53,7 +53,7 @@ const initialState = {
         trustStaple: false
     },
     payment: {
-        passedPayment: [],
+        //passedPayment: [],
         alipay: null,
         /*
         {
@@ -98,6 +98,11 @@ const initialState = {
             realName:''
         }
         */
+    },
+    passedPayment: {//激活的支付方式
+        aliPassed: [],
+        wexinPassed: [],
+        bankPassed: [],
     }
 }
 
@@ -121,7 +126,8 @@ const reducer = (state = initialState, action) => {
         case Types.USER_PAYMENT:
             return {
                 ...state,
-                payment: action.payload
+                payment: action.payload,
+                passedPayment: action.passPayload
             }
         case Types.USER_LOGOUT:
             return {
