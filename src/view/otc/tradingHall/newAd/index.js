@@ -254,7 +254,7 @@ class NewAd extends Component {
         let payType = []
         let aliPaySelect = this.state.payType['aliPassed'];
         if (aliPaySelect.length >= 1) {
-            aliPayTypeInfo = aliPaySelect.map((item) => {
+            let aliPayTypeInfo = aliPaySelect.map((item) => {
                 return item.id
             });
             let payload = { payType: 0, payTypeInfo: aliPayTypeInfo };
@@ -262,7 +262,7 @@ class NewAd extends Component {
         }
         let weixinSelect = this.state.payType['wexinPassed'];
         if (weixinSelect.length >= 1) {
-            weixinTypeInfo = weixinSelect.map((item) => {
+            let weixinTypeInfo = weixinSelect.map((item) => {
                 return item.id
             });
             let payload = { payType: 1, payTypeInfo: weixinTypeInfo };
@@ -270,7 +270,7 @@ class NewAd extends Component {
         }
         let bankSelect = this.state.payType['bankPassed'];
         if (bankSelect.length >= 1) {
-            bankTypeInfo = bankSelect.map((item) => {
+            let bankTypeInfo = bankSelect.map((item) => {
                 return item.id
             });
             let payload = { payType: 2, payTypeInfo: bankTypeInfo };
