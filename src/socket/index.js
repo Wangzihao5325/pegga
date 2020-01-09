@@ -120,6 +120,21 @@ class api {
 
     //user
 
+    paymentFreeze(payload, onSuccess, onError) {
+        const url = '/api/user/payment/pay_type/freeze';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    paymentUnfreeze(payload, onSuccess, onError) {
+        const url = '/api/user/payment/pay_type/unfreeze';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
+    delPayment(payload, onSuccess, onError) {
+        const url = '/api/user/payment/pay_type/del';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
+
     registerByPhone(payload, onSuccess, onError) {
         const url = '/api/user/sign_up/by_phone';
         this.request(url, JSON.stringify(payload), onSuccess, onError);
