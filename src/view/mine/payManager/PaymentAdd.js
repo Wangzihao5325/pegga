@@ -5,6 +5,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import AliPay from './AliPay';
 import WechatPay from './WechatPay';
 import BankCardPay from './BankCardPay';
+import Api from '../../../socket/index';
+import Toast from '../../../component/toast';
 const default_ali = {
     alipayNick: '',
     alipayNo: '',
@@ -53,7 +55,8 @@ export default class PaymentAdd extends Component {
 
     state = {
         type: '',
-        data: {}
+        data: {},
+        isAdd: false
     }
 
     componentDidMount() {
@@ -74,13 +77,15 @@ export default class PaymentAdd extends Component {
             }
             this.setState({
                 type,
-                data: JSON.parse(default_data)
+                data: JSON.parse(default_data),
+                isAdd: true
             });
         } else if (stateType == 'modify') {
             let dataStr = this.props.navigation.getParam('data', '{}');
             this.setState({
                 type,
-                data: JSON.parse(dataStr)
+                data: JSON.parse(dataStr),
+                isAdd: false
             });
         }
     }
@@ -89,9 +94,9 @@ export default class PaymentAdd extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='添加支付方式'
+                    title={this.state.isAdd ? '添加支付方式' : '修改支付方式'}
                     goback={() => this.props.navigation.goBack()}
-                    rightBtnTitle='删除'
+                    rightBtnTitle={this.state.isAdd ? null : '删除'}
                     rightBtnPress={this.delete}
                 />
                 <KeyboardAwareScrollView>
@@ -104,9 +109,22 @@ export default class PaymentAdd extends Component {
     }
 
     delete = () => {
-        // switch(this.state.type){
-
-        // }
+        let payload = null;
+        switch (this.state.type) {
+            case 'aliPay':
+                payload = { payId: this.state.data.alipayId, payType: 0 };
+                break;
+            case 'wechatPay':
+                payload = { payId: this.state.data.weixinId, payType: 1 };
+                break;
+            case 'card':
+                payload = { payId: this.state.data.bankId, payType: 2 };
+                break;
+        }
+        Api.delPayment(payload, () => {
+            Toast.show('删除支付方式成功');
+            this.props.navigation.goBack();
+        })
     }
 }
 

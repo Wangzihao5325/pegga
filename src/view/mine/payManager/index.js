@@ -16,6 +16,7 @@ import I18n from '../../../global/doc/i18n';
 import Btn from '../../../component/btn';
 import { connect } from 'react-redux';
 import { update_payment_info } from '../../../store/actions/userAction';
+import Api from '../../../socket/index';
 
 class Item extends Component {
     render() {
@@ -25,24 +26,29 @@ class Item extends Component {
         let name = '';
         let stateText = '';
         let stateStyle = {};
+        let selectImage = this.props.item.commonStatus === 0 ? require('../../../image/otc/payment/payment_select.png') : require('../../../image/otc/payment/payment_unselect.png');
+        let id = 0;
         switch (this.props.type) {
             case 'aliPay':
                 iconUrl = require('../../../image/otc/payment/pay_alipay.png');
                 title = '支付宝';
                 account = this.props.item.alipayNo;
                 name = this.props.item.alipayNick;
+                id = this.props.item.alipayId;
                 break;
             case 'wechatPay':
                 iconUrl = require('../../../image/otc/payment/pay_WeChat.png');
                 title = '微信';
                 account = this.props.item.weixinNo;
                 name = this.props.item.weixinNick;
+                id = this.props.item.weixinId;
                 break;
             case 'card':
                 iconUrl = require('../../../image/otc/payment/pay_card.png');
                 title = this.props.item.bank;
                 account = this.props.item.bankCard;
                 name = this.props.item.realName;
+                id = this.props.item.bankId;
                 break;
         }
         switch (this.props.item.auditStatus) {
@@ -51,6 +57,8 @@ class Item extends Component {
                 stateStyle = { fontFamily: 'PingFang-SC-Medium', fontSize: 14, color: 'rgb(242,106,58)' };
                 break;
             case 1:
+                stateText = this.props.item.commonStatus === 0 ? '已激活' : '已冻结';
+                stateStyle = { fontFamily: 'PingFang-SC-Medium', color: '#6266d2', fontSize: 12, marginLeft: 3, textAlign: 'center', textAlignVertical: 'center' };
                 break;
             case 2:
                 stateText = '未通过';
@@ -64,7 +72,17 @@ class Item extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: Dimensions.get('window').width - 60 }}>
                             <Image style={styles.itemIcon} source={iconUrl} />
                             <Text style={styles.itemTitle}>{`${title}`}</Text>
-                            <View style={{ flex: 1, flexDirection: 'row-reverse' }}><Text style={stateStyle}>{`${stateText}`}</Text></View>
+                            <View style={{ flex: 1, flexDirection: 'row-reverse', alignItems: 'center' }}>
+                                {this.props.item.auditStatus !== 1 && <Text style={stateStyle}>{`${stateText}`}</Text>}
+                                {this.props.item.auditStatus == 1 &&
+                                    <TouchableHighlight underlayColor='transparent' onPress={() => this.props.freeze(this.props.type, id, this.props.item.commonStatus)} style={{ height: 16, width: 70, flexDirection: 'row-reverse', alignItems: 'center' }} >
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Image style={{ height: 16, width: 16 }} source={selectImage} />
+                                            <Text style={stateStyle}>{`${stateText}`}</Text>
+                                        </View>
+                                    </TouchableHighlight>
+                                }
+                            </View>
                         </View>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                             <View style={{ flex: 1, flexDirection: 'column-reverse' }}>
@@ -92,22 +110,34 @@ class PayManager extends Component {
 
     state = {
         type: 'aliPay',
-        data: this.props.aliPay
+        data: this.props.aliPay,
+
     }
 
-    // static getDerivedStateFromProps(props, state) {
-    //     if (props.isControl) {
-    //         return {
-    //             value: props.value
-    //         }
-    //     } else {
-    //         return null;
-    //     }
-    // }
+    static getDerivedStateFromProps(props, state) {
+        switch (state.type) {
+            case 'aliPay':
+                return {
+                    data: props.aliPay
+                }
+            case 'wechatPay':
+                return {
+                    data: props.wechatPay
+                }
+            case 'card':
+                return {
+                    data: props.card
+                }
+            default:
+                return {
+                    data: props.aliPay
+                }
+        }
+    }
 
-    // naviDidFocus = () => {
-    //     update_payment_info();
-    // }
+    naviDidFocus = () => {
+        update_payment_info();
+    }
 
     render() {
         return (
@@ -138,6 +168,7 @@ class PayManager extends Component {
                                     item={item}
                                     type={this.state.type}
                                     btnClick={() => this.props.navigation.navigate('PaymentAdd', { type: this.state.type, stateType: 'modify', data: JSON.stringify(item) })}
+                                    freeze={this.freezeChange}
                                 />
                             }
                         />
@@ -153,6 +184,31 @@ class PayManager extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    freezeChange = (type, id, commonState) => {
+        let key = '';
+        switch (type) {
+            case 'aliPay':
+                key = 0;
+                break;
+            case 'wechatPay':
+                key = 1;
+                break;
+            case 'card':
+                key = 2;
+                break;
+        }
+        let payload = { payId: id, payType: key };
+        if (commonState == 0) {
+            Api.paymentFreeze(payload, () => {
+                update_payment_info();
+            });
+        } else if (commonState == 1) {
+            Api.paymentUnfreeze(payload, () => {
+                update_payment_info();
+            });
+        }
     }
 
     selectChange = (item) => {
@@ -190,7 +246,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         backgroundColor: 'white',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     bottomBtn: {
         height: 40,
