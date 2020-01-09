@@ -315,14 +315,14 @@ function PaymentSelect(props) {
                                             isControl
                                         />
                                         {props.paymentSelect === 0 &&
-                                            <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
+                                            <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo[0]} />
                                         }
                                         {props.paymentSelect === 1 &&
-                                            <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
+                                            <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo[0]} />
                                         }
                                         {props.paymentSelect === 2 &&
                                             <ScrollView >
-                                                <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
+                                                <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo[0]} />
                                             </ScrollView>
                                         }
                                     </ScrollView>
