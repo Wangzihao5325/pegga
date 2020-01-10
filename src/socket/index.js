@@ -411,6 +411,16 @@ class api {
         this.request(url, paramsStr, onSuccess, onError);
     }
 
+    confirmPayByStaple(payload, onSuccess, onError) {
+        const url = '/api/otc/order/confirm_paid_by_staple';
+        this.request(url, JSON.stringify(payload), onSuccess, onError)
+    }
+
+    reconfirmPayByStaple(payload, onSuccess, onError) {
+        const url = '/api/otc/order/staple_upload_voucher';
+        this.request(url, JSON.stringify(payload), onSuccess, onError)
+    }
+
     appealBySource(payload, onSuccess, onError) {
         const url = '/api/otc/appeal/by_source';
         this.request(url, JSON.stringify(payload), onSuccess, onError)
