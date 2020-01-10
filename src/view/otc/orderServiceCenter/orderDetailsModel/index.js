@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useRef } from 'react';
 import {
     SafeAreaView,
     View,
@@ -21,6 +21,8 @@ import Colors from '../../../../global/Colors';
 import Select from '../../../../component/select';
 import Toast from '../../../../component/toast';
 import NavigationService from '../../../../app/router/NavigationService';
+import PhotoUpload from '../../../../component/photoUpload';
+import _ from 'lodash';
 
 const DetailBtn = (props) => {
     return (
@@ -197,21 +199,111 @@ function BankCardInfo(props) {
     )
 }
 
-function PaymentSelect(props) {
-    if (props.orderType === 0) {
-        switch (props.payState) {
-            case 0:
-                {
-                    if (props.adId == -1) {
+class PaymentSelect extends Component {
+    render() {
+        if (this.props.orderType === 0) {
+            switch (this.props.payState) {
+                case 0:
+                    {
+                        if (this.props.adId == -1) {
+                            return (
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ flex: 1 }}>
+                                        <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+                                            <USDTPayInfo usdtType={this.props.usdtType} url={this.props.url} />
+                                        </View>
+                                    </View>
+                                    <View style={styles.bottomContainer}>
+                                        <DetailBtn onPress={this.props.cancel} source={require('../../../../image/otc/cancel_order.png')} title='取消' />
+                                        {/* <TouchableHighlight onPress={props.contact} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                            <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                        </TouchableHighlight>
+                                        <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                            <Text style={styles.bottomBtnText}>取消订单</Text>
+                                        </TouchableHighlight> */}
+                                        <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                            <TouchableHighlight underlayColor='transparent' onPress={this.props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                                <Text style={styles.bottomBtnText}>确认付款</Text>
+                                            </TouchableHighlight>
+                                        </LinearGradient>
+                                    </View>
+                                </View>
+                            );
+                        }
+                        if (this.props.payment.length == 0) {
+                            return null;
+                        }
+                        if (this.props.isPayVoucher) {//大宗b端交易 需要提交证据
+                            return (
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ flex: 1 }}>
+                                        <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+                                            <ScrollView showsVerticalScrollIndicator={false}>
+                                                <Select.ScrollLinear
+                                                    data={this.props.payment}
+                                                    isFlex={true}
+                                                    style={{ backgroundColor: 'white' }}
+                                                    selectValue={this.props.paymentSelect}
+                                                    selectChange={this.props.selectChange}
+                                                    isControl
+                                                />
+                                                {this.props.paymentSelect === 0 &&
+                                                    <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo} />
+                                                }
+                                                {this.props.paymentSelect === 1 &&
+                                                    <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo} />
+                                                }
+                                                {this.props.paymentSelect === 2 &&
+                                                    <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo} />
+                                                }
+                                                <View style={{ height: 10, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2' }} />
+                                                <View><Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', color: 'rgb(40,46,60)' }}>支付凭证</Text></View>
+                                                <PhotoUpload
+                                                    ref={imageUpload => this.imageUpload = imageUpload}
+                                                    maxPic={3}
+                                                />
+                                                <View style={{ height: 5, width: Dimensions.get('window').width }} />
+                                            </ScrollView>
+                                        </View>
+                                    </View>
+                                    <View style={styles.bottomContainer}>
+                                        <DetailBtn onPress={this.props.cancel} source={require('../../../../image/otc/cancel_order.png')} title='取消' />
+                                        <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                            <TouchableHighlight underlayColor='transparent' onPress={() => this.props.uploadEvidence(this.imageUpload)} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                                <Text style={styles.bottomBtnText}>确认上传</Text>
+                                            </TouchableHighlight>
+                                        </LinearGradient>
+                                    </View>
+                                </View>
+                            );
+                        }
                         return (
                             <View style={{ flex: 1 }}>
                                 <View style={{ flex: 1 }}>
                                     <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                        <USDTPayInfo usdtType={props.usdtType} url={props.url} />
+                                        <ScrollView showsVerticalScrollIndicator={false}>
+                                            <Select.ScrollLinear
+                                                data={this.props.payment}
+                                                isFlex={true}
+                                                style={{ backgroundColor: 'white' }}
+                                                selectValue={this.props.paymentSelect}
+                                                selectChange={this.props.selectChange}
+                                                isControl
+                                            />
+                                            {this.props.paymentSelect === 0 &&
+                                                <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo} />
+                                            }
+                                            {this.props.paymentSelect === 1 &&
+                                                <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo} />
+                                            }
+                                            {this.props.paymentSelect === 2 &&
+                                                <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo} />
+                                            }
+                                        </ScrollView>
                                     </View>
                                 </View>
                                 <View style={styles.bottomContainer}>
-                                    <DetailBtn onPress={props.cancel} source={require('../../../../image/otc/cancel_order.png')} title='取消' />
+                                    <DetailBtn onPress={this.props.cancel} source={require('../../../../image/otc/cancel_order.png')} title='取消' />
                                     {/* <TouchableHighlight onPress={props.contact} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
                                         <Text style={styles.bottomBtnText}>联系卖家</Text>
                                     </TouchableHighlight>
@@ -219,7 +311,7 @@ function PaymentSelect(props) {
                                         <Text style={styles.bottomBtnText}>取消订单</Text>
                                     </TouchableHighlight> */}
                                     <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                        <TouchableHighlight underlayColor='transparent' onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={this.props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                             <Text style={styles.bottomBtnText}>确认付款</Text>
                                         </TouchableHighlight>
                                     </LinearGradient>
@@ -227,70 +319,71 @@ function PaymentSelect(props) {
                             </View>
                         );
                     }
-                    if (props.payment.length == 0) {
-                        return null;
-                    }
-                    return (
-                        <View style={{ flex: 1 }}>
-                            <View style={{ flex: 1 }}>
-                                <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                    <ScrollView showsVerticalScrollIndicator={false}>
-                                        <Select.ScrollLinear
-                                            data={props.payment}
-                                            isFlex={true}
-                                            style={{ backgroundColor: 'white' }}
-                                            selectValue={props.paymentSelect}
-                                            selectChange={props.selectChange}
-                                            isControl
-                                        />
-                                        {props.paymentSelect === 0 &&
-                                            <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo} />
-                                        }
-                                        {props.paymentSelect === 1 &&
-                                            <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo} />
-                                        }
-                                        {props.paymentSelect === 2 &&
-                                            <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo} />
-                                        }
-                                    </ScrollView>
+                case 7://支付超时
+                    {
+                        if (this.props.adId == -1) {
+                            return (
+                                <View style={{ flex: 1 }}>
+                                    <View style={{ flex: 1 }}>
+                                        <View style={{ backgroundColor: 'white', marginTop: 10 }}>
+                                            <USDTPayInfo usdtType={this.props.usdtType} url={this.props.url} />
+                                        </View>
+                                    </View>
+                                    <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                        {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                            <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                        </TouchableHighlight>
+                                         <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                            <Text style={styles.bottomBtnText}>取消订单</Text>
+                                        </TouchableHighlight>  */}
+                                        <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                            <TouchableHighlight underlayColor='transparent' onPress={this.props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                                <Text style={styles.bottomBtnText}>取消订单</Text>
+                                            </TouchableHighlight>
+                                        </LinearGradient>
+                                    </View>
                                 </View>
-                            </View>
-                            <View style={styles.bottomContainer}>
-                                <DetailBtn onPress={props.cancel} source={require('../../../../image/otc/cancel_order.png')} title='取消' />
-                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
-                                    <Text style={styles.bottomBtnText}>联系卖家</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                    <Text style={styles.bottomBtnText}>取消订单</Text>
-                                </TouchableHighlight> */}
-                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                    <TouchableHighlight underlayColor='transparent' onPress={props.buyerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                        <Text style={styles.bottomBtnText}>确认付款</Text>
-                                    </TouchableHighlight>
-                                </LinearGradient>
-                            </View>
-                        </View>
-                    );
-                }
-            case 7://支付超时
-                {
-                    if (props.adId == -1) {
+                            );
+                        }
+                        if (this.props.payment.length == 0) {
+                            return null;
+                        }
                         return (
                             <View style={{ flex: 1 }}>
                                 <View style={{ flex: 1 }}>
                                     <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                        <USDTPayInfo usdtType={props.usdtType} url={props.url} />
+                                        <ScrollView showsVerticalScrollIndicator={false}>
+                                            <Select.ScrollLinear
+                                                data={this.props.payment}
+                                                isFlex={true}
+                                                style={{ backgroundColor: 'white' }}
+                                                selectValue={this.props.paymentSelect}
+                                                selectChange={this.props.selectChange}
+                                                isControl
+                                            />
+                                            {this.props.paymentSelect === 0 &&
+                                                <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo[0]} />
+                                            }
+                                            {this.props.paymentSelect === 1 &&
+                                                <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo[0]} />
+                                            }
+                                            {this.props.paymentSelect === 2 &&
+                                                <ScrollView >
+                                                    <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo[0]} />
+                                                </ScrollView>
+                                            }
+                                        </ScrollView>
                                     </View>
                                 </View>
                                 <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                     {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
                                         <Text style={styles.bottomBtnText}>联系卖家</Text>
                                     </TouchableHighlight>
-                                     <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                                         <Text style={styles.bottomBtnText}>取消订单</Text>
-                                    </TouchableHighlight>  */}
+                                    </TouchableHighlight> */}
                                     <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                        <TouchableHighlight underlayColor='transparent' onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={this.props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                             <Text style={styles.bottomBtnText}>取消订单</Text>
                                         </TouchableHighlight>
                                     </LinearGradient>
@@ -298,372 +391,385 @@ function PaymentSelect(props) {
                             </View>
                         );
                     }
-                    if (props.payment.length == 0) {
-                        return null;
-                    }
+                case 1://确认已付款
                     return (
                         <View style={{ flex: 1 }}>
-                            <View style={{ flex: 1 }}>
-                                <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                    <ScrollView showsVerticalScrollIndicator={false}>
-                                        <Select.ScrollLinear
-                                            data={props.payment}
-                                            isFlex={true}
-                                            style={{ backgroundColor: 'white' }}
-                                            selectValue={props.paymentSelect}
-                                            selectChange={props.selectChange}
-                                            isControl
-                                        />
-                                        {props.paymentSelect === 0 &&
-                                            <AliPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.aliPayInfo[0]} />
-                                        }
-                                        {props.paymentSelect === 1 &&
-                                            <WechatPayInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.weixinPayInfo[0]} />
-                                        }
-                                        {props.paymentSelect === 2 &&
-                                            <ScrollView >
-                                                <BankCardInfo tradeMemo={props.tradeMemo} info={props.sellerInfo.bankPayInfo[0]} />
-                                            </ScrollView>
-                                        }
-                                    </ScrollView>
-                                </View>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='您已确认付款'
+                                    remark='卖方确认收款中,请耐心等待'
+                                />
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                                     <Text style={styles.bottomBtnText}>联系卖家</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={props.cancel} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                    <Text style={styles.bottomBtnText}>取消订单</Text>
                                 </TouchableHighlight> */}
                                 <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                    <TouchableHighlight underlayColor='transparent' onPress={props.cancel} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                        <Text style={styles.bottomBtnText}>取消订单</Text>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
                                     </TouchableHighlight>
                                 </LinearGradient>
                             </View>
                         </View>
                     );
-                }
-            case 1://确认已付款
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='您已确认付款'
-                                remark='卖方确认收款中,请耐心等待'
-                            />
+                case 8://收款超时
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='确认收款超时'
+                                    remark='卖方确认收款超时,您可联系卖家或发起申诉'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>发起申诉</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
                         </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                    );
+                case 4://已确认收款
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='已确认收款'
+                                    remark='卖方已确认收款'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                case 5://完成
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='订单已完成'
+                                    remark='订单已完成,若有疑问请联系客服处理'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                case 2://取消
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_cancel.png')}
+                                    title='订单已取消'
+                                    remark='如对该订单有疑问,可联系在线客服'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系卖家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                case 6://申诉中
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                    title='订单申诉中'
+                                    remark='该订单存在纠纷,官方正在介入中'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.appeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>查看申诉</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                //isPayVoucher={this.state.isPayVoucher}//是否需要支付凭证
+                //auditStatus={this.state.auditStatus}//大宗确认付款审核状态
+                //auditReason={this.state.auditReason}//大宗审核理由
+                case 9://大宗证据审核
+                    {
+                        let title = '';
+                        let remark = '';
+                        let btnTitle = '返回首页';
+                        let pressCallback = this.props.goBack;
+                        switch (this.props.auditStatus) {
+                            case 0://审核中
+                                title = '您已经提交支付证明';
+                                remark = '正在审核中,请耐心等待';
+                                break;
+                            case 1://通过
+                                title = '审核完成';
+                                remark = '您的支付证明已过审';
+                                break;
+                            case 2://重新提交
+                                title = '审核失败';
+                                remark = this.props.auditReason ? this.props.auditReason : '请重新提交支付证明';
+                                btnTitle = '重新提交';
+                                pressCallback = this.props.reuploadEvidence;
+                                break;
+                        }
+                        return (
+                            <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1, marginTop: 10 }}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title={title}
+                                        remark={remark}
+                                    />
+                                    {this.props.auditStatus === 2 &&
+                                        <View>
+                                            <View style={{ height: 10, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2' }} />
+                                            <View style={{ backgroundColor: 'white' }}><Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', color: 'rgb(40,46,60)' }}>支付凭证</Text></View>
+                                            <PhotoUpload
+                                                ref={imageUpload => this.imageUpload = imageUpload}
+                                                maxPic={3}
+                                            />
+                                            <View style={{ height: 5, width: Dimensions.get('window').width, backgroundColor: 'white' }} />
+                                        </View>
+                                    }
+                                </View>
+                                <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                    {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                                 <Text style={styles.bottomBtnText}>联系卖家</Text>
                             </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={() => pressCallback(this.imageUpload)} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                            <Text style={styles.bottomBtnText}>{`${btnTitle}`}</Text>
+                                        </TouchableHighlight>
+                                    </LinearGradient>
+                                </View>
+                            </View>
+                        );
+                    }
+            }
+        } else if (this.props.orderType === 1) {//卖房
+            switch (this.props.payState) {
+                case 0://待支付
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                    title='订单待支付'
+                                    remark='请等待买家进行支付'
+                                    tradeMemo={this.props.tradeMemo}
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>确认收款</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    )
+                case 7://支付超时
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_overtime.png')}
+                                    title='订单支付超时'
+                                    remark='买家支付超时,您可联系买家,或进行申诉'
+                                    tradeMemo={this.props.tradeMemo}
+                                />
+                            </View>
+                            <View style={styles.bottomContainer}>
+                                <DetailBtn onPress={this.props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>确认收款</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                case 1://确认已付款
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='买家已确认付款'
+                                    remark='请尽快确认钱款是否到账'
+                                    tradeMemo={this.props.tradeMemo}
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>确认收款</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
+                        </View>
+                    );
+                case 8://确认收款超时
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_overtime.png')}
+                                    title='确认收款超时'
+                                    remark='可继续确认收款或发起申诉'
+                                    tradeMemo={this.props.tradeMemo}
+                                />
+                            </View>
+                            <View style={styles.bottomContainer}>
+                                <DetailBtn onPress={this.props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
                                 </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 8://收款超时
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='确认收款超时'
-                                remark='卖方确认收款超时,您可联系卖家或发起申诉'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系卖家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                <TouchableHighlight onPress={props.addAppeal} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
                                     <Text style={styles.bottomBtnText}>发起申诉</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>确认收款</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
                         </View>
-                    </View>
-                );
-            case 4://已确认收款
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='已确认收款'
-                                remark='卖方已确认收款'
-                            />
+                    );
+                case 4://已确认收款
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='已确认收款'
+                                    remark='您已确认收款'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
                         </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系卖家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
+                    );
+                case 5://完成
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                    title='订单已完成'
+                                    remark='订单已完成,若有疑问请联系客服处理'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
                         </View>
-                    </View>
-                );
-            case 5://完成
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='订单已完成'
-                                remark='订单已完成,若有疑问请联系客服处理'
-                            />
+                    );
+                case 2://取消
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_cancel.png')}
+                                    title='订单已取消'
+                                    remark='如对该订单有疑问,可联系在线客服'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.goBack} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>返回首页</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
                         </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系卖家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
+                    );
+                case 6://申诉中
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                                <InfoBanner
+                                    source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                    title='订单申诉中'
+                                    remark='该订单存在纠纷,官方正在介入中'
+                                />
+                            </View>
+                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
+                                    <Text style={styles.bottomBtnText}>联系买家</Text>
+                                </TouchableHighlight> */}
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.appeal} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                        <Text style={styles.bottomBtnText}>查看申诉</Text>
+                                    </TouchableHighlight>
+                                </LinearGradient>
+                            </View>
                         </View>
-                    </View>
-                );
-            case 2://取消
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_cancel.png')}
-                                title='订单已取消'
-                                remark='如对该订单有疑问,可联系在线客服'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系卖家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 6://申诉中
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                title='订单申诉中'
-                                remark='该订单存在纠纷,官方正在介入中'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.appeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>查看申诉</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-        }
-    } else if (props.orderType === 1) {//卖房
-        switch (props.payState) {
-            case 0://待支付
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                title='订单待支付'
-                                remark='请等待买家进行支付'
-                                tradeMemo={props.tradeMemo}
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>确认收款</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                )
-            case 7://支付超时
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_overtime.png')}
-                                title='订单支付超时'
-                                remark='买家支付超时,您可联系买家,或进行申诉'
-                                tradeMemo={props.tradeMemo}
-                            />
-                        </View>
-                        <View style={styles.bottomContainer}>
-                            <DetailBtn onPress={props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>确认收款</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 1://确认已付款
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='买家已确认付款'
-                                remark='请尽快确认钱款是否到账'
-                                tradeMemo={props.tradeMemo}
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>确认收款</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 8://确认收款超时
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_overtime.png')}
-                                title='确认收款超时'
-                                remark='可继续确认收款或发起申诉'
-                                tradeMemo={props.tradeMemo}
-                            />
-                        </View>
-                        <View style={styles.bottomContainer}>
-                            <DetailBtn onPress={props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(29,36,52)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight>
-                            <TouchableHighlight onPress={props.addAppeal} style={{ flex: 5, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>发起申诉</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.sellerConfirm} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>确认收款</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 4://已确认收款
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='已确认收款'
-                                remark='您已确认收款'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 5://完成
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                title='订单已完成'
-                                remark='订单已完成,若有疑问请联系客服处理'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 2://取消
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_cancel.png')}
-                                title='订单已取消'
-                                remark='如对该订单有疑问,可联系在线客服'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.goBack} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>返回首页</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
-            case 6://申诉中
-                return (
-                    <View style={{ flex: 1 }}>
-                        <View style={{ flex: 1, marginTop: 10 }}>
-                            <InfoBanner
-                                source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                title='订单申诉中'
-                                remark='该订单存在纠纷,官方正在介入中'
-                            />
-                        </View>
-                        <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                            {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系买家</Text>
-                            </TouchableHighlight> */}
-                            <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                <TouchableHighlight underlayColor='transparent' onPress={props.appeal} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                    <Text style={styles.bottomBtnText}>查看申诉</Text>
-                                </TouchableHighlight>
-                            </LinearGradient>
-                        </View>
-                    </View>
-                );
+                    );
+            }
         }
     }
 }
@@ -730,7 +836,11 @@ export default class OrderDetail extends Component {
                 buyerInfo: result.buyerInfo,
                 tradeMemo: result.memo,
                 isMatch: result.isMatch,// true:toB false:toC
-                timeout: result.payTimeoutStamp ? result.payTimeoutStamp : result.receivedTimeoutStamp
+                timeout: result.payTimeoutStamp ? result.payTimeoutStamp : result.receivedTimeoutStamp,
+
+                isPayVoucher: result.isPayVoucher,//是否需要支付凭证
+                auditStatus: result.auditStatus,//大宗确认付款审核状态
+                auditReason: result.auditReason,//大宗审核理由
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -847,6 +957,10 @@ export default class OrderDetail extends Component {
                         paymentSelect={this.state.paymentSelect}
                         selectChange={this.selectChange}
 
+                        isPayVoucher={this.state.isPayVoucher}//是否需要支付凭证
+                        auditStatus={this.state.auditStatus}//大宗确认付款审核状态
+                        auditReason={this.state.auditReason}//大宗审核理由
+
                         goBack={() => this.props.navigation.pop()}
                         buyerConfirm={this.buyerConfirm}
                         sellerConfirm={this.sellerConfirm}
@@ -855,6 +969,8 @@ export default class OrderDetail extends Component {
                         cancel={this.cancel}
                         contact={this.concat}
                         tradeMemo={this.state.tradeMemo}
+                        uploadEvidence={this.uploadEvidence}
+                        reuploadEvidence={this.reuploadEvidence}
                     />
                 </View>
             </SafeAreaView>
@@ -881,6 +997,72 @@ export default class OrderDetail extends Component {
     selectChange = (item) => {
         this.setState({
             paymentSelect: item.key
+        });
+    }
+
+    _uploadEvidenceCallback = async (imageUploadEl) => {
+        Toast.show('支付证明上传中，请耐心等待');
+        let refStateData = imageUploadEl.state.imageSelectData;
+        let imageUrlArrReg = await Promise.all(refStateData.map(async (item) => {
+            if (item.size > 0) {
+                let imageUrl = await Api.imageUploadPromise(item);
+                return imageUrl.data
+            } else {
+                return null;
+            }
+        }));
+        let imageUrlArr = _.compact(imageUrlArrReg);
+        let payload = {
+            no: this.state.orderNo,
+            payType: this.state.paymentSelect,
+            urlList: imageUrlArr,
+            remark: '',
+        };
+        Api.confirmPayByStaple(payload, () => {
+            Toast.show('提交支付证明成功！');
+            this._orderInfoUpdate(this.state.orderNo);
+        });
+    }
+
+    uploadEvidence = (imageUploadEl) => {
+        this.props.navigation.navigate('PopModel', {
+            confirm: () => this._uploadEvidenceCallback(imageUploadEl),
+            confirmText: '确认',
+            title: '支付证明提交确认',
+            context: '是否确认提交支付证明'
+        });
+    }
+
+    _reuploadEvidenceCallback = async (imageUploadEl) => {
+        Toast.show('支付证明上传中，请耐心等待');
+        let refStateData = imageUploadEl.state.imageSelectData;
+        let imageUrlArrReg = await Promise.all(refStateData.map(async (item) => {
+            if (item.size > 0) {
+                let imageUrl = await Api.imageUploadPromise(item);
+                return imageUrl.data
+            } else {
+                return null;
+            }
+        }));
+        let imageUrlArr = _.compact(imageUrlArrReg);
+        let payload = {
+            no: this.state.orderNo,
+            payType: this.state.paymentSelect,
+            urlList: imageUrlArr,
+            remark: '',
+        };
+        Api.reconfirmPayByStaple(payload, () => {
+            Toast.show('提交支付证明成功！');
+            this._orderInfoUpdate(this.state.orderNo);
+        });
+    }
+
+    reuploadEvidence = (imageUploadEl) => {
+        this.props.navigation.navigate('PopModel', {
+            confirm: () => this._reuploadEvidenceCallback(imageUploadEl),
+            confirmText: '确认',
+            title: '支付证明提交确认',
+            context: '是否确认提交支付证明'
         });
     }
 

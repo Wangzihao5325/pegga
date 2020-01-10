@@ -14,11 +14,13 @@ const CustomizeBtnArea = (props) => {
                         textStyle={styles.whiteBtnText}
                         btnPress={props.cancel}
                         title='取消' />
-                    <Btn.Linear
-                        style={styles.btn}
-                        textStyle={styles.btnText}
-                        btnPress={props.buyerConfirm}
-                        title='确认' />
+                    {!props.isPayVoucher &&
+                        < Btn.Linear
+                            style={styles.btn}
+                            textStyle={styles.btnText}
+                            btnPress={props.buyerConfirm}
+                            title='确认' />
+                    }
                 </View>
             }
         </View>
@@ -71,6 +73,7 @@ export default class Item extends PureComponent {
                         <View style={styles.bottomContainer}>
                             <Text style={styles.dealingAmountText}>总价<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.legalAmount} ${this.props.item.fiat}`}</Text></Text>
                             <CustomizeBtnArea
+                                isPayVoucher={this.props.item.isPayVoucher}
                                 orderType={this.props.item.orderType}
                                 orderStatus={this.props.item.orderStatus}
                                 cancel={this.cancelPress}
