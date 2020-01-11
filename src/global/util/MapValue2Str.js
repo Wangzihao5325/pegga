@@ -80,6 +80,9 @@ class Value2Str {
             case 8:
                 stateText = '确认收款超时';
                 break;
+            case 9:
+                stateText = '后台审核';
+                break;
             default:
                 break;
         }
