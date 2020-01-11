@@ -523,15 +523,26 @@ class PaymentSelect extends Component {
                             </View>
                         </View>
                     );
-                //isPayVoucher={this.state.isPayVoucher}//是否需要支付凭证
-                //auditStatus={this.state.auditStatus}//大宗确认付款审核状态
-                //auditReason={this.state.auditReason}//大宗审核理由
                 case 9://大宗证据审核
                     {
                         let title = '';
                         let remark = '';
                         let btnTitle = '返回首页';
                         let pressCallback = this.props.goBack;
+                        let initValue = null;
+                        if (this.props.urlList) {
+                            let listWithoutNull = this.props.urlList.filter((item) => {
+                                if (item) {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            });
+                            initValue = listWithoutNull.map((item) => {
+                                return { size: -1, path: item, sourceURL: item }
+                            })
+                        }
+                        //this.props.urlList
                         switch (this.props.auditStatus) {
                             case 0://审核中
                                 title = '您已经提交支付证明';
@@ -561,6 +572,7 @@ class PaymentSelect extends Component {
                                             <View style={{ height: 10, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2' }} />
                                             <View style={{ backgroundColor: 'white' }}><Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', color: 'rgb(40,46,60)' }}>支付凭证</Text></View>
                                             <PhotoUpload
+                                                initValue={initValue}
                                                 ref={imageUpload => this.imageUpload = imageUpload}
                                                 maxPic={3}
                                             />
@@ -569,9 +581,6 @@ class PaymentSelect extends Component {
                                     }
                                 </View>
                                 <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                                    {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
-                                <Text style={styles.bottomBtnText}>联系卖家</Text>
-                            </TouchableHighlight> */}
                                     <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                                         <TouchableHighlight underlayColor='transparent' onPress={() => pressCallback(this.imageUpload)} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                             <Text style={styles.bottomBtnText}>{`${btnTitle}`}</Text>
@@ -841,6 +850,7 @@ export default class OrderDetail extends Component {
                 isPayVoucher: result.isPayVoucher,//是否需要支付凭证
                 auditStatus: result.auditStatus,//大宗确认付款审核状态
                 auditReason: result.auditReason,//大宗审核理由
+                urlList: result.urlList
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -961,6 +971,7 @@ export default class OrderDetail extends Component {
                         isPayVoucher={this.state.isPayVoucher}//是否需要支付凭证
                         auditStatus={this.state.auditStatus}//大宗确认付款审核状态
                         auditReason={this.state.auditReason}//大宗审核理由
+                        urlList={this.state.urlList}//提交过的支付证据列表
 
                         goBack={() => this.props.navigation.pop()}
                         buyerConfirm={this.buyerConfirm}
@@ -1041,8 +1052,10 @@ export default class OrderDetail extends Component {
             if (item.size > 0) {
                 let imageUrl = await Api.imageUploadPromise(item);
                 return imageUrl.data
-            } else {
+            } else if (item.size == 0) {
                 return null;
+            } else if (item.size == -1) {
+                return item.path;
             }
         }));
         let imageUrlArr = _.compact(imageUrlArrReg);
