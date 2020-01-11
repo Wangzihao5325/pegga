@@ -6,6 +6,7 @@ import Api from '../../../../socket';
 import Toast from '../../../../component/toast';
 import Btn from '../../../../component/btn';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 function ItemInput(props) {
     return (
@@ -60,7 +61,7 @@ function ItemSelect(props) {
 
 const Reg = { inputText: '' };
 
-export default class AddAppeal extends Component {
+class AddAppeal extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -73,14 +74,20 @@ export default class AddAppeal extends Component {
         totalData: [{ select: true, title: "买家未付款", key: 0 }, { select: false, title: "对方欺诈", key: 1 }, { select: false, title: "卖家未确认收款", key: 2 }, { select: false, title: "其他", key: 3 }],
         pageType: 'source',
         orderId: '',
+        sourceNo,
+        targetNo
     }
 
     componentDidMount() {
         const pageType = this.props.navigation.getParam('type', 'source');
         const orderId = this.props.navigation.getParam('orderId', '');
+        const sourceNo = this.props.navigation.getParam('sourceNo', '');
+        const targetNo = this.props.navigation.getParam('targetNo', '');
         this.setState({
             pageType,
-            orderId
+            orderId,
+            sourceNo,
+            targetNo
         });
     }
 
@@ -143,7 +150,11 @@ export default class AddAppeal extends Component {
         if (this.state.pageType == 'source') {
             this.appealBySource();
         } else {
-            this.appealByTarget();
+            if (this.props.info.uuid == this.state.sourceNo) {
+                this.appealBySource();
+            } else if (this.props.info.uuid == this.state.targetNo) {
+                this.appealByTarget();
+            }
         }
 
     }
@@ -199,6 +210,12 @@ export default class AddAppeal extends Component {
         });
     }
 }
+
+const mapStateToProps = (state) => ({
+    info: state.user.info
+})
+
+export default connect(mapStateToProps)(AddAppeal);
 
 const styles = StyleSheet.create({
     safeContainer: {

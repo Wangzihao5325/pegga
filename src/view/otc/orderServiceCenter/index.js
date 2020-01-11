@@ -37,6 +37,10 @@ class OrderManagement extends Component {
         this.timer = null;
     }
 
+    state = {
+        isFetching: false
+    }
+
     _orderListDataUpdate = () => {
         let params = { status: this.props.orderType };
         Api.myOrder(params, (result) => {
@@ -65,9 +69,14 @@ class OrderManagement extends Component {
     }
 
     _autoFitterState = () => {
+        this.setState({
+            isFetching: true
+        });
         Api.adAutoFitter((result) => {
             store.dispatch(otc_state_change_danger({ adAutoFitter: result.open ? 'open' : 'close' }));
-
+            this.setState({
+                isFetching: false
+            });
             if (result.open) {
                 this.timer = setInterval(() => {
                     Api.adAutoFitter((result) => {
@@ -75,6 +84,10 @@ class OrderManagement extends Component {
                     });
                 }, 3000);
             }
+        }, () => {
+            this.setState({
+                isFetching: false
+            });
         });
     }
 
@@ -149,6 +162,10 @@ class OrderManagement extends Component {
     }
 
     autoFitterChange = () => {
+        if (this.state.isFetching) {
+            Toast.show('正在与服务器通信中，请稍后再进行操作');
+            return;
+        }
         if (this.props.adAutoFitter == 'open') {
             Api.autoFitterSwichoff(() => {
                 Toast.show('已关闭自动接单');
