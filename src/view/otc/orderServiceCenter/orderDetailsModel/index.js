@@ -248,13 +248,13 @@ class PaymentSelect extends Component {
                                                     isControl
                                                 />
                                                 {this.props.paymentSelect === 0 &&
-                                                    <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo} />
+                                                    <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo[0]} />
                                                 }
                                                 {this.props.paymentSelect === 1 &&
-                                                    <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo} />
+                                                    <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo[0]} />
                                                 }
                                                 {this.props.paymentSelect === 2 &&
-                                                    <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo} />
+                                                    <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo[0]} />
                                                 }
                                                 <View style={{ height: 10, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2' }} />
                                                 <View><Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', color: 'rgb(40,46,60)' }}>支付凭证</Text></View>
@@ -291,13 +291,13 @@ class PaymentSelect extends Component {
                                                 isControl
                                             />
                                             {this.props.paymentSelect === 0 &&
-                                                <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo} />
+                                                <AliPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.aliPayInfo[0]} />
                                             }
                                             {this.props.paymentSelect === 1 &&
-                                                <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo} />
+                                                <WechatPayInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.weixinPayInfo[0]} />
                                             }
                                             {this.props.paymentSelect === 2 &&
-                                                <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo} />
+                                                <BankCardInfo tradeMemo={this.props.tradeMemo} info={this.props.sellerInfo.bankPayInfo[0]} />
                                             }
                                         </ScrollView>
                                     </View>
@@ -915,6 +915,7 @@ export default class OrderDetail extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2', alignItems: 'center' }}>

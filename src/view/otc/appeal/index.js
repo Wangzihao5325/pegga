@@ -230,6 +230,7 @@ export default class Appeal extends Component {
         targetPhone: '',
         targetRealName: '',
         targetAppeal: false,
+        resubmit: false,
 
         //orderType: 0,//0买1卖
         orderNo: '',
@@ -263,7 +264,7 @@ export default class Appeal extends Component {
     }
 
     render() {
-        let btnText = this.state.targetAppeal ? '上传证据' : '返回首页';
+        let btnText = (this.state.targetAppeal || this.state.resubmit) ? '上传证据' : '返回首页';
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2' }}>
@@ -362,8 +363,8 @@ export default class Appeal extends Component {
     }
 
     btnPress = () => {
-        if (this.state.targetAppeal) {
-            this.props.navigation.navigate('AddAppeal', { type: 'target', orderId: this.state.orderNo });
+        if (this.state.targetAppeal || this.state.resubmit) {
+            this.props.navigation.navigate('AddAppeal', { type: 'target', orderId: this.state.orderNo, sourceNo: this.state.sourceNo, targetNo: this.state.targetNo });
         } else {
             this.props.navigation.goBack();
         }
