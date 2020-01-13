@@ -692,7 +692,7 @@ const ErrorCodeToast = (code) => {
             toastStr = I18n.RETURN_RATE_BLANK;
             break;
         case 6003:
-            toastStr = I18n.AMOUNT_BLANK;
+            toastStr = I18n.AMOUNT_BLANK1;
         case 6004:
             toastStr = I18n.PAY_TYPE_NULL;
         case 6005:

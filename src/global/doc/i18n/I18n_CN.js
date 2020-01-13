@@ -492,7 +492,7 @@ const USER_UUID_BLANK = '用户ID不能为空';
 const PAY_TYPE_BLANK = '支付方式不能为空';
 const RETURN_RATE_BLANK = '返佣比例不能为空';
 
-const AMOUNT_BLANK = '金额不能为空';
+const AMOUNT_BLANK1 = '金额不能为空';
 const PAY_TYPE_NULL = '支付方式不能为空';
 const PAY_TYPE_INVALID = '支付方式错误';
 const MERCHANT_ORDER_PAY_NOT_EXIST = '商家接口初始化订单不存在';
@@ -983,7 +983,7 @@ export default {
     PAY_TYPE_BLANK,
     RETURN_RATE_BLANK,
 
-    AMOUNT_BLANK,
+    AMOUNT_BLANK1,
     PAY_TYPE_NULL,
     PAY_TYPE_INVALID,
     MERCHANT_ORDER_PAY_NOT_EXIST,
