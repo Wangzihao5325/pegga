@@ -691,6 +691,32 @@ const ErrorCodeToast = (code) => {
         case 90042:
             toastStr = I18n.RETURN_RATE_BLANK;
             break;
+        case 6003:
+            toastStr = I18n.AMOUNT_BLANK;
+        case 6004:
+            toastStr = I18n.PAY_TYPE_NULL;
+        case 6005:
+            toastStr = I18n.PAY_TYPE_INVALID;
+        case 6011:
+            toastStr = I18n.MERCHANT_ORDER_PAY_NOT_EXIST;
+        case 1227:
+            toastStr = I18n.WITHDRAW_NOT_EXIST;
+        case 40041:
+            toastStr = I18n.ADVERTISE_PAY_TYPE_INFO_MORE;
+        case 50057:
+            toastStr = I18n.PAY_TYPE_INFO_NULL;
+        case 50058:
+            toastStr = I18n.AUDIT_STATUS_ERROR;
+        case 50059:
+            toastStr = I18n.SUBMIT_CHECK_FAILED;
+        case 30059:
+            toastStr = I18n.NO_ONE_PAYMENT;
+        case 30060:
+            toastStr = I18n.NO_PAY_ACCOUNT;
+        case 30061:
+            toastStr = I18n.NOW_ACCOUNT_HAS_BEEN_SUBMIT;
+        case 30062:
+            toastStr = I18n.ON_CHECKING;
         default:
             toastStr = I18n.UNKNOW_ERROR;
             break;
