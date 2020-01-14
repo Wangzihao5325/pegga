@@ -69,6 +69,16 @@ export default class Item extends PureComponent {
                                 <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{`${this.props.item.amount} 点卡`}</Text>
                             </View>
                         </View>
+                        <View style={[styles.infoWrapper, { marginBottom: 5 }]}>
+                            <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                <Text style={styles.infoTitle}>真实姓名</Text>
+                                <Text style={[styles.infoContext, { marginTop: 5 }]}>{this.props.item.realName ? `${this.props.item.realName}` : '暂无'}</Text>
+                            </View>
+                            <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                <Text style={styles.infoTitle}>收款账号</Text>
+                                <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{this.props.item.account ? `${this.props.item.account}` : '暂无'}</Text>
+                            </View>
+                        </View>
                         <View style={styles.separate} />
                         <View style={styles.bottomContainer}>
                             <Text style={styles.dealingAmountText}>总价<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.legalAmount} ${this.props.item.fiat}`}</Text></Text>
@@ -102,7 +112,7 @@ export default class Item extends PureComponent {
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: 225,
+        height: 225 + 49,
         width: Dimensions.get('window').width - 30,
         display: 'flex',
         flexDirection: 'column',
@@ -111,7 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F2F2F2'
     },
     container: {
-        height: 210,
+        height: 210 + 49,
         width: Dimensions.get('window').width - 30,
         borderRadius: 10,
         backgroundColor: 'white',

@@ -319,6 +319,11 @@ class api {
         this.request(url, null, onSuccess, onError, pagePayload);
     }
 
+    adPayment(no, onSuccess, onError) {
+        const url = `/api/otc/advertise/pay_type_info/${no}`;
+        this.request(url, null, onSuccess, onError);
+    }
+
     myAd(payload, onSuccess, onError, pagePayload) {
         let payloadStr = qs.stringify(payload);
         const url = `/api/otc/advertise/advertises?${payloadStr}`;
