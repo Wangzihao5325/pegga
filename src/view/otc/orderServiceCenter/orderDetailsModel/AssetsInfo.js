@@ -33,9 +33,17 @@ export default class AssetsInfo extends PureComponent {
                         <Text style={styles.title}>交易价格</Text>
                         <Text style={styles.context}>{`${this.props.price} ${this.props.fiat}`}</Text>
                     </View>
-                    <View style={{ marginBottom: 4, flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Text style={styles.title}>交易数量</Text>
                         <Text style={styles.context}>{`${this.props.amount} ${this.props.token}`}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text style={styles.title}>真实姓名</Text>
+                        <Text style={styles.context}>{this.props.realName ? `${this.props.realName}` : '暂无'}</Text>
+                    </View>
+                    <View style={{ marginBottom: 4, flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text style={styles.title}>收款账号</Text>
+                        <Text style={styles.context}>{this.props.account ? `${this.props.account}` : '暂无'}</Text>
                     </View>
                 </View>
             </View>
@@ -45,7 +53,7 @@ export default class AssetsInfo extends PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        height: 161,
+        height: 161 + 36,
         width: Dimensions.get('window').width,
         marginTop: 10,
         backgroundColor: 'white'

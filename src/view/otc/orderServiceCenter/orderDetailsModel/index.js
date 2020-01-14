@@ -850,7 +850,9 @@ export default class OrderDetail extends Component {
                 isPayVoucher: result.isPayVoucher,//是否需要支付凭证
                 auditStatus: result.auditStatus,//大宗确认付款审核状态
                 auditReason: result.auditReason,//大宗审核理由
-                urlList: result.urlList
+                urlList: result.urlList,
+                realName: result.realName,
+                account: result.account
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -953,6 +955,8 @@ export default class OrderDetail extends Component {
                         fiat={this.state.fiat}
                         token={this.state.token}
                         isMatch={this.state.isMatch}
+                        realName={this.state.realName}
+                        account={this.state.account}
                     />
                     <PaymentSelect
                         adId={this.state.adId}

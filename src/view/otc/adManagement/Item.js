@@ -79,25 +79,34 @@ export default class Item extends PureComponent {
                     </View>
                     <View style={styles.separate} />
                     <View style={styles.bottomContainer}>
-                        <Text style={styles.dealingAmountText}>{`已${tradeTypeStr}`}<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.completeAmount ? this.props.item.completeAmount : 0} ${this.props.item.token}`}</Text></Text>
-                        {this.props.item.status === 0 &&
-                            <Btn.Linear
-                                style={styles.btn}
-                                textStyle={styles.btnText}
-                                btnPress={this.itemBtnPress}
-                                title={btnText} />
-                        }
-                        {this.props.item.status === 1 &&
-                            <Btn.Normal
-                                style={styles.btn2}
-                                textStyle={styles.btn2Text}
-                                btnPress={this.itemBtnPress}
-                                title={btnText} />
-                        }
+                        <Text style={styles.dealingAmountText}>{`已${tradeTypeStr}`}<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.completeAmount ? this.props.item.completeAmount : 0} 点卡`}</Text></Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Text onPress={this.showPayment} style={{ fontSize: 12, color: 'rgb(20,187,91)', fontFamily: 'PingFang-SC-Medium' }}>收款账号</Text>
+                            {this.props.item.status === 0 &&
+                                <Btn.Linear
+                                    style={styles.btn}
+                                    textStyle={styles.btnText}
+                                    btnPress={this.itemBtnPress}
+                                    title={btnText} />
+                            }
+                            {this.props.item.status === 1 &&
+                                <Btn.Normal
+                                    style={styles.btn2}
+                                    textStyle={styles.btn2Text}
+                                    btnPress={this.itemBtnPress}
+                                    title={btnText} />
+                            }
+                        </View>
                     </View>
                 </View>
             </View>
         );
+    }
+
+    showPayment = () => {
+        if (typeof this.props.paymentsCallback == 'function') {
+            typeof this.props.paymentsCallback(this.props.item);
+        }
     }
 
     itemBtnPress = () => {
@@ -186,7 +195,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 5
     },
     btnText: {
         color: 'white',
@@ -202,7 +212,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 5
     },
     btn2Text: {
         color: '#4063d5',

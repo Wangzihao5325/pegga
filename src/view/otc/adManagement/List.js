@@ -52,13 +52,17 @@ class List extends Component {
                 />
                 <FlatList
                     data={this.props.myAdData}
-                    renderItem={({ item, index }) => <Item key={item.advertiseNo} item={item} index={index} callback={this.itemPress} />}
+                    renderItem={({ item, index }) => <Item key={item.advertiseNo} item={item} index={index} callback={this.itemPress} paymentsCallback={this.paymentPress} />}
                     showsVerticalScrollIndicator={false}
                     onEndReached={this._nextPage}
                     onEndReachedThreshold={0.2}
                 />
             </View>
         );
+    }
+
+    paymentPress = (item) => {
+        this.props.navi.navigate('adPaymentModel', { adId: item.advertiseNo });
     }
 
     itemPress = (item, index) => {

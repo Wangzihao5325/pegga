@@ -69,6 +69,12 @@ const Item = (props) => {
         case 15:
             title = '下级交易贡献';
             break;
+        case 16:
+            title = '补单买入';
+            break;
+        case 17:
+            title = '补单卖出';
+            break;
         case 21:
             title = '系统打款';
             break;

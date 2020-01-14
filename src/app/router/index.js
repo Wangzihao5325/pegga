@@ -57,6 +57,8 @@ import SelectModel from '../../view/model/selectModelPro';
 import SelectModelPay from '../../view/model/selectModelPayment';
 import ImageDetail from '../../view/model/imageDetail';
 import PopModel from '../../view/model/popModel';
+import adPaymentModel from '../../view/model/adPayment';
+
 //logout
 import LoginView from '../../view/logout/login';
 import RegisterView from '../../view/logout/register';
@@ -295,6 +297,9 @@ let RouterWithModal = createStackNavigator(
         },
         SelectModelPay: {
             screen: SelectModelPay
+        },
+        adPaymentModel: {
+            screen: adPaymentModel
         }
     },
     {

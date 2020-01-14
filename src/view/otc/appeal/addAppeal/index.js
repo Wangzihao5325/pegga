@@ -74,8 +74,8 @@ class AddAppeal extends Component {
         totalData: [{ select: true, title: "买家未付款", key: 0 }, { select: false, title: "对方欺诈", key: 1 }, { select: false, title: "卖家未确认收款", key: 2 }, { select: false, title: "其他", key: 3 }],
         pageType: 'source',
         orderId: '',
-        sourceNo,
-        targetNo
+        sourceNo: '',
+        targetNo: ''
     }
 
     componentDidMount() {
