@@ -7,10 +7,6 @@ import I18n from '../../global/doc/i18n';
 import Api from '../../socket';
 
 function Item(props) {//index  data:[select,title,key]
-    const btnPress = () => {
-        props.itemPress(props.item, props.index, props.type);
-    }
-    let selectImage = props.item.isSelect ? require('../../image/otc/payment/payment_select.png') : require('../../image/otc/payment/payment_unselect.png');
     let iconUrl = require('../../image/otc/payment/pay_alipay.png');
     let title = '支付宝';
     let account = '';
@@ -36,19 +32,15 @@ function Item(props) {//index  data:[select,title,key]
             break;
     }
     return (
-        <View style={styles.itemContainer}>
-            <TouchableHighlight underlayColor='transparent' onPress={btnPress}>
-                <View style={styles.itemBody}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
-                        <Image style={styles.itemIcon} source={iconUrl} />
-                        <Text style={styles.itemTitle}>{`${title}`}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, marginTop: 15 }}>
-                        <Text style={styles.itemAccountName}>{`${name}`}</Text>
-                        <Text style={styles.itemAccount}>{`${account}`}</Text>
-                    </View>
-                </View>
-            </TouchableHighlight>
+        <View style={styles.itemBody}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 15 }}>
+                <Image style={styles.itemIcon} source={iconUrl} />
+                <Text style={styles.itemTitle}>{`${title}`}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, marginTop: 15 }}>
+                <Text style={styles.itemAccountName}>{`${name}`}</Text>
+                <Text style={styles.itemAccount}>{`${account}`}</Text>
+            </View>
         </View>
     );
 }
