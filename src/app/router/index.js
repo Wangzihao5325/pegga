@@ -48,6 +48,7 @@ import Invite from '../../view/mine/invite/index';
 import InviteList from '../../view/mine/invite/list';
 import Agreement from '../../view/mine/aboutUs/agreement';
 import IMChat from '../../view/mine/chat';
+import IMChatView from '../../view/mine/chat/talkView';
 
 //modal
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
@@ -67,6 +68,8 @@ import InitView from '../../view/logout/initial';
 import VerCodeInputView from '../../view/logout/register/verCodeInputView';
 import PwdInputView from '../../view/logout/register/pwdInputView';
 import Country_Code from '../../view/model/countryCode';
+
+import { init, connect } from "rongcloud-react-native-imlib";
 
 //资产
 let AssetsStack = createStackNavigator({
@@ -217,6 +220,7 @@ let MineStack = createStackNavigator({
     InviteList,
     Agreement,
     IMChat,
+    IMChatView,
 }, {
     navigationOptions: {
         gesturesEnabled: false
@@ -341,5 +345,7 @@ const AppContainer = createAppContainer(createSwitchNavigator(
         initialRouteName: 'Init',
     }
 ));
+
+init("p5tvi9dspqhm4");
 
 export default AppContainer;

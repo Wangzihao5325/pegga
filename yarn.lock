@@ -5929,6 +5929,11 @@ rn-fetch-blob@^0.12.0:
     base-64 "0.1.0"
     glob "7.0.6"
 
+rongcloud-react-native-imlib@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/rongcloud-react-native-imlib/-/rongcloud-react-native-imlib-0.3.11.tgz#cf32a646884a6da1f9d3851a5bcbb8e228bde4a4"
+  integrity sha512-bQxAnTpsQp/OOShbXcT5IuIq+Bf4MXvdX+OXL4pdcLl0mAmb3AXAiL2Xr6lUw2KoQR20O2OaHxsql/76PFkMTA==
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
