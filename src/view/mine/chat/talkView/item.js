@@ -14,10 +14,12 @@ class Item extends Component {
                 <View style={{ width: Dimensions.get('window').width, flexDirection: 'row', justifyContent: 'flex-start' }}>
                     <View style={[styles.container, { justifyContent: 'flex-start', }]}>
                         <Image style={styles.avater} source={require('../../../../image/customService/assistant_head.png')} />
-                        <View style={{ height: 40, width: 10, justifyContent: 'center', alignItems: 'flex-end' }}><Image style={{ height: 12, width: 6 }} source={require('../../../../image/mine/triangle_white.png')} /></View>
+                        <View style={{ height: 40, width: 10, justifyContent: 'center', alignItems: 'flex-end' }}>
+                            {this.props.item.content.objectName == ObjectName.Text && <Image style={{ height: 12, width: 6 }} source={require('../../../../image/mine/triangle_white.png')} />}
+                        </View>
                         <View style={[containerStyle, { backgroundColor: 'white' }]}>
                             {this.props.item.content.objectName == ObjectName.Text && <Text style={[styles.words, { color: 'rgb(40,46,60)' }]}>{`${this.props.item.content.content}`}</Text>}
-                            {this.props.item.content.objectName == ObjectName.Image && <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.message }} />}
+                            {this.props.item.content.objectName == ObjectName.Image && <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.content.remote }} />}
                         </View>
                     </View>
                 </View>
@@ -31,9 +33,11 @@ class Item extends Component {
                     <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                         <View style={[containerStyle, { backgroundColor: 'rgb(97,130,236)' }]}>
                             {this.props.item.content.objectName == ObjectName.Text && < Text style={[styles.words, { color: 'white' }]}>{`${this.props.item.content.content}`}</Text>}
-                            {this.props.item.content.objectName == ObjectName.Image && <Image style={{ width: 120, height: 175 }} source={{ uri: this.props.item.message }} />}
+                            {this.props.item.content.objectName == ObjectName.Image && <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.content.remote }} />}
                         </View>
-                        <View style={{ height: 40, width: 10, justifyContent: 'center', alignItems: 'flex-start' }}><Image style={{ height: 12, width: 6 }} source={require('../../../../image/mine/triangle_blue.png')} /></View>
+                        <View style={{ height: 40, width: 10, justifyContent: 'center', alignItems: 'flex-start' }}>
+                            {this.props.item.content.objectName == ObjectName.Text && <Image style={{ height: 12, width: 6 }} source={require('../../../../image/mine/triangle_blue.png')} />}
+                        </View>
                         <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.avater}>
                             <Text style={{ color: 'white', fontSize: 24 }}>{`${subName}`}</Text>
                         </LinearGradient>

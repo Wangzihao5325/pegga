@@ -103,14 +103,24 @@ export default class BottomInput extends PureComponent {
         });
         ImagePicker.openPicker({
             multiple: false,
-            includeBase64: true
+            //includeBase64: true
         }).then(images => {
-            Api.imageUpload(images, (res) => {
-                let imageUrl = res.data;
-                Api.sendMsgToSys({ message: imageUrl, type: 1 }, (res) => {
-                    this.props.callback();
-                })
-            });
+            let uri = images.path || images.sourceURL;
+            const { conversationType, targetId } = this.props;
+            let content = { objectName: ObjectName.Image, local: uri, isFull: true };
+            const message = { conversationType, targetId, content };
+            const callback = {
+                success: messageId => {
+                    this.props.callback(messageId);
+                },
+                cancel: () => {
+                    Toast.show('取消发送');
+                },
+                error: (errorCode, messageId, message) => {
+                    Toast.show(`消息发送失败：${messageId}`);
+                }
+            };
+            sendMediaMessage(message, callback);
         }).catch(e => {
             if (Platform.OS == 'android') {
                 Toast.show('选择图片失败');
