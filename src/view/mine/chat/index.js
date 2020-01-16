@@ -3,11 +3,20 @@ import {
     SafeAreaView,
     Dimensions,
     StyleSheet,
+    FormItem,
+    TextInput,
+    Text,
+    Button,
 } from 'react-native';
-import { WebView } from 'react-native-webview';
 import Header from '../../../component/header';
-import * as Config from '../../../global/Config';
-import { connect } from 'react-redux'
+import {
+    addConnectionStatusListener,
+    connect,
+    disconnect,
+    setReconnectKickEnable,
+    ConversationType,
+} from "rongcloud-react-native-imlib";
+import { connect as reduxConnect } from 'react-redux'
 
 class Chat extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -17,29 +26,61 @@ class Chat extends Component {
         }
     };
 
+    state = {
+        message: "连接结果：",
+        status: 0,
+        token: this.props.token
+    };
+    componentDidMount() {
+        this.listener = addConnectionStatusListener(status => this.setState({ status }));
+    }
+
+    componentWillUnmount() {
+        this.listener.remove();
+    }
+
+    setToken = token => this.setState({ token });
+
+    connect = () =>
+        connect(
+            this.state.token,
+            userId => this.setState({ message: "连接成功：" + userId }),
+            errorCode => this.setState({ message: "连接失败：" + errorCode }),
+            () => this.setState({ message: "Token 不正确或已过期" })
+        );
+
+    toChat = () => {
+        this.props.navigation.navigate('IMChatView', { conversationType: ConversationType.PRIVATE, targetId: '10010', userId: this.props.userId });
+    }
+
     render() {
-        let { uuid = '123456' } = this.props.info;
-        let uri = `${Config.SERVICE_URL.chat}?username=${uuid}&password=${uuid}`;
+        const { status, message, token } = this.state;
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
                     title='聊天'
                     goback={() => this.props.navigation.goBack()}
                 />
-                <WebView
-                    source={{ uri }}
-                    style={{ width: Dimensions.get('window').width }}
-                />
+                <TextInput value={token} onChangeText={this.setToken} placeholder="请提供 Token" />
+                <Button title="连接服务器" onPress={this.connect} />
+                <Button title="断开连接（继续接收推送）" onPress={() => disconnect()} />
+                <Button title="断开连接（不再接收推送）" onPress={() => disconnect(false)} />
+                <Button title="断线重连时踢出重连设备" onPress={() => setReconnectKickEnable(true)} />
+                <Button title="断线重连时不踢出重连设备" onPress={() => setReconnectKickEnable(true)} />
+                <Text style={styles.message}>{message}</Text>
+                <Text style={styles.message}>连接状态监听：{status}</Text>
+                <Button title='聊天' onPress={this.toChat} />
             </SafeAreaView>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    info: state.user.info
+    token: state.chat.token,
+    userId: state.chat.userId
 })
 
-export default connect(mapStateToProps)(Chat);
+export default reduxConnect(mapStateToProps)(Chat)
 
 const styles = StyleSheet.create({
     safeContainer: {
@@ -48,5 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         alignItems: 'center'
-    }
+    },
+    body: { padding: 16 },
+    message: { marginTop: 16 }
 });

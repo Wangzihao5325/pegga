@@ -8,6 +8,7 @@ import adListReducer from './reducers/adListReducer';
 import orderListReducer from './reducers/orderListReducer';
 import countryCodeReducer from './reducers/countryCodeReducer';
 import storageReducer from './reducers/storageReducer';
+import chatReducer from './reducers/chatReducer';
 
 const rootReducer = combineReducers({
     test: testReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     adList: adListReducer,
     orderList: orderListReducer,
     country: countryCodeReducer,
-    storage: storageReducer
+    storage: storageReducer,
+    chat: chatReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
