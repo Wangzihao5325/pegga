@@ -15,6 +15,7 @@ import Api from '../../../../socket';
 import Item from './item';
 import BottomInput from './bottomInput';
 import { getHistoryMessages, addReceiveMessageListener } from "rongcloud-react-native-imlib";
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class Chat extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -42,7 +43,9 @@ export default class Chat extends Component {
             }
             console.log(message);
             if (message.message.targetId == this.state.targetId) {
-                this.setState({ messages: [...this.state.messages, message.message] });
+                this.setState({ messages: [...this.state.messages, message.message] }, () => {
+                    this.list.scrollToEnd({ animated: true });
+                });
             }
         });
     }
@@ -56,6 +59,7 @@ export default class Chat extends Component {
             parseInt(oldestMessageId),
             parseInt(count)
         );
+        console.log(originMessages);
         let messages = this.state.messages.concat(originMessages.reverse());
         let nowOldestMessageId = -1;
         if (originMessages.length > 0) {
@@ -82,7 +86,10 @@ export default class Chat extends Component {
             }
         });
         let messages = this.state.messages.concat(filterMsgs);
-        this.setState({ messages, oldestMessageId: `${messageId}` });
+        this.setState({ messages, oldestMessageId: `${messageId}` },
+            () => {
+                this.list.scrollToEnd({ animated: true });
+            });
     }
 
     componentDidMount() {
@@ -123,6 +130,7 @@ export default class Chat extends Component {
                         renderItem={({ item }) => <Item item={item} userId={this.state.userId} />}
                         extraData={this.state.userId}
                         keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
                     />
                 </View>
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
