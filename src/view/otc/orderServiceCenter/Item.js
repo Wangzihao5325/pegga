@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TouchableWithoutFeedback, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Image, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
 import BusinessLabel from '../../../component/label';
 import Btn from '../../../component/btn';
 import Utils from '../../../global/util';
@@ -33,10 +33,27 @@ export default class Item extends PureComponent {
         let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.item.orderStatus, 15);
         let labelType = this.props.item.isMatch ? 'green' : 'blue';
         let labelTitle = this.props.item.isMatch ? 'TOB' : 'TOC';
+        let payTypeIcon = '';
+        if (this.props.item.payType != null) {
+            switch (this.props.payType) {
+                case 0:
+                    payTypeIcon = require('../../../image/otc/payment/pay_alipay.png');
+                    break;
+                case 1:
+                    payTypeIcon = require('../../../image/otc/payment/pay_WeChat.png');
+                    break;
+                case 2:
+                    payTypeIcon = require('../../../image/otc/payment/pay_card.png');
+                    break;
+                default:
+                    payTypeIcon = require('../../../image/otc/payment/pay_alipay.png');
+                    break;
+            }
+        }
         return (
-            <View style={styles.wrapper}>
+            <View style={[styles.wrapper, this.props.item.orderType === 1 ? { height: 225 + 59 + 5 } : { height: 225 }]}>
                 <TouchableWithoutFeedback onPress={this.containerPress}>
-                    <View style={styles.container}>
+                    <View style={[styles.container, this.props.item.orderType === 1 ? { height: 210 + 59 + 5, } : { height: 210 }]}>
                         <View style={styles.header}>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Text style={styles.title}>{`${tradeTypeStr} ${this.props.item.token}/${this.props.item.fiat}`}</Text>
@@ -69,16 +86,21 @@ export default class Item extends PureComponent {
                                 <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{`${this.props.item.amount} ${this.props.item.token}`}</Text>
                             </View>
                         </View>
-                        <View style={[styles.infoWrapper, { marginBottom: 5 }]}>
-                            <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <Text style={styles.infoTitle}>真实姓名</Text>
-                                <Text style={[styles.infoContext, { marginTop: 5 }]}>{this.props.item.realName ? `${this.props.item.realName}` : '暂无'}</Text>
+                        {this.props.item.orderType === 1 &&
+                            <View style={[styles.infoWrapper, { marginBottom: 10, backgroundColor: 'rgb(243,245,249)', borderRadius: 5, paddingHorizontal: 15 }]}>
+                                <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                                        {this.props.item.payType != null && <Image style={{ height: 18, width: 18 }} source={payTypeIcon} />}
+                                        <Text style={{ marginLeft: 5, fontSize: 13, color: 'rgb(133,133,133)', fontFamily: 'PingFang-SC-Medium' }}>{this.props.item.realName ? `${this.props.item.realName}` : ''}</Text>
+                                    </View>
+                                    <Text style={[styles.infoContext]}>{this.props.item.account ? `${this.props.item.account}` : ''}</Text>
+                                </View>
+                                <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+                                    <Text style={styles.infoTitle}>付款备注</Text>
+                                    <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{this.props.item.memo ? `${this.props.item.memo}` : ''}</Text>
+                                </View>
                             </View>
-                            <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                <Text style={styles.infoTitle}>收款账号</Text>
-                                <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{this.props.item.account ? `${this.props.item.account}` : '暂无'}</Text>
-                            </View>
-                        </View>
+                        }
                         <View style={styles.separate} />
                         <View style={styles.bottomContainer}>
                             <Text style={styles.dealingAmountText}>总价<Text style={styles.dealingAmountTextPart}>{`  ${this.props.item.legalAmount} ${this.props.item.fiat}`}</Text></Text>
@@ -112,7 +134,7 @@ export default class Item extends PureComponent {
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: 225 + 49,
+        height: 225 + 59 + 5,
         width: Dimensions.get('window').width - 30,
         display: 'flex',
         flexDirection: 'column',
@@ -121,7 +143,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F2F2F2'
     },
     container: {
-        height: 210 + 49,
+        height: 210 + 59 + 5,
         width: Dimensions.get('window').width - 30,
         borderRadius: 10,
         backgroundColor: 'white',
@@ -165,7 +187,7 @@ const styles = StyleSheet.create({
     },
     separate: {
         height: 1,
-        width: Dimensions.get('window').width - 60,
+        width: Dimensions.get('window').width - 30,
         backgroundColor: '#F2F2F2'
     },
     bottomContainer: {
