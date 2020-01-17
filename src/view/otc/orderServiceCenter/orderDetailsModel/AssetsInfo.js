@@ -8,9 +8,26 @@ export default class AssetsInfo extends PureComponent {
         let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.payState, 18);
         let labelType = this.props.isMatch ? 'green' : 'blue';
         let labelTitle = this.props.isMatch ? 'TOB' : 'TOC';
+        let payTypeIcon = '';
+        if (this.props.payType != null) {
+            switch (this.props.payType) {
+                case 0:
+                    payTypeIcon = require('../../../../image/otc/payment/pay_alipay.png');
+                    break;
+                case 1:
+                    payTypeIcon = require('../../../../image/otc/payment/pay_WeChat.png');
+                    break;
+                case 2:
+                    payTypeIcon = require('../../../../image/otc/payment/pay_card.png');
+                    break;
+                default:
+                    payTypeIcon = require('../../../../image/otc/payment/pay_alipay.png');
+                    break;
+            }
+        }
         return (
-            <View style={styles.container}>
-                <View style={[styles.wrapper, { flexDirection: 'row' }]}>
+            <View style={[styles.container, this.props.orderType === 1 ? { height: 161 + 36 + 36 + 36 } : { height: 161 }]}>
+                <View style={{ flexDirection: 'row', height: 80, width: Dimensions.get('window').width, paddingHorizontal: 15 }}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={styles.title}>交易金额</Text>
@@ -37,14 +54,27 @@ export default class AssetsInfo extends PureComponent {
                         <Text style={styles.title}>交易数量</Text>
                         <Text style={styles.context}>{`${this.props.amount} ${this.props.token}`}</Text>
                     </View>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Text style={styles.title}>真实姓名</Text>
-                        <Text style={styles.context}>{this.props.realName ? `${this.props.realName}` : '暂无'}</Text>
-                    </View>
-                    <View style={{ marginBottom: 4, flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Text style={styles.title}>收款账号</Text>
-                        <Text style={styles.context}>{this.props.account ? `${this.props.account}` : '暂无'}</Text>
-                    </View>
+                    {this.props.orderType === 1 &&
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={styles.title}>真实姓名</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Image style={{ height: 18, width: 18, marginRight: 5 }} source={payTypeIcon} />
+                                <Text style={styles.context}>{this.props.realName ? `${this.props.realName}` : '暂无'}</Text>
+                            </View>
+                        </View>
+                    }
+                    {this.props.orderType === 1 &&
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={styles.title}>收款账号</Text>
+                            <Text style={styles.context}>{this.props.account ? `${this.props.account}` : '暂无'}</Text>
+                        </View>
+                    }
+                    {this.props.orderType === 1 &&
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={styles.title}>付款备注</Text>
+                            <Text style={styles.context}>{this.props.tradeMemo ? `${this.props.tradeMemo}` : '暂无'}</Text>
+                        </View>
+                    }
                 </View>
             </View>
         );
@@ -53,7 +83,7 @@ export default class AssetsInfo extends PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        height: 161 + 36,
+        height: 161,
         width: Dimensions.get('window').width,
         marginTop: 10,
         backgroundColor: 'white'
