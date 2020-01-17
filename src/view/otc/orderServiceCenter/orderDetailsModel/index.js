@@ -47,8 +47,8 @@ function ItemDisplay(props) {
 function InfoBanner(props) {
     return (
         <View style={{ backgroundColor: 'white' }}>
-            {typeof props.tradeMemo == 'string' && <ItemDisplay title='支付备注' context={props.tradeMemo} />}
-            {typeof props.tradeMemo == 'string' && <View style={{ height: 1, width: Dimensions.get('window').width, backgroundColor: '#EDEDED' }} />}
+            {/* {typeof props.tradeMemo == 'string' && <ItemDisplay title='支付备注' context={props.tradeMemo} />}
+            {typeof props.tradeMemo == 'string' && <View style={{ height: 1, width: Dimensions.get('window').width, backgroundColor: '#EDEDED' }} />} */}
             <View style={styles.infoTab}>
                 <Image style={{ height: 85, width: 85 }} source={props.source} />
                 <View style={{ marginLeft: 15 }}>
@@ -821,7 +821,8 @@ export default class OrderDetail extends Component {
         orderWinAppealCountLastMonth: 0,
         tradeMemo: '',
         isMatch: false,
-        timeout: 0
+        timeout: 0,
+        payType: null
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -852,7 +853,8 @@ export default class OrderDetail extends Component {
                 auditReason: result.auditReason,//大宗审核理由
                 urlList: result.urlList,
                 realName: result.realName,
-                account: result.account
+                account: result.account,
+                payType: result.payType
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -875,7 +877,6 @@ export default class OrderDetail extends Component {
             this._timerSet(payload.timeout, payload.orderNo);
             this.setState(payload);
             this._sellerInfoUpdate();
-
         });
     }
 
@@ -957,6 +958,9 @@ export default class OrderDetail extends Component {
                         isMatch={this.state.isMatch}
                         realName={this.state.realName}
                         account={this.state.account}
+                        payType={this.state.payType}
+                        tradeMemo={this.state.tradeMemo}
+                        orderType={this.state.orderType}
                     />
                     <PaymentSelect
                         adId={this.state.adId}
