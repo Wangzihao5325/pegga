@@ -11,7 +11,14 @@ import Toast from '../../../component/toast';
 
 class List extends Component {
 
+    state = {
+        isLoading: false
+    }
+
     _updateListData = () => {
+        this.setState({
+            isLoading: true
+        });
         let payload = {
             type: this.props.adTradeType,
             status: this.props.adStateType
@@ -23,7 +30,12 @@ class List extends Component {
                 myAdTotalPage: result.pages
             };
             store.dispatch(update_ad_list_data(storePayload));
-        }, null, { current: 1, size: 10 });
+            this.setState({
+                isLoading: false
+            });
+        }, () => {
+            this.setState({ isLoading: false });
+        }, { current: 1, size: 10 });
     }
 
     _nextPage = () => {
@@ -38,6 +50,10 @@ class List extends Component {
                 store.dispatch(update_ad_list_data(storePayload));
             }, null, { current: this.props.myAdCurrentPage + 1, size: 10 });
         }
+    }
+
+    _onFresh = () => {
+        this._updateListData();
     }
 
     naviDidFocus = () => {
@@ -56,6 +72,8 @@ class List extends Component {
                     showsVerticalScrollIndicator={false}
                     onEndReached={this._nextPage}
                     onEndReachedThreshold={0.2}
+                    refreshing={this.state.isLoading}
+                    onRefresh={this._onFresh}
                 />
             </View>
         );

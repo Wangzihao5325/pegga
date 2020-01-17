@@ -38,10 +38,12 @@ class OrderManagement extends Component {
     }
 
     state = {
-        isFetching: false
+        isFetching: false,
+        isLoading: false
     }
 
     _orderListDataUpdate = () => {
+        this.setState({ isLoading: true });
         let params = { status: this.props.orderType };
         Api.myOrder(params, (result) => {
             let payload = {
@@ -50,7 +52,10 @@ class OrderManagement extends Component {
                 totalPage: result.pages,
             }
             store.dispatch(update_order_list_data(payload));
-        }, null, { current: 1, size: 10 })
+            this.setState({ isLoading: false });
+        }, () => {
+            this.setState({ isLoading: false });
+        }, { current: 1, size: 10 })
     }
 
     _nextPage = () => {
@@ -89,6 +94,10 @@ class OrderManagement extends Component {
                 isFetching: false
             });
         });
+    }
+
+    _onFresh = () => {
+        this._orderListDataUpdate();
     }
 
     naviDidFocus = () => {
@@ -155,6 +164,8 @@ class OrderManagement extends Component {
                         renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} cancelPress={() => this.orderCancel(item)} />}
                         onEndReached={this._nextPage}
                         onEndReachedThreshold={0.2}
+                        refreshing={this.state.isLoading}
+                        onRefresh={this._onFresh}
                     />
                 </View>
             </SafeAreaView>
