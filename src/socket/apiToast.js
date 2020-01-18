@@ -717,6 +717,8 @@ const ErrorCodeToast = (code) => {
             toastStr = I18n.NOW_ACCOUNT_HAS_BEEN_SUBMIT;
         case 30062:
             toastStr = I18n.ON_CHECKING;
+        case 30063:
+            toastStr = I18n.PLEASE_FIRST_CLOSE_AUTO_FILTER;
         default:
             toastStr = I18n.UNKNOW_ERROR;
             break;

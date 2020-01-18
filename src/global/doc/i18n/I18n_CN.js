@@ -505,6 +505,7 @@ const NO_ONE_PAYMENT = '收款方式不存在';
 const NO_PAY_ACCOUNT = '当前收款账号不存在';
 const NOW_ACCOUNT_HAS_BEEN_SUBMIT = '当前收款账号已存在';
 const ON_CHECKING = '当前收款账号正在审核';
+const PLEASE_FIRST_CLOSE_AUTO_FILTER = '请先关闭自动接单';
 
 export default {
     LOGIN,
@@ -996,5 +997,6 @@ export default {
     NO_PAY_ACCOUNT,
     NOW_ACCOUNT_HAS_BEEN_SUBMIT,
     ON_CHECKING,
+    PLEASE_FIRST_CLOSE_AUTO_FILTER,
 }
 
