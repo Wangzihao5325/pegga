@@ -492,8 +492,6 @@ const USER_UUID_BLANK = '用户ID不能为空';
 const PAY_TYPE_BLANK = '支付方式不能为空';
 const RETURN_RATE_BLANK = '返佣比例不能为空';
 
-<<<<<<< Updated upstream
-=======
 const AMOUNT_BLANK1 = '金额不能为空';
 const PAY_TYPE_NULL = '支付方式不能为空';
 const PAY_TYPE_INVALID = '支付方式错误';
@@ -509,7 +507,6 @@ const NOW_ACCOUNT_HAS_BEEN_SUBMIT = '当前收款账号已存在';
 const ON_CHECKING = '当前收款账号正在审核';
 const PLEASE_FIRST_CLOSE_AUTO_FILTER = '请先关闭自动接单';
 
->>>>>>> Stashed changes
 export default {
     LOGIN,
     LOGOUT,
