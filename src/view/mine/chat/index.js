@@ -15,6 +15,8 @@ import {
     disconnect,
     setReconnectKickEnable,
     ConversationType,
+    getConversation,
+    getConversationList,
 } from "rongcloud-react-native-imlib";
 import { connect as reduxConnect } from 'react-redux'
 
@@ -53,6 +55,12 @@ class Chat extends Component {
         this.props.navigation.navigate('IMChatView', { conversationType: ConversationType.PRIVATE, targetId: '10010', userId: this.props.userId });
     }
 
+    getCon = async () => {
+        const conversation = await getConversationList([ConversationType.GROUP], 10, 0);
+        const con = await getConversation(ConversationType.GROUP, 'aaa');
+        console.log(con);
+    }
+
     render() {
         const { status, message, token } = this.state;
         return (
@@ -70,6 +78,7 @@ class Chat extends Component {
                 <Text style={styles.message}>{message}</Text>
                 <Text style={styles.message}>连接状态监听：{status}</Text>
                 <Button title='聊天' onPress={this.toChat} />
+                <Button title='con' onPress={this.getCon} />
             </SafeAreaView>
         );
     }

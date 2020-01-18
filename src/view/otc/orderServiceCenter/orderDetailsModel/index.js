@@ -210,7 +210,9 @@ class PaymentSelect extends Component {
                                 <View style={{ flex: 1 }}>
                                     <View style={{ flex: 1 }}>
                                         <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                            <USDTPayInfo usdtType={this.props.usdtType} url={this.props.url} />
+                                            <ScrollView showsVerticalScrollIndicator={false}>
+                                                <USDTPayInfo usdtType={this.props.usdtType} url={this.props.url} />
+                                            </ScrollView>
                                         </View>
                                     </View>
                                     <View style={styles.bottomContainer}>
@@ -326,7 +328,9 @@ class PaymentSelect extends Component {
                                 <View style={{ flex: 1 }}>
                                     <View style={{ flex: 1 }}>
                                         <View style={{ backgroundColor: 'white', marginTop: 10 }}>
-                                            <USDTPayInfo usdtType={this.props.usdtType} url={this.props.url} />
+                                            <ScrollView showsVerticalScrollIndicator={false}>
+                                                <USDTPayInfo usdtType={this.props.usdtType} url={this.props.url} />
+                                            </ScrollView>
                                         </View>
                                     </View>
                                     <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
@@ -395,11 +399,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='您已确认付款'
-                                    remark='卖方确认收款中,请耐心等待'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='您已确认付款'
+                                        remark='卖方确认收款中,请耐心等待'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -417,11 +423,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='确认收款超时'
-                                    remark='卖方确认收款超时,您可联系卖家或发起申诉'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='确认收款超时'
+                                        remark='卖方确认收款超时,您可联系卖家或发起申诉'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -439,11 +447,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='已确认收款'
-                                    remark='卖方已确认收款'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='已确认收款'
+                                        remark='卖方已确认收款'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -461,11 +471,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='订单已完成'
-                                    remark='订单已完成,若有疑问请联系客服处理'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='订单已完成'
+                                        remark='订单已完成,若有疑问请联系客服处理'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -483,11 +495,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_cancel.png')}
-                                    title='订单已取消'
-                                    remark='如对该订单有疑问,可联系在线客服'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_cancel.png')}
+                                        title='订单已取消'
+                                        remark='如对该订单有疑问,可联系在线客服'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -505,11 +519,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                    title='订单申诉中'
-                                    remark='该订单存在纠纷,官方正在介入中'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                        title='订单申诉中'
+                                        remark='该订单存在纠纷,官方正在介入中'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -562,23 +578,25 @@ class PaymentSelect extends Component {
                         return (
                             <View style={{ flex: 1 }}>
                                 <View style={{ flex: 1, marginTop: 10 }}>
-                                    <InfoBanner
-                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                        title={title}
-                                        remark={remark}
-                                    />
-                                    {this.props.auditStatus === 2 &&
-                                        <View>
-                                            <View style={{ height: 10, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2' }} />
-                                            <View style={{ backgroundColor: 'white' }}><Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', color: 'rgb(40,46,60)' }}>支付凭证</Text></View>
-                                            <PhotoUpload
-                                                initValue={initValue}
-                                                ref={imageUpload => this.imageUpload = imageUpload}
-                                                maxPic={3}
-                                            />
-                                            <View style={{ height: 5, width: Dimensions.get('window').width, backgroundColor: 'white' }} />
-                                        </View>
-                                    }
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <InfoBanner
+                                            source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                            title={title}
+                                            remark={remark}
+                                        />
+                                        {this.props.auditStatus === 2 &&
+                                            <View>
+                                                <View style={{ height: 10, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2' }} />
+                                                <View style={{ backgroundColor: 'white' }}><Text style={{ marginTop: 10, marginBottom: 5, marginLeft: 15, fontSize: 15, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', color: 'rgb(40,46,60)' }}>支付凭证</Text></View>
+                                                <PhotoUpload
+                                                    initValue={initValue}
+                                                    ref={imageUpload => this.imageUpload = imageUpload}
+                                                    maxPic={3}
+                                                />
+                                                <View style={{ height: 5, width: Dimensions.get('window').width, backgroundColor: 'white' }} />
+                                            </View>
+                                        }
+                                    </ScrollView>
                                 </View>
                                 <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                     <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
@@ -597,12 +615,14 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                    title='订单待支付'
-                                    remark='请等待买家进行支付'
-                                    tradeMemo={this.props.tradeMemo}
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                        title='订单待支付'
+                                        remark='请等待买家进行支付'
+                                        tradeMemo={this.props.tradeMemo}
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -620,12 +640,14 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_overtime.png')}
-                                    title='订单支付超时'
-                                    remark='买家支付超时,您可联系买家,或进行申诉'
-                                    tradeMemo={this.props.tradeMemo}
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_overtime.png')}
+                                        title='订单支付超时'
+                                        remark='买家支付超时,您可联系买家,或进行申诉'
+                                        tradeMemo={this.props.tradeMemo}
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={styles.bottomContainer}>
                                 <DetailBtn onPress={this.props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
@@ -644,12 +666,14 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='买家已确认付款'
-                                    remark='请尽快确认钱款是否到账'
-                                    tradeMemo={this.props.tradeMemo}
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='买家已确认付款'
+                                        remark='请尽快确认钱款是否到账'
+                                        tradeMemo={this.props.tradeMemo}
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -667,12 +691,14 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_overtime.png')}
-                                    title='确认收款超时'
-                                    remark='可继续确认收款或发起申诉'
-                                    tradeMemo={this.props.tradeMemo}
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_overtime.png')}
+                                        title='确认收款超时'
+                                        remark='可继续确认收款或发起申诉'
+                                        tradeMemo={this.props.tradeMemo}
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={styles.bottomContainer}>
                                 <DetailBtn onPress={this.props.addAppeal} source={require('../../../../image/otc/appeal_order.png')} title='申诉' />
@@ -694,11 +720,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='已确认收款'
-                                    remark='您已确认收款'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='已确认收款'
+                                        remark='您已确认收款'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -716,11 +744,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_complete.png')}
-                                    title='订单已完成'
-                                    remark='订单已完成,若有疑问请联系客服处理'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_complete.png')}
+                                        title='订单已完成'
+                                        remark='订单已完成,若有疑问请联系客服处理'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -738,11 +768,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_cancel.png')}
-                                    title='订单已取消'
-                                    remark='如对该订单有疑问,可联系在线客服'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_cancel.png')}
+                                        title='订单已取消'
+                                        remark='如对该订单有疑问,可联系在线客服'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -760,11 +792,13 @@ class PaymentSelect extends Component {
                     return (
                         <View style={{ flex: 1 }}>
                             <View style={{ flex: 1, marginTop: 10 }}>
-                                <InfoBanner
-                                    source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                    title='订单申诉中'
-                                    remark='该订单存在纠纷,官方正在介入中'
-                                />
+                                <ScrollView showsVerticalScrollIndicator={false}>
+                                    <InfoBanner
+                                        source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                        title='订单申诉中'
+                                        remark='该订单存在纠纷,官方正在介入中'
+                                    />
+                                </ScrollView>
                             </View>
                             <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
                                 {/* <TouchableHighlight onPress={props.contact} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(40,46,60)' }}>
@@ -822,7 +856,8 @@ export default class OrderDetail extends Component {
         tradeMemo: '',
         isMatch: false,
         timeout: 0,
-        payType: null
+        payType: null,
+        payTypeNick: null
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -854,7 +889,8 @@ export default class OrderDetail extends Component {
                 urlList: result.urlList,
                 realName: result.realName,
                 account: result.account,
-                payType: result.payType
+                payType: result.payType,
+                payTypeNick: result.payTypeNick
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -961,6 +997,7 @@ export default class OrderDetail extends Component {
                         payType={this.state.payType}
                         tradeMemo={this.state.tradeMemo}
                         orderType={this.state.orderType}
+                        payTypeNick={this.state.payTypeNick}
                     />
                     <PaymentSelect
                         adId={this.state.adId}

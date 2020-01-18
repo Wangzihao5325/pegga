@@ -26,7 +26,7 @@ export default class AssetsInfo extends PureComponent {
             }
         }
         return (
-            <View style={[styles.container, this.props.orderType === 1 ? { height: 161 + 36 + 36 + 36 } : { height: 161 }]}>
+            <View style={[styles.container, this.props.orderType === 1 ? { height: 161 + 36 + 36 + 36 + 36 } : { height: 161 }]}>
                 <View style={{ flexDirection: 'row', height: 80, width: Dimensions.get('window').width, paddingHorizontal: 15 }}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -61,6 +61,12 @@ export default class AssetsInfo extends PureComponent {
                                 <Image style={{ height: 18, width: 18, marginRight: 5 }} source={payTypeIcon} />
                                 <Text style={styles.context}>{this.props.realName ? `${this.props.realName}` : '暂无'}</Text>
                             </View>
+                        </View>
+                    }
+                    {this.props.orderType === 1 &&
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={styles.title}>账户昵称</Text>
+                            <Text style={styles.context}>{this.props.payTypeNick ? `${this.props.payTypeNick}` : '暂无'}</Text>
                         </View>
                     }
                     {this.props.orderType === 1 &&

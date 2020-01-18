@@ -34,6 +34,7 @@ export default class Item extends PureComponent {
         let labelType = this.props.item.isMatch ? 'green' : 'blue';
         let labelTitle = this.props.item.isMatch ? 'TOB' : 'TOC';
         let payTypeIcon = '';
+        let realName = this.props.item.payTypeNick ? this.props.item.payTypeNick : '';
         if (this.props.item.payType != null) {
             switch (this.props.payType) {
                 case 0:
@@ -44,6 +45,7 @@ export default class Item extends PureComponent {
                     break;
                 case 2:
                     payTypeIcon = require('../../../image/otc/payment/pay_card.png');
+                    realName = this.props.item.realName ? this.props.item.realName : '';
                     break;
                 default:
                     payTypeIcon = require('../../../image/otc/payment/pay_alipay.png');
@@ -91,13 +93,13 @@ export default class Item extends PureComponent {
                                 <View style={{ flex: 10, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }} >
                                         {this.props.item.payType != null && <Image style={{ height: 18, width: 18 }} source={payTypeIcon} />}
-                                        <Text style={{ marginLeft: 5, fontSize: 13, color: 'rgb(133,133,133)', fontFamily: 'PingFang-SC-Medium' }}>{this.props.item.realName ? `${this.props.item.realName}` : ''}</Text>
+                                        <Text style={{ marginLeft: 5, fontSize: 13, color: 'rgb(133,133,133)', fontFamily: 'PingFang-SC-Medium' }}>{`${realName}`}</Text>
                                     </View>
                                     <Text style={[styles.infoContext]}>{this.props.item.account ? `${this.props.item.account}` : ''}</Text>
                                 </View>
                                 <View style={{ flex: 9, height: 54, display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'flex-end' }}>
                                     <Text style={styles.infoTitle}>付款备注</Text>
-                                    <Text style={[styles.infoContext, { fontWeight: 'bold', marginTop: 5 }]}>{this.props.item.memo ? `${this.props.item.memo}` : ''}</Text>
+                                    <Text style={[styles.infoContext]}>{this.props.item.memo ? `${this.props.item.memo}` : ''}</Text>
                                 </View>
                             </View>
                         }

@@ -492,6 +492,24 @@ const USER_UUID_BLANK = '用户ID不能为空';
 const PAY_TYPE_BLANK = '支付方式不能为空';
 const RETURN_RATE_BLANK = '返佣比例不能为空';
 
+<<<<<<< Updated upstream
+=======
+const AMOUNT_BLANK1 = '金额不能为空';
+const PAY_TYPE_NULL = '支付方式不能为空';
+const PAY_TYPE_INVALID = '支付方式错误';
+const MERCHANT_ORDER_PAY_NOT_EXIST = '商家接口初始化订单不存在';
+const WITHDRAW_NOT_EXIST = '提现匹配申请不存在';
+const ADVERTISE_PAY_TYPE_INFO_MORE = '只能选择一个收款账号';
+const PAY_TYPE_INFO_NULL = '请选择支付详情';
+const AUDIT_STATUS_ERROR = '审核状态错误';
+const SUBMIT_CHECK_FAILED = '审核提交失败，请重试';
+const NO_ONE_PAYMENT = '收款方式不存在';
+const NO_PAY_ACCOUNT = '当前收款账号不存在';
+const NOW_ACCOUNT_HAS_BEEN_SUBMIT = '当前收款账号已存在';
+const ON_CHECKING = '当前收款账号正在审核';
+const PLEASE_FIRST_CLOSE_AUTO_FILTER = '请先关闭自动接单';
+
+>>>>>>> Stashed changes
 export default {
     LOGIN,
     LOGOUT,
@@ -968,4 +986,19 @@ export default {
     USER_UUID_BLANK,
     PAY_TYPE_BLANK,
     RETURN_RATE_BLANK,
+
+    AMOUNT_BLANK1,
+    PAY_TYPE_NULL,
+    PAY_TYPE_INVALID,
+    MERCHANT_ORDER_PAY_NOT_EXIST,
+    WITHDRAW_NOT_EXIST,
+    ADVERTISE_PAY_TYPE_INFO_MORE,
+    PAY_TYPE_INFO_NULL,
+    AUDIT_STATUS_ERROR,
+    SUBMIT_CHECK_FAILED,
+    NO_ONE_PAYMENT,
+    NO_PAY_ACCOUNT,
+    NOW_ACCOUNT_HAS_BEEN_SUBMIT,
+    ON_CHECKING,
+    PLEASE_FIRST_CLOSE_AUTO_FILTER,
 }
