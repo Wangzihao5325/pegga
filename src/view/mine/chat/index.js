@@ -18,7 +18,8 @@ import {
     getConversation,
     getConversationList,
 } from "rongcloud-react-native-imlib";
-import { connect as reduxConnect } from 'react-redux'
+import { connect as reduxConnect } from 'react-redux';
+import Api from '../../../socket/index';
 
 class Chat extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -61,6 +62,16 @@ class Chat extends Component {
         console.log(con);
     }
 
+    customService = () => {
+        Api.chatCustomerService((res) => {
+
+        });
+    }
+
+    group = () => {
+        Api.chatGroups((res) => { });
+    }
+
     render() {
         const { status, message, token } = this.state;
         return (
@@ -75,6 +86,8 @@ class Chat extends Component {
                 <Button title="断开连接（不再接收推送）" onPress={() => disconnect(false)} />
                 <Button title="断线重连时踢出重连设备" onPress={() => setReconnectKickEnable(true)} />
                 <Button title="断线重连时不踢出重连设备" onPress={() => setReconnectKickEnable(true)} />
+                <Button title="查看系统客服列表" onPress={this.customService} />
+                <Button title="查看用户群组" onPress={this.group} />
                 <Text style={styles.message}>{message}</Text>
                 <Text style={styles.message}>连接状态监听：{status}</Text>
                 <Button title='聊天' onPress={this.toChat} />

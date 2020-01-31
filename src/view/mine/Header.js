@@ -17,13 +17,13 @@ class Header extends PureComponent {
             <ImageBackground style={styles.container} source={require('../../image/mine/header_bg.png')}>
 
                 <View style={styles.top}>
-                    <View
+                    <TouchableHighlight
                         style={[styles.topIconBtn, { marginLeft: 15 }]}
-                        //onPress={this.props.toNews}
-                       // underlayColor='transparent'
+                        onPress={this.props.toNews}
+                        underlayColor='transparent'
                     >
-                        {/* <Image style={styles.topIconBtn} source={require('../../image/mine/news.png')} /> */}
-                    </View>
+                        <Image style={styles.topIconBtn} source={require('../../image/mine/news.png')} />
+                    </TouchableHighlight>
                     <TouchableHighlight
                         style={[styles.topIconBtn, { marginRight: 15 }]}
                         onPress={this.props.toService}

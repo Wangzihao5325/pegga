@@ -61,6 +61,34 @@ class api {
             });
     }
 
+    //chat
+    chatGroups(onSuccess, onError) {
+        const url = '/api/user/chat/groups';
+        this.request(url, null, onSuccess, onError);
+    }
+
+    chatCustomerService(onSuccess, onError) {
+        const url = '/api/user/chat/customer_services';
+        this.request(url, null, onSuccess, onError);
+    }
+
+    //app news
+    noticeList(onSuccess, onError) {
+        const url = '/api/user/system/notice';
+        this.request(url, null, onSuccess, onError);
+    }
+
+    noticeUnread(onSuccess, onError) {
+        const url = '/api/user/system/notice_unread';
+        this.request(url, null, onSuccess, onError);
+    }
+
+    noticeDetails(onSuccess, onError) {
+        let uuid = store.getState().user.info.uuid;
+        const url = `/api/user/system/notice/${uuid}`;
+        this.request(url, null, onSuccess, onError);
+    }
+
     //app version
     appVersion(onSuccess, onError) {
         const url = '/api/user/sign_up/system_version';

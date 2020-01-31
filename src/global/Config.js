@@ -1,5 +1,14 @@
 const envirmentType = ['online', 'test', 'yuejun']
-const envirment = envirmentType[1];
+const envirment = envirmentType[3];
+const HOME_SERVICE_URL = {
+    domain: 'http://wkqqqa.natappfree.cc',
+    imageDomain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000/api/file/upload/image',
+    payment: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8080/ali.html',
+    invite: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/#/',
+    aliUid: 'https://render.alipay.com/p/f/fd-ixpo7iia/index.html',
+    agreement: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/userAgreement.html',
+    chat: 'https://www.pqpay.io/?#/login',
+};
 const ONLINE_SERVICE_URL = {
     domain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000',
     imageDomain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000/api/file/upload/image',
@@ -38,6 +47,9 @@ const urlSwich = (envirment) => {
             break;
         case envirmentType[2]:
             result = YUE_SERVICE_URL;
+            break;
+        case envirmentType[3]:
+            result = HOME_SERVICE_URL;
             break;
     }
     return result;

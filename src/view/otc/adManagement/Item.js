@@ -48,7 +48,7 @@ export default class Item extends PureComponent {
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={styles.title}>{`${tradeTypeStr} ${this.props.item.token}/点卡`}</Text>
+                            <Text style={styles.title}>{`${tradeTypeStr} ${this.props.item.fiat}/点卡`}</Text>
                             <BusinessLabel
                                 marginLeft={5}
                                 type={labelType}

@@ -59,7 +59,7 @@ class Mine extends Component {
                     onWillBlur={this.naviWillBlur}
                 />
                 <Header
-                    toNews={this.test}
+                    toNews={() => this.navigate('News')}
                     toService={() => this.navigate('IMChat')}
                     toInfo={() => this.navigate('Info')}
                 />
