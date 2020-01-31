@@ -49,6 +49,8 @@ import InviteList from '../../view/mine/invite/list';
 import Agreement from '../../view/mine/aboutUs/agreement';
 import IMChat from '../../view/mine/chat';
 import IMChatView from '../../view/mine/chat/talkView';
+import News from '../../view/mine/news';
+import NewsDetail from '../../view/mine/news/detail';
 
 //modal
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
@@ -221,6 +223,8 @@ let MineStack = createStackNavigator({
     Agreement,
     IMChat,
     IMChatView,
+    News,
+    NewsDetail
 }, {
     navigationOptions: {
         gesturesEnabled: false
