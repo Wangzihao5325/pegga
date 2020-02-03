@@ -61,15 +61,57 @@ class api {
             });
     }
 
-    //chat
-    chatGroups(onSuccess, onError) {
-        const url = '/api/user/chat/groups';
-        this.request(url, null, onSuccess, onError);
+    async awaitRequest(url, formData, pagePayload) {
+        let fullUrl = Config.SERVICE_URL.domain + url;
+        let headers = Variables.account.token ?
+            { 'Content-Type': url == '/api/user/sign_in' ? 'application/x-www-form-urlencoded' : 'application/json', 'X-Auth-Token': Variables.account.token } ://current size ['desc'] ['asc']
+            { 'Content-Type': url == '/api/user/sign_in' ? 'application/x-www-form-urlencoded' : 'application/json' };
+        if (pagePayload) {
+            headers.current = pagePayload.current;
+            headers.size = pagePayload.size;
+        }
+        let obj = formData ? { method: 'POST', headers: headers, body: formData } : { method: 'GET', headers: headers };
+        let response = await fetch(fullUrl, obj);
+        if (response.headers.map['x-auth-token']) {
+            AsyncStorage.setItem('App_token', response.headers.map['x-auth-token']);
+            console.log(`token is ${response.headers.map['x-auth-token']}`);
+            Variables.account.token = response.headers.map['x-auth-token'];
+        }
+        let responseJson = await response.json();
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
+        if (responseJson.success) {
+            return result;
+        } else {
+            if (typeof code == 'number') {
+                let toastStr = ErrorCodeToast(code);
+                Toast.show(toastStr);
+                if (code == 10002 || code == 10003) {
+                    let isLogin = store.getState().user.isLogin;
+                    if (isLogin) {
+                        AsyncStorage.setItem('App_token', '');
+                        Variables.account.token = '';
+                        store.dispatch(user_logout());
+                        NavigationService.navigate('Logout');
+                    }
+                }
+            }
+            return null
+        }
     }
 
-    chatCustomerService(onSuccess, onError) {
+    //chat
+    async chatGroups() {
+        const url = '/api/user/chat/groups';
+        let result = await this.awaitRequest(url);
+        return result;
+    }
+
+    async chatCustomerService() {
         const url = '/api/user/chat/customer_services';
-        this.request(url, null, onSuccess, onError);
+        let result = await this.awaitRequest(url);
+        return result;
     }
 
     //app news

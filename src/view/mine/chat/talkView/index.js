@@ -16,8 +16,9 @@ import Item from './item';
 import BottomInput from './bottomInput';
 import { getHistoryMessages, addReceiveMessageListener } from "rongcloud-react-native-imlib";
 import ImagePicker from 'react-native-image-crop-picker';
+import { connect } from 'react-redux'
 
-export default class Chat extends Component {
+class Chat extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -28,6 +29,7 @@ export default class Chat extends Component {
     state = {
         conversationType: null,
         targetId: null,
+        targetName:'',
         userId: null,
         messageType: "",
         oldestMessageId: "-1",
@@ -96,11 +98,13 @@ export default class Chat extends Component {
         const targetId = this.props.navigation.getParam('targetId', null);
         const conversationType = this.props.navigation.getParam('conversationType', null);
         const userId = this.props.navigation.getParam('userId', null);
+        const targetName = this.props.navigation.getParam('name', null);//name
         if (targetId && conversationType) {
             this.setState({
                 conversationType,
                 targetId,
-                userId
+                userId,
+                targetName
             }, () => {
                 this._historyMessageUpdate();
                 this._receiveListener();
@@ -119,7 +123,7 @@ export default class Chat extends Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
-                    title='客服助手'
+                    title={this.state.targetName}
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
@@ -138,6 +142,8 @@ export default class Chat extends Component {
                         callback={this.dataRefresh}
                         conversationType={this.state.conversationType}
                         targetId={this.state.targetId}
+                        userId={this.state.userId}
+                        nickName={this.props.nickName}
                     />
                 </KeyboardAvoidingView>
             </SafeAreaView>
@@ -149,6 +155,12 @@ export default class Chat extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => ({
+    nickName: state.user.info.nickName
+})
+
+export default connect(mapStateToProps)(Chat);
 
 const styles = StyleSheet.create({
     safeContainer: {

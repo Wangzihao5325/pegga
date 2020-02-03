@@ -66,7 +66,8 @@ export default class BottomInput extends PureComponent {
         }
         const { conversationType, targetId } = this.props;
         const { value } = this.state;
-        let content = { objectName: ObjectName.Text, content: value };
+        let extra = JSON.stringify({ userId: this.props.userId, userName: this.props.nickName ? this.props.nickName : '游客' });
+        let content = { objectName: ObjectName.Text, content: value, extra };
         const message = { conversationType, targetId, content };
         const callback = {
             success: messageId => {
