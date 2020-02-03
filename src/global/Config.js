@@ -1,7 +1,7 @@
 const envirmentType = ['online', 'test', 'yuejun']
 const envirment = envirmentType[3];
 const HOME_SERVICE_URL = {
-    domain: 'http://wkqqqa.natappfree.cc',
+    domain: 'http://ia3sqn.natappfree.cc',
     imageDomain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000/api/file/upload/image',
     payment: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8080/ali.html',
     invite: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/#/',

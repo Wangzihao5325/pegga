@@ -15,6 +15,7 @@ import Colors from '../../../global/Colors';
 import Api from '../../../socket/index';
 import store from '../../../store';
 import { user_login, user_info, update_payment_info } from '../../../store/actions/userAction';
+import { chat_info_update } from '../../../store/actions/chatAction';
 import { storage_update } from '../../../store/actions/storageAction';
 import CountrySelect from './CountrySelect';
 import Tips from './Tip4Register';
@@ -117,6 +118,7 @@ class Login extends Component {
                     isLoging: false
                 });
                 store.dispatch(user_info(result));
+                store.dispatch(chat_info_update({ token: result.rcloudToken, userId: result.uuid }));
                 this.props.navigation.navigate('App');
             }, () => {
                 this.setState({

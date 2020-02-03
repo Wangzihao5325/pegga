@@ -17,6 +17,7 @@ import LottieView from 'lottie-react-native';
 
 import store from '../../../store';
 import { user_login, user_info, update_payment_info } from '../../../store/actions/userAction';
+import { chat_info_update } from '../../../store/actions/chatAction';
 import Api from '../../../socket';
 import Variables from '../../../global/Variables';
 import { INFO } from '../../../global/Config';
@@ -150,6 +151,7 @@ export default class Initial extends Component {
                 update_payment_info();
                 Api.userInfo((result) => {
                     store.dispatch(user_info(result));
+                    store.dispatch(chat_info_update({ token: result.rcloudToken, userId: result.uuid }));
                     setTimeout(() => this.props.navigation.navigate('App'), 3000);
                 }, () => {
                     //清空token

@@ -8,12 +8,17 @@ import {
 
 class Item extends Component {
     render() {
-        if (this.props.item.senderUserId !== this.props.userId) {
+        let extra = this.props.item.content.extra ? JSON.parse(this.props.item.content.extra) : {};
+        if (extra.userId !== this.props.userId) {
+            let name = extra.userName ? extra.userName : '游客';
+            let subName = name.substr(0, 1);
             let containerStyle = this.props.item.content.objectName == ObjectName.Text ? styles.wordsContainer : styles.imageContainer;
             return (
                 <View style={{ width: Dimensions.get('window').width, flexDirection: 'row', justifyContent: 'flex-start' }}>
                     <View style={[styles.container, { justifyContent: 'flex-start', }]}>
-                        <Image style={styles.avater} source={require('../../../../image/customService/assistant_head.png')} />
+                        <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.avater}>
+                            <Text style={{ color: 'white', fontSize: 24 }}>{`${subName}`}</Text>
+                        </LinearGradient>
                         <View style={{ height: 40, width: 10, justifyContent: 'center', alignItems: 'flex-end' }}>
                             {this.props.item.content.objectName == ObjectName.Text && <Image style={{ height: 12, width: 6 }} source={require('../../../../image/mine/triangle_white.png')} />}
                         </View>
