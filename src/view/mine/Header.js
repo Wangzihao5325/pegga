@@ -13,6 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 class Header extends PureComponent {
     render() {
+        let newsImage = this.props.isRedPt ? require('../../image/mine/red_news.png') : require('../../image/mine/news.png');
         return (
             <ImageBackground style={styles.container} source={require('../../image/mine/header_bg.png')}>
 
@@ -22,7 +23,7 @@ class Header extends PureComponent {
                         onPress={this.props.toNews}
                         underlayColor='transparent'
                     >
-                        <Image style={styles.topIconBtn} source={require('../../image/mine/news.png')} />
+                        <Image style={styles.topIconBtn} source={newsImage} />
                     </TouchableHighlight>
                     <TouchableHighlight
                         style={[styles.topIconBtn, { marginRight: 15 }]}

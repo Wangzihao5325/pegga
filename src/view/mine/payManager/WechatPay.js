@@ -34,7 +34,7 @@ class WechatPay extends Component {
             if (props.wechat.auditStatus == 0) {
                 auditStatusText = I18n.PAYMENT_CHECKING;
             } else if (props.wechat.auditStatus == 2) {
-                auditStatusText = I18n.PAYMENT_CHECK_FAILED;
+                auditStatusText = props.wechat.reason ? props.wechat.reason : I18n.PAYMENT_CHECK_FAILED;
             }
             let rangeType = BoundryUtil(props.wechat.provinceId, props.wechat.cityId)
             //修改bname bcode
