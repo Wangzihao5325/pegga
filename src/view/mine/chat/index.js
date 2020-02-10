@@ -24,6 +24,7 @@ import {
 import { connect as reduxConnect } from 'react-redux';
 import Api from '../../../socket/index';
 import _ from 'lodash';
+import LinearGradient from 'react-native-linear-gradient';
 
 class Item extends Component {
     render() {
@@ -38,10 +39,16 @@ class Item extends Component {
             default:
                 break;
         }
+        let subName = name.substr(0, 1);
         return (
-            <TouchableHighlight style={{ height: 60, width: Dimensions.get('window').width }} onPress={this.props.callback}>
-                <View style={{ height: 60, width: Dimensions.get('window').width }}>
-                    <Text>{`${name}`}</Text>
+            <TouchableHighlight style={{ height: 70, width: Dimensions.get('window').width, paddingHorizontal: 15 }} onPress={this.props.callback}>
+                <View style={{ height: 70, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', borderBottomColor: '#DADCE0', borderBottomWidth: 1 }}>
+                    <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.avater}>
+                        <Text style={{ color: 'white', fontSize: 24 }}>{`${subName}`}</Text>
+                    </LinearGradient>
+                    <View style={{ flex: 1, flexDirection: 'column', paddingVertical: 2, justifyContent: 'flex-start',paddingLeft:8 }}>
+                        <Text>{`${name}`}</Text>
+                    </View>
                 </View>
             </TouchableHighlight>
         );
@@ -175,5 +182,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     body: { padding: 16 },
-    message: { marginTop: 16 }
+    message: { marginTop: 16 },
+    avater: {
+        borderRadius: 5,
+        height: 40,
+        width: 40,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

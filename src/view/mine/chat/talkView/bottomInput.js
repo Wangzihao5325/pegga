@@ -108,7 +108,8 @@ export default class BottomInput extends PureComponent {
         }).then(images => {
             let uri = images.path || images.sourceURL;
             const { conversationType, targetId } = this.props;
-            let content = { objectName: ObjectName.Image, local: uri, isFull: true };
+            let extra = JSON.stringify({ userId: this.props.userId, userName: this.props.nickName ? this.props.nickName : '游客' });
+            let content = { objectName: ObjectName.Image, local: uri, isFull: true, extra };
             const message = { conversationType, targetId, content };
             const callback = {
                 success: messageId => {
