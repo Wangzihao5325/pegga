@@ -19,6 +19,7 @@ import { update_user_info } from '../../store/actions/userAction';
 import I18n from '../../global/doc/i18n';
 import Enum from '../../global/Enum';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Api from '../../socket/index';
 
 class Mine extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -27,6 +28,11 @@ class Mine extends Component {
             headerBackTitle: null
         }
     };
+
+    state = {
+        messageNum: 0,
+        isRedPt: false
+    }
 
     naviWillFocus = () => {
         if (Platform.OS == 'android') {
@@ -38,6 +44,16 @@ class Mine extends Component {
 
     naviDidFocus = () => {
         update_user_info();
+        Api.noticeUnread(result => {
+            let isRedPt = false;
+            if (result > 0) {
+                isRedPt = true;
+            }
+            this.setState({
+                isRedPt,
+                messageNum: result
+            });
+        })
     }
 
     naviWillBlur = () => {
@@ -62,6 +78,7 @@ class Mine extends Component {
                     toNews={() => this.navigate('News')}
                     toService={() => this.navigate('IMChat')}
                     toInfo={() => this.navigate('Info')}
+                    isRedPt={this.state.isRedPt}
                 />
                 <View style={styles.invite}>
                     <TouchableHighlight underlayColor='transparent' onPress={() => this.navigate('Invite')} style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>

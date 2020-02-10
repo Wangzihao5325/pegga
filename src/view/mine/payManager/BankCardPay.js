@@ -30,7 +30,7 @@ export default class BankCardPay extends PureComponent {
             if (props.bank.auditStatus == 0) {
                 auditStatusText = I18n.PAYMENT_CHECKING;
             } else if (props.bank.auditStatus == 2) {
-                auditStatusText = I18n.PAYMENT_CHECK_FAILED;
+                auditStatusText = props.bank.reason ? props.bank.reason : I18n.PAYMENT_CHECK_FAILED;
             }
             return {
                 bankId: props.bank.bankId ? props.bank.bankId : null,
