@@ -9,6 +9,7 @@ import {
 import Header from '../../../component/header';
 import Api from '../../../socket/index';
 import Item from './item';
+import _ from 'lodash';
 
 export default class News extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -47,7 +48,7 @@ export default class News extends Component {
     }
 
     toDetail = (item) => {
-        this.props.navigation.navigate('NewsDetail', {})
+        this.props.navigation.navigate('NewsDetail', { id: item.uuid })
     }
 }
 
