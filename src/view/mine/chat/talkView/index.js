@@ -61,7 +61,7 @@ class Chat extends Component {
             parseInt(oldestMessageId),
             parseInt(count)
         );
-        console.log(originMessages);
+        //console.log(originMessages);
         let messages = this.state.messages.concat(originMessages.reverse());
         let nowOldestMessageId = -1;
         if (originMessages.length > 0) {

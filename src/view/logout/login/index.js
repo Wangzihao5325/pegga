@@ -110,7 +110,14 @@ class Login extends Component {
         this.setState({
             isLoging: true
         });
-        Api.login(this.props.accountInput, this.props.pwdInput, (result, code, message) => {
+        let fullAccount = '';
+        if (this.state.mode == LOGIN_TYPE.phone) {
+            fullAccount = `${this.props.code}-${this.props.accountInput}`;
+        } else {
+            fullAccount = `email-${this.props.accountInput}`;
+        }
+
+        Api.login(fullAccount, this.props.pwdInput, (result, code, message) => {
             store.dispatch(user_login());
             update_payment_info();
             Api.userInfo((result) => {
@@ -168,7 +175,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
     accountInput: state.storage.login_account_input,
-    pwdInput: state.storage.login_pwd_input
+    pwdInput: state.storage.login_pwd_input,
+    code: state.country.code
 })
 
 export default connect(mapStateToProps)(Login);
