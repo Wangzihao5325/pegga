@@ -43,7 +43,7 @@ class Chat extends Component {
             if (content.data && content.data.length > 999) {
                 content.data = content.data.substr(0, 100) + "...";
             }
-            console.log(message);
+            //console.log(message);
             if (message.message.targetId == this.state.targetId) {
                 this.setState({ messages: [...this.state.messages, message.message] }, () => {
                     this.list.scrollToEnd({ animated: true });

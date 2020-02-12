@@ -7,6 +7,7 @@ import {
     TextInput,
     Text,
     Button,
+    Image,
     FlatList,
     View,
     TouchableHighlight
@@ -39,16 +40,40 @@ class Item extends Component {
             default:
                 break;
         }
-        let subName = name.substr(0, 1);
+        //let subName = name.substr(0, 1);
         return (
-            <TouchableHighlight style={{ height: 70, width: Dimensions.get('window').width, paddingHorizontal: 15 }} onPress={this.props.callback}>
-                <View style={{ height: 70, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', borderBottomColor: '#DADCE0', borderBottomWidth: 1 }}>
-                    <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.avater}>
-                        <Text style={{ color: 'white', fontSize: 24 }}>{`${subName}`}</Text>
-                    </LinearGradient>
-                    <View style={{ flex: 1, flexDirection: 'column', paddingVertical: 2, justifyContent: 'flex-start',paddingLeft:8 }}>
+            <TouchableHighlight style={{ height: 70, width: Dimensions.get('window').width, paddingHorizontal: 15 }} onPress={this.props.callback} underlayColor='transparent'>
+                <View style={{ height: 70, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', borderBottomColor: '#F8F9FB', borderBottomWidth: 1 }}>
+                    <Image style={styles.avater} source={require('../../../image/usual/group_avater.png')} />
+                    <View style={{ flex: 1, flexDirection: 'column', paddingVertical: 2, justifyContent: 'flex-start', paddingLeft: 8 }}>
                         <Text>{`${name}`}</Text>
                     </View>
+                </View>
+            </TouchableHighlight>
+        );
+    }
+}
+
+class CustomItem extends Component {
+    render() {
+        let name = ''
+        switch (this.props.item.type) {
+            case ConversationType.PRIVATE:
+                name = this.props.item.nickName;
+                break;
+            case ConversationType.GROUP:
+                name = this.props.item.name;
+                break;
+            default:
+                break;
+        }
+        //let subName = name.substr(0, 1);
+        let imageSource = this.props.index % 2 == 0 ? require('../../../image/usual/tx_g.png') : require('../../../image/usual/tx_b.png');
+        return (
+            <TouchableHighlight style={{ height: 100, width: 80 }} onPress={this.props.callback} underlayColor='transparent'>
+                <View style={{ height: 100, width: 80, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Image style={[styles.avater, { height: 55, width: 55 }]} source={imageSource} />
+                    <Text style={{ marginTop: 10, fontSize: 13, color: 'rgb(49,56,73)', fontFamily: 'PingFang-SC-Medium' }}>{`${name}`}</Text>
                 </View>
             </TouchableHighlight>
         );
@@ -68,7 +93,9 @@ class Chat extends Component {
         status: 0,
         token: this.props.token,
 
-        data: []
+        data: [],
+        customData: [],
+        groupData: [],
     };
 
     componentDidMount() {
@@ -110,7 +137,7 @@ class Chat extends Component {
     getCon = async () => {
         const conversation = await getConversationList([ConversationType.GROUP], 10, 0);
         const con = await getConversation(ConversationType.GROUP, 'aaa');
-        console.log(con);
+        //console.log(con);
     }
 
     listDataFetch = async () => {
@@ -131,13 +158,15 @@ class Chat extends Component {
 
             let data = serviceListData.concat(groupListData);
             this.setState({
-                data
+                data,
+                customData: serviceListData,
+                groupData: groupListData
             });
         }
     }
 
     render() {
-        const { status, message, token } = this.state;
+        //const { status, message, token } = this.state;
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
@@ -156,8 +185,17 @@ class Chat extends Component {
                 <Text style={styles.message}>连接状态监听：{status}</Text>
                 <Button title='聊天' onPress={this.toChat} />
                 <Button title='con' onPress={this.getCon} /> */}
+                <View style={{ height: 100, width: Dimensions.get('window').width, backgroundColor: '#F3F5F9' }}>
+                    <FlatList
+                        //
+                        data={this.state.customData}
+                        horizontal={true}
+                        renderItem={({ item, index }) => <CustomItem index={index} item={item} callback={() => this.toChat(item)} />}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
                 <FlatList
-                    data={this.state.data}
+                    data={this.state.groupData}
                     renderItem={({ item }) => <Item item={item} callback={() => this.toChat(item)} />}
                     keyExtractor={(item, index) => index.toString()}
                 />
