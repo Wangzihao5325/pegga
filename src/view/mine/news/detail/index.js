@@ -17,19 +17,32 @@ export default class Invite extends Component {
         }
     };
 
+    state = {
+        id: null
+    }
+
+    componentDidMount() {
+        const id = this.props.navigation.getParam('id', null);
+        this.setState({
+            id
+        });
+    }
+
     render() {
-        let uri = `${Config.SERVICE_URL.invite}?t=${Variables.account.token}`
+        let uri = `${Config.SERVICE_URL.invite}message?t=${Variables.account.token}&id=${this.state.id}`
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
                     title='消息详情'
                     goback={() => this.props.navigation.goBack()}
                 />
-                <WebView
-                    ref={webView => this.webView = webView}
-                    source={{ uri }}
-                    style={{ width: Dimensions.get('window').width }}
-                />
+                {Boolean(this.state.id) &&
+                    <WebView
+                        ref={webView => this.webView = webView}
+                        source={{ uri }}
+                        style={{ width: Dimensions.get('window').width }}
+                    />
+                }
             </SafeAreaView>
         );
     }
