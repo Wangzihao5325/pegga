@@ -189,6 +189,14 @@ class AddAppeal extends Component {
         Toast.show('申诉内容上传中，请耐心等待');
 
         let refStateData = this.imageUpload.state.imageSelectData;
+        if (!Reg.inputText || (typeof Reg.inputText == 'string' && Reg.inputText.length == 0)) {
+            Toast.show('请阐述申诉理由');
+            return;
+        }
+        if (refStateData.length < 3) {
+            Toast.show('请至少上传2张证据图');
+            return;
+        }
         let imageUrlArrReg = await Promise.all(refStateData.map(async (item) => {
             if (item.size > 0) {
                 let imageUrl = await Api.imageUploadPromise(item);

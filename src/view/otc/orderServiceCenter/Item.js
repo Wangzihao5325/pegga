@@ -36,7 +36,7 @@ export default class Item extends PureComponent {
         let payTypeIcon = '';
         let realName = this.props.item.payTypeNick ? this.props.item.payTypeNick : '';
         if (this.props.item.payType != null) {
-            switch (this.props.payType) {
+            switch (this.props.item.payType) {
                 case 0:
                     payTypeIcon = require('../../../image/otc/payment/pay_alipay.png');
                     break;
