@@ -9,6 +9,8 @@ import Item from '../../otc/tradingHall/newAd/Item';
 import Value2Str from '../../../global/util/MapValue2Str';
 import EvidenceItem from './EvidenceItem';
 import LinearGradient from 'react-native-linear-gradient';
+import { connect } from 'react-redux';
+import { NavigationEvents } from 'react-navigation';
 
 function AppealInfo(props) {
     let beforeStatusTextArr = Value2Str.orderStateTextWithStyle(props.orderStatusBeforeAppeal, 13);
@@ -198,7 +200,7 @@ function EvidenceInfo(props) {
     );
 }
 
-export default class Appeal extends Component {
+class Appeal extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -247,7 +249,7 @@ export default class Appeal extends Component {
 
     }
 
-    componentDidMount() {
+    naviDidFocus = () => {
         const orderId = this.props.navigation.getParam('orderId', '');
         //const orderType = this.props.navigation.getParam('orderType', 0);
         if (orderId) {
@@ -264,9 +266,13 @@ export default class Appeal extends Component {
     }
 
     render() {
-        let btnText = (this.state.targetAppeal || this.state.resubmit) ? '上传证据' : '返回首页';
+        //let btnText = (this.state.targetAppeal || this.state.resubmit) ? '上传证据' : '返回首页';
+        let btnText = '上传证据';
         return (
             <SafeAreaView style={styles.safeContainer}>
+                <NavigationEvents
+                    onDidFocus={this.naviDidFocus}
+                />
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2' }}>
                     <View style={{ backgroundColor: 'white' }}>
                         <Header.Normal title='申诉详情' goback={() => this.props.navigation.goBack()} />
@@ -363,13 +369,19 @@ export default class Appeal extends Component {
     }
 
     btnPress = () => {
-        if (this.state.targetAppeal || this.state.resubmit) {
+        if (this.props.info.uuid == this.state.sourceNo) {
+            this.props.navigation.navigate('AddAppeal', { type: 'source', orderId: this.state.orderNo });
+        } else if (this.props.info.uuid == this.state.targetNo) {
             this.props.navigation.navigate('AddAppeal', { type: 'target', orderId: this.state.orderNo, sourceNo: this.state.sourceNo, targetNo: this.state.targetNo });
-        } else {
-            this.props.navigation.goBack();
         }
     }
 }
+
+const mapStateToProps = (state) => ({
+    info: state.user.info
+})
+
+export default connect(mapStateToProps)(Appeal);
 
 const styles = StyleSheet.create({
     safeContainer: {
