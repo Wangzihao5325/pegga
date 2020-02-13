@@ -535,11 +535,10 @@ class api {
     }
 
     async imageUploadPromise(dataObj) {
+        let sourceUrl = dataObj.sourceURL ? dataObj.sourceURL : dataObj.path;
         let fullUrl = Config.SERVICE_URL.imageDomain;
-
         let headers = { 'Content-Type': 'multipart/form-data' };
-
-        let file = { uri: Platform.OS == 'ios' ? dataObj.sourceURL : dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
+        let file = { uri: Platform.OS == 'ios' ? sourceUrl : dataObj.path, name: 'upload_image.jpg', type: dataObj.mime };
         let formData = new FormData();
         formData.append('file', file);
         let obj = { method: 'POST', headers: headers, body: formData };
