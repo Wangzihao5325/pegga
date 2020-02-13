@@ -178,24 +178,26 @@ function OrderInfo(props) {//payType
 function EvidenceInfo(props) {
     return (
         <View style={{ flex: 1 }}>
-            {typeof props.sellerAppealReason == 'string' &&
-                <EvidenceItem
-                    role='卖方'
-                    name={props.sellerName}
-                    time={props.sellerAppealTime}
-                    context={props.sellerAppealReason}
-                    images={props.sellerAppealPics}
-                />
-            }
-            {typeof props.buyerAppealReason == 'string' &&
-                <EvidenceItem
-                    role='买方'
-                    name={props.buyerName}
-                    time={props.buyerAppealTime}
-                    context={props.buyerAppealReason}
-                    images={props.buyerAppealPics}
-                />
-            }
+            <KeyboardAwareScrollView>
+                {typeof props.sellerAppealReason == 'string' &&
+                    <EvidenceItem
+                        role='卖方'
+                        name={props.sellerName}
+                        time={props.sellerAppealTime}
+                        context={props.sellerAppealReason}
+                        images={props.sellerAppealPics}
+                    />
+                }
+                {typeof props.buyerAppealReason == 'string' &&
+                    <EvidenceItem
+                        role='买方'
+                        name={props.buyerName}
+                        time={props.buyerAppealTime}
+                        context={props.buyerAppealReason}
+                        images={props.buyerAppealPics}
+                    />
+                }
+            </KeyboardAwareScrollView>
         </View>
     );
 }
