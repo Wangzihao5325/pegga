@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
 
 function AppealInfo(props) {
-    let beforeStatusTextArr = Value2Str.orderStateTextWithStyle(props.orderStatusBeforeAppeal, 13);
+    let beforeStatusTextArr = Value2Str.orderStateTextWithStyle(props.orderStatusBeforeAppeal, 13, props.resubmit);
     let appealTypeText = Value2Str.appealStatusText(props.appealType);
     return (
         <View style={{ flex: 1, backgroundColor: 'white', marginTop: 10, alignItems: 'center' }}>
@@ -304,6 +304,7 @@ class Appeal extends Component {
                             targetPhone={this.state.targetPhone}
                             orderStatusBeforeAppeal={this.state.orderStatusBeforeAppeal}
                             appealType={this.state.appealType}
+                            resubmit={this.state.resubmit}
                         />
                     }
                     {this.state.type == 'order' &&

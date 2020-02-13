@@ -30,7 +30,7 @@ const CustomizeBtnArea = (props) => {
 export default class Item extends PureComponent {
     render() {
         let tradeTypeStr = Utils.mapValue2Str.tradeType(this.props.item.orderType);
-        let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.item.orderStatus, 15);
+        let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.item.orderStatus, 15, this.props.item.reject);
         let labelType = this.props.item.isMatch ? 'green' : 'blue';
         let labelTitle = this.props.item.isMatch ? 'TOB' : 'TOC';
         let payTypeIcon = '';

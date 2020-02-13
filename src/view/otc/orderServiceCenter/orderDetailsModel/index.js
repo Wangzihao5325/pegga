@@ -800,7 +800,8 @@ export default class OrderDetail extends Component {
         isMatch: false,
         timeout: 0,
         payType: null,
-        payTypeNick: null
+        payTypeNick: null,
+        resubmit: false
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -833,7 +834,8 @@ export default class OrderDetail extends Component {
                 realName: result.realName,
                 account: result.account,
                 payType: result.payType,
-                payTypeNick: result.payTypeNick
+                payTypeNick: result.payTypeNick,
+                resubmit: result.resubmit
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -940,6 +942,7 @@ export default class OrderDetail extends Component {
                         tradeMemo={this.state.tradeMemo}
                         orderType={this.state.orderType}
                         payTypeNick={this.state.payTypeNick}
+                        resubmit={this.state.resubmit}
                     />
                     <PaymentSelect
                         adId={this.state.adId}

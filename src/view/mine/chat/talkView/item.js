@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Image, Text, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
 import {
     ObjectName
 } from "rongcloud-react-native-imlib";
+import NavigationService from '../../../../app/router/NavigationService';
+
+const WIDTH = Dimensions.get('window').width - 60;
+const HEIGHT = Dimensions.get('window').height - 200;
 
 class Item extends Component {
+    imageDetail = (url) => {
+        NavigationService.navigate('ImageDetail', { uri: url, height: HEIGHT, width: WIDTH });
+    }
     render() {
         let extra = this.props.item.content.extra ? JSON.parse(this.props.item.content.extra) : {};
         if (extra.userId !== this.props.userId) {
@@ -24,7 +31,11 @@ class Item extends Component {
                         </View>
                         <View style={[containerStyle, { backgroundColor: 'white' }]}>
                             {this.props.item.content.objectName == ObjectName.Text && <Text style={[styles.words, { color: 'rgb(40,46,60)' }]}>{`${this.props.item.content.content}`}</Text>}
-                            {this.props.item.content.objectName == ObjectName.Image && <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.content.remote }} />}
+                            {this.props.item.content.objectName == ObjectName.Image &&
+                                <TouchableOpacity onPress={() => this.imageDetail(this.props.item.content.remote)}>
+                                    <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.content.remote }} />
+                                </TouchableOpacity>
+                            }
                         </View>
                     </View>
                 </View>
@@ -38,7 +49,11 @@ class Item extends Component {
                     <View style={[styles.container, { justifyContent: 'flex-end' }]}>
                         <View style={[containerStyle, { backgroundColor: 'rgb(97,130,236)' }]}>
                             {this.props.item.content.objectName == ObjectName.Text && < Text style={[styles.words, { color: 'white' }]}>{`${this.props.item.content.content}`}</Text>}
-                            {this.props.item.content.objectName == ObjectName.Image && <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.content.remote }} />}
+                            {this.props.item.content.objectName == ObjectName.Image &&
+                                <TouchableOpacity onPress={() => this.imageDetail(this.props.item.content.remote)}>
+                                    <Image style={{ width: 120, height: 175, borderRadius: 5 }} source={{ uri: this.props.item.content.remote }} />
+                                </TouchableOpacity>
+                            }
                         </View>
                         <View style={{ height: 40, width: 10, justifyContent: 'center', alignItems: 'flex-start' }}>
                             {this.props.item.content.objectName == ObjectName.Text && <Image style={{ height: 12, width: 6 }} source={require('../../../../image/mine/triangle_blue.png')} />}

@@ -30,7 +30,7 @@ export default class ImageDetailModel extends Component {
             <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => this.props.navigation.goBack()}>
                 <SafeAreaView style={styles.container}>
                     {this.state.uri &&
-                        <Image style={{ height: this.state.height, width: this.state.width }} source={{ uri: this.state.uri }} />
+                        <Image style={{ height: this.state.height, width: this.state.width, borderRadius: 5 }} source={{ uri: this.state.uri }} />
                     }
                 </SafeAreaView>
             </TouchableWithoutFeedback>

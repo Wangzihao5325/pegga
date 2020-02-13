@@ -1,15 +1,23 @@
 import React, { PureComponent } from 'react';
-import { View, Dimensions, Text, Image, StyleSheet } from 'react-native';
+import { View, Dimensions, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import NavigationService from '../../../app/router/NavigationService';
 
+const WIDTH = Dimensions.get('window').width - 60;
+const HEIGHT = Dimensions.get('window').height - 200;
 function ImageItem(props) {
     return (
         <View style={{ height: 85, width: 95, justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ height: 85, width: 85, borderColor: '#EAEAEA', borderWidth: 1 }} source={{ uri: props.item }} />
+            <TouchableOpacity onPress={props.imageClick}>
+                <Image style={{ height: 85, width: 85, borderColor: '#EAEAEA', borderWidth: 1 }} source={{ uri: props.item }} />
+            </TouchableOpacity>
         </View>
     );
 }
 
 export default class EvidenceItem extends PureComponent {
+    imageDetail = (url) => {
+        NavigationService.navigate('ImageDetail', { uri: url, height: HEIGHT, width: WIDTH });
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -25,7 +33,7 @@ export default class EvidenceItem extends PureComponent {
                     {
                         this.props.images.map((item) => {
                             return (
-                                <ImageItem key={item} item={item} />
+                                <ImageItem key={item} item={item} imageClick={() => this.imageDetail(item)} />
                             );
                         })
                     }

@@ -50,7 +50,7 @@ class Value2Str {
         }
     }
 
-    orderStateTextWithStyle = (stateCode, fontSize) => {
+    orderStateTextWithStyle = (stateCode, fontSize, isReject) => {
         let stateText = '';
         let stateTextStyle = { fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold', fontSize: fontSize, color: 'rgb(242,106,58)' };
         switch (stateCode) {
@@ -62,7 +62,7 @@ class Value2Str {
                 break;
             case 2:
                 stateText = '取消';
-                stateTextStyle.color = 'rgb(179,179,179)'
+                stateTextStyle.color = 'rgb(179,179,179)';
                 break;
             case 4:
                 stateText = '已确认收款';
@@ -72,7 +72,7 @@ class Value2Str {
                 break;
             case 6:
                 stateText = '申诉中';
-                stateTextStyle.color = 'rgb(64,99,213)'
+                stateTextStyle.color = 'rgb(64,99,213)';
                 break;
             case 7:
                 stateText = '支付超时';
@@ -85,6 +85,10 @@ class Value2Str {
                 break;
             default:
                 break;
+        }
+        if (isReject) {
+            stateText = '被驳回';
+            stateTextStyle.color = 'rgb(64,99,213)';
         }
         return { stateText, stateTextStyle };
     }

@@ -5,7 +5,7 @@ import Utils from '../../../../global/util';
 
 export default class AssetsInfo extends PureComponent {
     render() {
-        let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.payState, 18);
+        let { stateText, stateTextStyle } = Utils.mapValue2Str.orderStateTextWithStyle(this.props.payState, 18, this.props.resubmit);
         let labelType = this.props.isMatch ? 'green' : 'blue';
         let labelTitle = this.props.isMatch ? 'TOB' : 'TOC';
         let payTypeIcon = '';
