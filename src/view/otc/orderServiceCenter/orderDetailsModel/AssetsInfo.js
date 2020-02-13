@@ -58,7 +58,7 @@ export default class AssetsInfo extends PureComponent {
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Text style={styles.title}>真实姓名</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Image style={{ height: 18, width: 18, marginRight: 5 }} source={payTypeIcon} />
+                                {this.props.payType != null && <Image style={{ height: 18, width: 18, marginRight: 5 }} source={payTypeIcon} />}
                                 <Text style={styles.context}>{this.props.realName ? `${this.props.realName}` : '暂无'}</Text>
                             </View>
                         </View>
