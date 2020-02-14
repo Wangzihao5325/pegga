@@ -29,11 +29,11 @@ class Chat extends Component {
     state = {
         conversationType: null,
         targetId: null,
-        targetName:'',
+        targetName: '',
         userId: null,
         messageType: "",
         oldestMessageId: "-1",
-        count: "10",
+        count: "1000",
         messages: []
     }
 
@@ -43,10 +43,9 @@ class Chat extends Component {
             if (content.data && content.data.length > 999) {
                 content.data = content.data.substr(0, 100) + "...";
             }
-            //console.log(message);
             if (message.message.targetId == this.state.targetId) {
                 this.setState({ messages: [...this.state.messages, message.message] }, () => {
-                    this.list.scrollToEnd({ animated: true });
+                    setTimeout(() => { this.list.scrollToEnd({ animated: true }) }, 1000)
                 });
             }
         });
@@ -67,10 +66,14 @@ class Chat extends Component {
         if (originMessages.length > 0) {
             nowOldestMessageId = originMessages[originMessages.length - 1].messageId
         }
-        this.setState({ messages, oldestMessageId: `${nowOldestMessageId}` });
+        this.setState({ messages, oldestMessageId: `${nowOldestMessageId}` }, () => {
+            setTimeout(() => {
+                this.list.scrollToEnd({ animated: true });
+            }, 1000);
+        });
     }
 
-    _appendMessage = async (messageId) => {
+    _appendHistoryMessage = async () => {
         const { conversationType, targetId, messageType, count } = this.state;
         const originMessages = await getHistoryMessages(
             conversationType,
@@ -87,10 +90,31 @@ class Chat extends Component {
                 return false
             }
         });
-        let messages = this.state.messages.concat(filterMsgs);
-        this.setState({ messages, oldestMessageId: `${messageId}` },
+    }
+
+    _appendMessage = async (messageId) => {
+        const { conversationType, targetId, messageType, count } = this.state;
+        const originMessages = await getHistoryMessages(
+            conversationType,
+            targetId,
+            messageType,
+            parseInt('-1'),
+            parseInt('10')
+        );
+        let originMessagesRe = originMessages.reverse();
+        let filterMsgs = originMessagesRe.filter((item) => {
+            if (item.messageId >= messageId) {
+                return true
+            } else {
+                return false
+            }
+        });
+        //let messages = this.state.messages.concat(filterMsgs);
+        this.setState({ messages: [...this.state.messages, ...filterMsgs], oldestMessageId: `${messageId}` },
             () => {
-                this.list.scrollToEnd({ animated: true });
+                setTimeout(() => {
+                    this.list.scrollToEnd({ animated: true });
+                }, 1000);
             });
     }
 
