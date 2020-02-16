@@ -37,12 +37,13 @@ export default class BottomInput extends PureComponent {
         value: ''
     }
     render() {
+        let btnImage = this.state.isShow ? require('../../../../image/customService/close.png') : require('../../../../image/customService/function.png');
         return (
             <View>
                 <View style={styles.container}>
                     <TextInput style={styles.input} value={this.state.value} onChangeText={this.textChange} returnKeyType='done' />
                     <TouchableHighlight style={styles.btn} onPress={this.tabsShow} underlayColor='transparent'>
-                        <Image style={{ height: 33, width: 33 }} source={require('../../../../image/customService/function.png')} />
+                        <Image style={{ height: 33, width: 33 }} source={btnImage} />
                     </TouchableHighlight>
                     {Boolean(this.state.value) &&
                         <TouchableHighlight style={styles.sendBtn} onPress={this.submit} underlayColor='transparent'>
@@ -93,8 +94,10 @@ export default class BottomInput extends PureComponent {
     }
 
     tabsShow = () => {
-        this.setState({
-            isShow: true
+        this.setState((preState) => {
+            return ({
+                isShow: !preState.isShow
+            });
         });
     }
 
