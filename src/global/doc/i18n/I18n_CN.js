@@ -118,6 +118,7 @@ const HELP_CENTER = '帮助中心';
 const ABOUT_US = '关于我们';
 const SETTINGS = '设置';
 const PERSONAL = '个人中心';
+const CUSTOM_CHAT = '聊天';
 
 //payment 
 const PAY_TITLE = '支付管理';
@@ -402,8 +403,9 @@ const CODE_ALIPAY_UUID_NOT_EXIST = '支付宝uuid未找到';
 const CODE_PHONE_ERROR = '手机号格式错误';
 const CODE_ID_NUMBER_ERROR = '身份证号码格式错误';
 const CODE_BACK_CARD_ERROR = '银行卡号格式错误';
-const CODE_NO_TRADE_PASSWORD2 = '请先设置交易密码';
+const CODE_NO_TRADE_PASSWORD2 = '请先前往安全中心设置资金密码';
 const CODE_USER_ACTIVE_ERROR = '您的账号已被冻结';
+const ORIGIN_PASSWORD_ERROR = '原密码输入错误';
 const CODE_ERROR = '错误';
 
 const CODE_USER_NOT_EXIST = '用户不存在';
@@ -448,6 +450,7 @@ const PAY_VOUCHER_NOT_NULL = '请上传支付凭证';
 const PARAMETER_ERROR = '缺少必要参数';
 const UNKNOW_ERROR = '未知错误';
 const VISITOR_ERROR = '请先绑定收款方式';
+const CAN_NOT_CANCEL_ORDER = '不能取消该订单';
 
 const ALIPAY_REALNAME_BLANK = '真实姓名不能为空';
 const ALIPAY_TRADE_PASSWORD_BLANK = '交易密码不能为空';
@@ -491,6 +494,7 @@ const ID_CARD_HAND_BLANK = '手持身份证不能为空';
 const USER_UUID_BLANK = '用户ID不能为空';
 const PAY_TYPE_BLANK = '支付方式不能为空';
 const RETURN_RATE_BLANK = '返佣比例不能为空';
+const EMAIL_TYPE_ERROR = '邮箱格式错误';
 
 const AMOUNT_BLANK1 = '金额不能为空';
 const PAY_TYPE_NULL = '支付方式不能为空';
@@ -623,6 +627,7 @@ export default {
     ABOUT_US,
     SETTINGS,
     PERSONAL,
+    CUSTOM_CHAT,
 
     PAY_TITLE,
     PAY_ALIPAY,
@@ -897,6 +902,7 @@ export default {
     CODE_BACK_CARD_ERROR,
     CODE_NO_TRADE_PASSWORD2,
     CODE_USER_ACTIVE_ERROR,
+    ORIGIN_PASSWORD_ERROR,
     CODE_ERROR,
 
     CODE_USER_NOT_EXIST,
@@ -940,6 +946,7 @@ export default {
     PARAMETER_ERROR,
     UNKNOW_ERROR,
     VISITOR_ERROR,
+    CAN_NOT_CANCEL_ORDER,
 
     ALIPAY_REALNAME_BLANK,
     ALIPAY_TRADE_PASSWORD_BLANK,
@@ -983,6 +990,7 @@ export default {
     USER_UUID_BLANK,
     PAY_TYPE_BLANK,
     RETURN_RATE_BLANK,
+    EMAIL_TYPE_ERROR,
 
     AMOUNT_BLANK1,
     PAY_TYPE_NULL,

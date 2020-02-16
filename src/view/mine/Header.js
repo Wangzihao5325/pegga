@@ -25,13 +25,14 @@ class Header extends PureComponent {
                     >
                         <Image style={styles.topIconBtn} source={newsImage} />
                     </TouchableHighlight>
-                    <TouchableHighlight
+                    <View style={[styles.topIconBtn, { marginRight: 15 }]} />
+                    {/* <TouchableHighlight
                         style={[styles.topIconBtn, { marginRight: 15 }]}
                         onPress={this.props.toService}
                         underlayColor='transparent'
                     >
                         <Image style={styles.topIconBtn} source={require('../../image/mine/service.png')} />
-                    </TouchableHighlight>
+                    </TouchableHighlight> */}
                 </View>
 
                 <TouchableHighlight style={styles.avater} onPress={this.props.toInfo} underlayColor='transparent'>

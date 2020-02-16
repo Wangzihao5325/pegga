@@ -200,10 +200,15 @@ class BuyIn extends Component {
     }
 
     coinNumChange = (value) => {
+        let coin = parseFloat(value);
+        let money = parseFloat((coin * this.state.price).toFixed(8));
+        if (coin > 99999999 || money > 99999999) {
+            return;
+        }
         if (value || value.length > 0) {
             this.setState({
                 coinNum: value,
-                moneyNum: `${parseFloat((parseFloat(value) * this.state.price).toFixed(8))}`
+                moneyNum: `${money}`
             });
         } else {
             this.setState({

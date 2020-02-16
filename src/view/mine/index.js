@@ -101,11 +101,16 @@ class Mine extends Component {
                             btnPress={this.goToIdentity}
                         />
                         <Item
+                            bottomLine
                             title={I18n.PAYMENT_MANAGEMENT}
                             avater={require('../../image/mine/pay_manage.png')}
                             btnPress={() => this.navigate('PayManager')}
                         />
-
+                        <Item
+                            title={I18n.CUSTOM_CHAT}
+                            avater={require('../../image/mine/custom_chat.png')}
+                            btnPress={() => this.navigate('IMChat')}
+                        />
                         <Item
                             margin
                             title={I18n.MERCHANT_CERTIFICATION}

@@ -516,6 +516,9 @@ class NewAd extends Component {
     }
 
     tradeNumTextChange = (value) => {
+        if (value.length > 8) {
+            return
+        }
         this.setState({
             inputTradeNum: value
         });

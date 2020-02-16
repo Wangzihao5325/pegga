@@ -303,6 +303,8 @@ const ErrorCodeToast = (code) => {
             break;
         case 50055:
             toastStr = I18n.VISITOR_ERROR;
+        case 50061:
+            toastStr = I18n.VISITOR_ERROR;
             break;
         case 30001:
             toastStr = I18n.CODE_TRADE_PASSWORD_ERROR_LOCK;
@@ -468,6 +470,9 @@ const ErrorCodeToast = (code) => {
             break;
         case 30056:
             toastStr = I18n.CODE_USER_ACTIVE_ERROR;
+            break;
+        case 30066:
+            toastStr = I18n.ORIGIN_PASSWORD_ERROR;
             break;
         case 31000:
             toastStr = I18n.CODE_ERROR;
@@ -690,6 +695,9 @@ const ErrorCodeToast = (code) => {
             break;
         case 90042:
             toastStr = I18n.RETURN_RATE_BLANK;
+            break;
+        case 90043:
+            toastStr = I18n.EMAIL_TYPE_ERROR;
             break;
         case 6003:
             toastStr = I18n.AMOUNT_BLANK1;

@@ -7,7 +7,10 @@ const HEIGHT = WIDTH / 160 * 90;
 export default class ImageUpload extends PureComponent {
     render() {
         if (this.props.value) {
-            let uri = Platform.OS == 'ios' ? this.props.value.sourceURL : this.props.value.path;
+            let uri = this.props.value.path;
+            if (Platform.OS === 'ios') {
+                uri = this.props.value.sourceURL ? this.props.value.sourceURL : this.props.value.path;
+            }
             return (
                 <View style={{ height: HEIGHT, width: WIDTH, position: 'relative' }}>
                     <Image style={{ height: HEIGHT, width: WIDTH, borderRadius: 5 }} source={{ uri }} />
