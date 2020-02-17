@@ -324,7 +324,7 @@ class BuyIn extends Component {
             amount: parseFloat(this.state.coinNum),
             legalAmount: parseFloat(this.state.moneyNum),
             payType: this.state.tradeType === 0 ? payType : null,
-            assetsPassword: this.state.assetsPassword
+            tradePassword: this.state.assetsPassword
         }, (result) => {
             this.setState({
                 isBuying: false
