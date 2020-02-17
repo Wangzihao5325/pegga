@@ -350,6 +350,6 @@ const AppContainer = createAppContainer(createSwitchNavigator(
     }
 ));
 
-init("p5tvi9dspqhm4");
+init("n19jmcy5n0sl9");
 
 export default AppContainer;
