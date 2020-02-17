@@ -65,8 +65,8 @@ const ItemHeader = (props) => {
     return (
         <ImageBackground style={styles.headerContainer} source={imageSource}>
             <Text style={styles.title}>{`${titleText}`}</Text>
-            <Text style={[styles.info, { marginTop: 30 }]}>{`可用余额: ${props.applyInfoData.balance} ${props.applyInfoData.token}`}</Text>
-            <Text style={[styles.info, { marginTop: 10 }]}>{`${payTitle}: ${props.applyInfoData.activeBalance} ${props.applyInfoData.token}`}</Text>
+            <Text style={[styles.info, { marginTop: 30 }]}>{`可用余额: ${props.applyInfoData.balance} 点卡`}</Text>
+            <Text style={[styles.info, { marginTop: 10 }]}>{`${payTitle}: ${props.applyInfoData.activeBalance} 点卡`}</Text>
             <Btn.Normal style={[styles.btn, btnStyle]} textStyle={[styles.btnText, btnTextStyle]} btnPress={() => props.callback(props.pageType, props.pageState, props.applyInfoData)} title={btnText} />
         </ImageBackground>
     );
