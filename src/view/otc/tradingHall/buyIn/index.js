@@ -48,7 +48,8 @@ class BuyIn extends Component {
         isBuying: false,
         myPayTypeData: {},
         myPayType: {},
-        myDefaultCPayType: {}
+        myDefaultCPayType: {},
+        assetsPassword: ''
     }
 
     _rateCal = (failed, end) => {
@@ -141,6 +142,16 @@ class BuyIn extends Component {
                                 coinNumCallback={this.coinNumChange}
                             //moneyNumCallback={this.moneyNumChange}
                             />
+                            <View style={{ backgroundColor: 'white', width: Dimensions.get('window').width - 30, borderRadius: 5, marginTop: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                <Item.Input
+                                    secureTextEntry={true}
+                                    title='资金密码'
+                                    placeholder='请输入资金密码'
+                                    value={this.state.assetsPassword}
+                                    callback={this.assetsPasswordTextChange}
+                                    inputStyle={{ color: 'rgb(133,133,133)' }}
+                                />
+                            </View>
                             {this.state.tradeType === 0 &&
                                 <View style={{ backgroundColor: 'white', width: Dimensions.get('window').width - 30, borderRadius: 5, marginTop: 10, justifyContent: 'center', alignItems: 'center' }}>
                                     <Item.SelectType2
@@ -163,6 +174,12 @@ class BuyIn extends Component {
                 </View>
             </SafeAreaView>
         );
+    }
+
+    assetsPasswordTextChange = (value) => {
+        this.setState({
+            assetsPassword: value
+        })
     }
 
     payTypeSelect = () => {
@@ -226,6 +243,10 @@ class BuyIn extends Component {
     }
 
     buyIn = () => {
+        if ((typeof this.state.assetsPassword == 'string' && this.state.assetsPassword.length == 0) || !this.state.assetsPassword) {
+            Toast.show('请输入支付密码!');
+            return;
+        }
         if (this.state.isBuying) {
             Toast.show(I18n.CLICK_TOO_FAST);
             return;
@@ -302,7 +323,8 @@ class BuyIn extends Component {
             advertiseNo: this.state.id,
             amount: parseFloat(this.state.coinNum),
             legalAmount: parseFloat(this.state.moneyNum),
-            payType: this.state.tradeType === 0 ? payType : null
+            payType: this.state.tradeType === 0 ? payType : null,
+            assetsPassword: this.state.assetsPassword
         }, (result) => {
             this.setState({
                 isBuying: false

@@ -214,10 +214,10 @@ class AliPay extends Component {
                     value={this.state.accountNickName}
                     callback={this.stateUpdate('accountNickName')}
                 />
-                <UIDComponent
+                {/* <UIDComponent
                     value={this.state.uuid}
                     callback={this.stateUpdate('uuid')}
-                />
+                /> */}
                 {/* <ItemInput
                     isControl
                     title='支付宝uuid'
