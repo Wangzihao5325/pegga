@@ -120,7 +120,7 @@ class Chat extends Component {
         );
 
     toChat = (item) => {
-        let name = ''
+        let name = '';
         switch (item.type) {
             case ConversationType.PRIVATE:
                 name = item.nickName;
