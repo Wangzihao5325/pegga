@@ -140,7 +140,7 @@ class BuyIn extends Component {
                                 coinNum={this.state.coinNum}
                                 moneyNum={this.state.moneyNum}
                                 coinNumCallback={this.coinNumChange}
-                            //moneyNumCallback={this.moneyNumChange}
+                                moneyNumCallback={this.moneyNumChange}
                             />
                             <View style={{ backgroundColor: 'white', width: Dimensions.get('window').width - 30, borderRadius: 5, marginTop: 10, justifyContent: 'center', alignItems: 'center' }}>
                                 <Item.Input
@@ -214,6 +214,25 @@ class BuyIn extends Component {
     goToSellerInfo = () => {
         let sellerInfoStr = JSON.stringify({ buyerNo: this.state.userNo, sellerNo: this.state.userNo });
         this.props.navigation.navigate('OTC_SellerDetailInfo', { sellerInfoStr });
+    }
+
+    moneyNumChange = (value) => {
+        let money = parseFloat(value);
+        let coin = parseFloat((money / this.state.price).toFixed(8));
+        if (coin > 99999999 || money > 99999999) {
+            return;
+        }
+        if (value || value.length > 0) {
+            this.setState({
+                coinNum: `${coin}`,
+                moneyNum: value
+            });
+        } else {
+            this.setState({
+                coinNum: '',
+                moneyNum: ''
+            });
+        }
     }
 
     coinNumChange = (value) => {
