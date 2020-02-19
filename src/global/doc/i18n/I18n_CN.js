@@ -119,6 +119,7 @@ const ABOUT_US = '关于我们';
 const SETTINGS = '设置';
 const PERSONAL = '个人中心';
 const CUSTOM_CHAT = '聊天';
+const INVITE_LIST = '我的邀请';
 
 //payment 
 const PAY_TITLE = '支付管理';
@@ -628,6 +629,7 @@ export default {
     SETTINGS,
     PERSONAL,
     CUSTOM_CHAT,
+    INVITE_LIST,
 
     PAY_TITLE,
     PAY_ALIPAY,

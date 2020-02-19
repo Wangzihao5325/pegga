@@ -119,6 +119,7 @@ const ABOUT_US = 'About Us';
 const SETTINGS = 'Settings';
 const PERSONAL = 'Personal';
 const CUSTOM_CHAT = 'Chat';
+const INVITE_LIST = 'Invite List';
 
 //payment 
 const PAY_TITLE = 'Payment';
@@ -629,6 +630,7 @@ export default {
     SETTINGS,
     PERSONAL,
     CUSTOM_CHAT,
+    INVITE_LIST,
 
     PAY_TITLE,
     PAY_ALIPAY,

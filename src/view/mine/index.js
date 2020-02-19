@@ -107,6 +107,12 @@ class Mine extends Component {
                             btnPress={() => this.navigate('PayManager')}
                         />
                         <Item
+                            bottomLine
+                            title={I18n.INVITE_LIST}
+                            avater={require('../../image/mine/Invitation_list.png')}
+                            btnPress={() => this.navigate('InviteList')}
+                        />
+                        <Item
                             title={I18n.CUSTOM_CHAT}
                             avater={require('../../image/mine/custom_chat.png')}
                             btnPress={() => this.navigate('IMChat')}
