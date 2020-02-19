@@ -1094,11 +1094,16 @@ export default class OrderDetail extends Component {
     }
 
     sellerConfirm = () => {
-        this.props.navigation.navigate('PopModel', {
-            confirm: () => this._sellerConfirmcallback(),
-            confirmText: '确认',
-            title: '收款确认',
-            context: '是否确认已经收到对方支付的钱款'
+        // this.props.navigation.navigate('PopModel', {
+        //     confirm: () => this._sellerConfirmcallback(),
+        //     confirmText: '确认',
+        //     title: '收款确认',
+        //     context: '是否确认已经收到对方支付的钱款'
+        // });
+        this.props.navigation.navigate('PwdPopModel', {
+            type: 'Seller_Confrim',
+            orderNo: this.state.orderNo,
+            confirm: () => this._orderInfoUpdate(this.state.orderNo),
         });
     }
 

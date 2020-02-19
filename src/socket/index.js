@@ -480,9 +480,9 @@ class api {
         this.request(url, paramsStr, onSuccess, onError);
     }
 
-    sellerConfirmOrder(no, onSuccess, onError) {
+    sellerConfirmOrder(no, tradePassword, onSuccess, onError) {
         const url = '/api/otc/order/confirm_paid_by_seller';
-        let paramsStr = JSON.stringify({ no });
+        let paramsStr = JSON.stringify({ no, tradePassword });
         this.request(url, paramsStr, onSuccess, onError);
     }
 
