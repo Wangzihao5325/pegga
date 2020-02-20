@@ -31,12 +31,28 @@ export default class About extends Component {
     state = {
         name: '',
         idCard: '',
-        imageFront: 'www.test.png',
-        imageBack: 'www.test.png',
-        imageHand: 'www.test.png',
         frontData: null,
         backData: null,
-        handleData: null
+        handleData: null,
+        tips: I18n.IDENTITY_TIPS
+    }
+
+    componentDidMount() {
+        //reason
+        const type = this.props.navigation.getParam('type', 'upload');
+        if (type == 'reUpload') {
+            const reason = this.props.navigation.getParam('reason', '');
+            Api.identityInfo((result) => {
+                this.setState({
+                    name: result.realName,
+                    idCard: result.idNumber,
+                    frontData: { size: -1, path: result.identityImageFront, sourceURL: result.identityImageFront },
+                    backData: { size: -1, path: result.identityImageBack, sourceURL: result.identityImageBack },
+                    handleData: { size: -1, path: result.identityImageHand, sourceURL: result.identityImageHand },
+                    tips: `您的身份审核申请被驳回，原因如下：${reason}`
+                });
+            });
+        }
     }
 
     render() {
@@ -48,7 +64,7 @@ export default class About extends Component {
                 />
                 <View style={{ paddingHorizontal: 15, height: 50, width: Dimensions.get('window').width, backgroundColor: '#DAE1F6', flexDirection: 'row', alignItems: 'center' }}>
                     <Image style={{ height: 21, width: 21 }} source={require('../../../image/usual/Caution_icon.png')} />
-                    <View style={{ width: Dimensions.get('window').width - 30 - 21 - 10, marginLeft: 10 }}><Text style={{ color: '#4b88e3', lineHeight: 20 }}>{`${I18n.IDENTITY_TIPS}`}</Text></View>
+                    <View style={{ width: Dimensions.get('window').width - 30 - 21 - 10, marginLeft: 10 }}><Text style={{ color: '#4b88e3', lineHeight: 20 }}>{`${this.state.tips}`}</Text></View>
                 </View>
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
                     <ItemInput
@@ -139,18 +155,37 @@ export default class About extends Component {
             return;
         }
         Toast.show('图片上传中，请勿进行其他操作!');
-        let frontRes = await Api.imageUploadPromise(this.state.frontData);
-        let backRes = await Api.imageUploadPromise(this.state.backData);
-        let handleRes = await Api.imageUploadPromise(this.state.handleData);
+        let identityImageFront = '';
+        let identityImageBack = '';
+        let identityImageHand = '';
+        if (this.state.frontData.size > 0) {
+            let frontRes = await Api.imageUploadPromise(this.state.frontData);
+            identityImageFront = frontRes.data;
+        } else {
+            identityImageFront = this.state.frontData.path;
+        }
+        if (this.state.backData.size > 0) {
+            let backRes = await Api.imageUploadPromise(this.state.backData);
+            identityImageBack = backRes.data;
+        } else {
+            identityImageBack = this.state.backData.path;
+        }
+        if (this.state.handleData.size > 0) {
+            let handleRes = await Api.imageUploadPromise(this.state.handleData);
+            identityImageHand = handleRes.data;
+        } else {
+            identityImageHand = this.state.handleData.path;
+        }
         let payload = {
             idNumber: this.state.idCard,
-            identityImageBack: backRes.data,
-            identityImageFront: frontRes.data,
-            identityImageHand: handleRes.data,
+            identityImageBack,
+            identityImageFront,
+            identityImageHand,
             realName: this.state.name
         }
         Api.identity(payload, () => {
             Toast.show('提交成功!');
+            this.props.navigation.goBack();
         });
     }
 

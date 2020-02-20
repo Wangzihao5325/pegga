@@ -118,19 +118,20 @@ export default class Initial extends Component {
 
     _appInit = () => {
         if (Platform.OS == 'android') {
-            Api.appVersion((res) => {
-                let serviceVerNum = parseInt(res.androidVersion.split('.').join(''));
-                let loaclVerNum = parseInt(INFO.androidVer.split('.').join(''));
-                if (serviceVerNum > loaclVerNum) {
-                    this.setState({
-                        isModelShow: true,
-                        modelContext: res.versionDesc,
-                        downloadUrl: res.downUrl
-                    });
-                } else {
-                    this._autoLogin();
-                }
-            })
+            this._autoLogin();
+            // Api.appVersion((res) => {
+            //     let serviceVerNum = parseInt(res.androidVersion.split('.').join(''));
+            //     let loaclVerNum = parseInt(INFO.androidVer.split('.').join(''));
+            //     if (serviceVerNum > loaclVerNum) {
+            //         this.setState({
+            //             isModelShow: true,
+            //             modelContext: res.versionDesc,
+            //             downloadUrl: res.downUrl
+            //         });
+            //     } else {
+            //         this._autoLogin();
+            //     }
+            // })
         } else {
             this._autoLogin();
         }

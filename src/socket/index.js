@@ -190,6 +190,11 @@ class api {
 
     //user
 
+    identityInfo(onSuccess, onError) {
+        const url = '/api/user/identity_info';
+        this.request(url, null, onSuccess, onError);
+    }
+
     paymentFreeze(payload, onSuccess, onError) {
         const url = '/api/user/payment/pay_type/freeze';
         this.request(url, JSON.stringify(payload), onSuccess, onError);

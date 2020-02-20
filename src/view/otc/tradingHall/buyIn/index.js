@@ -153,7 +153,7 @@ class BuyIn extends Component {
                                 />
                             </View>
                             {this.state.tradeType === 0 &&
-                                <View style={{ backgroundColor: 'white', width: Dimensions.get('window').width - 30, borderRadius: 5, marginTop: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{ backgroundColor: 'white', width: Dimensions.get('window').width - 30, borderRadius: 5, marginTop: 10, marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
                                     <Item.SelectType2
                                         title='支付方式'
                                         data={this.state.myPayType}

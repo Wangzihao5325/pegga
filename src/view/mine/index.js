@@ -154,17 +154,17 @@ class Mine extends Component {
     }
 
     goToIdentity = () => {
-        const { kycAuditStatus, kycLevel } = this.props.kyc;
+        const { kycAuditStatus, kycLevel, kycReason } = this.props.kyc;
         if (kycAuditStatus == 0) {//审核中
             Toast.show(I18n.IN_REVIEW_BE_PATIENT);
         } else if (kycAuditStatus == 1) {
-            if (kycLevel == 0) {
-                this.navigate('Identity');
+            if (kycLevel == 0) {//初始状态
+                this.props.navigation.navigate('Identity', { type: 'upload', reason: kycReason });
             } else {
                 Toast.show(I18n.HAVE_BEEN_AUTHER);
             }
-        } else {
-            this.navigate('Identity');
+        } else {//审核失败
+            this.props.navigation.navigate('Identity', { type: 'reUpload', reason: kycReason });
         }
     }
 
