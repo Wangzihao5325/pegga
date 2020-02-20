@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Animated, View, Text, Image, TouchableHighlight, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { Animated, View, Text, Image, TouchableHighlight, TextInput, KeyboardAvoidingView, Dimensions, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Api from '../../socket/index';
+import Toast from '../../component/toast';
 const Confirm = (props) => {
     return (
         <View style={styles.popContainer}>
@@ -10,7 +11,7 @@ const Confirm = (props) => {
                     <Image style={{ height: 22, width: 18 }} source={require('../../image/security/security_icon.png')} />
                     <Text style={styles.popTitle}>安全验证</Text>
                 </View>
-                <TouchableHighlight onPress={props.cancel} underlayColor='transpaent'>
+                <TouchableHighlight onPress={props.cancel} underlayColor='transparent'>
                     <Text style={{ fontSize: 14, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Medium' }}>取消</Text>
                 </TouchableHighlight>
             </View>
@@ -18,9 +19,9 @@ const Confirm = (props) => {
                 <Text style={{ color: 'rgb(222,44,88)', fontSize: 11, fontFamily: 'PingFang-SC-Medium' }}>输入密码即可放行,不可撤销,请谨慎操作!</Text>
             </View>
             <Text style={{ marginTop: 15, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium', fontSize: 13 }}>资金密码</Text>
-            <TextInput style={{ height: 20, marginTop: 12, width: Dimensions.get('window').width - 60, fontSize: 14 }} value={props.value} onChangeText={(value) => props.callback(value)} placeholderTextColor='rgb(188,192,203)' placeholder='请输入资金密码' />
+            <TextInput secureTextEntry={true} style={{ height: 20, marginTop: 12, width: Dimensions.get('window').width - 60, fontSize: 14 }} value={props.value} onChangeText={(value) => props.callback(value)} placeholderTextColor='rgb(188,192,203)' placeholder='请输入资金密码' />
             <View style={{ marginTop: 10, height: StyleSheet.hairlineWidth, width: Dimensions.get('window').width - 60, backgroundColor: 'rgb(188,192,203)' }} />
-            <TouchableHighlight onPress={props.done} style={styles.btn}>
+            <TouchableHighlight onPress={props.done} style={styles.btn} underlayColor='transparent'>
                 <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.btn}>
                     <Text style={styles.confirm}>确认密码</Text>
                 </LinearGradient>
@@ -82,12 +83,14 @@ export default class PopModel extends Component {
         return (
             <Animated.View style={{ flex: 1, opacity: this.state.fadeAnim }}>
                 <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <Confirm
-                        cancel={this.back}
-                        done={this.done}
-                        value={this.state.tradePassword}
-                        callback={this.textChange}
-                    />
+                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
+                        <Confirm
+                            cancel={this.back}
+                            done={this.done}
+                            value={this.state.tradePassword}
+                            callback={this.textChange}
+                        />
+                    </KeyboardAvoidingView>
                 </View>
             </Animated.View>
         );
@@ -114,12 +117,14 @@ export default class PopModel extends Component {
     }
 
     done = () => {
-        if (type == 'Seller_Confrim') {
+        if (this.state.type == 'Seller_Confrim') {
             Api.sellerConfirmOrder(this.state.orderNo, this.state.tradePassword, () => {
                 Toast.show('您已经确认收款！');
                 this.props.navigation.state.params.confirm();
                 this._dismiss();
             })
+        } else {
+            Toast.show('12345');
         }
     }
 

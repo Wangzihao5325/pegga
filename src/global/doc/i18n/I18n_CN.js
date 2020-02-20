@@ -407,6 +407,7 @@ const CODE_BACK_CARD_ERROR = '银行卡号格式错误';
 const CODE_NO_TRADE_PASSWORD2 = '请先前往安全中心设置资金密码';
 const CODE_USER_ACTIVE_ERROR = '您的账号已被冻结';
 const ORIGIN_PASSWORD_ERROR = '原密码输入错误';
+const PAYMENT_UNDER_CHECK = '当前收款账号正在审核';
 const CODE_ERROR = '错误';
 
 const CODE_USER_NOT_EXIST = '用户不存在';
@@ -905,6 +906,7 @@ export default {
     CODE_NO_TRADE_PASSWORD2,
     CODE_USER_ACTIVE_ERROR,
     ORIGIN_PASSWORD_ERROR,
+    PAYMENT_UNDER_CHECK,
     CODE_ERROR,
 
     CODE_USER_NOT_EXIST,

@@ -108,7 +108,9 @@ export default class PopModel extends Component {
     }
 
     done = () => {
-        this.props.navigation.state.params.confirm();
+        if (this.props.navigation.state.params.confirm) {
+            this.props.navigation.state.params.confirm();
+        }
         Animated.timing(
             this.state.fadeAnim,
             {

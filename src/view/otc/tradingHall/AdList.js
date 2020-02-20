@@ -78,8 +78,18 @@ class AdList extends PureComponent {
     }
 
     trade = (item) => {
-        let itemStr = JSON.stringify(item)
-        this.props.navi.navigate('BuyIn', { itemStr });
+        if (this.props.isBindingPay) {
+            let itemStr = JSON.stringify(item)
+            this.props.navi.navigate('BuyIn', { itemStr });
+        } else {
+            this.props.navi.navigate('PopModel', {
+                confirm: () => this.props.navi.navigate('PayManager'),
+                confirmText: '立即绑定',
+                title: '提示',
+                context: '需要绑定支付方式才能进行交易!'
+            });
+        }
+
     }
 }
 
@@ -92,6 +102,7 @@ function mapState2Props(store) {
 
         isDataLoading: store.adList.isDataLoading,
         data: store.adList.data,
+        isBindingPay: store.user.state.isBindingPay
     }
 }
 

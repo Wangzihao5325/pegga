@@ -15,6 +15,8 @@ const initialState = {
         bindEmail: ''
     },
     state: {
+        roleApplyBack: false,
+        paymentApplyBack: false,
         isBindingPay: false,
         isContact: false,
         isEmailVerified: false,

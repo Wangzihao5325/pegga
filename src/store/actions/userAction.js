@@ -33,6 +33,8 @@ export function user_info(result) {
     }
 
     let state = {
+        roleApplyBack: result.roleApplyBack,
+        paymentApplyBack: result.paymentApplyBack,
         isBindingPay: result.isBindingPay,
         isContact: result.isContact,
         isEmailVerified: result.isEmailVerified,

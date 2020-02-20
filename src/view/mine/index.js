@@ -103,6 +103,7 @@ class Mine extends Component {
                         <Item
                             bottomLine
                             title={I18n.PAYMENT_MANAGEMENT}
+                            stateText={this.props.paymentApplyBack ? '被驳回' : ''}
                             avater={require('../../image/mine/pay_manage.png')}
                             btnPress={() => this.navigate('PayManager')}
                         />
@@ -120,6 +121,7 @@ class Mine extends Component {
                         <Item
                             margin
                             title={I18n.MERCHANT_CERTIFICATION}
+                            stateText={this.props.roleApplyBack ? '被驳回' : ''}
                             avater={require('../../image/mine/businssCer.png')}
                             btnPress={this.goToBusinessRole}
                         />
@@ -187,6 +189,8 @@ function mapState2Props(store) {
     return {
         kyc: store.user.state.kyc,
         role: store.user.role,
+        roleApplyBack: store.user.state.roleApplyBack,
+        paymentApplyBack: store.user.state.paymentApplyBack,
     }
 }
 

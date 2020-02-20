@@ -3,7 +3,6 @@ import {
     SafeAreaView,
     View,
     StatusBar,
-    FlatList,
     ScrollView,
     StyleSheet
 } from 'react-native';
@@ -15,8 +14,9 @@ import Header from './Header';
 import Container from './Container';
 import AdList from './AdList';
 import AdBtn from './AdBtn';
+import { connect } from 'react-redux'
 
-export default class TradingHall extends Component {
+class TradingHall extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: null,
@@ -44,16 +44,35 @@ export default class TradingHall extends Component {
                     {/* <Container navi={this.props.navigation} /> 不能开启，，开启需要考虑多个ali wexin支付账号的问题 */}
                     <AdList navi={this.props.navigation} />
                     {/* </ScrollView> */}
-                    <AdBtn btnPress={() => this.props.navigation.navigate('NewAd')} />
+                    <AdBtn btnPress={this.addAd} />
                 </View>
             </SafeAreaView>
         );
+    }
+
+    addAd = () => {
+        if (this.props.isBindingPay) {
+            this.props.navigation.navigate('NewAd')
+        } else {
+            this.props.navigation.navigate('PopModel', {
+                confirm: () => this.props.navigation.navigate('PayManager'),
+                confirmText: '立即绑定',
+                title: '提示',
+                context: '需要绑定支付方式才能进行交易!'
+            });
+        }
     }
 
     goBack = () => {
         this.props.navigation.pop();
     }
 }
+
+const mapStateToProps = (state) => ({
+    isBindingPay: state.user.state.isBindingPay
+})
+
+export default connect(mapStateToProps)(TradingHall);
 
 const styles = StyleSheet.create({
     safeContainer: {

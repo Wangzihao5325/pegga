@@ -471,6 +471,9 @@ const ErrorCodeToast = (code) => {
         case 30056:
             toastStr = I18n.CODE_USER_ACTIVE_ERROR;
             break;
+        case 30062:
+            toastStr = I18n.PAYMENT_UNDER_CHECK;
+            break;
         case 30066:
             toastStr = I18n.ORIGIN_PASSWORD_ERROR;
             break;

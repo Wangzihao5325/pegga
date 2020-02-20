@@ -160,7 +160,7 @@ class AliPay extends Component {
             if (props.alipay.auditStatus == 0) {
                 auditStatusText = I18n.PAYMENT_CHECKING;
             } else if (props.alipay.auditStatus == 2) {
-                auditStatusText = props.alipay.reason ? props.alipay.reason : I18n.PAYMENT_CHECK_FAILED;
+                auditStatusText = props.alipay.reason ? `您的身份审核申请被驳回，原因如下：${props.alipay.reason}` : I18n.PAYMENT_CHECK_FAILED;
             }
             let rangeType = BoundryUtil(props.alipay.provinceId, props.alipay.cityId)
             //修改bname bcode
