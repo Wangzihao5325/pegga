@@ -38,10 +38,10 @@ export default class Num extends PureComponent {
                     <View style={styles.coinNumContainer} >
                         <TextInput
                             keyboardType='number-pad'
-                            editable={false}
+                            editable={true}
                             style={{ flex: 1, paddingVertical: 0 }}
                             value={this.props.moneyNum}
-                            //onChangeText={(value) => this.props.moneyNumCallback(value)}
+                            onChangeText={(value) => this.props.moneyNumCallback(value)}
                             placeholder={`${moneyNumText}数量`}
                         />
                         <Text style={styles.unitText}>{`${this.props.currencyType}`}</Text>

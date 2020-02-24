@@ -477,26 +477,30 @@ class PaymentSelect extends Component {
                         </View>
                     );
                 case 6://申诉中
-                    return (
-                        <View style={{ flex: 1 }}>
-                            <View style={{ flex: 1, marginTop: 10 }}>
-                                <ScrollView showsVerticalScrollIndicator={false}>
-                                    <InfoBanner
-                                        source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                        title='订单申诉中'
-                                        remark='该订单存在纠纷,官方正在介入中'
-                                    />
-                                </ScrollView>
+                    {
+                        let remarkTitle = this.props.resubmit ? '申诉被驳回' : '订单申诉中';
+                        let remark = this.props.resubmit ? this.props.resultReason : '该订单存在纠纷,官方正在介入中';
+                        return (
+                            <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1, marginTop: 10 }}>
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <InfoBanner
+                                            source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                            title={remarkTitle}
+                                            remark={remark}
+                                        />
+                                    </ScrollView>
+                                </View>
+                                <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                    <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={this.props.appeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                            <Text style={styles.bottomBtnText}>查看申诉</Text>
+                                        </TouchableHighlight>
+                                    </LinearGradient>
+                                </View>
                             </View>
-                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.appeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                        <Text style={styles.bottomBtnText}>查看申诉</Text>
-                                    </TouchableHighlight>
-                                </LinearGradient>
-                            </View>
-                        </View>
-                    );
+                        );
+                    }
                 case 9://大宗证据审核
                     {
                         let title = '';
@@ -735,26 +739,30 @@ class PaymentSelect extends Component {
                         </View>
                     );
                 case 6://申诉中
-                    return (
-                        <View style={{ flex: 1 }}>
-                            <View style={{ flex: 1, marginTop: 10 }}>
-                                <ScrollView showsVerticalScrollIndicator={false}>
-                                    <InfoBanner
-                                        source={require('../../../../image/otc/orderState/Order_Appeal.png')}
-                                        title='订单申诉中'
-                                        remark='该订单存在纠纷,官方正在介入中'
-                                    />
-                                </ScrollView>
+                    {
+                        let remarkTitle = this.props.resubmit ? '申诉被驳回' : '订单申诉中';
+                        let remark = this.props.resubmit ? this.props.resultReason : '该订单存在纠纷,官方正在介入中';
+                        return (
+                            <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1, marginTop: 10 }}>
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <InfoBanner
+                                            source={require('../../../../image/otc/orderState/Order_Appeal.png')}
+                                            title={remarkTitle}
+                                            remark={remark}
+                                        />
+                                    </ScrollView>
+                                </View>
+                                <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
+                                    <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                        <TouchableHighlight underlayColor='transparent' onPress={this.props.appeal} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
+                                            <Text style={styles.bottomBtnText}>查看申诉</Text>
+                                        </TouchableHighlight>
+                                    </LinearGradient>
+                                </View>
                             </View>
-                            <View style={[styles.bottomContainer, { justifyContent: 'center' }]}>
-                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                    <TouchableHighlight underlayColor='transparent' onPress={this.props.appeal} style={{ flex: 2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-                                        <Text style={styles.bottomBtnText}>查看申诉</Text>
-                                    </TouchableHighlight>
-                                </LinearGradient>
-                            </View>
-                        </View>
-                    );
+                        );
+                    }
             }
         }
     }
@@ -801,7 +809,8 @@ export default class OrderDetail extends Component {
         timeout: 0,
         payType: null,
         payTypeNick: null,
-        resubmit: false
+        resubmit: false,
+        resultReason: '',
     }
 
     _orderInfoUpdate = (orderNum) => {
@@ -835,7 +844,8 @@ export default class OrderDetail extends Component {
                 account: result.account,
                 payType: result.payType,
                 payTypeNick: result.payTypeNick,
-                resubmit: result.resubmit
+                resubmit: result.resubmit,
+                resultReason: result.resultReason
             };
             if (result.sellerInfo) {
                 let payment = [];
@@ -973,6 +983,8 @@ export default class OrderDetail extends Component {
                         tradeMemo={this.state.tradeMemo}
                         uploadEvidence={this.uploadEvidence}
                         reuploadEvidence={this.reuploadEvidence}
+                        resubmit={this.state.resubmit}
+                        resultReason={this.state.resultReason}
                     />
                 </View>
             </SafeAreaView>

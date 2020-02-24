@@ -10,6 +10,7 @@ import {
     Platform,
     AsyncStorage,
     Modal,
+    Linking,
     ScrollView,
     StyleSheet
 } from 'react-native';
@@ -42,8 +43,8 @@ const Confirm = (props) => {
                         </LinearGradient>
                     </TouchableHighlight>
                 </View>
-                {
-                    <Text onPress={props.close} style={{ color: 'rgb(54,203,188)', fontSize: 13, fontFamily: 'PingFang-SC-Medium', alignSelf: 'center', marginTop: 22, marginBottom: 22 }}>忽略此版本</Text>
+                {!props.isForce &&
+                    <Text onPress={props.close} style={{ color: 'rgb(54,203,188)', fontSize: 13, fontFamily: 'PingFang-SC-Medium', alignSelf: 'center', marginBottom: 22 }}>忽略此版本</Text>
                 }
             </View>
         </ImageBackground>
@@ -239,6 +240,7 @@ const styles = StyleSheet.create({
         fontFamily: 'PingFang-SC-Medium'
     },
     btnWrapper: {
+        marginBottom: 22,
         height: 40,
         width: 295 - 46,
         flexDirection: 'row',
