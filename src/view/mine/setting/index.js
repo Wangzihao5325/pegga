@@ -15,7 +15,7 @@ import Variables from '../../../global/Variables';
 import store from '../../../store';
 import { user_logout } from '../../../store/actions/userAction';
 import I18n from '../../../global/doc/i18n';
-
+import { INFO } from '../../../global/Config';
 
 export default class Setting extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -26,6 +26,7 @@ export default class Setting extends Component {
     };
 
     render() {
+        let loaclVer = Platform.OS == 'ios' ? INFO.iosVer : INFO.androidVer;
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <Header.Normal
@@ -36,7 +37,7 @@ export default class Setting extends Component {
                     <Item
                         margin
                         title={I18n.UPDATE_CHECK}
-                        stateText='v1.1'
+                        stateText={`V ${loaclVer}`}
                         btnPress={this.check}
                     />
                     <Btn.Linear

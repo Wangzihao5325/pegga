@@ -4,11 +4,13 @@ import {
     View,
     Text,
     TouchableHighlight,
+    ImageBackground,
     StatusBar,
     Dimensions,
     Platform,
     AsyncStorage,
     Modal,
+    ScrollView,
     StyleSheet
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
@@ -24,19 +26,27 @@ import { INFO } from '../../../global/Config';
 
 const Confirm = (props) => {
     return (
-        <View style={styles.popContainer}>
-            <Text style={styles.popTitle}>发现新版本</Text>
-            <View style={styles.contextWrapper}>
-                <Text>{`${props.context}`}</Text>
+        <ImageBackground style={{ width: 295, height: 366 }} resizeMode='contain' source={require('../../../image/usual/upgrade_bg.png')}>
+            <View style={styles.popContainer}>
+                <Text style={styles.popTitle}>发现新版本</Text>
+                <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ height: 20, width: 60, borderRadius: 10, marginLeft: 20, marginTop: 14, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 12, color: 'white' }}>{`V ${props.version}`}</Text>
+                </LinearGradient>
+                <ScrollView style={styles.contextWrapper}>
+                    <Text style={{ fontSize: 14, color: 'rgb(110,110,115)', fontFamily: 'PingFang-SC-Medium' }}>{`${props.context}`}</Text>
+                </ScrollView>
+                <View style={styles.btnWrapper}>
+                    <TouchableHighlight onPress={props.done} style={styles.btn}>
+                        <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.btn}>
+                            <Text style={styles.confirm}>更新</Text>
+                        </LinearGradient>
+                    </TouchableHighlight>
+                </View>
+                {
+                    <Text onPress={props.close} style={{ color: 'rgb(54,203,188)', fontSize: 13, fontFamily: 'PingFang-SC-Medium', alignSelf: 'center', marginTop: 22, marginBottom: 22 }}>忽略此版本</Text>
+                }
             </View>
-            <View style={styles.btnWrapper}>
-                <TouchableHighlight onPress={props.done} style={styles.btn}>
-                    <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.btn}>
-                        <Text style={styles.confirm}>更新</Text>
-                    </LinearGradient>
-                </TouchableHighlight>
-            </View>
-        </View>
+        </ImageBackground>
     );
 }
 
@@ -51,7 +61,8 @@ export default class Initial extends Component {
         isModelShow: false,
         modelContext: '',
         downloadUrl: '',
-        isForce: '',
+        isForce: false,
+        version: ''
     }
 
     componentDidMount() {
@@ -74,8 +85,11 @@ export default class Initial extends Component {
                     >
                         <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                             <Confirm
+                                version={this.state.version}
                                 context={this.state.modelContext}
                                 done={this._update}
+                                close={this._modelClose}
+                                isForce={this.state.isForce}
                             />
                         </SafeAreaView>
                     </Modal>
@@ -101,8 +115,11 @@ export default class Initial extends Component {
                     >
                         <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                             <Confirm
+                                version={this.state.version}
                                 context={this.state.modelContext}
                                 done={this._update}
+                                close={this._modelClose}
+                                isForce={this.state.isForce}
                             />
                         </SafeAreaView>
                     </Modal>
@@ -118,8 +135,6 @@ export default class Initial extends Component {
     }
 
     _appInit = () => {
-        this._autoLogin();
-        /*
         let platformKey = 0;
         if (Platform.OS == 'ios') {
             platformKey = 1
@@ -132,13 +147,23 @@ export default class Initial extends Component {
                 this.setState({
                     isModelShow: true,
                     modelContext: res.versionDesc,
-                    downloadUrl: res.downUrl
+                    downloadUrl: res.downUrl,
+                    isForce: res.forceUpdate,
+                    version: res.version
                 });
             } else {
                 this._autoLogin();
             }
         })
-        */
+
+    }
+
+    _modelClose = () => {
+        this.setState({
+            isModelShow: false
+        }, () => {
+            this._autoLogin();
+        })
     }
 
     _update = () => {
@@ -191,24 +216,22 @@ const styles = StyleSheet.create({
         fontFamily: 'PingFang-SC-Regular',
     },
     popContainer: {
-        height: 210,
-        width: Dimensions.get('window').width - 60,
-        backgroundColor: 'white',
-        borderRadius: 5,
-        paddingHorizontal: 30
+        flex: 1,
+        backgroundColor: 'transparent'
     },
     popTitle: {
-        marginTop: 20,
+        marginTop: 30,
+        marginLeft: 20,
         fontFamily: 'PingFang-SC-Medium',
-        fontSize: 17,
+        fontWeight: 'bold',
+        fontSize: 22,
         color: 'rgb(40,46,60)',
-        alignSelf: 'center'
     },
     contextWrapper: {
         flex: 1,
-        paddingHorizontal: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
+        paddingHorizontal: 20,
+        paddingTop: 25,
+        paddingBottom: 28
     },
     contextText: {
         fontSize: 15,
@@ -217,15 +240,14 @@ const styles = StyleSheet.create({
     },
     btnWrapper: {
         height: 40,
-        width: Dimensions.get('window').width - 60 - 60,
+        width: 295 - 46,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 25,
         alignSelf: 'center'
     },
     btn: {
         height: 40,
-        width: Dimensions.get('window').width - 60 - 60,
+        width: 295 - 46,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center'
