@@ -72,7 +72,12 @@ class Login extends Component {
         mode: LOGIN_TYPE.phone,
         accountPlaceholder: I18n.PHONE_NUM,
         modeChangePlaceholder: I18n.EMAIL,
-        isLoging: false
+        isLoging: false,
+        isModelShow: false,
+        modelContext: '',
+        downloadUrl: '',
+        isForce: false,
+        version: ''
     }
 
     componentDidMount() {
