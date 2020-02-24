@@ -50,7 +50,8 @@ export default class Initial extends Component {
     state = {
         isModelShow: false,
         modelContext: '',
-        downloadUrl: ''
+        downloadUrl: '',
+        isForce: '',
     }
 
     componentDidMount() {
@@ -117,24 +118,27 @@ export default class Initial extends Component {
     }
 
     _appInit = () => {
-        if (Platform.OS == 'android') {
-            this._autoLogin();
-            // Api.appVersion((res) => {
-            //     let serviceVerNum = parseInt(res.androidVersion.split('.').join(''));
-            //     let loaclVerNum = parseInt(INFO.androidVer.split('.').join(''));
-            //     if (serviceVerNum > loaclVerNum) {
-            //         this.setState({
-            //             isModelShow: true,
-            //             modelContext: res.versionDesc,
-            //             downloadUrl: res.downUrl
-            //         });
-            //     } else {
-            //         this._autoLogin();
-            //     }
-            // })
-        } else {
-            this._autoLogin();
+        this._autoLogin();
+        /*
+        let platformKey = 0;
+        if (Platform.OS == 'ios') {
+            platformKey = 1
+            // this._autoLogin();
         }
+        Api.appVersion(platformKey, (res) => {
+            let serviceVerNum = parseInt(res.version.split('.').join(''));
+            let loaclVerNum = Platform.OS == 'ios' ? parseInt(INFO.iosVer.split('.').join('')) : parseInt(INFO.androidVer.split('.').join(''));
+            if (serviceVerNum > loaclVerNum) {
+                this.setState({
+                    isModelShow: true,
+                    modelContext: res.versionDesc,
+                    downloadUrl: res.downUrl
+                });
+            } else {
+                this._autoLogin();
+            }
+        })
+        */
     }
 
     _update = () => {

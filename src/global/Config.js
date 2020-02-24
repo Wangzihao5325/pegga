@@ -3,11 +3,11 @@ const envirment = envirmentType[1];
 const ONLINE_SERVICE_URL = {
     domain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000',
     imageDomain: 'http://ec2-52-221-239-118.ap-southeast-1.compute.amazonaws.com:4000/api/file/upload/image',
-    payment: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8080/ali.html',
-    invite: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/#/',
-    aliUid: 'https://render.alipay.com/p/f/fd-ixpo7iia/index.html',
-    agreement: 'http://ec2-54-254-138-126.ap-southeast-1.compute.amazonaws.com:8081/userAgreement.html',
-    chat: 'https://www.pqpay.io/?#/login',
+    payment: 'http://ec2-13-229-86-114.ap-southeast-1.compute.amazonaws.com:8080/ali.html',
+    invite: 'http://ec2-13-229-86-114.ap-southeast-1.compute.amazonaws.com:8081/#/',
+    aliUid: 'https://render.alipay.com/p/f/fd-ixpo7iia/index.html',//del
+    agreement: 'http://ec2-13-229-86-114.ap-southeast-1.compute.amazonaws.com:8081/userAgreement.html',
+    chat: 'https://www.pqpay.io/?#/login',//del
 };
 const TEST_SERVICE_URL = {
     domain: 'http://192.168.3.144:4000',

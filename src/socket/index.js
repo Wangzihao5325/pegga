@@ -132,8 +132,8 @@ class api {
     }
 
     //app version
-    appVersion(onSuccess, onError) {
-        const url = '/api/user/sign_up/system_version';
+    appVersion(platformKey, onSuccess, onError) {
+        const url = `/api/user/sign_up/system_version?system=${platformKey}`;
         this.request(url, null, onSuccess, onError)
     }
     //chat board

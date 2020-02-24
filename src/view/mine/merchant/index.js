@@ -50,6 +50,14 @@ class MerchantCertification extends Component {
         listData: []//pageState WAIT/0 审核中 PASS/1 可申请  BACK/2 申请失败
     }
 
+    _toPopModel = (reason) => {
+        this.props.navigation.navigate('PopModel', {
+            confirmText: '确定',
+            title: '申请被驳回',
+            context: `您的角色审核申请被驳回，原因如下：${reason}`,
+        });
+    }
+
     _updatePageState = (pageType, applyInfoData) => {
         Api.userBusinessApply(result => {
             let pageState = 1;
@@ -62,7 +70,7 @@ class MerchantCertification extends Component {
                         pageState = 1;
                         break;
                     case 2:
-                        Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                        //Toast.show(I18n.MERCHANT_CHECK_FAILED)
                         pageState = 2;
                         break;
                     default:
@@ -72,6 +80,9 @@ class MerchantCertification extends Component {
             this.setState({
                 listData: [{ pageType, pageState, applyInfoData }]
             });
+            if (pageState == 2) {
+                this._toPopModel(result.reason);
+            }
         });
     }
 
@@ -106,7 +117,7 @@ class MerchantCertification extends Component {
                         break;
                     case 2:
                         {
-                            Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                            //Toast.show(I18n.MERCHANT_CHECK_FAILED)
                             pageState = 1;
                             let payload3 = { balance: applyInfoData.balance, activeBalance: applyInfoData.trustDeposit, token: applyInfoData.token };
                             let payload4 = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token };
@@ -117,6 +128,7 @@ class MerchantCertification extends Component {
                                         { pageType: Enum.ROLE.BUSINESS_ROLE[4].key, pageState: pageState, applyInfoData: payload4 }
                                     ]
                             });
+                            this._toPopModel(result.reason);
                         }
                         break;
                     default:
@@ -129,7 +141,8 @@ class MerchantCertification extends Component {
     _trust = () => {
         Api.userBusinessApply(result => {//当前身份 信任
             if (result.status == 2) {
-                Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                //Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                this._toPopModel(result.reason);
             }
             if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
                 Api.bussinessApplyInfo(applyInfoData => {
@@ -152,7 +165,8 @@ class MerchantCertification extends Component {
     _staple = () => {
         Api.userBusinessApply(result => {//当前身份 大宗
             if (result.status == 2) {
-                Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                //Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                this._toPopModel(result.reason);
             }
             if (result.roleStatus == -2 && result.status == 0) {//展示页面 普通商家
                 Api.bussinessApplyInfo(applyInfoData => {
@@ -176,7 +190,8 @@ class MerchantCertification extends Component {
         Api.bussinessUpgradeApplyInfo(applyInfoData => {
             Api.userBusinessApply(result => {//当前身份 信任大宗
                 if (result.status == 2) {
-                    Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                    //Toast.show(I18n.MERCHANT_CHECK_FAILED)
+                    this._toPopModel(result.reason);
                 }
                 if (result.roleStatus == -1 && result.status == 0) {//展示页面 大宗
                     let applyInfoPayload = { balance: applyInfoData.balance, activeBalance: applyInfoData.stapleDeposit, token: applyInfoData.token }
