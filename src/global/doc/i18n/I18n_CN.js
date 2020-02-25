@@ -217,7 +217,7 @@ const CONTACT = '联系方式';
 
 //status
 const IN_REVIEW = '审核中';
-const NOT_APPROVED = '审核失败';
+const NOT_APPROVED = '被驳回';
 const NOT_CERTIFIED = '未认证';
 const ALREADY_CERTIFIED = '已认证';
 const VIDEO_CERTIFICATION = '视频认证';

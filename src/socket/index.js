@@ -52,6 +52,9 @@ class api {
                             }
                         }
                     }
+                    if (responseJson.status == '500') {
+                        Toast.show('系统异常:error500');
+                    }
                     onError ? onError(result, code, message, responseJson) : console.log(responseJson);
                 }
             })

@@ -77,7 +77,52 @@ export function user_info(result) {
 
 export function user_payment(result, active) {
     const { alipay, weixin, bank } = result;
-    let payload = { alipay, weixin, bank };
+    let sortAli = alipay.sort((first, second) => {
+        if (first.auditStatus - second.auditStatus >= 0) {
+            if (first.auditStatus == 1) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else {
+            if (first.auditStatus == 1) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+    });
+    let sortWeixin = weixin.sort((first, second) => {
+        if (first.auditStatus - second.auditStatus >= 0) {
+            if (first.auditStatus == 1) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else {
+            if (first.auditStatus == 1) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+    });
+    let sortBank = bank.sort((first, second) => {
+        if (first.auditStatus - second.auditStatus >= 0) {
+            if (first.auditStatus == 1) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else {
+            if (first.auditStatus == 1) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+    });
+    let payload = { alipay: sortAli, weixin: sortWeixin, bank: sortBank };
     let passPayload = { aliPassed: active.aliPay, wexinPassed: active.weixin, bankPassed: active.bank };
     return { type: Types.USER_PAYMENT, payload, passPayload }
 }
