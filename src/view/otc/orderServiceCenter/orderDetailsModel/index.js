@@ -616,7 +616,7 @@ class PaymentSelect extends Component {
                                     </TouchableHighlight>
                                 </LinearGradient> */}
                                 <DetailBtn onPress={this.props.sellerConfirm} source={require('../../../../image/otc/confirm_order.png')} title='确认' />
-                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                <LinearGradient style={{ height: 50, width: Dimensions.get('window').width - 30 - 40 - 15, borderRadius: 5 }} colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                                     <TouchableHighlight underlayColor='transparent' onPress={this.props.addAppeal} style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
                                         <Text style={styles.bottomBtnText}>提交申诉</Text>
                                     </TouchableHighlight>
