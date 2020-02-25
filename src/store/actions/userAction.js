@@ -78,48 +78,30 @@ export function user_info(result) {
 export function user_payment(result, active) {
     const { alipay, weixin, bank } = result;
     let sortAli = alipay.sort((first, second) => {
-        if (first.auditStatus - second.auditStatus >= 0) {
-            if (first.auditStatus == 1) {
-                return -1;
-            } else {
-                return 1;
-            }
+        if (second.auditStatus == 1 && first.auditStatus == 0) {
+            return (first.auditStatus - second.auditStatus);
+        } else if (first.auditStatus == 1 && second.auditStatus == 0) {
+            return (first.auditStatus - second.auditStatus);
         } else {
-            if (first.auditStatus == 1) {
-                return 1;
-            } else {
-                return -1;
-            }
+            return second.auditStatus - first.auditStatus;
         }
     });
     let sortWeixin = weixin.sort((first, second) => {
-        if (first.auditStatus - second.auditStatus >= 0) {
-            if (first.auditStatus == 1) {
-                return -1;
-            } else {
-                return 1;
-            }
+        if (second.auditStatus == 1 && first.auditStatus == 0) {
+            return (first.auditStatus - second.auditStatus);
+        } else if (first.auditStatus == 1 && second.auditStatus == 0) {
+            return (first.auditStatus - second.auditStatus);
         } else {
-            if (first.auditStatus == 1) {
-                return 1;
-            } else {
-                return -1;
-            }
+            return second.auditStatus - first.auditStatus;
         }
     });
     let sortBank = bank.sort((first, second) => {
-        if (first.auditStatus - second.auditStatus >= 0) {
-            if (first.auditStatus == 1) {
-                return -1;
-            } else {
-                return 1;
-            }
+        if (second.auditStatus == 1 && first.auditStatus == 0) {
+            return (first.auditStatus - second.auditStatus);
+        } else if (first.auditStatus == 1 && second.auditStatus == 0) {
+            return (first.auditStatus - second.auditStatus);
         } else {
-            if (first.auditStatus == 1) {
-                return 1;
-            } else {
-                return -1;
-            }
+            return second.auditStatus - first.auditStatus;
         }
     });
     let payload = { alipay: sortAli, weixin: sortWeixin, bank: sortBank };
