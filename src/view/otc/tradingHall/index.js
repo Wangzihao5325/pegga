@@ -114,7 +114,7 @@ class TradingHall extends Component {
                         />
                     </SafeAreaView>
                 </Modal>
-                <Header goBackCallback={this.goBack} navi={this.props.navigation} />
+                <Header goBackCallback={this.goBack} navi={this.props.navigation} addAdd={this.addAd} />
                 <View style={{ flex: 1, backgroundColor: '#F2F2F2', flexDirection: 'column', alignItems: 'center' }}>
                     {/* <ScrollView
                         showsVerticalScrollIndicator={false}

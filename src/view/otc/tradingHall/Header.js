@@ -109,7 +109,11 @@ class Header extends PureComponent {
         this.setState({
             isModelShow: false
         });
-        this.props.navi.navigate(page);
+        if (page === 'NewAd') {
+            this.props.addAdd();
+        } else {
+            this.props.navi.navigate(page);
+        }
     }
 
     goBack = () => {
