@@ -29,6 +29,7 @@ export default class About extends Component {
     };
 
     state = {
+        isFrozen: false,
         name: '',
         idCard: '',
         frontData: null,
@@ -113,7 +114,15 @@ export default class About extends Component {
                         </View>
                     </View>
 
-                    <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.submit} title={I18n.SUBMIT} />
+                    <Btn.StateLiner
+                        isFrozen={this.state.isFrozen}
+                        style={styles.btn}
+                        textStyle={styles.btnText}
+                        frozenTextStyle={styles.btnText}
+                        btnPress={this.submit}
+                        title={I18n.SUBMIT}
+                        frozenTitle='上传中'
+                    />
                 </View>
             </SafeAreaView>
         );
@@ -154,7 +163,8 @@ export default class About extends Component {
             Toast.show('请选择证件照片');
             return;
         }
-        Toast.show('图片上传中，请勿进行其他操作!');
+        //Toast.show('图片上传中，请勿进行其他操作!');
+        this.setState({ isFrozen: true });
         let identityImageFront = '';
         let identityImageBack = '';
         let identityImageHand = '';
@@ -185,7 +195,10 @@ export default class About extends Component {
         }
         Api.identity(payload, () => {
             Toast.show('提交成功!');
+            this.setState({ isFrozen: false })
             this.props.navigation.goBack();
+        }, () => {
+            this.setState({ isFrozen: false })
         });
     }
 
