@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, View, Text, Image, TouchableHighlight, TextInput, KeyboardAvoidingView, Dimensions, StyleSheet } from 'react-native';
+import { Animated, View, Text, Image, TouchableHighlight, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Dimensions, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Api from '../../socket/index';
 import Toast from '../../component/toast';
@@ -19,7 +19,7 @@ const Confirm = (props) => {
                 <Text style={{ color: 'rgb(222,44,88)', fontSize: 11, fontFamily: 'PingFang-SC-Medium' }}>输入密码即可放行,不可撤销,请谨慎操作!</Text>
             </View>
             <Text style={{ marginTop: 15, color: 'rgb(40,46,60)', fontFamily: 'PingFang-SC-Medium', fontSize: 13 }}>资金密码</Text>
-            <TextInput secureTextEntry={true} style={{ height: 40,marginTop:3, width: Dimensions.get('window').width - 60, fontSize: 14, color: 'rgb(34,34,34)' }} value={props.value} onChangeText={(value) => props.callback(value)} placeholderTextColor='rgb(188,192,203)' placeholder='请输入资金密码' />
+            <TextInput autoFocus={true} secureTextEntry={true} style={{ height: 40, marginTop: 3, width: Dimensions.get('window').width - 60, fontSize: 14, color: 'rgb(34,34,34)' }} value={props.value} onChangeText={(value) => props.callback(value)} placeholderTextColor='rgb(188,192,203)' placeholder='请输入资金密码' />
             <View style={{ marginTop: 3, height: StyleSheet.hairlineWidth, width: Dimensions.get('window').width - 60, backgroundColor: 'rgb(188,192,203)' }} />
             <TouchableHighlight onPress={props.done} style={styles.btn} underlayColor='transparent'>
                 <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.btn}>
@@ -82,16 +82,18 @@ export default class PopModel extends Component {
     render() {
         return (
             <Animated.View style={{ flex: 1, opacity: this.state.fadeAnim }}>
-                <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
-                        <Confirm
-                            cancel={this.back}
-                            done={this.done}
-                            value={this.state.tradePassword}
-                            callback={this.textChange}
-                        />
-                    </KeyboardAvoidingView>
-                </View>
+                <TouchableWithoutFeedback style={{ flex: 1 }} onPress={this.back}>
+                    <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
+                            <Confirm
+                                cancel={this.back}
+                                done={this.done}
+                                value={this.state.tradePassword}
+                                callback={this.textChange}
+                            />
+                        </KeyboardAvoidingView>
+                    </View>
+                </TouchableWithoutFeedback>
             </Animated.View>
         );
     }
