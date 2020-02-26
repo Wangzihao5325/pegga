@@ -61,6 +61,7 @@ const THOUSAND_BILLION = '万亿';
 const NIU_YAN = '- 数据来源“牛眼行情” -';
 
 //tab bottom
+const TAB_BOTTOM_ORDER = '订单';
 const TAB_BTM_MARKRT = '交易';
 const TAB_BTM_ASSETS = '资产';
 const TAB_BTM_DISCOVER = '发现';
@@ -574,6 +575,7 @@ export default {
     NIU_YAN,
 
     //tab btm navi
+    TAB_BOTTOM_ORDER,
     TAB_BTM_MARKRT,
     TAB_BTM_ASSETS,
     TAB_BTM_DISCOVER,

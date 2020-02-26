@@ -19,10 +19,12 @@ import MoneyFlow from '../../view/assets/moneyFlow';
 import TradingHallView from '../../view/otc/tradingHall';
 import BuyIn from '../../view/otc/tradingHall/buyIn';
 import NewAd from '../../view/otc/tradingHall/newAd';
-import OrderServiceCenterView from '../../view/otc/orderServiceCenter';
 import AdManagementView from '../../view/otc/adManagement';
 import Appeal from '../../view/otc/appeal';
 import AddAppeal from '../../view/otc/appeal/addAppeal';
+
+//order
+import OrderServiceCenterView from '../../view/otc/orderServiceCenter';
 
 //我的
 import MineView from '../../view/mine';
@@ -160,7 +162,7 @@ let OTCStack = createStackNavigator({
     TradingHallView,
     BuyIn,
     NewAd,
-    OrderServiceCenterView,
+    //OrderServiceCenterView,
     AdManagementView,
     Appeal,
     AddAppeal
@@ -192,6 +194,43 @@ OTCStack.navigationOptions = ({ navigation }) => {
                     style={{ height: 24, width: 24 }}
                     resizeMode='contain'
                     source={require('../../image/tabBottomNaviIcon/otc_unselected.png')}
+                />
+            )
+        },
+        tabBarVisible
+    }
+};
+
+let OrderStack = createStackNavigator({
+    OrderServiceCenterView
+}, {
+    navigationOptions: {
+        gesturesEnabled: false
+    }
+});
+
+OrderStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+        tabBarVisible = false;
+    }
+    return {
+        tabBarLabel: I18n.TAB_BOTTOM_ORDER,
+        tabBarIcon: ({ focused, tintColor }) => {
+            if (focused) {
+                return (
+                    <Image
+                        style={{ height: 24, width: 24 }}
+                        resizeMode='contain'
+                        source={require('../../image/tabBottomNaviIcon/order_selected.png')}
+                    />
+                );
+            }
+            return (
+                <Image
+                    style={{ height: 24, width: 24 }}
+                    resizeMode='contain'
+                    source={require('../../image/tabBottomNaviIcon/order_unselected.png')}
                 />
             )
         },
@@ -266,13 +305,14 @@ MineStack.navigationOptions = ({ navigation }) => {
 const BottomRouter = createBottomTabNavigator(
     {
         AssetsStack,
+        OrderStack,
         ExploreStack,
         OTCStack,
         MineStack,
     },
     {
         initialRouteName: 'OTCStack',
-        order: ['OTCStack', 'AssetsStack', 'ExploreStack', 'MineStack'],
+        order: ['OTCStack', 'OrderStack', 'AssetsStack', 'ExploreStack', 'MineStack'],
         tabBarOptions: {
             activeTintColor: '#000',
             style: {

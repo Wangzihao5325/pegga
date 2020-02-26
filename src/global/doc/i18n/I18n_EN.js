@@ -61,6 +61,7 @@ const THOUSAND_BILLION = 'TB';
 const NIU_YAN = '-Data sources ”NIUYAN”-';
 
 //tab bottom
+const TAB_BOTTOM_ORDER = 'Order';
 const TAB_BTM_MARKRT = 'Market';
 const TAB_BTM_ASSETS = 'Assets';
 const TAB_BTM_DISCOVER = 'Discover';
@@ -575,6 +576,7 @@ export default {
     NIU_YAN,
 
     //tab btm navi
+    TAB_BOTTOM_ORDER,
     TAB_BTM_MARKRT,
     TAB_BTM_ASSETS,
     TAB_BTM_DISCOVER,

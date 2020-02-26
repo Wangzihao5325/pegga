@@ -126,7 +126,7 @@ class OrderManagement extends Component {
                     <View style={{ backgroundColor: 'white' }}>
                         <View style={styles.header}>
                             <View style={styles.wrapper}>
-                                <TouchableHighlight
+                                {/* <TouchableHighlight
                                     style={styles.image}
                                     onPress={() => this.props.navigation.goBack()}
                                     underlayColor='transparent'
@@ -135,7 +135,7 @@ class OrderManagement extends Component {
                                         style={styles.image}
                                         source={require('../../../image/arrow/back_arrow_black.png')}
                                     />
-                                </TouchableHighlight>
+                                </TouchableHighlight> */}
                             </View>
                             <View style={styles.centerWrapper}>
                                 <Text style={styles.title}>订单中心</Text>
@@ -149,7 +149,6 @@ class OrderManagement extends Component {
                                 </TouchableHighlight>
                             </View>
                         </View>
-                        {/* <Header.Normal title='订单中心' goback={() => this.props.navigation.goBack()} /> */}
                         <Select.ScrollLinear
                             data={[{ title: '进行中', key: 'going' }, { title: '已完成', key: 'completed' }, { title: '已取消', key: 'canceled' }]}
                             selectValue={this.props.orderType}
@@ -158,15 +157,22 @@ class OrderManagement extends Component {
                             isFlex
                         />
                     </View>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={this.props.data}
-                        renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} cancelPress={() => this.orderCancel(item)} />}
-                        onEndReached={this._nextPage}
-                        onEndReachedThreshold={0.2}
-                        refreshing={this.state.isLoading}
-                        onRefresh={this._onFresh}
-                    />
+                    {
+                        (this.props.data && this.props.data.length > 0) ?
+                            < FlatList
+                                showsVerticalScrollIndicator={false}
+                                data={this.props.data}
+                                renderItem={({ item }) => <Item item={item} containerPress={() => this.goToOrderDetail(item)} cancelPress={() => this.orderCancel(item)} />}
+                                onEndReached={this._nextPage}
+                                onEndReachedThreshold={0.2}
+                                refreshing={this.state.isLoading}
+                                onRefresh={this._onFresh}
+                            />
+                            :
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Image style={{ width: 110, height: 130 }} source={require('../../../image/no_image/empty_order.png')} />
+                            </View>
+                    }
                 </View>
             </SafeAreaView>
         );
