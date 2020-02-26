@@ -75,7 +75,8 @@ class AddAppeal extends Component {
         pageType: 'source',
         orderId: '',
         sourceNo: '',
-        targetNo: ''
+        targetNo: '',
+        isFrozen: false
     }
 
     componentDidMount() {
@@ -120,7 +121,15 @@ class AddAppeal extends Component {
                         />
                     </View>
                     <View style={{ flex: 1, backgroundColor: 'white' }}>
-                        <Btn.Linear style={styles.btn} textStyle={styles.btnText} btnPress={this.addAppeal} title='确认上传' />
+                        <Btn.StateLiner
+                            isFrozen={this.state.isFrozen}
+                            style={styles.btn}
+                            textStyle={styles.btnText}
+                            frozenTextStyle={styles.btnText}
+                            btnPress={this.addAppeal}
+                            frozenTitle='上传中'
+                            title='确认上传'
+                        />
                     </View>
                 </View>
             </SafeAreaView>
@@ -169,7 +178,10 @@ class AddAppeal extends Component {
             Toast.show('请至少上传2张证据图');
             return;
         }
-        Toast.show('申诉内容上传中，请耐心等待');
+        //Toast.show('申诉内容上传中，请耐心等待');
+        this.setState({
+            isFrozen: true
+        });
         let imageUrlArrReg = await Promise.all(refStateData.map(async (item) => {
             if (item.size > 0) {
                 let imageUrl = await Api.imageUploadPromise(item);
@@ -187,7 +199,14 @@ class AddAppeal extends Component {
         };
         Api.appealBySource(payload, () => {
             Toast.show('提交证据成功！');
+            this.setState({
+                isFrozen: false
+            });
             this.props.navigation.goBack();
+        }, () => {
+            this.setState({
+                isFrozen: false
+            });
         });
 
     }
