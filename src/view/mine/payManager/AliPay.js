@@ -139,6 +139,7 @@ const UIDComponent = (props) => {
 
 class AliPay extends Component {
     state = {
+        isFrozen: false,
         alipayId: null,
         accountName: '',
         account: '',
@@ -249,10 +250,13 @@ class AliPay extends Component {
                     value={this.state.assetsPwd}
                     callback={this.stateUpdate('assetsPwd')}
                 />
-                <Btn.Linear
+                <Btn.StateLiner
+                    isFrozen={this.state.isFrozen}
                     style={styles.btn}
                     textStyle={styles.btnText}
+                    frozenTextStyle={styles.btnText}
                     title='确认添加'
+                    frozenTitle='上传中'
                     btnPress={this.upload}
                 />
             </View>
@@ -319,7 +323,8 @@ class AliPay extends Component {
         let refStateData = this.imageUpload.state.imageSelectData;
         let qrCodeUrl = null
         if (refStateData[0].size > 0) {
-            Toast.show(I18n.INFO_SUBMITTING);
+            //Toast.show(I18n.INFO_SUBMITTING);
+            this.setState({ isFrozen: true });
             qrCodeUrl = await Api.imageUploadPromise(refStateData[0]);
             payload.aliQrCode = qrCodeUrl.data
         } else if (refStateData[0].size == 0) {
@@ -330,7 +335,10 @@ class AliPay extends Component {
         }
         Api.aliPay(payload, () => {
             Toast.show(I18n.INFO_SUBMIT_SUCCESS);
+            this.setState({ isFrozen: false });
             this.props.navi.goBack();
+        }, () => {
+            this.setState({ isFrozen: false });
         })
     }
 }

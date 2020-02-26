@@ -372,7 +372,8 @@ class MerchantCertification extends Component {
                             Toast.show(I18n.CODE_NO_BALANCE);
                             return;
                         }
-                        payload.deposit = 5000;
+                        //历史遗留问题，现在5000不生效
+                        //payload.deposit = 5000;
                         Api.trustStapleApply(payload, (result) => {
                             Toast.show(I18n.INFO_SUBMIT_SUCCESS);
                             this.props.navigation.goBack();
