@@ -126,16 +126,13 @@ class OrderManagement extends Component {
                     <View style={{ backgroundColor: 'white' }}>
                         <View style={styles.header}>
                             <View style={styles.wrapper}>
-                                {/* <TouchableHighlight
-                                    style={styles.image}
-                                    onPress={() => this.props.navigation.goBack()}
+                                <TouchableHighlight
+                                    style={styles.frontBtn}
+                                    onPress={() => this.props.navigation.navigate('OTC_PaymentControl')}
                                     underlayColor='transparent'
                                 >
-                                    <Image
-                                        style={styles.image}
-                                        source={require('../../../image/arrow/back_arrow_black.png')}
-                                    />
-                                </TouchableHighlight> */}
+                                    <Text>接单控制</Text>
+                                </TouchableHighlight>
                             </View>
                             <View style={styles.centerWrapper}>
                                 <Text style={styles.title}>订单中心</Text>
@@ -279,9 +276,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    image: {
-        height: 20,
-        width: 20
+    frontBtn: {
+        height: 40,
+        width: 90,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     title: {
         fontSize: 20

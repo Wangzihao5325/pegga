@@ -55,6 +55,7 @@ import News from '../../view/mine/news';
 import NewsDetail from '../../view/mine/news/detail';
 
 //modal
+import OTC_PaymentControl from '../../view/otc/orderServiceCenter/paymentControl';
 import OTC_OrderDetails from '../../view/otc/orderServiceCenter/orderDetailsModel';
 import OTC_SellerDetailInfo from '../../view/otc/orderServiceCenter/detailInfoModel';
 import Assets_BillTypeSelect from '../../view/assets/moneyFlow/billTypeSelectModel';
@@ -354,6 +355,9 @@ let RouterWithModal = createStackNavigator(
         PwdPopModel: {
 
             screen: PwdPopModel
+        },
+        OTC_PaymentControl: {
+            screen: OTC_PaymentControl
         }
     },
     {
