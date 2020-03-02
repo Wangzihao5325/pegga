@@ -10,7 +10,7 @@ const ONLINE_SERVICE_URL = {
     chat: 'https://www.pqpay.io/?#/login',//del
 };
 const TEST_SERVICE_URL = {
-    domain: 'http://192.168.3.145:4000',
+    domain: 'http://192.168.3.144:4000',
     imageDomain: 'http://192.168.3.144:4000/api/file/upload/image',
     payment: 'http://6h3rix.natappfree.cc/ali.html',
     invite: 'http://192.168.3.127:8081/index.html/#/',
@@ -55,7 +55,7 @@ const urlSwich = (envirment) => {
     return result;
 }
 const SERVICE_URL = urlSwich(envirment);
-const INFO = { iosVer: '1.0.0', androidVer: '1.0.0' };
+const INFO = { iosVer: '1.0.2', androidVer: '1.0.2' };
 
 export {
     SERVICE_URL,
