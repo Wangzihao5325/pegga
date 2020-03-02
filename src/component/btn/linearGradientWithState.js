@@ -23,7 +23,7 @@ export default class NormalBtn extends PureComponent {
         const { isFrozen, frozenTitle, frozenTextStyle } = this.props;
         if (isFrozen) {
             return (
-                <View style={[this.props.style, { backgroundColor: '#F2F2F2', display: 'flex', justifyContent: 'center', alignItems: 'center' }]}>
+                <View style={[this.props.style, { backgroundColor: '#BCC0CB', display: 'flex', justifyContent: 'center', alignItems: 'center' }]}>
                     <Text style={frozenTextStyle}>{`${frozenTitle}`}</Text>
                 </View>
             );
