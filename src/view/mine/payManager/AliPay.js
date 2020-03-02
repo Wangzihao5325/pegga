@@ -70,7 +70,8 @@ const AppendPart = (props) => {
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, height: 120, width: 160, paddingHorizontal: 30 }}>
                 <QRCode
-                    value={Config.SERVICE_URL.aliUid}
+                    //value={Config.SERVICE_URL.aliUid}
+                    value={props.aliUuidUrl}
                 />
             </View>
             <View style={{ height: 40, width: Dimensions.get('window').width - 30, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
@@ -131,6 +132,7 @@ const UIDComponent = (props) => {
                 <AppendPart
                     value={props.value}
                     textChange={textUpdate}
+                    aliUuidUrl={props.aliUuidUrl}
                 />
             }
         </View>
@@ -153,7 +155,16 @@ class AliPay extends Component {
         assetsPwd: '',
 
         alipay: null,
+        aliUuidUrl: ''
     }
+
+    // componentDidMount() {
+    //     Api.aliPayUuid(res => {
+    //         this.setState({
+    //             aliUuidUrl: res
+    //         });
+    //     })
+    // }
 
     static getDerivedStateFromProps(props, state) {
         if (props.alipay && state.alipay !== props.alipay) {
@@ -217,6 +228,7 @@ class AliPay extends Component {
                 />
                 {/* <UIDComponent
                     value={this.state.uuid}
+                    aliUuidUrl={this.state.aliUuidUrl}
                     callback={this.stateUpdate('uuid')}
                 /> */}
                 {/* <ItemInput

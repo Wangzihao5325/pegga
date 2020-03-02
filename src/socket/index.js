@@ -103,6 +103,23 @@ class api {
             return null
         }
     }
+    //getAliUrl
+    aliPayUuid(onSuccess, onError) {
+        const url = '/api/user/payment/alipay_return_url';
+        this.request(url, null, onSuccess, onError);
+    }
+
+
+    //paymentcontrol
+    paymentControlList(onSuccess, onError) {
+        const url = '/api/otc/advertise/matching_console';
+        this.request(url, null, onSuccess, onError);
+    }
+
+    paymentControlSwich(payload, onSuccess, onError) {
+        const url = '/api/otc//advertise/matching_switch';
+        this.request(url, JSON.stringify(payload), onSuccess, onError);
+    }
 
     //chat
     async chatGroups() {

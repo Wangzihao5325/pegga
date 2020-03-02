@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, StyleSheet, View, Image, Text, TouchableHighlight } from 'react-native';
+import { SafeAreaView, Dimensions, StyleSheet, View, Image, Text, TouchableHighlight, FlatList } from 'react-native';
 import Header from '../../../../component/header';
+import Api from '../../../../socket/index';
 
-const PAY_TYPE_ARR = ['ali', 'wechat', 'card'];
-const ACCOUNT_STATE_ARR = ['normal', 'unusual', 'frozen'];
+const PAY_TYPE_ARR = [0, 1, 2];
+const ACCOUNT_STATE_ARR = [0, 1, 2];
 const IS_ACCEPT_ARR = [true, false];
 const SUCCESS_ARR = [true, false];
 
@@ -14,7 +15,7 @@ const Swich = (props) => {
             imageSrc = require('../../../../image/otc/payment/control/open_but.png');
             break;
         case IS_ACCEPT_ARR[1]:
-            imageSrc = require('../../../../image/otc/payment/control/open_but.png');
+            imageSrc = require('../../../../image/otc/payment/control/close_but.png');
             break;
     }
     return (
@@ -99,10 +100,12 @@ class Item extends Component {
                                 accountStateTag
                             }
                         </View>
-                        <Swich isOpen={this.props.isAccept} />
+                        <Swich isOpen={this.props.isAccept} callback={this.props.callback} />
                     </View>
                     <View style={{ flex: 1, paddingHorizontal: 17, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Text style={[{ fontSize: 17, fontFamily: 'PingFang-SC-Medium' }, accountTextColor]}>{`${this.props.account}`}</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', width: 140 }}>
+                            <Text style={[{ fontSize: 17, fontFamily: 'PingFang-SC-Medium' }, accountTextColor]}>{`${this.props.account}`}</Text>
+                        </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image style={{ height: 15, width: 15 }} source={isAcceptImageSrc} />
                             <Text style={[{ fontSize: 15, fontFamily: 'PingFang-SC-Medium', marginLeft: 5 }, isAcceptTextColor]}>{`${isAcceptText}`}</Text>
@@ -126,6 +129,22 @@ export default class PaymentControl extends Component {
         }
     };
 
+    state = {
+        data: []
+    }
+
+    _dataRefresh = () => {
+        Api.paymentControlList((res) => {
+            this.setState({
+                data: res
+            });
+        });
+    }
+
+    componentDidMount() {
+        this._dataRefresh();
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.safeContainer}>
@@ -134,18 +153,32 @@ export default class PaymentControl extends Component {
                     goback={() => this.props.navigation.goBack()}
                 />
                 <View style={{ flex: 1, backgroundColor: '#F3F5F9' }}>
-                    <Item
-                        type='ali'//支付方式类型
-                        name='陈小春'//真实姓名
-                        account='18712345678'//账户名称
-                        isAccept={false}//是否在接单中
-                        successState={true}//是否成功
-                        successTimes={1}//成功次数
-                        accountState='normal'//账号状态 正常 异常 冻结
+                    <FlatList
+                        data={this.state.data}
+                        renderItem={({ item }) =>
+                            <Item
+                                key={item.payTypeId}
+                                type={item.payType}
+                                name={item.realName}
+                                account={item.account}
+                                isAccept={item.active}
+                                successState={item.count >= 0 ? true : false}
+                                successTimes={Math.abs(item.count)}
+                                accountState={item.matchStatus}
+                                //payTypeId={item.payTypeId}
+                                callback={() => this.itemSwich(item.payTypeId, item.active)}
+                            />}
                     />
                 </View>
             </SafeAreaView>
         );
+    }
+
+    itemSwich = (id, active) => {
+        let payload = { active: !active, payTypeId: id };
+        Api.paymentControlSwich(payload, (res) => {
+            this._dataRefresh();
+        })
     }
 }
 
