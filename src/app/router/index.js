@@ -165,8 +165,6 @@ let OTCStack = createStackNavigator({
     NewAd,
     //OrderServiceCenterView,
     AdManagementView,
-    Appeal,
-    AddAppeal
 }, {
     navigationOptions: {
         gesturesEnabled: false
@@ -203,7 +201,9 @@ OTCStack.navigationOptions = ({ navigation }) => {
 };
 
 let OrderStack = createStackNavigator({
-    OrderServiceCenterView
+    OrderServiceCenterView,
+    Appeal,
+    AddAppeal
 }, {
     navigationOptions: {
         gesturesEnabled: false

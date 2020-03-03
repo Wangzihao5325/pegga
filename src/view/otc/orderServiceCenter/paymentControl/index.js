@@ -174,7 +174,7 @@ export default class PaymentControl extends Component {
                                     successTimes={Math.abs(item.count)}
                                     accountState={item.matchStatus}
                                     //payTypeId={item.payTypeId}
-                                    callback={() => this.itemSwich(item.payTypeId, item.active)}
+                                    callback={() => this.itemSwich(item.payTypeId, item.active, item.matchStatus)}
                                 />}
                         />
                         :
@@ -187,7 +187,10 @@ export default class PaymentControl extends Component {
         );
     }
 
-    itemSwich = (id, active) => {
+    itemSwich = (id, active, matchStatus) => {
+        if (matchStatus == ACCOUNT_STATE_ARR[2]) {
+            return;
+        }
         let payload = { active: !active, payTypeId: id };
         Api.paymentControlSwich(payload, (res) => {
             this._dataRefresh();
