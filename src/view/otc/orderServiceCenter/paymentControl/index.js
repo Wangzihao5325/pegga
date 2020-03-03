@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, Dimensions, StyleSheet, View, Image, Text, TouchableHighlight, FlatList } from 'react-native';
 import Header from '../../../../component/header';
 import Api from '../../../../socket/index';
+import Toast from '../../../../component/toast';
 
 const PAY_TYPE_ARR = [0, 1, 2];
 const ACCOUNT_STATE_ARR = [0, 1, 2];
@@ -189,6 +190,7 @@ export default class PaymentControl extends Component {
 
     itemSwich = (id, active, matchStatus) => {
         if (matchStatus == ACCOUNT_STATE_ARR[2]) {
+            Toast.show('该支付账号已被冻结!');
             return;
         }
         let payload = { active: !active, payTypeId: id };

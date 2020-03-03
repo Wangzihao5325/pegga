@@ -156,7 +156,9 @@ const ErrorCodeToast = (code) => {
         case 40040:
             toastStr = I18n.CODE_USER_FROZEN_DEAL;
             break;
-
+        case 40044:
+            toastStr = I18n.TYPE_HAS_BEEN_FROZEN;
+            break;
         case 50001:
             toastStr = I18n.CODE_ADVERTISE_EMPTY3;
             break;
