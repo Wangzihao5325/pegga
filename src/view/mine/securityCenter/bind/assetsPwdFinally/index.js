@@ -118,15 +118,15 @@ export default class AssetsPwdFinally extends Component {
     }
 
     bottomBtnPress = () => {
-        if (this.state.assetsPwd < 8) {
-            Toast.show(I18n.PWD_SHORT);
-            return;
-        }
         if (this.state.assetsPwd != this.state.confirmAssetsPwd) {
             Toast.show(I18n.PWD_INCONSISTENT);
             return;
         }
         if (this.state.key == 'assetsPwd') {
+            if (this.state.assetsPwd < 6) {
+                Toast.show(I18n.PWD_SHORT);
+                return;
+            }
             let payload = {
                 confirmPassword: this.state.assetsPwd,
                 googleCode: this.state.googlePwd,
@@ -138,6 +138,25 @@ export default class AssetsPwdFinally extends Component {
                 this.props.navigation.pop(3);
             });
         } else if (this.state.key == 'loginPwd') {
+            let regExp1 = /[0-9]/;
+            let regExp2 = /[a-z]/;
+            let regExp3 = /[A-Z]/;
+            if (this.state.assetsPwd.length < 6 || this.state.assetsPwd.length > 20) {
+                Toast.show('密码长度不合规范(6-18位)');
+                return;
+            }
+            if (!regExp1.test(this.state.assetsPwd)) {
+                Toast.show('请至少包含一个数字');
+                return;
+            }
+            if (!regExp2.test(this.state.assetsPwd)) {
+                Toast.show('请至少包含一个小写字母');
+                return;
+            }
+            if (!regExp3.test(this.state.assetsPwd)) {
+                Toast.show('请至少包含一个大写字母');
+                return;
+            }
             let payload = {
                 confirmPassword: this.state.assetsPwd,
                 googleCode: this.state.googlePwd,

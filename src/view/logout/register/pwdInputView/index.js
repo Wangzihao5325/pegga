@@ -92,6 +92,25 @@ class PwdInputView extends Component {
             Toast.show(I18n.PWD_INCONSISTENT);
             return;
         }
+        let regExp1 = /[0-9]/;
+        let regExp2 = /[a-z]/;
+        let regExp3 = /[A-Z]/;
+        if (Reg.pwd.length < 6 || Reg.pwd.length > 20) {
+            Toast.show('密码长度不合规范');
+            return;
+        }
+        if (!regExp1.test(Reg.pwd)) {
+            Toast.show('请至少包含一个数字');
+            return;
+        }
+        if (!regExp2.test(Reg.pwd)) {
+            Toast.show('请至少包含一个小写字母');
+            return;
+        }
+        if (!regExp3.test(Reg.pwd)) {
+            Toast.show('请至少包含一个大写字母');
+            return;
+        }
         if (this.state.type == 'register') {
             if (Reg.mode == 'phone') {
                 let payload = {

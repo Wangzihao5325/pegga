@@ -130,15 +130,15 @@ class Header extends Component {
         }
         if (this.props.adAutoFitter == 'open') {
             Api.autoFitterSwichoff(() => {
-                Toast.show('已关闭自动接单');
-                store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
+                Toast.show('正在关闭自动接单...');
+                //store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
                 this.naviWillBlur();
             });
 
         } else {
             Api.autoFitterSwichon(() => {
-                Toast.show('已开启自动接单');
-                store.dispatch(otc_state_change_danger({ adAutoFitter: 'open' }));
+                Toast.show('正在开启自动接单...');
+                //store.dispatch(otc_state_change_danger({ adAutoFitter: 'open' }));
                 this._autoFitterState();
             });
         }
