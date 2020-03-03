@@ -183,7 +183,7 @@ class OrderManagement extends Component {
         if (this.props.adAutoFitter == 'open') {
             Api.autoFitterSwichoff(() => {
                 Toast.show('正在关闭自动接单...');
-                //store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
+                store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
                 this.naviWillBlur();
             });
 
@@ -214,7 +214,7 @@ class OrderManagement extends Component {
     }
 
     goToPaymentControl = () => {
-        if (this.props.adAutoFitter) {
+        if (this.props.adAutoFitter == 'open') {
             this.props.navigation.navigate('OTC_PaymentControl');
         } else {
             Toast.show('请先开启自动接单!');

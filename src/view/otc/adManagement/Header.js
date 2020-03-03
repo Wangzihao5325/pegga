@@ -131,7 +131,7 @@ class Header extends Component {
         if (this.props.adAutoFitter == 'open') {
             Api.autoFitterSwichoff(() => {
                 Toast.show('正在关闭自动接单...');
-                //store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
+                store.dispatch(otc_state_change_danger({ adAutoFitter: 'close' }));
                 this.naviWillBlur();
             });
 
