@@ -400,6 +400,6 @@ const AppContainer = createAppContainer(createSwitchNavigator(
     }
 ));
 
-init("n19jmcy5n0sl9");
+init("p5tvi9dspqhm4");//开发: p5tvi9dspqhm4 线上:19jmcy5n0sl9
 
 export default AppContainer;
