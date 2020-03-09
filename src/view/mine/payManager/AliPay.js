@@ -158,13 +158,13 @@ class AliPay extends Component {
         aliUuidUrl: ''
     }
 
-    // componentDidMount() {
-    //     Api.aliPayUuid(res => {
-    //         this.setState({
-    //             aliUuidUrl: res
-    //         });
-    //     })
-    // }
+    componentDidMount() {
+        Api.aliPayUuid(res => {
+            this.setState({
+                aliUuidUrl: res
+            });
+        })
+    }
 
     static getDerivedStateFromProps(props, state) {
         if (props.alipay && state.alipay !== props.alipay) {
@@ -226,11 +226,11 @@ class AliPay extends Component {
                     value={this.state.accountNickName}
                     callback={this.stateUpdate('accountNickName')}
                 />
-                {/* <UIDComponent
+                <UIDComponent
                     value={this.state.uuid}
                     aliUuidUrl={this.state.aliUuidUrl}
                     callback={this.stateUpdate('uuid')}
-                /> */}
+                />
                 {/* <ItemInput
                     isControl
                     title='支付宝uuid'
