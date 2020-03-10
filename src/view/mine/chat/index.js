@@ -100,8 +100,8 @@ class Chat extends Component {
 
     componentDidMount() {
         this.listener = addConnectionStatusListener(status => this.setState({ status }));
-        this.connect();
-        setReconnectKickEnable(true);
+        //this.connect();
+        //setReconnectKickEnable(true);
         this.listDataFetch();
     }
 

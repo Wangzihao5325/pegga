@@ -65,6 +65,7 @@ import ImageDetail from '../../view/model/imageDetail';
 import PopModel from '../../view/model/popModel';
 import adPaymentModel from '../../view/model/adPayment';
 import PwdPopModel from '../../view/model/pwdPopModel';
+import OTCStatePopModel from '../../view/model/otcStatePopModel';
 
 
 //logout
@@ -358,6 +359,9 @@ let RouterWithModal = createStackNavigator(
         },
         OTC_PaymentControl: {
             screen: OTC_PaymentControl
+        },
+        OTCStatePopModel: {
+            screen: OTCStatePopModel
         }
     },
     {

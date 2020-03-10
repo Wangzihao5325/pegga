@@ -39,15 +39,17 @@ class Chat extends Component {
 
     _receiveListener = () => {
         this.listener = addReceiveMessageListener(message => {
-            const { content } = message.message;
-            if (content.data && content.data.length > 999) {
-                content.data = content.data.substr(0, 100) + "...";
-            }
-            if (message.message.targetId == this.state.targetId) {
-                this.setState({ messages: [...this.state.messages, message.message] }, () => {
-                    setTimeout(() => { this.list.scrollToEnd({ animated: true }) }, 1000)
-                });
-            }
+            console.log('dddddd');
+            console.log(message.message);
+            // const { content } = message.message;
+            // if (content.data && content.data.length > 999) {
+            //     content.data = content.data.substr(0, 100) + "...";
+            // }
+            // if (message.message.targetId == this.state.targetId) {
+            //     this.setState({ messages: [...this.state.messages, message.message] }, () => {
+            //         setTimeout(() => { this.list.scrollToEnd({ animated: true }) }, 1000)
+            //     });
+            // }
         });
     }
 
