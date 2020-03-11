@@ -53,6 +53,7 @@ import IMChat from '../../view/mine/chat';
 import IMChatView from '../../view/mine/chat/talkView';
 import News from '../../view/mine/news';
 import NewsDetail from '../../view/mine/news/detail';
+import AtList from '../../view/mine/chat/atList';
 
 //modal
 import OTC_PaymentControl from '../../view/otc/orderServiceCenter/paymentControl';
@@ -267,7 +268,8 @@ let MineStack = createStackNavigator({
     IMChat,
     IMChatView,
     News,
-    NewsDetail
+    NewsDetail,
+    AtList
 }, {
     navigationOptions: {
         gesturesEnabled: false

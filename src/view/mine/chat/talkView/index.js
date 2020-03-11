@@ -185,6 +185,8 @@ class Chat extends Component {
                         targetId={this.state.targetId}
                         userId={this.state.userId}
                         nickName={this.props.nickName}
+                        navi={this.props.navigation}
+                        uuid={this.props.uuid}
                     />
                 </KeyboardAvoidingView>
             </SafeAreaView>
@@ -198,7 +200,8 @@ class Chat extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    nickName: state.user.info.nickName
+    nickName: state.user.info.nickName,
+    uuid: state.user.info.uuid,
 })
 
 export default connect(mapStateToProps)(Chat);

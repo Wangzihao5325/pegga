@@ -7,10 +7,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {
     sendMessage,
     sendMediaMessage,
+    ConversationType,
     recallMessage,
     cancelSendMediaMessage,
     ObjectName
 } from "rongcloud-react-native-imlib";
+import { NavigationEvents } from 'react-navigation';
 
 const Item = (props) => {
     return (
@@ -34,14 +36,33 @@ const FuncTabs = (props) => {
 export default class BottomInput extends PureComponent {
     state = {
         isShow: false,
-        value: ''
+        value: '',
+        isMentioned: false,
+        mentionedList: [],
+        isContainNoName: false,
     }
+
+    naviDidFocus = () => {
+        if (this.input) {
+            this.input.focus();
+        }
+    }
+
     render() {
         let btnImage = this.state.isShow ? require('../../../../image/customService/close.png') : require('../../../../image/customService/function.png');
         return (
             <View>
+                <NavigationEvents
+                    onDidFocus={this.naviDidFocus}
+                />
                 <View style={styles.container}>
-                    <TextInput style={styles.input} value={this.state.value} onChangeText={this.textChange} returnKeyType='done' />
+                    <TextInput
+                        ref={input => this.input = input}
+                        style={styles.input}
+                        value={this.state.value}
+                        onChangeText={this.textChange}
+                        returnKeyType='done'
+                    />
                     <TouchableHighlight style={styles.btn} onPress={this.tabsShow} underlayColor='transparent'>
                         <Image style={{ height: 33, width: 33 }} source={btnImage} />
                     </TouchableHighlight>
@@ -88,6 +109,55 @@ export default class BottomInput extends PureComponent {
     }
 
     textChange = (value) => {
+        if (this.props.conversationType == ConversationType.GROUP && value && typeof value == 'string') {
+            if ((this.state.value.length < value.length) && (value.charAt(value.length - 1) == '@')) {
+                this.props.navi.navigate('AtList',
+                    {
+                        targetId: this.props.targetId,
+                        uuid: this.props.uuid,
+                        callback: (atItem) => {
+                            let itemName = atItem.nickName ? atItem.nickName : '游客';
+                            let isContainNoName = this.state.isContainNoName || (atItem.nickName ? false : true);
+                            //let uuid = atItem.uuid;
+                            this.setState({
+                                value: `${value}${itemName} `,
+                                isMentioned: true,
+                                isContainNoName,
+                                mentionedList: [...this.state.mentionedList, atItem]
+                            });
+                        }
+                    });
+            }
+            if (this.state.isMentioned && (this.state.value.length > value.length)) {//群组 删除文字 清空@
+                if (this.state.isContainNoName) {
+                    Toast.show('可能存在一个或多个初始昵称');
+                    this.setState({
+                        value: '',
+                        mentionedList: [],
+                        isMentioned: false
+                    });
+                    return;
+                }
+                let regValue = this.state.value.concat();
+                let filterArr = this.state.mentionedList.filter((item) => {
+                    let isContain = value.indexOf(`@${item.nickName} `);
+                    if (isContain >= 0) {
+                        return true;
+                    } else {
+                        console.log('-----');
+                        console.log(item);
+                        regValue = regValue.split(`@${item.nickName} `).join('');
+                        return false
+                    }
+                });
+                this.setState({
+                    value: filterArr.length == this.state.mentionedList.length ? value : regValue,
+                    mentionedList: filterArr,
+                    isMentioned: filterArr.length > 0 ? true : false
+                });
+                return;
+            }
+        }
         this.setState({
             value
         });

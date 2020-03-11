@@ -123,6 +123,11 @@ class api {
 
     //chat
 
+    groupList(uid, onSuccess, onError) {
+        const url = `/api/user/chat/group_users/${uid}`;
+        this.request(url, null, onSuccess, onError);
+    }
+
     groupNotice(uid, onSuccess, onError) {
         const url = `/api/user/chat/group_notice/${uid}`;
         this.request(url, null, onSuccess, onError);
