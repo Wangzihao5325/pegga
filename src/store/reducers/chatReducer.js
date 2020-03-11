@@ -6,6 +6,7 @@ const initialState = {
     isChating: false,
     isModal: false,
     dataList: [],
+    chatDataList: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +30,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 ...action.payload,
                 dataList: []
+            };
+        case Types.IN_CHATING:
+            return {
+                ...state,
+                ...action.payload
+            };
+        case Types.OUT_CHATING:
+            return {
+                ...state,
+                ...action.payload,
+                chatDataList: []
             };
         default: return state;
     }

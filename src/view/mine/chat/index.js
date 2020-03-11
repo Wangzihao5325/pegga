@@ -99,14 +99,14 @@ class Chat extends Component {
     };
 
     componentDidMount() {
-        this.listener = addConnectionStatusListener(status => this.setState({ status }));
+        //this.listener = addConnectionStatusListener(status => this.setState({ status }));
         //this.connect();
         //setReconnectKickEnable(true);
         this.listDataFetch();
     }
 
     componentWillUnmount() {
-        this.listener.remove();
+       // this.listener.remove();
     }
 
     setToken = token => this.setState({ token });
