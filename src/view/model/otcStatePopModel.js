@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, View, Text, TouchableHighlight, FlatList, Dimensions, StyleSheet } from 'react-native';
+import { Animated, SafeAreaView, View, Text, TouchableHighlight, FlatList, Dimensions, StyleSheet, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
 import store from '../../store';
@@ -7,14 +7,15 @@ import { _clear_OTC_state_and_close_modal } from '../../store/actions/chatAction
 
 const Item = (props) => {
     return (
-        <View style={{ height: 100, width: Dimensions.get('window').width - 30, justifyContent: 'center', alignItems: 'center' }}>
-            <View style={{ height: 90, width: Dimensions.get('window').width - 50, backgroundColor: 'white', borderRadius: 10, flexDirection: 'row' }}>
-                <View style={{ flex: 1, flexDirection: 'column' }}>
-                    <Text>{`您的订单编号:${props.item.orderNo}`}</Text>
-                    <Text>有了新进展，请快去查看吧</Text>
+        <View style={{ height: 90, width: Dimensions.get('window').width - 30, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ height: 80, width: Dimensions.get('window').width - 30, backgroundColor: 'white', borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 15 }}>
+                <Image style={{ height: 48, width: 40, alignSelf: 'center', marginRight: 12 }} source={require('../../image/usual/group.png')} />
+                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 16, color: 'rgb(73,73,73)', fontFamily: 'PingFang-SC-Medium' }}>{`订单编号:${props.item.orderNo}`}</Text>
+                    <Text style={{ fontSize: 14, color: 'rgb(188,192,203)', fontFamily: 'PingFang-SC-Medium' }}>有了新进展，请快去查看吧</Text>
                 </View>
-                <TouchableHighlight style={{ height: 90, width: 120 }} underlayColor='transparent' onPress={() => props.callback(props.item.orderNo, props.index)}>
-                    <Text>前往</Text>
+                <TouchableHighlight style={{ height: 80, width: 45, justifyContent: 'center', alignItems: 'center' }} underlayColor='transparent' onPress={() => props.callback(props.item.orderNo, props.index)}>
+                    <Image style={{ height: 15, width: 15 }} source={require('../../image/arrow/arrow_mine.png')} />
                 </TouchableHighlight>
             </View>
         </View>
@@ -66,13 +67,17 @@ class OTCStatePopModel extends Component {
     render() {
         return (
             <Animated.View style={{ flex: 1, opacity: this.state.fadeAnim }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <FlatList
-                        style={{ height: Dimensions.get('window').height - 100, width: Dimensions.get('window').width - 30 }}
-                        data={this.props.data}
-                        renderItem={({ item, index }) => <Item item={item} index={index} callback={this.itemPressCallback} />}
-                    />
-                </View>
+                <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                    <View style={{ height: Dimensions.get('window').height - 300, width: Dimensions.get('window').width - 30 }}>
+                        <FlatList
+                            data={this.props.data}
+                            renderItem={({ item, index }) => <Item item={item} index={index} callback={this.itemPressCallback} />}
+                        />
+                    </View>
+                    <TouchableHighlight onPress={this.back} underlayColor='transparent' style={{ height: 45, width: 120, borderRadius: 5, backgroundColor: 'rgba(255,255,255,0.3)', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white', fontSize: 16, fontFamily: 'PingFang-SC-Medium', fontWeight: 'bold' }}>稍后查看</Text>
+                    </TouchableHighlight>
+                </SafeAreaView>
             </Animated.View>
         );
     }
@@ -112,6 +117,7 @@ class OTCStatePopModel extends Component {
         ).start();
         this.timer = setTimeout(() => {
             this.timer = null;
+            store.dispatch(_clear_OTC_state_and_close_modal());
             this.props.navigation.goBack();
         }, 500)
     }
