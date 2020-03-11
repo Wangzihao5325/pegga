@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, View, Text, TouchableHighlight, Dimensions, StyleSheet } from 'react-native';
+import { Animated, View, Text, TouchableHighlight, ScrollView, Dimensions, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const BTN_WIDTH = (Dimensions.get('window').width - 135) / 2;
@@ -7,9 +7,9 @@ const Confirm = (props) => {
     return (
         <View style={styles.popContainer}>
             <Text style={styles.popTitle}>{`${props.title}`}</Text>
-            <View style={styles.contextWrapper}>
+            <ScrollView style={styles.contextWrapper}>
                 <Text>{`${props.context}`}</Text>
-            </View>
+            </ScrollView>
             <View style={styles.btnWrapper}>
                 <TouchableHighlight onPress={props.cancel} style={styles.btn}>
                     <LinearGradient colors={['#6284E4', '#39DFB1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.btn}>
@@ -142,9 +142,7 @@ const styles = StyleSheet.create({
     },
     contextWrapper: {
         flex: 1,
-        paddingHorizontal: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
+        paddingHorizontal: 30
     },
     contextText: {
         fontSize: 15,

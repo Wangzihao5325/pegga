@@ -122,6 +122,12 @@ class api {
     }
 
     //chat
+
+    groupNotice(uid, onSuccess, onError) {
+        const url = `/api/user/chat/group_notice/${uid}`;
+        this.request(url, null, onSuccess, onError);
+    }
+
     async chatGroups() {
         const url = '/api/user/chat/groups';
         let result = await this.awaitRequest(url);

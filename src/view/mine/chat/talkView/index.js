@@ -3,9 +3,6 @@ import {
     SafeAreaView,
     View,
     FlatList,
-    Image,
-    Text,
-    Dimensions,
     Platform,
     KeyboardAvoidingView,
     StyleSheet
@@ -14,8 +11,7 @@ import Header from '../../../../component/header';
 import Api from '../../../../socket';
 import Item from './item';
 import BottomInput from './bottomInput';
-import { getHistoryMessages, addReceiveMessageListener } from "rongcloud-react-native-imlib";
-import ImagePicker from 'react-native-image-crop-picker';
+import { getHistoryMessages, ConversationType, addReceiveMessageListener } from "rongcloud-react-native-imlib";
 import { connect } from 'react-redux'
 
 class Chat extends Component {
@@ -118,6 +114,20 @@ class Chat extends Component {
             });
     }
 
+    _GroupNotice = (uid) => {
+        Api.groupNotice(uid, (res) => {
+            if (res && !res.visited) {
+                this.timer = setTimeout(() => {
+                    this.props.navigation.navigate('PopModel', {
+                        confirmText: '确定',
+                        title: '群公告',
+                        context: res.content,
+                    }, 2000);
+                });
+            }
+        });
+    }
+
     componentDidMount() {
         const targetId = this.props.navigation.getParam('targetId', null);
         const conversationType = this.props.navigation.getParam('conversationType', null);
@@ -133,6 +143,9 @@ class Chat extends Component {
                 this._historyMessageUpdate();
                 this._receiveListener();
             });
+            if (conversationType == ConversationType.GROUP) {
+                this._GroupNotice(targetId);
+            }
         }
 
     }
@@ -140,6 +153,10 @@ class Chat extends Component {
     componentWillUnmount() {
         if (this.listener) {
             this.listener.remove();
+        }
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
         }
     }
 
