@@ -8,6 +8,7 @@ import {
     sendMessage,
     sendMediaMessage,
     ConversationType,
+    MentionedType,
     recallMessage,
     cancelSendMediaMessage,
     ObjectName
@@ -90,11 +91,20 @@ export default class BottomInput extends PureComponent {
         const { value } = this.state;
         let extra = JSON.stringify({ userId: this.props.userId, userName: this.props.nickName ? this.props.nickName : '游客' });
         let content = { objectName: ObjectName.Text, content: value, extra };
+        if (this.state.isMentioned) {
+            let metionArr = this.state.mentionedList.map((res) => { return res.uuid });
+            content = { objectName: ObjectName.Text, content: value, mentionedInfo: { type: MentionedType.PART, userIdList: metionArr }, extra }
+        }
+        console.log('dddddd');
+        console.log(content);
         const message = { conversationType, targetId, content };
         const callback = {
             success: messageId => {
                 this.setState({
-                    value: ''
+                    value: '',
+                    isMentioned: false,
+                    isContainNoName: false,
+                    mentionedList: []
                 });
                 this.props.callback(messageId);
             },
@@ -144,8 +154,6 @@ export default class BottomInput extends PureComponent {
                     if (isContain >= 0) {
                         return true;
                     } else {
-                        console.log('-----');
-                        console.log(item);
                         regValue = regValue.split(`@${item.nickName} `).join('');
                         return false
                     }

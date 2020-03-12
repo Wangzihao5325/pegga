@@ -105,6 +105,8 @@ class Chat extends Component {
                 return false
             }
         });
+        console.log(filterMsgs);
+        console.log(originMessagesRe);
         //let messages = this.state.messages.concat(filterMsgs);
         this.setState({ messages: [...this.state.messages, ...filterMsgs], oldestMessageId: `${messageId}` },
             () => {
