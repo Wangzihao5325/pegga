@@ -91,10 +91,10 @@ export default class BottomInput extends PureComponent {
         const { value } = this.state;
         let extra = JSON.stringify({ userId: this.props.userId, userName: this.props.nickName ? this.props.nickName : '游客' });
         let content = { objectName: ObjectName.Text, content: value, extra };
-        if (this.state.isMentioned) {
-            let metionArr = this.state.mentionedList.map((res) => { return res.uuid });
-            content = { objectName: ObjectName.Text, content: value, mentionedInfo: { type: MentionedType.PART, userIdList: [...metionArr] }, extra }
-        }
+        // if (this.state.isMentioned) {
+        //     let metionArr = this.state.mentionedList.map((res) => { return res.uuid });
+        //     content = { objectName: ObjectName.Text, content: value, mentionedInfo: { type: MentionedType.PART, userIdList: [...metionArr] }, extra }
+        // }
         const message = { conversationType, targetId, content };
         const callback = {
             success: messageId => {
@@ -110,7 +110,7 @@ export default class BottomInput extends PureComponent {
                 Toast.show('取消发送');
             },
             error: (errorCode, messageId, message) => {
-                Toast.show(`消息发送失败：${messageId}`);
+                Toast.show(`消息发送失败：${errorCode}`);
             }
         };
         sendMessage(message, callback);
