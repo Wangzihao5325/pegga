@@ -32,12 +32,10 @@ export function chat_info_update(payload) {
     _connect(payload.token);
     setReconnectKickEnable(true);
     listener = addReceiveMessageListener(message => {
-        console.log('-------------');
-        console.log(message.message);
         const { content } = message.message;
-        const appendingMsg = JSON.parse(content.content);
         const { userId, userName, type } = JSON.parse(content.extra);
         if (userId == 'pegga') {//系统消息
+            const appendingMsg = JSON.parse(content.content);
             switch (type) {
                 case 'pegga-3':
                     {

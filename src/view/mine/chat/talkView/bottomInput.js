@@ -93,10 +93,8 @@ export default class BottomInput extends PureComponent {
         let content = { objectName: ObjectName.Text, content: value, extra };
         if (this.state.isMentioned) {
             let metionArr = this.state.mentionedList.map((res) => { return res.uuid });
-            content = { objectName: ObjectName.Text, content: value, mentionedInfo: { type: MentionedType.PART, userIdList: metionArr }, extra }
+            content = { objectName: ObjectName.Text, content: value, mentionedInfo: { type: MentionedType.PART, userIdList: [...metionArr] }, extra }
         }
-        console.log('dddddd');
-        console.log(content);
         const message = { conversationType, targetId, content };
         const callback = {
             success: messageId => {
